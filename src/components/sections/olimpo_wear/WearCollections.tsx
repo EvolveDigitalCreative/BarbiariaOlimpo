@@ -12,13 +12,19 @@ const WearCollections: FC = () => {
             {/* Secção de Produto em Destaque/Best Seller */}
             <div className="featured-products-section">
                 
-                {/* Coluna da Imagem */}
+                {/* Coluna do Vídeo/Imagem em destaque */}
                 <div className="featured-image-container">
-                    <img 
-                        src="/wear/images/featured-model.jpg" 
-                        alt="Best Seller T-shirt" 
+                    {/* CORRIGIDO: Removido o atributo 'alt' do vídeo */}
+                    <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline
+                        src="/OlimpoWear/shirts/Vídeo-best-seller.webm" 
                         className="responsive-image" 
-                    />
+                    >
+                        Vídeo promocional do Best Seller Olimpo Wear.
+                    </video>
                 </div>
                 
                 {/* Coluna do Texto (Fundo Preto) */}
@@ -28,8 +34,10 @@ const WearCollections: FC = () => {
                     <p className="best-seller-tag">BEST SELLER</p>
                     
                     <p>
-                        A t-shirt mais vendida da nossa coleção. O corte perfeito e o tecido premium 
-                        proporcionam conforto e estilo urbano. Leve a herança Olimpo para as ruas.
+                        Uma linha exclusiva que é a essência do dia a dia e o ajuste 
+                        casual perfeito. Todas as nossas t-shirts usam tecidos premium, 
+                        permitindo-lhe um look elegante e as medidas mais confortáveis. 
+                        Conquiste todas as divisões nas roupas que o vestem.
                     </p>
                     
                     <div className="featured-buttons">

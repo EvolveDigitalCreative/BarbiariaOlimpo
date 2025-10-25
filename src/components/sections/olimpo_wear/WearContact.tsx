@@ -33,11 +33,10 @@ const WearContact: FC = () => {
                     </div>
                 </div>
                 
-                {/* Coluna da Imagem */}
+                {/* Coluna da Imagem (Ajuste o caminho) */}
                 <div className="section-image-container">
-                    {/* Imagem de Contexto do Wear */}
                     <img 
-                        src="/wear/images/contact-warehouse.jpg" 
+                        src="/OlimpoWear/images/contact-warehouse.jpg" 
                         alt="Armazém Olimpo Wear" 
                         className="responsive-image image-rounded" 
                     />

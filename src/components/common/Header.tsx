@@ -3,41 +3,71 @@
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const Header: FC = () => {
-    // Ícone de Perfil (Avatar)
-    const ProfileIcon = () => (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-    );
+// Defina as props que o Header irá aceitar
+interface HeaderProps {
+    domain: 'barber' | 'skincare' | 'wear';
+}
+
+const Header: FC<HeaderProps> = ({ domain }) => {
+    
+    // Define a classe CSS baseada no domínio
+    const headerClass = `main-header header-${domain}`;
+    
+    // Define o nome do domínio a ser exibido
+    const domainTitle = domain.toUpperCase();
+
+    // Links de navegação (Ajustados para refletir o Wear)
+    const navLinks = [
+        { path: '/wear', label: 'CATÁLOGO', show: domain === 'wear' },
+        { path: '/wear/colecoes', label: 'COLEÇÕES', show: domain === 'wear' },
+        { path: '/wear/novidades', label: 'NOVIDADES', show: domain === 'wear' },
+        { path: '/skincare/servicos', label: 'SERVIÇOS', show: domain === 'skincare' },
+        { path: '/barber/servicos', label: 'SERVIÇOS', show: domain === 'barber' },
+    ].filter(link => link.show); // Filtra links que pertencem a este domínio
+    
+    // Rota de fallback para o logo
+    const logoPath = domain === 'barber' ? '/' : `/${domain}`;
 
     return (
-        <header className="main-header">
-            {/* Logo Olimpo (Canto Superior Esquerdo) */}
-            <Link to="/" className="header-logo">
-                {/* **Mude o caminho da imagem:** use o caminho correto para o seu logo texto/imagem */}
-                <img src="/barbershop/icons/logo-olimpotext.png" alt="Olimpo" className="logo-text-style" />
-            </Link>
-
-            {/* Links e Ícones (Canto Superior Direito) */}
-            <nav className="header-nav">
-                <Link to="/skin" className="nav-link-item icon-link">
-                    {/* **Mude o caminho da imagem:** Ícone Olimpo Skin */}
-                    <img src="public\OlimpoBarBer\icons\icone de nevegacao do waer.png" alt="Olimpo Skin" /> 
-                    <span>OLIMPO SKIN</span>
+        <header className={headerClass}>
+            <div className="header-container">
+                
+                {/* 1. Logo Olimpo Dinâmico */}
+                <Link to={logoPath} className="logo-wrapper">
+                    <span className="logo-text">OLIMPO</span>
+                    <span className="domain-name">{domainTitle}</span>
                 </Link>
                 
-                <Link to="/wear" className="nav-link-item icon-link">
-                    {/* **Mude o caminho da imagem:** Ícone Olimpo Wear */}
-                    <img src="public\OlimpoBarBer\icons\icone de nevegacao do waer.png" alt="Olimpo Wear" /> 
-                    <span>OLIMPO WEAR</span>
-                </Link>
-
-                <Link to="/login" className="nav-link-item profile-icon-link" aria-label="Conta">
-                    <ProfileIcon />
-                </Link>
-            </nav>
+                {/* 2. Navegação Principal */}
+                <nav className="nav-menu">
+                    {navLinks.map((link) => (
+                        <Link key={link.path} to={link.path} className="nav-link">
+                            {link.label}
+                        </Link>
+                    ))}
+                </nav>
+                
+                {/* 3. Ícones (Moeda, Carrinho, Perfil) */}
+                <div className="header-icons">
+                    {/* Ícone Olimpo Coin */}
+                    <Link to="/coin" className="header-icon-link">
+                        {/* Assumindo que usa FontAwesome ou um ícone SVG */}
+                        <i className="fas fa-coins"></i> 
+                    </Link>
+                    
+                    {/* Ícone Carrinho (Comum no Wear e Skincare) */}
+                    {(domain === 'wear' || domain === 'skincare') && (
+                        <Link to="/carrinho" className="header-icon-link">
+                            <i className="fas fa-shopping-bag"></i> 
+                        </Link>
+                    )}
+                    
+                    {/* Ícone Perfil/Login */}
+                    <Link to="/login" className="header-icon-link">
+                        <i className="fas fa-user"></i>
+                    </Link>
+                </div>
+            </div>
         </header>
     );
 };
