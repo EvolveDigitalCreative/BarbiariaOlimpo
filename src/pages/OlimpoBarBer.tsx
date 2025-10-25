@@ -16,6 +16,7 @@ import MissionSection from '../components/sections/olimpo_barber/BarberMission.t
 import BarbersSection from '../components/sections/olimpo_barber/BarberBarbers.tsx';
 import ContactSection from '../components/sections/olimpo_barber/BarberContact.tsx';
 import SectionDivider from '../components/common/SectionDivider';
+import OurSpaceSection from '../components/sections/olimpo_barber/OurSpaceSection.tsx';
 
 // Componentes PARTILHADOS (Usados por todas as páginas)
 import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
@@ -54,7 +55,9 @@ const OlimpoBarber: FC = () => {
         <SectionDivider />          
         <CoinSection />
         <MissionSection />          
-        <AboutSection />          
+        <AboutSection />
+        <OurSpaceSection/>     
+        <SectionDivider />      
         <ContactSection />        
       </main>
       <Footer />

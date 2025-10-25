@@ -1,43 +1,17 @@
-// src/components/home/ContactSection.tsx
+// src/components/home/ContactSection.tsx (Atualizado)
 
 import type { FC } from 'react';
 
 const ContactSection: FC = () => {
     
-    const galleryImages = [
-        { src: '/barbershop/gallery/1.jpg', alt: 'Interior 1' },
-        { src: '/barbershop/gallery/2.jpg', alt: 'Cadeira de Barbeiro' },
-        { src: '/barbershop/gallery/3.jpg', alt: 'Decoração Botânica' },
-        { src: '/barbershop/gallery/4.jpg', alt: 'Detalhe do Produto' },
-        { src: '/barbershop/gallery/5.jpg', alt: 'Detalhe da Cadeira' },
-        { src: '/barbershop/gallery/6.jpg', alt: 'Polo de Barbeiro' },
-    ];
+    // A lista galleryImages foi removida, pois agora está em OurSpaceSection
     
     return (
-        <section className="content-section contact-section light-background">
+        // Removi a classe 'content-section' para que esta seção não tenha a borda 'greek-border-top'
+        // se ela já estiver no OurSpaceSection. Se precisar dela, volte a adicionar.
+        <section className="contact-section light-background" aria-label="Contacte-nos"> 
             
-            <div className="greek-border-top"></div>
-
-            {/* Secção O NOSSO ESPAÇO */}
-            <div className="space-gallery-wrapper">
-                <h2 className="section-title gold-title section-title-centered">O NOSSO ESPAÇO</h2>
-                <p className="section-subtitle-centered">
-                    Bem vindo ao nosso espaço, com linhas contemporâneas a casa dos Deuses, o monte Olimpo
-                </p>
-                <div className="divider-icon">
-                    <div className="gold-ring"></div>
-                </div>
-                
-                {/* Grelha de Imagens */}
-                <div className="gallery-grid">
-                    {galleryImages.map((img, index) => (
-                        <div key={index} className={`gallery-item item-${index + 1}`}>
-                            {/* **Mude o caminho da imagem** */}
-                            <img src={img.src} alt={img.alt} className="responsive-image image-rounded" />
-                        </div>
-                    ))}
-                </div>
-            </div>
+            {/* A seção O NOSSO ESPAÇO foi removida daqui, agora está em OurSpaceSection */}
 
             {/* Secção CONTACTA-NOS */}
             <div className="contact-info-map-wrapper">
@@ -75,9 +49,8 @@ const ContactSection: FC = () => {
                     
                     {/* Mapa */}
                     <div className="contact-map-container">
-                        {/* **Mude o caminho da imagem** (Deve ser um mapa real) */}
                         <img 
-                            src="/barbershop/images/mapa-placeholder.jpg" 
+                            src="public\OlimpoBarBer\texture\olimpomap.png" 
                             alt="Localização no Mapa" 
                             className="responsive-image image-rounded"
                         />
