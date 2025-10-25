@@ -65,7 +65,7 @@ const CoinSection: FC = () => {
                                     key="main-page-coin"
                                     autoRotate={true} // Desabilitado para permitir rotação manual total
                                     rotationSpeed={0.5}
-                                    scale={0.2} // <<< ATUALIZADO: Usando o novo scale maior
+                                    scale={0.3} // <<< ATUALIZADO: Usando o novo scale maior
                                     enableControls={true} // <<< ATUALIZADO: Habilita rotação e zoom manual
                                     className="w-full h-full"
                                 />
