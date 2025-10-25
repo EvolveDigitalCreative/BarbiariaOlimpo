@@ -16,6 +16,7 @@ import '../styles/olimpowear/wear_sections_base.css';
 import '../styles/olimpowear/wear_hero.css';          
 import '../styles/olimpowear/wear_products.css';
 import '../styles/olimpowear/wear_contact.css';
+import '../styles/olimpowear/wear_header.css'; // <--- NOVO CSS DO HEADER WEAR
 
 
 // ----------------------------------------------------------------
@@ -33,7 +34,8 @@ import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
 const OlimpoWear: FC = () => {
   return (
     <div className="wear-page-container">
-      <Header />
+      {/* O Header agora sabe que está no domínio "wear" */}
+      <Header domain="wear" />
       <main>
         <WearHero />
         <WearCollections />

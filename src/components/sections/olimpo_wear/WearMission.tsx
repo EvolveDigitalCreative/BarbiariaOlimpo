@@ -5,12 +5,11 @@ import type { FC } from 'react';
 const WearMission: FC = () => {
     return (
         <section className="content-section light-background" style={{ padding: '80px 0', textAlign: 'center' }}>
-            {/* Padrão grego no topo, como na imagem */}
             <div className="greek-pattern-border-wear" style={{ margin: '0 0 50px 0' }}></div>
             
             <div className="section-content-wrapper" style={{ flexDirection: 'column', textAlign: 'center' }}>
                 
-                {/* Ícone da moeda centralizado */}
+                {/* Ícone da moeda centralizado (Ajuste o caminho se necessário) */}
                 <div className="mission-icon-container">
                     <img src="/global/icons/coin-icon.svg" alt="Olimpo Coin" style={{ width: '80px', margin: '0 auto 20px' }} />
                 </div>

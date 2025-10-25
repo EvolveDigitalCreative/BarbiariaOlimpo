@@ -3,20 +3,29 @@
 import type { FC } from 'react';
 
 const products = [
-    { name: "Basic", model: "Alex", color: "White", image: "/wear/products/basic-white.png" },
-    { name: "Basic", model: "Alex", color: "Black", image: "/wear/products/basic-black.png" },
-    { name: "Basic", model: "Ouro", color: "White", image: "/wear/products/basic-gold-white.png" },
-    { name: "Basic", model: "Ouro", color: "Black", image: "/wear/products/basic-gold-black.png" },
-    { name: "Alex", model: "Face", color: "White", image: "/wear/products/alex-face-white.png" },
-    { name: "Alex", model: "Face", color: "Black", image: "/wear/products/alex-face-black.png" },
-    // Adicionar produtos da secção "Mirror" ou "Gold"
+    // Produtos (Ajustados aos seus nomes de ficheiro)
+    // T-shirts Basic
+    { name: "Basic", model: "White", color: "White", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-basic.webp" }, 
+    { name: "Basic", model: "Black", color: "Black", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-basic-black.webp" },
+    { name: "Basic", model: "Gold White", color: "White", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-basic-gold-white.webp" }, 
+    { name: "Basic", model: "Gold Black", color: "Black", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-basic-gold-black.webp" }, 
+    
+    // T-shirts Alex
+    { name: "Alex", model: "White", color: "White", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-alex.webp" }, 
+    { name: "Alex", model: "Black", color: "Black", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-alex-black.webp" },
+    { name: "Alex", model: "Gold White", color: "White", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-alex-gold-white.webp" },
+    { name: "Alex", model: "Gold Black", color: "Black", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-alex-gold-black.webp" },
+    
+    // T-shirts Mirror
+    { name: "Mirror", model: "White", color: "White", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-mirror.webp" }, 
+    { name: "Mirror", model: "Black", color: "Black", price: "35€", image: "/OlimpoWear/shirts/OLIMPO-mirror-black.webp" },
 ];
 
 const WearGallery: FC = () => {
     return (
         <section className="content-section" style={{ padding: '80px 0' }}>
             <h2 className="wear-section-title">
-                Catálogo Completo
+                O Catálogo Completo
             </h2>
             <p className="wear-subtitle">
                 Descubra a linha completa de vestuário Olimpo Wear: conforto, qualidade e design.
@@ -30,7 +39,7 @@ const WearGallery: FC = () => {
                                 <img src={product.image} alt={`${product.name} ${product.model}`} />
                             </div>
                             <p className="product-card-name">{product.name} {product.model}</p>
-                            <p className="product-card-info">{product.color} - 35€</p>
+                            <p className="product-card-info">{product.color} - {product.price}</p>
                         </a>
                     </div>
                 ))}
