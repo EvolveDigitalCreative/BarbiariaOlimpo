@@ -44,15 +44,18 @@ import "../styles/olimpobarber/barber_about.css";
 const OlimpoBarber: FC = () => {
   return (
     <div className="home-page-container">
-      <Header />
+      {/* CORREÇÃO: Adicionando a prop 'domain' que é obrigatória
+        no componente Header, com o valor 'barber'.
+      */}
+      <Header domain="barber" /> 
       <main>
         <HeroSection /> 
         <BarbersSection />
         <SectionDivider />          
         <CoinSection />
         <MissionSection />          
-        <AboutSection />         
-        <ContactSection />       
+        <AboutSection />          
+        <ContactSection />        
       </main>
       <Footer />
     </div>
