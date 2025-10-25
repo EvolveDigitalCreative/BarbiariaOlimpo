@@ -1,3 +1,5 @@
+// src/pages/OlimpoSkincare.tsx
+
 import type { FC } from 'react';
 import Header from '../components/common/Header.tsx';
 import Footer from '../components/common/Footer.tsx';
@@ -6,13 +8,13 @@ import Footer from '../components/common/Footer.tsx';
 // 1. ESTILOS (Global e Skincare)
 // ----------------------------------------------------------------
 // Estilos Globais
-import '../styles/global/_global.css';          
-import '../styles/global/_header.css';          
-import '../styles/global/_footer.css';          
+import '../styles/global/_global.css';          
+import '../styles/global/_header.css';          
+import '../styles/global/_footer.css';          
 
 // Estilos Específicos do Skincare (Nova Pasta)
 import '../styles/olimposkincare/skincare_patterns.css';
-import '../styles/olimposkincare/skincare_hero.css';          
+import '../styles/olimposkincare/skincare_hero.css';          
 import '../styles/olimposkincare/skincare_sections_base.css'; // Para layout (similar ao barber_sections_base)
 import '../styles/olimposkincare/skincare_services.css';
 import '../styles/olimposkincare/skincare_review.css';
@@ -34,22 +36,22 @@ import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
 
 
 const OlimpoSkincare: FC = () => {
-  return (
-    <div className="skincare-page-container">
-      <Header domain={'skincare'} /> 
-      <main>
-        <SkincareHero />
-        <SkincareAboutUs />      // Fica a Conhecer-nos
-        <SkincareMission />
-        <SkincareServices />     // Os Nossos Serviços
-        <SkincareSpace />        // O Nosso Espaço
-        <CoinSection />          // Partilhado com Barbearia
-        <SkincareReviews />      // Testimonial & Review
-        <SkincareContact />      // Contacta-nos
-      </main>
-      <Footer />
-    </div>
-  );
+  return (
+    <div className="skincare-page-container">
+      <Header />
+      <main>
+        <SkincareHero />
+        <SkincareAboutUs />      // Fica a Conhecer-nos
+        <SkincareMission />
+        <SkincareServices />     // Os Nossos Serviços
+        <SkincareSpace />        // O Nosso Espaço
+        <CoinSection />          // Partilhado com Barbearia
+        <SkincareReviews />      // Testimonial & Review
+        <SkincareContact />      // Contacta-nos
+      </main>
+      <Footer />
+    </div>
+  );
 };
 
 export default OlimpoSkincare;
