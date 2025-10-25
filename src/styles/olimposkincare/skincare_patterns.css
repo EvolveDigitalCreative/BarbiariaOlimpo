@@ -1,8 +1,65 @@
-/* src/styles/olimposkincare/skincare_patterns.css */
+/* Definição de Cores Específicas para Skincare */
+:root {
+    --color-skincare-background: #f8f8f8; /* Creme/Off-White muito claro */
+    --color-skincare-accent: #94713c; /* Dourado da marca */
+}
 
-/* Padrão Grego Dourado na secção (top/bottom) */
+/* ---------------------------------------------------------------- */
+/*  1. Estilos do Header (header-skincare) - Overrides */
+/* ---------------------------------------------------------------- */
+
+.header-skincare {
+    /* Anula o position: absolute; do header-base */
+    position: relative; 
+    background-color: var(--color-skincare-background);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--color-text-dark); /* Texto e ícones escuros */
+    padding: 20px 40px; 
+    height: 90px;
+}
+
+/* Centraliza o Logo visualmente no centro */
+.header-skincare .logo-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 10px; 
+}
+
+/* Esconde o "OLIMPO" no Skincare */
+.header-skincare .logo-wrapper .logo-text {
+    display: none;
+}
+
+/* Estilo do nome do Domínio (SKINCARE) */
+.header-skincare .logo-wrapper .domain-name {
+    font-family: var(--font-family-serif);
+    font-size: 2rem; 
+    color: var(--color-skincare-accent);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+/* Estilo do Ícone (Whitecoin) */
+.header-skincare .logo-wrapper .logo-icon {
+    height: 40px; 
+    filter: none; /* Usa as cores originais do ícone (assumindo que o whitecoin é dourado/claro) */
+}
+
+/* Remove a inversão para que os ícones fiquem escuros no fundo claro */
+.header-skincare .icon-link img {
+    filter: none; 
+}
+
+/* A navegação (nav-menu) é completamente oculta na estética Skincare */
+.header-skincare .header-nav.nav-menu {
+    display: none;
+}
+
+
+/* --- 2. Padrões Gregos (Seu código original mantido) --- */
+
 .greek-pattern-border {
-    /* Assumindo que tem uma imagem de padrão grego dourado */
     background-image: url('/skincare/patterns/greek-border-tile.png'); 
     background-repeat: repeat-x;
     height: 30px; 
@@ -11,7 +68,6 @@
     opacity: 0.7; 
 }
 
-/* Padrão grego no background de secções (como nos cantos da Missão/Beleza) */
 .section-with-greek-corners {
     position: relative;
     background-color: var(--color-background-light); 
@@ -19,20 +75,17 @@
     overflow: hidden; 
 }
 
-/* Canto Superior Esquerdo (Exemplo de posicionamento para o padrão de canto) */
 .greek-corner-tl {
     position: absolute;
     top: 0;
     left: 0;
     width: 60px; 
     height: 60px;
-    /* Imagem do padrão de canto (substitua pelo seu SVG/PNG) */
     background-image: url('/skincare/patterns/greek-corner-top-left.png'); 
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-/* Canto Inferior Direito */
 .greek-corner-br {
     position: absolute;
     bottom: 0;
@@ -48,5 +101,14 @@
     .greek-corner-tl, .greek-corner-br {
         width: 40px;
         height: 40px;
+    }
+    .header-skincare {
+        height: 70px;
+    }
+    .header-skincare .logo-wrapper .domain-name {
+        font-size: 1.5rem;
+    }
+    .header-skincare .logo-wrapper .logo-icon {
+        height: 30px;
     }
 }

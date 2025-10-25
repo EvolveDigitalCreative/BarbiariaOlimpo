@@ -43,7 +43,7 @@ import "../styles/olimpobarber/Barber_coin.css";
 const OlimpoBarber: FC = () => {
   return (
     <div className="home-page-container">
-      <Header />
+      <Header domain={'barber'} />
       <main>
         <HeroSection /> 
         <BarbersSection />

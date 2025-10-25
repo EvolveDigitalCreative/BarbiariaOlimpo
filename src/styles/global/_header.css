@@ -1,71 +1,135 @@
 /* src/styles/global/_header.css */
 
 .main-header {
+    /* Posição Absoluta e Fundo Transparente (Padrão para Barbearia/Wear) */
     position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 20px 40px; 
     z-index: 100; 
-    color: white; 
+    
+    /* Cores Padrão: Branca para fundos escuros */
+    color: var(--color-text-light, white); 
 }
 
-.header-logo img {
-    height: 25px; 
-    filter: invert(100%); /* Ícones brancos/dourados no Header */
+.header-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.header-nav {
+/* --- 1. Logo Wrapper (Olimpo + Domain Name) --- */
+
+.logo-wrapper {
     display: flex;
     align-items: center;
-    gap: 25px;
-}
-
-.nav-link-item {
-    color: white; 
     text-decoration: none;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
     transition: opacity 0.3s;
+    gap: 10px; 
 }
 
-.nav-link-item:hover {
+.logo-wrapper:hover {
     opacity: 0.8;
 }
 
+.logo-wrapper .logo-icon {
+    height: 30px; 
+    width: auto;
+    /* Ícones brancos por defeito */
+    filter: invert(100%); 
+}
+
+.logo-wrapper .logo-text {
+    /* OLIMPO: Ocultado no Skincare, visível em outros domínios */
+    display: none; 
+}
+
+.logo-wrapper .domain-name {
+    /* NOME DO DOMÍNIO */
+    font-family: var(--font-family-serif);
+    font-size: 1.2rem;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+
+/* --- 2. Navegação Principal (Menu de Links) --- */
+
+.header-nav {
+    display: flex;      
+    align-items: center;
+    gap: 30px;
+}
+
+.header-nav.nav-menu {
+    /* A navegação principal fica visível apenas em Desktop */
+    display: none; 
+}
+
+.nav-link {
+    color: inherit; 
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+
+/* --- 3. Ícones (Coin, Carrinho, Perfil) --- */
+
+.header-nav.header-icons {
+    gap: 25px;
+}
+
 .icon-link {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
     flex-direction: column; 
+    align-items: center;
     text-align: center;
     text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: opacity 0.3s;
+}
+
+.icon-link:hover {
+    opacity: 0.8;
 }
 
 .icon-link img {
     height: 24px;
     width: 24px;
     margin-bottom: 3px;
-    filter: invert(100%); 
+    filter: invert(100%); /* Ícones brancos por defeito */
 }
 
-/* Ícone de Perfil (Assumindo que é um SVG) */
-.profile-icon-link svg {
-    height: 24px;
-    width: 24px;
-    stroke: white;
+
+/* --- Responsividade & Desktop --- */
+
+@media (min-width: 1024px) {
+    .header-nav.nav-menu {
+        display: flex; /* Visível em Desktop */
+    }
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .main-header {
         padding: 15px 20px;
     }
-    .icon-link span {
-        display: none; 
-    }
-    .header-nav {
+    .header-nav.header-icons {
         gap: 15px;
+    }
+    .icon-link span {
+        display: none; /* Esconde o texto dos ícones em mobile */
+    }
+    .logo-wrapper .domain-name {
+        font-size: 1.1rem;
     }
 }
