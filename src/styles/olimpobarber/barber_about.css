@@ -1,0 +1,218 @@
+/* === AJUSTES NA ESTRUTURA PRINCIPAL PARA A SEÇÃO ABOUT === */
+
+/* --- VARIÁVEIS (Mantido para referência) --- */
+/* Certifique-se de que estas variáveis estejam no seu arquivo global :root */
+/*
+:root {
+    --color-background-dark: #000000;
+    --color-text-light: #ffffff;
+    --color-dourado: #D4AF37; // Exemplo de cor dourada
+}
+*/
+
+/* 1. TEXTO: Força a ordem 1 (Esquerda) */
+.section-content-wrapper.about-content-wrapper > .section-text-container {
+    order: 1;
+}
+
+/* 2. IMAGEM: Força a ordem 2 (Direita) */
+.section-content-wrapper.about-content-wrapper > .section-image-container {
+    order: 2;
+}
+
+/* O seletor dark-background (fundo preto e texto branco) */
+.dark-background {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+}
+
+/* Garante o posicionamento 'relative' para que os elementos 'absolute' (decorativos) funcionem */
+.relative-section {
+    position: relative;
+    overflow: hidden; /* Importante para o corte dos detalhes decorativos */
+}
+
+/* Padding da Seção (Tradução de py-12/16/20 e px-10/8/20/16) */
+.content-section.about-section {
+    /* Mobile: px-10 (40px) e py-12 (48px) */
+    padding: 48px 40px; 
+    /* A cor do texto é herdada de .dark-background */
+}
+
+/* Largura e Espaçamento do Conteúdo (max-w-7xl, gap-12/20) */
+.section-content-wrapper.about-content-wrapper {
+    /* max-w-7xl (1280px) */
+    max-width: 1280px; 
+    
+    /* Reduz o gap para o estilo da AboutSection (gap-12 = 48px) */
+    gap: 48px; 
+    /* Garante a ordem Texto | Imagem */
+    
+    flex-direction: row !important;
+    /* O layout original (grid grid-cols-1 lg:grid-cols-2) é mantido por section-content-wrapper */
+}
+
+/* === ESTILO DO TEXTO === */
+
+/* Título: text-lg/xl/2xl e mb-6 */
+.section-title.about-title-size {
+    font-size: 1.125rem; /* text-lg (18px) */
+    margin-bottom: 24px; /* mb-6 */
+    font-weight: normal; 
+}
+
+/* Parágrafo: text-base/xl e leading-relaxed */
+.section-paragraph.about-paragraph-size {
+    font-size: 1rem; /* text-base (16px) */
+    line-height: 1.75; /* leading-relaxed */
+    margin-bottom: 0; 
+}
+
+/* Espaço entre parágrafos (space-y-4) */
+.paragraph-spaced {
+    margin-top: 16px; /* space-y-4 */
+}
+/* Limpa a margem do primeiro parágrafo dentro do contêiner */
+.section-text-container > div > .paragraph-spaced:first-child {
+    margin-top: 0;
+}
+
+
+/* === ESTILO DA IMAGEM (CORRIGIDO) === */
+
+.section-image-container.about-image-fixed {
+    flex: 1;
+    max-width: 50%; 
+    display: flex; /* Adicionado display:flex para justificar */
+    /* CORREÇÃO 1: Alinha a imagem à direita do contêiner (xl:justify-end no Tailwind) */
+    justify-content: flex-end; 
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Contêiner interno da imagem com tamanho fixo (w/h) */
+.about-image-wrapper { 
+    width: 300px; /* max-w-[300px] */
+    height: 350px; /* h-[350px] */
+    border-radius: 1rem; /* rounded-2xl (16px) */
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); /* shadow-2xl */
+    /* CORREÇÃO 2: Garante que o contêiner interno não tenha opacidade */
+    opacity: 1; 
+    filter: none;
+}
+
+/* A imagem deve preencher o contêiner fixo */
+.section-image-container.about-image-fixed img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* object-cover */
+    border-radius: 0; 
+    /* CORREÇÃO 3: Garante que a imagem não seja "apagada" por opacidade ou filtro */
+    opacity: 1 !important; 
+    filter: none !important;
+}
+
+/* === ESTILOS DECORATIVOS === */
+
+.decorative-style {
+    pointer-events: none;
+    user-select: none;
+    position: absolute;
+    z-index: 0;
+    width: 180px; /* w-45 */
+    opacity: 1.2; /* Para simular o background sutil */
+}
+
+.style-top-left {
+    top: 0;
+    left: 0;
+}
+
+.style-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/* === RESPONSIVIDADE === */
+
+@media (min-width: 1280px) { /* xl: */
+    /* Padding Vertical */
+    .content-section.about-section {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+    .section-content-wrapper.about-content-wrapper {
+        gap: 80px; /* xl:gap-20 */
+    }
+    
+    /* Título e Parágrafo */
+    .section-title.about-title-size {
+        font-size: 1.5rem; /* 24px */
+    }
+    .section-paragraph.about-paragraph-size {
+        font-size: 1.25rem; /* 20px */
+    }
+    
+    /* Imagem: xl:max-w-[400px] e xl:h-[450px] */
+    .about-image-wrapper {
+        width: 400px; 
+        height: 450px; 
+    }
+
+    /* Detalhes Decorativos */
+    .decorative-style {
+        width: 180px;
+    }
+}
+
+@media (min-width: 1536px) { /* 2xl: */
+    /* Padding Vertical */
+    .content-section.about-section {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+    
+    /* Título */
+    .section-title.about-title-size {
+        font-size: 1.875rem; /* 30px */
+    }
+    
+    /* Imagem: 2xl:max-w-[450px] e 2xl:h-[500px] */
+    .about-image-wrapper {
+        width: 450px; 
+        height: 500px; 
+    }
+    
+    /* Detalhes Decorativos */
+    .decorative-style {
+        width: 280px;
+    }
+}
+
+@media (max-width: 1023px) { /* Mobile/Tablet: Ajustes de coluna */
+    .section-content-wrapper.about-content-wrapper {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .section-text-container {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    /* Imagem no Mobile */
+    .section-image-container.about-image-fixed {
+        justify-content: center; 
+        max-width: 100%;
+    }
+    .about-image-wrapper {
+        width: 90%; 
+        max-width: 400px;
+        height: auto; 
+        aspect-ratio: 3/4;
+    }
+    .decorative-style {
+        display: none; 
+    }
+}

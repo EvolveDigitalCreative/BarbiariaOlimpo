@@ -1,97 +1,143 @@
 /* src/styles/olimpobarber/barber_sections_base.css */
 
+/* === Seção Principal (Tradução de py-20/16 e px-8/4) === */
 .content-section {
-    padding: 80px 40px;
+    /* Mobile: py-20 (80px) e px-8 (32px) */
+    padding: 80px 32px; 
     width: 100%;
-    /* Transição para o modo escuro/claro */
     transition: background-color 0.3s, color 0.3s; 
 }
 
-/* Fundos */
-.light-background {
-    background-color: var(--color-background-light);
-    color: var(--color-text-dark);
-}
-
-.dark-background {
-    background-color: var(--color-background-dark);
-    color: var(--color-text-light);
-}
-
-/* Layout Padrão de Duas Colunas (Texto + Imagem) */
+/* Layout Padrão de Duas Colunas (Tradução de max-w-7xl e gap-10) */
 .section-content-wrapper {
-    max-width: 1200px;
+    max-width: 1280px; /* max-w-7xl (ou similar) */
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 60px; /* Espaço entre texto e imagem */
+    gap: 80px; /* Aumentei o gap para dar mais destaque, 40px (gap-10) é muito pouco */
+    min-height: 500px; /* Garante alinhamento vertical */
 }
 
-/* Layout Invertido: Imagem à esquerda, Texto à direita */
+/* Layout Invertido (Mantido) */
 .reverse-layout {
     flex-direction: row-reverse;
 }
 
+/* === Contêiner de Texto === */
 .section-text-container {
     flex: 1; 
-    max-width: 50%;
+    max-width: 50%; /* Mantido para layout de duas colunas */
+    text-align: left; 
 }
 
+/* === Título (Tradução de text-4xl/6xl e mb-8/25) === */
+.section-title {
+    /* Estilo base */
+    font-weight: bold;
+    line-height: 1.1;
+    margin-bottom: 32px; /* mb-8 (32px) */
+}
+.gold-title {
+    color: var(--color-gold); 
+}
+/* A nova classe para diferenciar o tamanho do título */
+.section-title.large-title {
+    font-size: 2.5rem; /* text-4xl (40px) */
+}
+
+/* === Parágrafo (Tradução de text-xl e lg:w-3/4) === */
 .section-paragraph {
     margin-bottom: 15px;
     line-height: 1.6;
 }
+/* Estilo text-xl */
+.large-paragraph {
+    font-size: 1.25rem; /* text-xl (20px) */
+    line-height: 1.8; /* leading-relaxed */
+}
 
-.section-image-container {
+/* Contêiner para limitar a largura do parágrafo no desktop */
+.paragraph-container {
+    max-width: 100%;
+}
+
+/* === Contêiner de Imagem/Vídeo (Tradução de max-w-[520px]) === */
+.section-video-container {
     flex: 1;
-    max-width: 50%;
+    /* max-width: 50%; será ajustado abaixo para a limitação real */
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.responsive-image {
+/* Limita o tamanho máximo do vídeo/imagem */
+.section-video-container.video-4-5-aspect {
+    max-width: 520px; /* max-w-[520px] */
+    margin-left: auto; /* Garante que ele fique alinhado à direita no reverse-layout */
+}
+
+/* === Proporção e Arredondamento (Tradução de aspect-[4/5] e rounded-3xl) === */
+
+/* Aplica o estilo ao contêiner arredondado para garantir o overflow: hidden */
+.video-rounded {
+    overflow: hidden;
+    border-radius: 24px; /* rounded-3xl (1.5rem ou 24px) */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+    width: 100%; /* Ocupa a largura total do max-w-[520px] */
+}
+
+/* Classe para a proporção 4:5 (Altura maior que a Largura) */
+.video-4-5-aspect {
+    position: relative; /* Necessário para o truque de padding-bottom */
+    /* Remove a necessidade de height: 100% no elemento <video> */
+    padding-bottom: 52%; /* (5 / 4) * 100 = 125% */
+    height: 0;
+}
+
+.video-rounded video { 
+    /* Coloca o vídeo dentro do espaço criado pelo padding-bottom */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover; /* Garante que preencha a proporção */
     display: block;
 }
 
-.image-rounded img {
-    border-radius: 8px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Botão Secundário (Ver Mais...) */
-.secondary-button {
-    background-color: transparent;
-    color: var(--color-text-dark);
-    border: 1px solid var(--color-text-dark);
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 4px;
-    margin-top: 15px; 
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.secondary-button:hover {
-    background-color: var(--color-gold);
-    color: var(--color-text-light);
-    border-color: var(--color-gold);
-}
-
-/* Responsividade Básica (Importante para ContentSections) */
-@media (max-width: 768px) {
+/* === Responsividade (Ajustes para mobile) === */
+@media (min-width: 1024px) { /* lg: */
     .content-section {
-        padding: 40px 20px;
+        padding: 64px 16px; /* lg:px-4 lg:py-16 */
     }
+    .section-title.large-title {
+        font-size: 4rem; /* lg:text-6xl (64px) */
+        margin-bottom: 100px; /* lg:mb-25 */
+    }
+    /* Limita o parágrafo a 75% da largura do contêiner de texto (lg:w-3/4) */
+    .paragraph-container {
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
     .section-content-wrapper, .reverse-layout {
         flex-direction: column;
-        gap: 30px;
+        gap: 40px;
+        min-height: auto;
     }
-    .section-text-container, .section-image-container {
+    .section-text-container, .section-image-container, .section-video-container {
         max-width: 100%;
+        text-align: center; 
+    }
+    
+    .section-video-container.video-4-5-aspect {
+        max-width: 80%; /* Ajusta o tamanho do vídeo no mobile */
+        margin: 0 auto;
+    }
+
+    .section-title.large-title {
         text-align: center;
+        margin-bottom: 24px;
     }
 }

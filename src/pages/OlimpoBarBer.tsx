@@ -37,7 +37,8 @@ import '../styles/olimpobarber/barber_sections_base.css';
 import '../styles/olimpobarber/barber_hero.css';          
 import '../styles/olimpobarber/barber_barbers.css';       
 import '../styles/olimpobarber/barber_contact.css';
-import "../styles/olimpobarber/Barber_coin.css";       
+import "../styles/olimpobarber/Barber_coin.css";
+import "../styles/olimpobarber/barber_about.css";       
 
 
 const OlimpoBarber: FC = () => {
