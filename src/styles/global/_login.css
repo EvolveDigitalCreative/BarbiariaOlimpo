@@ -1,0 +1,16 @@
+/* src/styles/global/_login.css */
+
+/* Links adicionais no ecrã de login (Esqueceu a Palavra-passe) */
+.forgot-password-link {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 25px; 
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    text-decoration: underline;
+    opacity: 0.7;
+}
+
+.forgot-password-link:hover {
+    opacity: 1;
+}

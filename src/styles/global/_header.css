@@ -1,0 +1,71 @@
+/* src/styles/global/_header.css */
+
+.main-header {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; 
+    z-index: 100; 
+    color: white; 
+}
+
+.header-logo img {
+    height: 25px; 
+    filter: invert(100%); /* Ícones brancos/dourados no Header */
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-link-item {
+    color: white; 
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s;
+}
+
+.nav-link-item:hover {
+    opacity: 0.8;
+}
+
+.icon-link {
+    flex-direction: column; 
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.icon-link img {
+    height: 24px;
+    width: 24px;
+    margin-bottom: 3px;
+    filter: invert(100%); 
+}
+
+/* Ícone de Perfil (Assumindo que é um SVG) */
+.profile-icon-link svg {
+    height: 24px;
+    width: 24px;
+    stroke: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 15px 20px;
+    }
+    .icon-link span {
+        display: none; 
+    }
+    .header-nav {
+        gap: 15px;
+    }
+}

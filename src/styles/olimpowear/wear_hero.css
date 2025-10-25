@@ -1,0 +1,55 @@
+/* src/styles/olimpowear/wear_hero.css */
+
+.wear-hero-section {
+    display: flex;
+    max-width: 100vw;
+    height: 60vh;
+    min-height: 450px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+.wear-hero-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* O hero parece ser dividido em duas imagens */
+.wear-hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    position: relative;
+}
+
+.wear-hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+.wear-hero-title-large {
+    font-family: var(--font-family-serif);
+    font-size: 3.5rem;
+    color: var(--color-wear-light);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+    .wear-hero-section {
+        height: 40vh;
+    }
+    .wear-hero-split {
+        grid-template-columns: 1fr;
+    }
+    .wear-hero-title-large {
+        font-size: 2.5rem;
+    }
+}

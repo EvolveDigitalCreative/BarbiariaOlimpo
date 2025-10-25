@@ -1,0 +1,97 @@
+/* src/styles/olimpobarber/barber_sections_base.css */
+
+.content-section {
+    padding: 80px 40px;
+    width: 100%;
+    /* Transição para o modo escuro/claro */
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+/* Fundos */
+.light-background {
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+}
+
+.dark-background {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+}
+
+/* Layout Padrão de Duas Colunas (Texto + Imagem) */
+.section-content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px; /* Espaço entre texto e imagem */
+}
+
+/* Layout Invertido: Imagem à esquerda, Texto à direita */
+.reverse-layout {
+    flex-direction: row-reverse;
+}
+
+.section-text-container {
+    flex: 1; 
+    max-width: 50%;
+}
+
+.section-paragraph {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.section-image-container {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-rounded img {
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão Secundário (Ver Mais...) */
+.secondary-button {
+    background-color: transparent;
+    color: var(--color-text-dark);
+    border: 1px solid var(--color-text-dark);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 15px; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.secondary-button:hover {
+    background-color: var(--color-gold);
+    color: var(--color-text-light);
+    border-color: var(--color-gold);
+}
+
+/* Responsividade Básica (Importante para ContentSections) */
+@media (max-width: 768px) {
+    .content-section {
+        padding: 40px 20px;
+    }
+    .section-content-wrapper, .reverse-layout {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .section-text-container, .section-image-container {
+        max-width: 100%;
+        text-align: center;
+    }
+}

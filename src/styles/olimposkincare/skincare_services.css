@@ -1,0 +1,59 @@
+/* src/styles/olimposkincare/skincare_services.css */
+
+.services-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+}
+
+.service-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 280px; 
+    padding: 20px;
+    text-align: center;
+}
+
+.service-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px; 
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.service-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-card h3 {
+    font-family: var(--font-family-serif);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--color-text-dark);
+}
+
+.service-card-duration {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 15px 0 20px;
+}
+
+/* O botão Marcar preto */
+.service-card .skincare-main-button {
+    width: 100%;
+    padding: 10px;
+}
+
+@media (max-width: 600px) {
+    .service-card {
+        width: 90%;
+    }
+}

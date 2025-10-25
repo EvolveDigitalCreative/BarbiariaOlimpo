@@ -1,0 +1,65 @@
+/* src/styles/global/_global.css */
+
+/* Definição de Variáveis de Cor (Baseado na estética Olimpo) */
+:root {
+    --color-background-light: #f8f8f8;      /* Fundo principal claro (creme) */
+    --color-background-dark: #000;          /* Fundo escuro (Preto) */
+    --color-text-dark: #333;                /* Texto principal */
+    --color-text-light: #fff;               /* Texto sobre fundo escuro */
+    --color-gold: #94713c;                  /* Cor Dourada da Marca */
+    --color-gold-hover: #bfa15c;            /* Dourado mais claro para hover */
+    --color-form-border: #ccc;              /* Borda clara para formulários */
+    
+    --font-family-serif: 'Georgia', serif;  /* Para títulos e branding (Olimpo) */
+    --font-family-sans: 'Arial', sans-serif; /* Para corpo de texto */
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+}
+
+/* Links universais */
+a {
+    text-decoration: none;
+    color: var(--color-text-dark);
+    transition: color 0.3s;
+}
+
+/* Títulos universais */
+h1, h2, h3 {
+    font-family: var(--font-family-serif);
+    font-weight: normal;
+}
+
+/* Classe utilitária: O Título da Secção */
+.section-title {
+    font-family: var(--font-family-serif);
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+}
+
+.section-title-centered {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.gold-title {
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.gold-text-strong {
+    color: var(--color-gold);
+    font-weight: bold;
+}

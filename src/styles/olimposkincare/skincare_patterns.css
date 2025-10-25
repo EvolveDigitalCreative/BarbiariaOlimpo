@@ -1,0 +1,52 @@
+/* src/styles/olimposkincare/skincare_patterns.css */
+
+/* Padrão Grego Dourado na secção (top/bottom) */
+.greek-pattern-border {
+    /* Assumindo que tem uma imagem de padrão grego dourado */
+    background-image: url('/skincare/patterns/greek-border-tile.png'); 
+    background-repeat: repeat-x;
+    height: 30px; 
+    width: 100%;
+    margin-bottom: 50px;
+    opacity: 0.7; 
+}
+
+/* Padrão grego no background de secções (como nos cantos da Missão/Beleza) */
+.section-with-greek-corners {
+    position: relative;
+    background-color: var(--color-background-light); 
+    padding: 80px 40px;
+    overflow: hidden; 
+}
+
+/* Canto Superior Esquerdo (Exemplo de posicionamento para o padrão de canto) */
+.greek-corner-tl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px; 
+    height: 60px;
+    /* Imagem do padrão de canto (substitua pelo seu SVG/PNG) */
+    background-image: url('/skincare/patterns/greek-corner-top-left.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Canto Inferior Direito */
+.greek-corner-br {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px; 
+    height: 60px;
+    background-image: url('/skincare/patterns/greek-corner-bottom-right.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    .greek-corner-tl, .greek-corner-br {
+        width: 40px;
+        height: 40px;
+    }
+}

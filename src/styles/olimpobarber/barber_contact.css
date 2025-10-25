@@ -1,0 +1,103 @@
+/* src/styles/olimpobarber/barber_contact.css */
+
+.contact-section {
+    padding-bottom: 0; /* O footer geralmente vem logo a seguir */
+}
+
+.space-gallery-wrapper {
+    margin-bottom: 80px;
+}
+
+.section-subtitle-centered {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ícone Divisor (Anel Dourado) */
+.divider-icon {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gold-ring {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+/* Grelha de Imagens (Galeria) */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 250px); 
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.gallery-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Estrutura de Contactos e Mapa */
+.contact-info-map-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 50px; 
+    padding-bottom: 80px;
+}
+
+.contact-details-map {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.contact-details-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Cor dos títulos dos detalhes de contacto */
+.contact-item h4 {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--color-gold); 
+}
+
+.contact-map-container {
+    flex: 1;
+    max-width: 500px; 
+}
+
+.contact-map-container img {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 100%;
+    min-height: 400px; 
+    width: 100%;
+    object-fit: cover;
+}
+/* Responsividade */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    .contact-details-map {
+        flex-direction: column;
+    }
+}

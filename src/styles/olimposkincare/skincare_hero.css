@@ -1,0 +1,54 @@
+/* src/styles/olimposkincare/skincare_hero.css */
+
+.skincare-hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #fff; 
+    padding-top: 80px;
+    overflow: hidden;
+}
+
+.skincare-hero-brand img {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.skincare-hero-title {
+    font-size: 2.8rem;
+    font-family: var(--font-family-serif);
+    color: var(--color-text-dark);
+    line-height: 1.1;
+}
+
+.skincare-hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.skincare-hero-image-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-width: 800px; 
+    text-align: center;
+    z-index: 10;
+}
+
+.skincare-hero-image {
+    width: 100%;
+    height: auto;
+    /* Efeito de arco na parte superior da imagem */
+    clip-path: ellipse(50% 100% at 50% 100%); 
+}
+
+@media (max-width: 768px) {
+    .skincare-hero-title {
+        font-size: 2rem;
+    }
+    .skincare-hero-image-container {
+        max-width: 500px;
+    }
+}

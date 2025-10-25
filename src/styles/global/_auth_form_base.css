@@ -1,0 +1,116 @@
+/* src/styles/global/_auth_form_base.css */
+
+/* Definição do Layout da Página de Autenticação */
+.auth-page-layout {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    background-color: var(--color-background-light); 
+    overflow: hidden;
+}
+
+/* Container para o formulário */
+.relative-z20 {
+    position: relative;
+    z-index: 20;
+}
+
+.max-width-wrapper {
+    max-width: 450px; 
+    width: 90%; 
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.auth-content-padding {
+    padding: 40px;
+    text-align: center;
+}
+
+/* Logo "OLIMPO" no topo */
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    width: 150px; 
+    height: auto;
+    /* Ajuste de cor para simular o dourado/creme do logo sobre o fundo branco */
+    filter: sepia(0.5) hue-rotate(30deg) brightness(0.9); 
+}
+
+/* Título (Login/Registo) */
+.form-title {
+    font-family: var(--font-family-serif);
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: var(--color-text-dark);
+    font-weight: normal;
+}
+
+/* Estilos para os campos de input */
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-form-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+/* Botão Principal "Aceder" / "Criar conta" */
+.auth-submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-background-dark); /* Preto */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.auth-submit-button:hover {
+    background-color: var(--color-gold); 
+}
+
+/* Estilo para links e textos extra */
+.register-link-container {
+    margin-top: 30px;
+}
+
+.link-style {
+    color: var(--color-gold); 
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.link-style:hover {
+    color: var(--color-gold-hover);
+}
+
+.signup-text-style {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+/* Estilo do botão de fechar/voltar (Canto superior esquerdo) */
+.absolute-top-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 30;
+    color: var(--color-text-dark);
+    text-decoration: none;
+    font-size: 1.2rem;
+}

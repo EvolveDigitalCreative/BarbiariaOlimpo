@@ -1,0 +1,74 @@
+/* src/styles/olimpobarber/barber_hero.css */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; 
+    /* A imagem de fundo da barbearia */
+    background-image: url('/barbershop/images/hero-background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end; 
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 50px;
+    left: 40px;
+    padding-bottom: 40px;
+    color: white;
+    max-width: 500px;
+}
+
+.hero-title {
+    font-family: var(--font-family-serif);
+    font-size: 3.5rem; 
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+}
+
+/* Estilo do botão "Marcações" */
+.hero-booking-button {
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco/creme com transparência */
+    color: var(--color-text-dark);
+    padding: 12px 25px;
+    border: 1px solid var(--color-form-border);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-booking-button:hover {
+    background-color: var(--color-gold); 
+    color: white;
+}
+
+/* Indicadores de Carrossel (Visíveis na imagem) */
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.indicator.active {
+    background-color: white;
+}

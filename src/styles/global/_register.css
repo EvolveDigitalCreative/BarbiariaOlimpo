@@ -1,0 +1,64 @@
+/* src/styles/global/_register.css */
+
+/* Ajustes para o formulário de registo */
+
+.register-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Novo: Container para campos em duas colunas */
+.input-row {
+    display: flex;
+    gap: 15px; /* Espaço entre os campos (Nome e Sobrenome) */
+    width: 100%;
+}
+
+.input-row .auth-input {
+    /* Força cada input a ocupar metade do espaço */
+    flex: 1; 
+    /* Remove a margem inferior do input, pois vamos aplicá-la à linha inteira */
+    margin-bottom: 0; 
+}
+
+/* Aplica margem inferior na linha (gap vertical) */
+.input-row-container {
+    margin-bottom: 15px; 
+}
+
+
+/* Os campos de Palavra-passe/Confirmação podem ter o ícone do olho, 
+   portanto, precisam de um tratamento especial no TSX/HTML. */
+.password-input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex; /* Para centralizar o ícone de olho */
+    align-items: center;
+}
+
+.password-input-wrapper .auth-input {
+    margin-bottom: 0; /* Remover margem inferior */
+    padding-right: 40px; /* Deixar espaço para o ícone do olho */
+}
+
+/* Estilo para o ícone do olho (Exemplo) */
+.password-toggle-icon {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #666; /* Cor do ícone */
+    font-size: 1.2rem;
+}
+
+
+/* Ajuste de responsividade para ecrãs mais pequenos com formulários mais longos */
+@media (max-width: 480px) {
+    /* Em telemóveis, os campos devem voltar a empilhar */
+    .input-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .input-row .auth-input {
+        margin-bottom: 15px;
+    }
+}

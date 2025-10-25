@@ -1,0 +1,9 @@
+/* src/styles/global/_footer.css */
+
+.main-footer {
+    background-color: var(--color-background-dark); 
+    color: var(--color-text-light); 
+    text-align: center; 
+    padding: 20px; 
+    font-size: 0.8rem; 
+}

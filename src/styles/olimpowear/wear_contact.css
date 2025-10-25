@@ -1,0 +1,15 @@
+/* src/styles/olimpowear/wear_contact.css */
+
+/* Reutiliza a maioria dos estilos do Skincare/Barbearia, mas garante que a tipografia Wear é usada */
+.wear-contact-section {
+    background-color: var(--color-background-light); /* O fundo cinza claro/creme */
+    padding: 80px 40px;
+}
+
+.wear-contact-info-block p.gold-text-strong {
+    color: var(--color-gold);
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
