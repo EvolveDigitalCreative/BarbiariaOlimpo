@@ -1,32 +1,55 @@
-// src/components/home/AboutSection.tsx
+// src/components/home/AboutSection.tsx (Versão Final e Corrigida)
 
 import type { FC } from 'react';
 
 const AboutSection: FC = () => {
     return (
-        <section className="content-section about-section dark-background">
-            <div className="greek-border-top"></div>
+        // Certifique-se de que a cor de fundo seja #000 (preto) e o texto branco (dark-background)
+        <section className="content-section about-section dark-background relative-section"> 
             
-            <div className="section-content-wrapper">
-                {/* Texto */}
-                <div className="section-text-container white-text">
-                    <h2 className="section-title gold-title">A BELEZA DO OLIMPO</h2>
-                    <p className="section-paragraph">
-                        A nossa barbearia nasce de um conceito singular: unir a excelência do cuidado masculino à grandeza intemporal da Grécia Antiga. Não somos apenas uma barbearia – somos um templo onde onde a arte da estética é elevada à nobreza de um ritual clássico.
-                    </p>
-                    <p className="section-paragraph">
-                        Seja bem-vindo à verdadeira arte de cuidar de si, como um deus grego nos tempos de hoje.
-                    </p>
+            {/* Detalhes Decorativos - Atenção ao caminho: use barras normais (/) no React, mesmo no Windows! */}
+            <img
+                src="public\OlimpoBarBer\Decoracao\style2_optimized.png" /* Caminho corrigido para barra */
+                alt=""
+                aria-hidden="true"
+                className="decorative-style style-top-left"
+            />
+            <img
+                src="public\OlimpoBarBer\Decoracao\style3_optimized.png" /* Caminho corrigido para barra */
+                alt=""
+                aria-hidden="true"
+                className="decorative-style style-bottom-right"
+            />
+            
+            {/* Div Principal: Ordem Padrão (Texto | Imagem) */}
+            <div className="section-content-wrapper about-content-wrapper relative z-10"> 
+                {/* 1. Texto (Fica à Esquerda) */}
+                <div className="section-text-container">
+                    <h2 className="section-title gold-title about-title-size">A BELEZA DO OLIMPO</h2> 
+                    
+                    <div className="space-y-4">
+                        <p className="section-paragraph about-paragraph-size paragraph-spaced">
+                            A nossa barbearia nasce de um conceito singular: unir a excelência do cuidado masculino à grandeza intemporal da Grécia Antiga. Não somos apenas uma barbearia — somos um templo moderno onde a arte da estética é elevada à nobreza de um ritual clássico.
+                        </p>
+                        <p className="section-paragraph about-paragraph-size paragraph-spaced">
+                            Seja bem-vindo à verdadeira arte de cuidar de si, como um deus grego nos tempos de hoje.
+                        </p>
+                    </div>
                 </div>
                 
-                {/* Imagem */}
-                <div className="section-image-container image-rounded">
-                    {/* **Mude o caminho da imagem** */}
-                    <img src="/barbershop/images/beleza-olimpo.jpg" alt="A Beleza do Olimpo" className="responsive-image" />
+                {/* 2. Imagem (Fica à Direita) */}
+                {/* A classe 'about-image-fixed' será ajustada no CSS para usar justify-end */}
+                <div className="section-image-container image-rounded about-image-fixed">
+                    {/* Contêiner interno para o tamanho fixo */}
+                    <div className="about-image-wrapper">
+                        <img 
+                            src="public\OlimpoBarBer\images\space10_optimized.webp" /* Caminho corrigido e URL de exemplo do Tailwind */
+                            alt="Detalhes do espaço da barbearia" 
+                            className="responsive-image object-cover-fit" 
+                        />
+                    </div>
                 </div>
             </div>
-
-            <div className="greek-border-bottom"></div>
         </section>
     );
 };

@@ -16,6 +16,7 @@ import MissionSection from '../components/sections/olimpo_barber/BarberMission.t
 import BarbersSection from '../components/sections/olimpo_barber/BarberBarbers.tsx';
 import ContactSection from '../components/sections/olimpo_barber/BarberContact.tsx';
 import SectionDivider from '../components/common/SectionDivider';
+import OurSpaceSection from '../components/sections/olimpo_barber/OurSpaceSection.tsx';
 
 // Componentes PARTILHADOS (Usados por todas as páginas)
 import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
@@ -37,21 +38,27 @@ import '../styles/olimpobarber/barber_sections_base.css';
 import '../styles/olimpobarber/barber_hero.css';          
 import '../styles/olimpobarber/barber_barbers.css';       
 import '../styles/olimpobarber/barber_contact.css';
-import "../styles/olimpobarber/Barber_coin.css";       
+import "../styles/olimpobarber/Barber_coin.css";
+import "../styles/olimpobarber/barber_about.css";       
 
 
 const OlimpoBarber: FC = () => {
   return (
     <div className="home-page-container">
-      <Header domain={'barber'} />
+      {/* CORREÇÃO: Adicionando a prop 'domain' que é obrigatória
+        no componente Header, com o valor 'barber'.
+      */}
+      <Header domain="barber" /> 
       <main>
         <HeroSection /> 
         <BarbersSection />
         <SectionDivider />          
         <CoinSection />
         <MissionSection />          
-        <AboutSection />         
-        <ContactSection />       
+        <AboutSection />
+        <OurSpaceSection/>     
+        <SectionDivider />      
+        <ContactSection />        
       </main>
       <Footer />
     </div>
