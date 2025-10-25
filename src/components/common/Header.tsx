@@ -24,13 +24,13 @@ const Header: FC = () => {
             <nav className="header-nav">
                 <Link to="/skin" className="nav-link-item icon-link">
                     {/* **Mude o caminho da imagem:** Ícone Olimpo Skin */}
-                    <img src="/barbershop/icons/olimp-skin.png" alt="Olimpo Skin" /> 
+                    <img src="public\OlimpoBarBer\icons\icone de nevegacao do waer.png" alt="Olimpo Skin" /> 
                     <span>OLIMPO SKIN</span>
                 </Link>
                 
                 <Link to="/wear" className="nav-link-item icon-link">
                     {/* **Mude o caminho da imagem:** Ícone Olimpo Wear */}
-                    <img src="/barbershop/icons/olimp-wear.png" alt="Olimpo Wear" /> 
+                    <img src="public\OlimpoBarBer\icons\icone de nevegacao do waer.png" alt="Olimpo Wear" /> 
                     <span>OLIMPO WEAR</span>
                 </Link>
 

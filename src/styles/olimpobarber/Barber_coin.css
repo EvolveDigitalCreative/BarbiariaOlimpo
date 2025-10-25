@@ -1,0 +1,173 @@
+/* Variáveis de Cores (Manter as cores de texto e dourado) */
+:root {
+    --color-dourado: #daa520; /* Dourado para destacar o texto */
+    --color-cordefundo: #f8f8f8; /* Cor de fundo principal se a imagem não carregar */
+    --color-defaulttext: #333333; /* Cor do texto padrão */
+    --color-button-border: #000; /* Borda do botão */
+    --color-button-hover-bg: #000; /* Cor do hover do botão */
+    --color-button-hover-text: #fff; /* Cor do texto no hover */
+    --color-marmore-text: #0d0d0d; /* Texto mais escuro para contrastar com o mármore */
+}
+
+/* Container Principal da Seção */
+.coin-section {
+    padding: 0;
+    background-color: transparent; 
+}
+
+/* Faixa Decorativa Grega no Topo/Fundo */
+.greek-pattern-divider {
+    height: 40px; 
+    overflow: hidden;
+    opacity: 0.4; 
+    background-image: url('/barbershop/stylization/style1.png'); /* Verifique o caminho */
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: center;
+    margin-bottom: 2rem; 
+}
+.greek-pattern-divider.top {
+    margin-bottom: 2rem; 
+}
+
+
+/* Fundo de Mármore para o Conteúdo */
+.coin-content-bg {
+    background-image: url('../../../public/OlimpoBarBer/texture/fundomarmore.webp'); /* Ativa o fundo de mármore */
+    background-size: cover; 
+    background-position: bottom; 
+    padding: 4rem 1rem; 
+}
+
+/* Wrapper de Conteúdo Principal (Grid/Flex) */
+.section-content-wrapper.main-layout {
+    max-width: 1200px; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column-reverse; /* MOBILE: Moeda em cima, Texto embaixo */
+    gap: 2rem;
+    align-items: center;
+    padding: 0 1rem; 
+}
+
+/* Layout para Telas Maiores (Desktop) */
+@media (min-width: 1024px) {
+    .section-content-wrapper.main-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr; /* Moeda (Esquerda): 1fr, Texto (Direita): 1.2fr */
+        flex-direction: row; 
+        gap: 6rem; 
+        padding: 4rem 2rem; 
+    }
+
+    /* ORDEM DA IMAGEM 2: Moeda (Esquerda), Texto (Direita) */
+    .section-image-container {
+        order: 1; /* Moeda vai para a Esquerda */
+    }
+    .section-text-container {
+        order: 2; /* Texto vai para a Direita */
+    }
+}
+
+/* Estilização do Texto */
+.section-text-container.left-aligned-text {
+    color: var(--color-marmore-text); 
+    text-align: center; 
+    padding: 0; 
+    max-width: 500px; 
+}
+@media (min-width: 1024px) {
+    .section-text-container.left-aligned-text {
+        text-align: left; 
+        padding: 0;
+        max-width: none; 
+    }
+}
+
+.section-paragraph {
+    font-size: 1.15rem; 
+    line-height: 1.6;
+    margin-bottom: 1.2rem; 
+}
+
+.section-small-text {
+    font-size: 0.95rem; 
+    color: #555; 
+    margin-top: 1.5rem;
+}
+
+.gold-text-strong {
+    color: var(--color-dourado);
+    font-weight: bold;
+}
+
+/* Contêiner da Moeda 3D e Botão */
+/* Aumentando a altura do contêiner para posicionar a moeda mais baixo */
+.section-image-container.medium-image-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centraliza verticalmente o bloco Moeda+Botão */
+    text-align: center;
+    /* Aumenta a altura para criar mais espaço para a moeda */
+    height: 350px; 
+    margin-left: 7px;
+}
+@media (min-width: 1024px) {
+    .section-image-container.medium-image-centered {
+        height: 450px; /* Mais altura para centralização na coluna */
+    }
+}
+
+
+/* Wrapper para o Canvas 3D */
+.coin-3d-wrapper {
+    width: 280px; 
+    height: 280px;
+    /* A moeda agora é posicionada mais abaixo no Canvas 3D (InteractiveCoin3D.tsx) 
+       usando 'camera.position.y', então removemos o margin-bottom alto daqui. */
+    margin-bottom: 0.5rem; 
+}
+@media (min-width: 1024px) {
+    .coin-3d-wrapper {
+        width: 350px; 
+        height: 350px;
+    }
+}
+
+/* Estilo do Fallback (Div de carregamento) - Garantir que se encaixe bem */
+.loading-coin-fallback {
+    background: radial-gradient(circle, #f0e68c 0%, #daa520 100%); 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    color: #444;
+}
+.loading-spinner {
+    border-color: #fff;
+    border-top-color: var(--color-dourado);
+}
+
+/* Estilo do Botão "VER MAIS" (Ajustado para o estilo da Imagem 2) */
+.secondary-button.coin-button-style {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-button-border);
+    padding: 10px 32px; 
+    font-size: 1rem; 
+    letter-spacing: 0.05em;
+    color: var(--color-button-border);
+    background-color: transparent;
+    transition: all 0.3s ease;
+    border-radius: 9999px; 
+    text-decoration: none;
+    z-index: 10;
+    font-family: inherit; 
+    font-weight: 500; 
+}
+
+.secondary-button.coin-button-style:hover,
+.secondary-button.coin-button-style:focus {
+    background-color: var(--color-button-hover-bg);
+    color: var(--color-button-hover-text);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

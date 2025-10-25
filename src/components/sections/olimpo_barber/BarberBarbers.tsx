@@ -8,7 +8,7 @@ const barbers = [];
 const BarbersSection: FC = () => {
     return (
         <section className="content-section barbers-section light-background">
-            <h2 className="section-title gold-title section-title-centered">OS NOSSOS BARBEIROS</h2>
+            <h2 className="section-title black-title section-title-centered">OS NOSSOS BARBEIROS</h2>
             
             <div className="barbers-content-wrapper">
                 

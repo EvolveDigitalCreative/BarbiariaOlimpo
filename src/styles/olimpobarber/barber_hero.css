@@ -1,74 +1,241 @@
 /* src/styles/olimpobarber/barber_hero.css */
 
+/* =================================================================
+   1. Importação de Fontes e Variáveis
+   ================================================================= */
+
+@font-face {
+    font-family: 'Gods';
+    /* Atenção: Se o arquivo é .ttf, o formato deve ser 'truetype'. Mantenha o caminho: */
+    src: url('../../../public/fonts/BrittanySignature.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --color-text-dark: #333;
+    --color-gold: #b8860b;
+    --color-form-border: #ccc;
+
+    --font-handwritten: 'Gods', cursive;
+    /* Nota: O código de referência usa 'Yeseva One' no botão, mas mantive seu CSS original */
+    --font-cta: sans-serif; /* Placeholder para o font-yeseva do exemplo */
+}
+
+
+/* =================================================================
+   2. Seção Principal (Fundo)
+   ================================================================= */
+
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh; 
-    /* A imagem de fundo da barbearia */
-    background-image: url('/barbershop/images/hero-background.jpg'); 
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-end; 
+    min-height: 80vh;
+    overflow: hidden;
+    display: block;
+    margin-top: 80px;
 }
+
+/* Pseudo-elemento para a Imagem de Fundo */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* ------------------------------------------------------------------
+       AJUSTE 1: Removendo o '10% auto' incorreto e voltando para o padrão.
+       Se você quer menos zoom, use '90% auto' ou 'cover' (mas com imagens 
+       de alta resolução).
+    ------------------------------------------------------------------ */
+    background-image: url('../../../public/OlimpoBarBer/espaco/space1_optimized.webp');
+    
+    /* CORRIGINDO O ZOOM: Tente 'cover' ou, se o zoom for o problema, '90% auto' */
+    background-size: cover; /* Corrigido de volta para o valor funcional */
+    background-position: center;
+
+    /* Transição para a mudança de imagem */
+    transition: background-image 0.5s ease-in-out; 
+    
+    opacity: 1; 
+    z-index: 0;
+}
+
+/* SEGUNDA IMAGEM */
+.hero-section.carousel-2::before {
+    background-image: url('../../../public/OlimpoBarBer/espaco/space2_optimized.webp');
+}
+
+/* TERCEIRA IMAGEM */
+.hero-section.carousel-3::before {
+    background-image: url('../../../public/OlimpoBarBer/espaco/space3_optimized.webp');
+}
+
+.dark-overlay {
+    position: absolute;
+    inset: 0;
+    /* AJUSTE AQUI: Reduza o 0.3 para um valor menor para clarear o fundo. */
+    /* Sugestão: 0.15 (15% de preto) para ficar como a Imagem 1 */
+    background-color: rgba(0, 0, 0, 0.25); 
+    z-index: 5; 
+    pointer-events: none;
+}
+
+
+/* =================================================================
+   3. Conteúdo (Título e Botão) - Ajustes de Escala
+   ================================================================= */
 
 .hero-content {
-    position: absolute;
-    bottom: 50px;
-    left: 40px;
-    padding-bottom: 40px;
-    color: white;
-    max-width: 500px;
+    /* Posição acima da imagem e do overlay */
+    position: absolute; 
+    z-index: 10; 
+    
+    /* Para replicar o 'justify-end items-start h-full' do exemplo, 
+       precisamos de um contêiner de 100% de altura para que 'bottom' funcione como 'justify-end'. */
+    height: 100%; 
+    width: 100%; /* Ocupa toda a largura para lidar com padding */
+    
+    /* Posicionamento adaptado: Remove 'bottom: 10%' e 'left: 5%' */
+    /* Em vez disso, usamos flexbox + padding para simular 'justify-end' e 'pb-20' */
+    bottom: 0;
+    left: 0; 
+    
+    /* Alinhamento: O exemplo usa justify-end (vertical) e items-start (horizontal) */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* items-start */
+    justify-content: flex-end; /* justify-end (verticalmente) */
+    
+    /* Adicionando padding (simulando px-4 / pb-20) */
+    padding: 0 1rem 7rem 1rem; /* Top 0, Left/Right 1rem (px-4), Bottom 5rem (pb-20) */
+    
+    gap: 1.5rem; /* Espaçamento entre o título e o botão */
+    
+    color: white; 
 }
 
+/* Estilo do Título "Where Gods are made" */
 .hero-title {
-    font-family: var(--font-family-serif);
-    font-size: 3.5rem; 
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-family: var(--font-handwritten); 
+    
+    /* Ajuste de tamanho para replicar o 'text-4xl lg:text-7xl' */
+    font-size: 2.5rem; /* 4xl (mobile) */
+    font-weight: 400; 
+    margin: 0 0 1.5rem 0; /* mb-12 (1.5rem ou 3rem) */
+    line-height: 1.1;
+
+    color: white; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); 
 }
 
-/* Estilo do botão "Marcações" */
+/* Media Query para Tamanhos Grandes (lg:text-7xl) */
+@media (min-width: 1024px) {
+    .hero-content {
+        /* Ajuste o padding para o lg:px-20 */
+        padding: 0 5rem 7rem 5rem; /* 5rem é aproximadamente 20 no Tailwind */
+    }
+    .hero-title {
+        font-size: 4.5rem; /* 7xl */
+    }
+}
+
+
+/* =================================================================
+   4. Botão "Marcações" (Com Textura) - Ajustes de Escala
+   ================================================================= */
+
 .hero-booking-button {
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco/creme com transparência */
-    color: var(--color-text-dark);
-    padding: 12px 25px;
-    border: 1px solid var(--color-form-border);
-    border-radius: 4px;
+    /* O exemplo usa w-full (mobile) e lg:w-auto */
+    width: 100%; /* w-full */
+    
+    /* Background de Mármore (Mantido) */
+    background-image: url('../../../public/OlimpoBarBer/texture/whitemarble.jpg'); 
+    background-size: cover;
+    background-position: center;
+    
+    color: var(--color-text-dark); /* Texto Escuro */
+    
+    /* Preenchimento ajustado para replicar 'px-8 py-4' */
+    padding: 1rem 2rem; /* py-4 (1rem) px-8 (2rem) */
+    
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+    border-radius: 0.5rem; /* arredondamento mais suave */
+    
+    /* Ajustado para replicar 'border-2 border-[var(--color-dourado)]' do exemplo */
+    border: 2px solid var(--color-gold); 
+    
+    /* Removido o Box-shadow (Borda interna branca) que conflita com a nova borda */
+    box-shadow: none; 
+    
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700; /* bold (600/700) */
+    font-size: 1.125rem; /* text-lg */
     display: inline-block;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .hero-booking-button:hover {
-    background-color: var(--color-gold); 
-    color: white;
+    /* O exemplo usa hover:opacity-90 transform hover:scale-105 */
+    opacity: 0.9;
+    transform: scale(1.05);
+    
+    /* Mantendo o seu hover original de box-shadow também */
+    box-shadow: 0 0 0 3px var(--color-gold) inset;
+    color: var(--color-gold);
 }
 
-/* Indicadores de Carrossel (Visíveis na imagem) */
+/* Media Query para Tamanhos Grandes (lg:w-auto, lg:text-2xl, lg:px-12) */
+@media (min-width: 1024px) {
+    .hero-booking-button {
+        width: auto; /* lg:w-auto */
+        padding: 1rem 3rem; /* lg:py-4 lg:px-12 */
+        font-size: 1.5rem; /* lg:text-2xl */
+    }
+}
+
+
+/* =================================================================
+   5. Indicadores (Dots indicator) - Ajuste de Posicionamento
+   ================================================================= */
+
 .carousel-indicators {
+    /* Replicando: absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3 */
     position: absolute;
-    bottom: 20px; 
+    z-index: 30;
+    
+    /* Centralização horizontal */
+    bottom: 2rem; /* bottom-8 (32px) */
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* -translate-x-1/2 */
+    
     display: flex;
-    gap: 10px;
+    gap: 0.75rem; /* space-x-3 */
 }
 
 .indicator {
-    width: 8px;
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 50%;
+    /* Replicando: w-3 h-3 rounded-full */
+    display: block;
+    width: 0.75rem; /* w-3 */
+    height: 0.75rem; /* h-3 */
+    border-radius: 50%; 
+    background-color: #cacaca; /* Cor padrão */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    border: none; /* Se você mudar para button no React */
 }
 
 .indicator.active {
-    background-color: white;
+    /* Replicando: bg-white */
+    background-color: white; 
+}
+
+/* Ajuste de hover (replicando o hover:bg-white hover:bg-opacity-75) */
+.indicator:hover:not(.active) {
+     background-color: rgba(255, 255, 255, 0.75);
 }
