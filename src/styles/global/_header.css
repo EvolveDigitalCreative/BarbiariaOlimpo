@@ -1,71 +1,270 @@
-/* src/styles/global/_header.css */
+/*
+=====================================================
+  VARIÁVEIS GLOBAIS DO HEADER (Para Fácil Manipulação)
+=====================================================
+*/
+:root {
+    /* Cores Padrão */
+    --header-bg-color: #1a1a1a;        
+    --header-text-color: #ffffff;      
+    --header-link-hover: #cccccc;      
+    --header-font-family: 'Montserrat', sans-serif; 
+    --header-height: 80px;             
 
+    /* Tamanhos */
+    --icon-size: 94px;
+    --nav-font-size: 0.85rem;          /* Fonte menor para Wear */
+    --icon-label-font-size: 0.7rem;    /* Fonte para rótulos de ícones (Wear) */
+
+
+    /* Tamanhos (NOVAS VARIAVEIS DE TAMANHO) */                
+    --domain-icon-size: 60px;           /* Tamanho específico para ícones de moeda/domínio */
+    --logo-height: 145px;               
+    --nav-font-size: 0.95rem;          
+    --icon-label-font-size: 0.9rem;     /* Aumentado para melhor leitura */
+    /* VARIÁVEIS DE TAMANHO INDIVIDUAL (Fallback Global) */
+    --skincare-coin-size: 30px; 
+    --wear-coin-size: 30px;
+}
+
+/*
+=====================================================
+  ESTILOS BASE DO HEADER
+=====================================================
+*/
 .main-header {
-    position: absolute; 
-    top: 0;
-    left: 0;
     width: 100%;
+    height: var(--header-height);
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    
+    /* REMOVIDO: position: fixed; e top: 0; */
+    /* Agora o Header ocupa seu espaço normal no fluxo do documento. */
+    
+    z-index: 1000; /* Pode ser mantido por precaução */
+    font-family: var(--header-font-family);
+    transition: background-color 0.3s;
+    box-sizing: border-box; 
+}
+
+.header-container {
+    max-width: 1400px; /* Aumentado para acomodar mais links no Wear */
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
-    padding: 20px 40px; 
-    z-index: 100; 
-    color: white; 
 }
 
-.header-logo img {
-    height: 25px; 
-    filter: invert(100%); /* Ícones brancos/dourados no Header */
-}
-
-.header-nav {
+/*
+=====================================================
+  1. ESTILOS DO LOGO
+=====================================================
+*/
+.logo-wrapper {
     display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.nav-link-item {
-    color: white; 
+    align-items: center; 
     text-decoration: none;
+    color: var(--header-text-color);
+    cursor: pointer;
+}
+
+.logo-img {
+    height: var(--logo-height); 
+    width: auto;
+    margin-right: 5px;
+    transition: filter 0.3s;
+}
+
+.domain-name {
     font-size: 0.8rem;
+    font-weight: 400; 
+    opacity: 0.7; 
+    /* Ajuste para alinhamento com a imagem maior */
+    margin-top: 5px; 
+}
+
+
+/*
+=====================================================
+  2. ESTILOS DA NAVEGAÇÃO (Principal - Usado principalmente no WEAR)
+=====================================================
+*/
+.nav-menu {
+    display: flex;
+    gap: 25px; /* Espaçamento entre os links de navegação */
+    flex-grow: 1; 
+    justify-content: center; 
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--header-text-color);
+    font-size: var(--nav-font-size);
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    white-space: nowrap; /* Evita quebras de linha em links como OLIMPO COIN */
+}
+
+.nav-link:hover {
+    color: var(--header-link-hover);
+}
+
+/*
+=====================================================
+  3. ESTILOS DOS ÍCONES (Navegação de Domínio e Perfil)
+=====================================================
+*/
+
+.header-icons {
     display: flex;
     align-items: center;
-    transition: opacity 0.3s;
+    gap: 20px; 
 }
 
-.nav-link-item:hover {
-    opacity: 0.8;
+/* Ícones no modo Full (Wear) - permite ícone + label, espaçamento ajustado */
+.header-icons-full .header-icon-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: var(--header-text-color);
+}
+/* Ícones no modo Minimal (Skincare) - Apenas ícones */
+.header-icons-minimal {
+    gap: 15px;
 }
 
-.icon-link {
-    flex-direction: column; 
-    text-align: center;
+/* Ícones no modo Minimal COM TEXTO (Barber) - Moedas + Nomes */
+.header-icons-with-labels .header-icon-link {
+    /* Força layout horizontal */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaço maior entre ícone e texto */
+}
+
+.header-icon-link {
+    width: auto; 
+    height: var(--icon-size); /* Altura baseada no ícone de perfil */
+    transition: opacity 0.2s, transform 0.2s;
+    text-decoration: none; /* Garante que o link não tenha sublinhado */
+    color: inherit;
+}
+
+.header-icon-link:hover {
+    opacity: 0.8; 
+}
+
+/* ESTILOS PARA AS IMAGENS DENTRO DOS ÍCONES */
+.icon-img {
+    width: var(--icon-size); /* Tamanho padrão para todos */
+    height: var(--icon-size);
+    object-fit: contain;
+}
+
+/* Sobrescreve o tamanho da imagem para os ícones de domínio (Moedas) */
+.icon-domain-skincare .icon-img,
+.icon-domain-wear .icon-img,
+.icon-domain-barber .icon-img,
+.icon-domain-barber-main .icon-img {
+    width: var(--domain-icon-size);
+    height: var(--domain-icon-size);
+}
+
+.icon-label {
+    font-size: var(--icon-label-font-size);
+    font-weight: 500;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
-.icon-link img {
-    height: 24px;
-    width: 24px;
-    margin-bottom: 3px;
-    filter: invert(100%); 
+
+/*
+=====================================================
+  ESTILOS ESPECÍFICOS POR DOMÍNIO
+=====================================================
+*/
+
+/* --- BARBER (Página Principal) --- */
+.header-barber {
+    --header-bg-color: #fffdfd; 
+    --header-text-color: #e0b355; 
+    --header-link-hover: #f0c365; 
+    
+    /* Personalização de tamanho para a página principal */
+    --domain-icon-size: 35px; 
+    --icon-label-font-size: 0.9rem; /* Maior para destaque na principal */
+}
+.header-barber .logo-wrapper,
+.header-barber .header-icon-link {
+    color: var(--header-text-color); 
 }
 
-/* Ícone de Perfil (Assumindo que é um SVG) */
-.profile-icon-link svg {
-    height: 24px;
-    width: 24px;
-    stroke: white;
+/* --- SKINCARE --- */
+.header-skincare {
+    --header-bg-color: #f8f0e3; 
+    --header-text-color: #4a544f; 
+    --header-link-hover: #9bb098; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.header-skincare .logo-wrapper,
+.header-skincare .nav-link,
+.header-skincare .header-icon-link {
+    color: var(--header-text-color);
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .main-header {
-        padding: 15px 20px;
-    }
-    .icon-link span {
-        display: none; 
-    }
-    .header-nav {
-        gap: 15px;
-    }
+/* Base */
+.icon-img {
+  display: inline-block;
+  object-fit: contain;
+}
+
+/* Ícones individuais */
+.icon-wear {
+  width: 60px;
+  height: 60px;
+}
+
+.icon-skincare {
+  width: 55px;
+  height: 55px;
+}
+
+.icon-barber {
+  width: 70px;
+  height: 70px;
+}
+
+.icon-barber-main {
+  width: 80px;
+  height: 80px;
+}
+
+.icon-user {
+  width: 40px;
+  height: 40px;
+}
+
+
+/* --- WEAR --- */
+.header-wear {
+    --header-bg-color: #111111; 
+    --header-text-color: #f7f7f7; 
+    --header-link-hover: #ff4500; 
+}
+.header-wear .nav-link:hover {
+    color: var(--header-link-hover);
+}
+/* Estilos de centralização do Wear */
+.header-wear .logo-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.header-wear .logo-wrapper .domain-name {
+    display: none;
 }
