@@ -22,43 +22,43 @@ import OurSpaceSection from '../components/sections/olimpo_barber/OurSpaceSectio
 import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
 import AboutSection from '../components/sections/olimpo_shared/AboutSection.tsx';
 
-
 // ==========================================================
 // IMPORTAÇÕES DE ESTILO (Os caminhos de CSS já estavam corretos)
 // ==========================================================
 
 // 1. Estilos Universais (Global)
-import '../styles/global/_global.css';          
-import '../styles/global/_header.css';          
+import '../styles/global/_global.css';
+import '../styles/global/_header.css';
 import '../styles/global/_footer.css';
 import '../styles/global/SectionDivider.css';
 
 // 2. Estilos Específicos da Barbearia (olimpobarber)
-import '../styles/olimpobarber/barber_sections_base.css'; 
-import '../styles/olimpobarber/barber_hero.css';          
-import '../styles/olimpobarber/barber_barbers.css';       
+import '../styles/olimpobarber/barber_sections_base.css';
+import '../styles/olimpobarber/barber_hero.css';
+import '../styles/olimpobarber/barber_barbers.css';
 import '../styles/olimpobarber/barber_contact.css';
-import "../styles/olimpobarber/Barber_coin.css";
-import "../styles/olimpobarber/barber_about.css";       
-
+import '../styles/olimpobarber/Barber_coin.css';
+import '../styles/olimpobarber/barber_about.css';
 
 const OlimpoBarber: FC = () => {
   return (
     <div className="home-page-container">
-      {/* CORREÇÃO: Adicionando a prop 'domain' que é obrigatória
-        no componente Header, com o valor 'barber'.
+      {/*
+        CORREÇÃO: A prop 'domain' não é mais necessária.
+        O Header agora detecta a rota ('/barber' ou '/') 
+        automaticamente com useLocation.
       */}
-      <Header domain="barber" /> 
+      <Header />
       <main>
-        <HeroSection /> 
+        <HeroSection />
         <BarbersSection />
-        <SectionDivider />          
+        <SectionDivider />
         <CoinSection />
-        <MissionSection />          
+        <MissionSection />
         <AboutSection />
-        <OurSpaceSection/>     
-        <SectionDivider />      
-        <ContactSection />        
+        <OurSpaceSection />
+        <SectionDivider />
+        <ContactSection />
       </main>
       <Footer />
     </div>

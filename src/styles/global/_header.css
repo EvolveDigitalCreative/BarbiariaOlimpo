@@ -11,20 +11,7 @@
     --header-font-family: 'Montserrat', sans-serif; 
     --header-height: 80px;             
 
-    /* Tamanhos */
-    --icon-size: 94px;
-    --nav-font-size: 0.85rem;          /* Fonte menor para Wear */
-    --icon-label-font-size: 0.7rem;    /* Fonte para rótulos de ícones (Wear) */
 
-
-    /* Tamanhos (NOVAS VARIAVEIS DE TAMANHO) */                
-    --domain-icon-size: 60px;           /* Tamanho específico para ícones de moeda/domínio */
-    --logo-height: 145px;               
-    --nav-font-size: 0.95rem;          
-    --icon-label-font-size: 0.9rem;     /* Aumentado para melhor leitura */
-    /* VARIÁVEIS DE TAMANHO INDIVIDUAL (Fallback Global) */
-    --skincare-coin-size: 30px; 
-    --wear-coin-size: 30px;
 }
 
 /*

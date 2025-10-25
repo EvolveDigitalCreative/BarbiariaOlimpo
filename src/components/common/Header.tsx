@@ -1,213 +1,129 @@
+// src/components/common/Header/index.tsx
+// Este é o componente principal do Header.
+// Sua ÚNICA responsabilidade é:
+// 1. Descobrir qual página (rota) estamos.
+// 2. Carregar o "preset" (configuração) correto para essa rota.
+// 3. Renderizar o componente de LAYOUT correspondente.
+
 import type { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-// Importações dos Ícones
-import WearCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegacao do waer.png'; 
-import UserIcon from '../../../public/OlimpoBarBer/icons/profile_highres.png'; 
-import SkincareCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegcao da skincare.png'; 
-const BarberCoinIcon = SkincareCoinIcon;
+// Importa a Logo principal (usada nos presets)
+import OlimpoLogo from '../../../public/OlimpoBarBer/images/logo.webp';
 
-// Logo
-import OlimpoLogo from '../../../public/OlimpoBarBer/images/logo.webp'; 
+// Importa os tipos
+import type { HeaderProps, HeaderPreset, IconKey } from './headerTypes';
 
-interface HeaderProps {
-    domain: 'barber' | 'skincare' | 'wear';
-    iconSizes?: {
-        wear?: number;
-        skincare?: number;
-        barber?: number;
-        user?: number;
-    };
-}
+// Importa o "kit de peças" (o mapa de ícones)
+import { iconLinksMap } from './HeaderComponents';
 
-const Header: FC<HeaderProps> = ({ domain, iconSizes = {} }) => {
-    const headerClass = `main-header header-${domain}`;
-    const domainTitle = domain.toUpperCase();
+// Importa os TEMPLATES de layout
+import LuxuryLayout from '../layouts/LuxuryLayout';
+import CompactLayout from '../layouts/CompactLayout';
+import CenteredLayout from '../layouts/CenteredLayout';
 
-    // 🧱 Tamanhos padrão para cada tipo de ícone
-    const defaultIconSizes = {
-        wear: 78,
-        skincare: 60,
-        barber: 70,
-        user: 45,
-    };
+// ==========================================================
+// CONFIGURAÇÃO CENTRAL DE PRESETS
+// ==========================================================
+// Este é o cérebro do Header. Ele mapeia uma ROTA (ex: '/wear')
+// para um conjunto de configurações (o HeaderPreset).
+// ==========================================================
 
-    // Combina tamanhos padrão com os passados via prop
-    const sizes = { ...defaultIconSizes, ...iconSizes };
+const headerPresets: Record<string, HeaderPreset> = {
+  // Preset Padrão (Barbearia / Home) - Usa IMAGEM de logo
+  '/': {
+    layout: 'luxury',
+    logoSrc: OlimpoLogo,
+    logoSize: { width: 140, height: 45 },
+    iconsToShow: ['skincare', 'wear', 'user'],
+    customIconSizes: { skincare: 45, wear: 45, user: 35 },
+    containerStyle: {
+      backgroundColor: '#f9f9f7',
+      padding: '10px 60px',
+      borderBottom: '1px solid #e4e4e0',
+      color: '#000',
+    },
+  },
 
-    const navLinks = [
-        { path: '/wear', label: 'CATÁLOGO', show: domain === 'wear' },
-        { path: '/coin', label: 'OLIMPO COIN', show: domain === 'wear' },
-        { path: '/carrinho', label: 'CARRINHO', show: domain === 'wear' },
-        { path: '/pesquisa', label: 'PESQUISA', show: domain === 'wear' },
-    ].filter(link => link.show); 
+  // Preset 'Wear' (Loja) - Usa IMAGEM na barra dourada
+  '/wear': {
+    layout: 'centered',
+    logoSrc: OlimpoLogo,
+    logoSize: { width: 280, height: 90 },
+    logoSubtitle: 'WEAR', // Texto da barra preta
+    showNav: true,
+    iconsToShow: ['skincare', 'barber', 'user'],
+    customIconSizes: { skincare: 55, barber: 55, user: 40 },
+  },
 
-    const logoPath = domain === 'barber' ? '/' : `/${domain}`;
+  // Preset 'Skincare' - Usa TEXTO
+  '/skincare': {
+    layout: 'compact',
+    logoText: 'SKINCARE',
+    iconsToShow: ['user'],
+    customIconSizes: { user: 40 },
+    containerStyle: {
+      backgroundColor: '#f9f9f7',
+      padding: '10px 60px',
+      borderBottom: '1px solid #e4e4e0',
+      color: '#000',
+    },
+  },
+};
+// Faz a rota /barber usar o mesmo preset da home
+headerPresets['/barber'] = headerPresets['/'];
 
-    const DomainSwitchers = () => (
-        <>
-            {domain !== 'skincare' && ( 
-                <Link to="/skincare" className="header-icon-link icon-domain-skincare">
-                    <img
-                        src={SkincareCoinIcon}
-                        alt="Olimpo Skincare"
-                        className="icon-img icon-skincare"
-                        style={{
-                            width: `${sizes.skincare}px`,
-                            height: `${sizes.skincare}px`,
-                        }}
-                    />
-                    {domain === 'wear' && <span className="icon-label">OLIMPO SKIN</span>}
-                </Link>
-            )}
+// ==========================================================
+// COMPONENTE PRINCIPAL (CONTROLADOR)
+// ==========================================================
+const Header: FC<HeaderProps> = () => {
+  const location = useLocation();
+  // Encontra o preset correto, ou usa o padrão '/' se não achar
+  const preset = headerPresets[location.pathname] || headerPresets['/'];
 
-            {domain !== 'barber' && ( 
-                <Link to="/barber" className="header-icon-link icon-domain-barber">
-                    <img
-                        src={BarberCoinIcon}
-                        alt="Olimpo Barber"
-                        className="icon-img icon-barber"
-                        style={{
-                            width: `${sizes.barber}px`,
-                            height: `${sizes.barber}px`,
-                        }}
-                    />
-                    {domain === 'wear' && <span className="icon-label">OLIMPO BARBER</span>}
-                </Link>
-            )}
-            
-            <Link to="/login" className="header-icon-link icon-user">
-                <img
-                    src={UserIcon}
-                    alt="Perfil"
-                    className="icon-img icon-user"
-                    style={{
-                        width: `${sizes.user}px`,
-                        height: `${sizes.user}px`,
-                    }}
-                />
-            </Link>
-        </>
-    );
+  // 1. Prepara os ícones
+  const defaultIconSizes: Record<IconKey, number> = {
+    wear: 78, skincare: 60, barber: 70, user: 45,
+  };
+  const iconSizes = { ...defaultIconSizes, ...preset.customIconSizes };
+  const availableIcons = iconLinksMap(iconSizes);
 
-    const renderHeaderContent = () => {
-        if (domain === 'barber') {
-            return (
-                <div className="header-icons header-icons-minimal header-icons-with-labels">
-                    <Link to="/skincare" className="header-icon-link icon-domain-skincare">
-                        <img
-                            src={SkincareCoinIcon}
-                            alt="Olimpo Skincare"
-                            className="icon-img icon-skincare"
-                            style={{
-                                width: `${sizes.skincare}px`,
-                                height: `${sizes.skincare}px`,
-                            }}
-                        />
-                        <span className="icon-label">OLIMPO SKINCARE</span>
-                    </Link>
+  // 2. Cria a função 'renderIcons' que será passada para os layouts
+  const renderIcons = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+      {(preset.iconsToShow || []).map((key) => (
+        <div key={key}>{availableIcons[key]}</div>
+      ))}
+    </div>
+  );
 
-                    <Link to="/wear" className="header-icon-link icon-domain-wear">
-                        <img
-                            src={WearCoinIcon}
-                            alt="Olimpo Wear"
-                            className="icon-img icon-wear"
-                            style={{
-                                width: `${sizes.wear}px`,
-                                height: `${sizes.wear}px`,
-                            }}
-                        /> 
-                        <span className="icon-label">OLIMPO WEAR</span>
-                    </Link>
+  // 3. Decide qual LAYOUT renderizar
+  const renderLayout = () => {
+    // Passa o preset (com as configs) e o renderIcons (com o JSX dos ícones)
+    // para o componente de layout apropriado.
+    switch (preset.layout) {
+      case 'centered':
+        return <CenteredLayout preset={preset} renderIcons={renderIcons} />;
+      case 'compact':
+        return <CompactLayout preset={preset} renderIcons={renderIcons} />;
+      case 'luxury':
+      default:
+        return <LuxuryLayout preset={preset} renderIcons={renderIcons} />;
+    }
+  };
 
-                    <Link to="/login" className="header-icon-link icon-user">
-                        <img
-                            src={UserIcon}
-                            alt="Perfil"
-                            className="icon-img icon-user"
-                            style={{
-                                width: `${sizes.user}px`,
-                                height: `${sizes.user}px`,
-                            }}
-                        />
-                    </Link>
-                </div>
-            );
-        }
-
-        if (domain === 'skincare') {
-            return (
-                <div className="header-icons header-icons-minimal">
-                    <Link to="/" className="header-icon-link icon-domain-barber-main">
-                        <img
-                            src={SkincareCoinIcon}
-                            alt="Voltar Principal"
-                            className="icon-img icon-barber-main"
-                            style={{
-                                width: `${sizes.barber}px`,
-                                height: `${sizes.barber}px`,
-                            }}
-                        />
-                    </Link>
-
-                    <Link to="/wear" className="header-icon-link icon-domain-wear">
-                        <img
-                            src={WearCoinIcon}
-                            alt="Olimpo Wear"
-                            className="icon-img icon-wear"
-                            style={{
-                                width: `${sizes.wear}px`,
-                                height: `${sizes.wear}px`,
-                            }}
-                        /> 
-                    </Link>
-
-                    <Link to="/login" className="header-icon-link icon-user">
-                        <img
-                            src={UserIcon}
-                            alt="Perfil"
-                            className="icon-img icon-user"
-                            style={{
-                                width: `${sizes.user}px`,
-                                height: `${sizes.user}px`,
-                            }}
-                        />
-                    </Link>
-                </div>
-            );
-        }
-
-        if (domain === 'wear') {
-            return (
-                <>
-                    <nav className="nav-menu">
-                        {navLinks.map((link) => (
-                            <Link key={link.path} to={link.path} className="nav-link">
-                                {link.label}
-                            </Link>
-                        ))}
-                    </nav>
-                    
-                    <div className="header-icons header-icons-full">
-                        <DomainSwitchers />
-                    </div>
-                </>
-            );
-        }
-        return null;
-    };
-
-    return (
-        <header className={headerClass}>
-            <div className="header-container">
-                <Link to={logoPath} className="logo-wrapper">
-                    <img src={OlimpoLogo} alt="Olimpo Logo" className="logo-img" /> 
-                    {domain === 'wear' && <span className="domain-name">{domainTitle}</span>}
-                </Link>
-                {renderHeaderContent()}
-            </div>
-        </header>
-    );
+  // 4. Renderiza o <header> (wrapper) com o layout escolhido dentro
+  return (
+    <header
+      className={`main-header ${preset.layout}`}
+      style={{
+        position: 'relative', // Garante que o zIndex funcione
+        zIndex: 1000,         // Número alto para ficar na frente de tudo
+      }}
+    >
+      {renderLayout()}
+    </header>
+  );
 };
 
 export default Header;
