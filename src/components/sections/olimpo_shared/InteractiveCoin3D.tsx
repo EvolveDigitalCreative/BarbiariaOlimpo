@@ -162,6 +162,8 @@ export default function InteractiveCoin3D({
         alpha: true,
         outputColorSpace: THREE.SRGBColorSpace,
         toneMapping: THREE.ACESFilmicToneMapping,
+        powerPreference: 'high-performance', // Diz ao navegador para usar a GPU dedicada
+      failIfMajorPerformanceCaveat: true,  // Força o uso de um bom hardware se disponível
         toneMappingExposure: 1.0,
         // preserveDrawingBuffer: true, // <-- Removido, melhora performance
       },

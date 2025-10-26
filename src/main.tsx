@@ -1,11 +1,11 @@
 // src/main.tsx
 
-import React from 'react';
+// ✅ REMOVIDO: import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Importação do AuthProvider
-import { AuthProvider } from './components/auth/AuthContext'; // ✅ Ajuste o caminho se necessário
+import { AuthProvider } from './components/auth/AuthContext'; // Ajuste o caminho se necessário
 
 // Importação dos Estilos Globais
 import './styles/global/_global.css';
@@ -15,15 +15,16 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
 // Páginas de Domínio
-import HomePage from './pages/OlimpoBarBer';      // Rota: /
-import OlimpoSkincare from './pages/OlimpoSkincare'; // Rota: /skincare
-import OlimpoCoin from './components/sections/olimpo_barber/OlimpoCoinPage'; // Rota: /olimpocoin (Verificar se é uma PÁGINA ou COMPONENTE)
-import OlimpoWear from './pages/OlimpoWear';       // Rota: /wear
+import HomePage from './pages/OlimpoBarBer';
+import OlimpoSkincare from './pages/OlimpoSkincare';
+import OlimpoCoin from './components/sections/olimpo_barber/OlimpoCoinPage';
+import OlimpoWear from './pages/OlimpoWear';
+import ProfilePage from './pages/ProfilePage';
 
 // --- Layouts e Componentes Admin ---
-import AdminLayout from './components/admin/AdminLayout'; // Layout da Dashboard
-import AdminOverview from './components/admin/AdminOverview'; // Página inicial da Dashboard
-import ProtectedRoute from './components/auth/ProtectedRoute'; // Componente para proteger rotas
+import AdminLayout from './components/admin/AdminLayout';
+import AdminOverview from './components/admin/AdminOverview';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 // --- Páginas Admin (Comentadas) ---
 /*
@@ -35,7 +36,6 @@ import AdminOrders from './pages/admin/AdminOrders';
 */
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    // ✅ Envolve TODA a aplicação com o AuthProvider (SEM StrictMode)
     <AuthProvider>
         <BrowserRouter>
             <Routes>
@@ -49,27 +49,30 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
 
-                {/* ✅ ROTAS PROTEGIDAS DA DASHBOARD ADMIN */}
+                {/* ROTA PROTEGIDA PARA O PERFIL */}
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* ROTAS PROTEGIDAS DA DASHBOARD ADMIN */}
                 <Route
                     path="/admin"
                     element={
-                        <ProtectedRoute requiredRole="admin"> {/* Protege toda a seção /admin */}
-                            <AdminLayout /> {/* O Layout com Sidebar */}
+                        <ProtectedRoute requiredRole="admin">
+                            <AdminLayout />
                         </ProtectedRoute>
                     }
                 >
-                    {/* Rotas ANINHADAS dentro do AdminLayout */}
-                    <Route index element={<AdminOverview />} /> {/* Rota inicial /admin */}
-
-                    {/* Rotas comentadas para quando criar as páginas */}
+                    <Route index element={<AdminOverview />} />
                     {/* <Route path="vendas" element={<AdminSales />} /> */}
-                    {/* <Route path="marcacoes" element={<AdminAppointments />} /> */}
-                    {/* <Route path="colaboradores" element={<AdminUsers />} /> */}
-                    {/* <Route path="servicos" element={<AdminServices />} /> */}
-                    {/* <Route path="encomendas" element={<AdminOrders />} /> */}
+                    {/* ... outras rotas admin comentadas ... */}
                 </Route>
 
-                {/* Rota "Não Encontrado" (Opcional) */}
                 {/* <Route path="*" element={<div>Página não encontrada</div>} /> */}
 
             </Routes>

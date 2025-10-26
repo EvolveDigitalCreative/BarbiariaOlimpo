@@ -1,77 +1,90 @@
 // src/components/common/Header.tsx
 
 import type { FC } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom'; // Adiciona Link
+import { useAuth } from '../auth/AuthContext'; // ✅ Importa useAuth (Ajuste o caminho!)
 
-// Importa a Logo principal
-import OlimpoLogo from '../../../public/OlimpoBarBer/images/logo.webp';
+// ❌ REMOVIDO: Import da Logo aqui, usaremos a URL diretamente ou a prop do preset
+// import OlimpoLogo from '../../../public/OlimpoBarBer/images/logo.webp';
 
-// Importa os tipos
-// ATENÇÃO: Assegure-se de que './headerTypes' está no mesmo diretório
 import type { HeaderPreset, IconKey } from './headerTypes'; 
+import { iconLinksMap } from './HeaderComponents'; // Assumindo que iconLinksMap está aqui ou é importado
 
-// Importa o "kit de peças"
-import { iconLinksMap } from './HeaderComponents';
-
-// Importa os TEMPLATES de layout 
 import LuxuryLayout from '../layouts/LuxuryLayout';
 import CompactLayout from '../layouts/CompactLayout';
 import CenteredLayout from '../layouts/CenteredLayout';
 
-// ==========================================================
-// CONFIGURAÇÃO CENTRAL DE PRESETS
-// ==========================================================
-
 const headerPresets: Record<string, HeaderPreset> = {
-  // Preset Padrão (Barbearia / Home)
   '/': {
     layout: 'luxury',
-    rootClass: 'header-barber', // Usa .header-barber do seu CSS
-    logoSrc: OlimpoLogo,
+    rootClass: 'header-barber',
+    // ✅ CORRIGIDO: Usa a URL da pasta public diretamente
+    logoSrc: '/OlimpoBarBer/images/logo.webp', 
     iconsToShow: ['skincare', 'wear', 'user'],
   },
-
-  // Preset 'Wear' (Loja)
   '/wear': {
     layout: 'centered',
-    rootClass: 'header-wear', // Usa .header-wear do seu CSS
-    logoSrc: OlimpoLogo,
+    rootClass: 'header-wear',
+    logoSrc: '/OlimpoBarBer/images/logo.webp', // ✅ CORRIGIDO
     logoSubtitle: 'WEAR',
     showNav: true,
     iconsToShow: ['skincare', 'barber', 'user'],
   },
-
-  // Preset 'Skincare'
   '/skincare': {
     layout: 'compact',
-    rootClass: 'header-skincare', // Usa .header-skincare do seu CSS
+    rootClass: 'header-skincare',
     logoText: 'SKINCARE',
     iconsToShow: ['user'],
   },
 };
+// Alias para /barber (mantém)
 headerPresets['/barber'] = headerPresets['/'];
 
-// ==========================================================
-// COMPONENTE PRINCIPAL (CONTROLADOR)
-// O tipo FC<HeaderProps> precisa ser definido em headerTypes
-// ==========================================================
-const Header: FC = () => { // Removi <HeaderProps> pois não há props no seu código atual.
+const Header: FC = () => {
   const location = useLocation();
   const preset = headerPresets[location.pathname] || headerPresets['/'];
+  const { currentUser } = useAuth(); // ✅ Obtém o utilizador atual
 
-  // 1. Prepara os ícones 
-  const availableIcons = iconLinksMap();
+  // ✅ Modifica a função que gera os links dos ícones
+  const getIconLinks = () => {
+    // Busca o mapa base de ícones (assumindo que iconLinksMap retorna um objeto)
+    const baseIcons = iconLinksMap(); // Ex: { skincare: <Link...>, wear: <Link...>, user: <Link...> }
+    
+    // Cria uma cópia para modificar o ícone 'user'
+    const dynamicIcons = { ...baseIcons };
 
-  // 2. Cria a função 'renderIcons'
+    // Substitui o link do ícone 'user' baseado no estado de login
+    if (dynamicIcons['user']) { // Verifica se o ícone 'user' existe no mapa base
+      dynamicIcons['user'] = currentUser ? (
+        // Se logado, link para /profile
+        <Link to="/profile" className="icon-link user-icon" aria-label="Perfil"> {/* Adicione classes CSS se necessário */}
+          {/* Pode manter o ícone original ou trocar por um de perfil */}
+          <img src="/OlimpoBarBer/icons/profile_highres.png" alt="Perfil" /> {/* ✅ Use a URL direta */}
+        </Link>
+      ) : (
+        // Se não logado, link para /login (ou mantém o link original de iconLinksMap)
+        <Link to="/login" className="icon-link user-icon" aria-label="Login"> {/* Adicione classes CSS se necessário */}
+          <img src="/OlimpoBarBer/icons/profile_highres.png" alt="Login" /> {/* ✅ Use a URL direta */}
+        </Link>
+        // Alternativa: return baseIcons['user']; // Se o link original já era para /login
+      );
+    }
+    
+    return dynamicIcons;
+  };
+
+  const availableIcons = getIconLinks(); // Chama a função para obter os links dinâmicos
+
+  // Função renderIcons agora usa os availableIcons dinâmicos
   const renderIcons = () => (
     <> 
       {(preset.iconsToShow || []).map((key) => (
+        // Renderiza o componente Link diretamente do mapa dinâmico
         <div key={key}>{availableIcons[key as IconKey]}</div>
       ))}
     </>
   );
 
-  // 3. Decide qual LAYOUT renderizar
   const renderLayout = () => {
     switch (preset.layout) {
       case 'centered':
@@ -84,10 +97,8 @@ const Header: FC = () => { // Removi <HeaderProps> pois não há props no seu c�
     }
   };
 
-  // 4. Renderiza o <header> (wrapper)
   return (
     <header
-      // Aplica a 'rootClass' (ex: .header-barber)
       className={`main-header ${preset.rootClass}`}
       style={{
         position: 'relative',
@@ -99,4 +110,4 @@ const Header: FC = () => { // Removi <HeaderProps> pois não há props no seu c�
   );
 };
 
-export default Header; // <-- ESSA LINHA É CRÍTICA PARA RESOLVER O ERRO TS1192
+export default Header;
