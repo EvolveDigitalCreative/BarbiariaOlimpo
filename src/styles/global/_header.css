@@ -1,257 +1,289 @@
 /*
 =====================================================
-  VARIÁVEIS GLOBAIS DO HEADER (Para Fácil Manipulação)
+  1. CENTRAL DE CONTROLE DO HEADER
+=====================================================
+  Aqui é o ÚNICO lugar que você precisa editar.
+  Ajuste as variáveis de cada preset (Barber, Wear, Skincare)
+  para controlar cores, fontes e tamanhos de logo/ícones.
 =====================================================
 */
 :root {
-    /* Cores Padrão */
-    --header-bg-color: #1a1a1a;        
-    --header-text-color: #ffffff;      
-    --header-link-hover: #cccccc;      
-    --header-font-family: 'Montserrat', sans-serif; 
-    --header-height: 80px;             
+  /* --- GERAL --- */
+  --header-font-family: 'Montserrat', sans-serif;
+  --header-padding: 0 60px; /* Padding lateral padrão */
+  --header-max-width: 1600px; /* Largura máxima */
 
+  /*
+  ==============================
+    PRESET: BARBER (Home / Luxury)
+  ==============================
+  */
+  /* Cores */
+  --barber-bg-color: #f9f9f7;
+  --barber-text-color: #000;
+  --barber-link-hover: #bca46d;
+  --barber-border-bottom: 1px solid #e4e4e0;
+  
+  /* Tamanhos */
+  --barber-logo-height: 45px;
+  --barber-icon-label-size: 15px; /* Tamanho do texto (ex: "OLIMPO SKIN") */
+  --barber-icon-gap: 45px; /* Espaço entre os ícones */
 
+  /* --- Tamanhos de Ícones (Individual) --- */
+  /* Este preset mostra os ícones: skincare, wear, user */
+  --barber-icon-size-skincare: 45px;
+  --barber-icon-size-wear: 45px;
+  --barber-icon-size-user: 35px;
+
+  /*
+  ==============================
+    PRESET: WEAR (Loja / Centered)
+  ==============================
+  */
+  /* Cores */
+  --wear-top-bar-bg: #bca46d;   /* Barra dourada de cima */
+  --wear-bottom-bar-bg: #000; /* Barra preta de baixo */
+  --wear-bottom-bar-text: #fff; /* Texto (Catálogo, etc) */
+  --wear-subtitle-color: #bca46d; /* Cor do "WEAR" no centro */
+  
+  /* Fontes (Barra Preta) */
+  --wear-nav-font-size: 14px;
+  --wear-nav-font-weight: 700;
+  --wear-nav-letter-spacing: 0.5px;
+  --wear-icon-label-size: 15px;
+  
+  /* Tamanhos */
+  --wear-logo-height: 50px; /* Logo na barra dourada */
+  --wear-icon-gap: 30px; /* Espaço entre os ícones */
+
+  /* --- Tamanhos de Ícones (Individual) --- */
+  /* Este preset mostra os ícones: skincare, barber, user */
+  --wear-icon-size-skincare: 55px;
+  --wear-icon-size-barber: 55px;
+  --wear-icon-size-user: 40px;
+
+  /*
+  ==============================
+    PRESET: SKINCARE (Compact)
+  ==============================
+  */
+  /* Cores */
+  --skincare-bg-color: #f9f9f7;
+  --skincare-text-color: #000;
+  --skincare-link-hover: #bca46d;
+  --skincare-border-bottom: 1px solid #e4e4e0;
+
+  /* --- Tamanhos de Ícones (Individual) --- */
+  /* Este preset mostra os ícones: user */
+  --skincare-icon-size-user: 40px;
 }
+
 
 /*
 =====================================================
-  ESTILOS BASE DO HEADER
+  2. ESTILOS BASE (O "Motor" do Header)
+=====================================================
+  Esta seção aplica as variáveis. 
+  Você não precisa editar nada aqui.
 =====================================================
 */
+
+/* --- Wrapper Principal --- */
 .main-header {
-    width: 100%;
-    height: var(--header-height);
-    background-color: var(--header-bg-color);
-    color: var(--header-text-color);
-    
-    /* REMOVIDO: position: fixed; e top: 0; */
-    /* Agora o Header ocupa seu espaço normal no fluxo do documento. */
-    
-    z-index: 1000; /* Pode ser mantido por precaução */
-    font-family: var(--header-font-family);
-    transition: background-color 0.3s;
-    box-sizing: border-box; 
+  width: 100%;
+  font-family: var(--header-font-family);
+  box-sizing: border-box;
 }
 
+/* --- Container (Layouts Luxury & Compact) --- */
 .header-container {
-    max-width: 1400px; /* Aumentado para acomodar mais links no Wear */
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
+  max-width: var(--header-max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: var(--header-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-/*
-=====================================================
-  1. ESTILOS DO LOGO
-=====================================================
-*/
+/* --- Componente: Logo (Imagem) --- */
 .logo-wrapper {
-    display: flex;
-    align-items: center; 
-    text-decoration: none;
-    color: var(--header-text-color);
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
-
 .logo-img {
-    height: var(--logo-height); 
-    width: auto;
-    margin-right: 5px;
-    transition: filter 0.3s;
-}
-
-.domain-name {
-    font-size: 0.8rem;
-    font-weight: 400; 
-    opacity: 0.7; 
-    /* Ajuste para alinhamento com a imagem maior */
-    margin-top: 5px; 
-}
-
-
-/*
-=====================================================
-  2. ESTILOS DA NAVEGAÇÃO (Principal - Usado principalmente no WEAR)
-=====================================================
-*/
-.nav-menu {
-    display: flex;
-    gap: 25px; /* Espaçamento entre os links de navegação */
-    flex-grow: 1; 
-    justify-content: center; 
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--header-text-color);
-    font-size: var(--nav-font-size);
-    font-weight: 500;
-    padding: 5px 0;
-    transition: color 0.3s ease;
-    text-transform: uppercase;
-    white-space: nowrap; /* Evita quebras de linha em links como OLIMPO COIN */
-}
-
-.nav-link:hover {
-    color: var(--header-link-hover);
-}
-
-/*
-=====================================================
-  3. ESTILOS DOS ÍCONES (Navegação de Domínio e Perfil)
-=====================================================
-*/
-
-.header-icons {
-    display: flex;
-    align-items: center;
-    gap: 20px; 
-}
-
-/* Ícones no modo Full (Wear) - permite ícone + label, espaçamento ajustado */
-.header-icons-full .header-icon-link {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    color: var(--header-text-color);
-}
-/* Ícones no modo Minimal (Skincare) - Apenas ícones */
-.header-icons-minimal {
-    gap: 15px;
-}
-
-/* Ícones no modo Minimal COM TEXTO (Barber) - Moedas + Nomes */
-.header-icons-with-labels .header-icon-link {
-    /* Força layout horizontal */
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Espaço maior entre ícone e texto */
-}
-
-.header-icon-link {
-    width: auto; 
-    height: var(--icon-size); /* Altura baseada no ícone de perfil */
-    transition: opacity 0.2s, transform 0.2s;
-    text-decoration: none; /* Garante que o link não tenha sublinhado */
-    color: inherit;
-}
-
-.header-icon-link:hover {
-    opacity: 0.8; 
-}
-
-/* ESTILOS PARA AS IMAGENS DENTRO DOS ÍCONES */
-.icon-img {
-    width: var(--icon-size); /* Tamanho padrão para todos */
-    height: var(--icon-size);
-    object-fit: contain;
-}
-
-/* Sobrescreve o tamanho da imagem para os ícones de domínio (Moedas) */
-.icon-domain-skincare .icon-img,
-.icon-domain-wear .icon-img,
-.icon-domain-barber .icon-img,
-.icon-domain-barber-main .icon-img {
-    width: var(--domain-icon-size);
-    height: var(--domain-icon-size);
-}
-
-.icon-label {
-    font-size: var(--icon-label-font-size);
-    font-weight: 500;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-
-/*
-=====================================================
-  ESTILOS ESPECÍFICOS POR DOMÍNIO
-=====================================================
-*/
-
-/* --- BARBER (Página Principal) --- */
-.header-barber {
-    --header-bg-color: #fffdfd; 
-    --header-text-color: #e0b355; 
-    --header-link-hover: #f0c365; 
-    
-    /* Personalização de tamanho para a página principal */
-    --domain-icon-size: 35px; 
-    --icon-label-font-size: 0.9rem; /* Maior para destaque na principal */
-}
-.header-barber .logo-wrapper,
-.header-barber .header-icon-link {
-    color: var(--header-text-color); 
-}
-
-/* --- SKINCARE --- */
-.header-skincare {
-    --header-bg-color: #f8f0e3; 
-    --header-text-color: #4a544f; 
-    --header-link-hover: #9bb098; 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-.header-skincare .logo-wrapper,
-.header-skincare .nav-link,
-.header-skincare .header-icon-link {
-    color: var(--header-text-color);
-}
-
-/* Base */
-.icon-img {
-  display: inline-block;
+  height: var(--logo-height); /* Altura controlada pelo preset */
+  width: auto;
   object-fit: contain;
 }
 
-/* Ícones individuais */
-.icon-wear {
-  width: 60px;
-  height: 60px;
+/* --- Componente: Navegação (Menu do Wear) --- */
+.nav-menu {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+  font-size: var(--wear-nav-font-size);
+  font-weight: var(--wear-nav-font-weight);
+  letter-spacing: var(--wear-nav-letter-spacing);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s ease;
 }
 
+/* --- Componente: Ícones (Base) --- */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--icon-gap, 30px); /* Usa --icon-gap ou 30px como padrão */
+}
+.header-icon-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+.header-icon-link:hover {
+  opacity: 0.8;
+}
+
+/* --- Imagens dos Ícones (Tamanhos) --- */
+.icon-img {
+  object-fit: contain;
+  border-radius: 50%;
+}
 .icon-skincare {
-  width: 55px;
-  height: 55px;
+  /* Esta classe agora usa a variável --icon-size-skincare */
+  width: var(--icon-size-skincare);
+  height: var(--icon-size-skincare);
 }
-
+.icon-wear {
+  /* Esta classe agora usa a variável --icon-size-wear */
+  width: var(--icon-size-wear);
+  height: var(--icon-size-wear);
+}
 .icon-barber {
-  width: 70px;
-  height: 70px;
+  /* Esta classe agora usa a variável --icon-size-barber */
+  width: var(--icon-size-barber);
+  height: var(--icon-size-barber);
 }
-
-.icon-barber-main {
-  width: 80px;
-  height: 80px;
-}
-
 .icon-user {
-  width: 40px;
-  height: 40px;
+  /* Esta classe agora usa a variável --icon-size-user */
+  width: var(--icon-size-user);
+  height: var(--icon-size-user);
+}
+
+/* --- Texto dos Ícones (Labels) --- */
+.icon-label {
+  font-size: var(--icon-label-size);
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 
-/* --- WEAR --- */
-.header-wear {
-    --header-bg-color: #111111; 
-    --header-text-color: #f7f7f7; 
-    --header-link-hover: #ff4500; 
+/*
+=====================================================
+  3. APLICAÇÃO DOS PRESETS
+=====================================================
+  Esta seção aplica as variáveis da :root
+  ao layout de cada preset.
+=====================================================
+*/
+
+/* --- PRESET: BARBER (Home / Luxury) --- */
+.header-barber .header-container {
+  background-color: var(--barber-bg-color);
+  color: var(--barber-text-color);
+  border-bottom: var(--barber-border-bottom);
+  padding: 10px 60px; 
+}
+.header-barber.main-header {
+  /* Define as variáveis de tamanho para este preset.
+    Elas vêm direto da :root (Central de Controle).
+  */
+  --logo-height: var(--barber-logo-height);
+  --icon-size-skincare: var(--barber-icon-size-skincare);
+  --icon-size-wear: var(--barber-icon-size-wear);
+  --icon-size-user: var(--barber-icon-size-user);
+  --icon-label-size: var(--barber-icon-label-size);
+  --icon-gap: var(--barber-icon-gap);
+}
+.header-barber .header-icon-link {
+  color: var(--barber-text-color); 
+}
+.header-barber .header-icon-link:hover {
+  color: var(--barber-link-hover);
+}
+
+
+/* --- PRESET: WEAR (Loja / Centered) --- */
+.header-wear.main-header {
+  /* Define as variáveis de tamanho para este preset.
+    Elas vêm direto da :root (Central de Controle).
+  */
+  --icon-size-skincare: var(--wear-icon-size-skincare);
+  --icon-size-barber: var(--wear-icon-size-barber);
+  --icon-size-user: var(--wear-icon-size-user);
+  --icon-label-size: var(--wear-icon-label-size);
+  --icon-gap: var(--wear-icon-gap);
+}
+/* Barra Dourada */
+.header-wear .header-bar-top {
+  background-color: var(--wear-top-bar-bg);
+  padding: 8px 60px;
+  display: flex;
+  max-height: 50px;
+  justify-content: center;
+  align-items: center;
+  /* Define a altura da logo SÓ para esta barra */
+  --logo-height: var(--wear-logo-height); 
+}
+/* Barra Preta */
+.header-wear .header-bar-bottom {
+  background-color: var(--wear-bottom-bar-bg);
+  color: var(--wear-bottom-bar-text);
+  padding: 15px 60px;
+  max-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* Cor do subtítulo "WEAR" */
+.header-wear .wear-subtitle {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--wear-subtitle-color);
 }
 .header-wear .nav-link:hover {
-    color: var(--header-link-hover);
+  color: var(--wear-link-hover, var(--wear-text-bottom));
 }
-/* Estilos de centralização do Wear */
-.header-wear .logo-wrapper {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+
+
+/* --- PRESET: SKINCARE (Compact) --- */
+.header-skincare .header-container {
+  background-color: var(--skincare-bg-color);
+  color: var(--skincare-text-color);
+  border-bottom: var(--skincare-border-bottom);
+  padding: 10px 60px;
 }
-.header-wear .logo-wrapper .domain-name {
-    display: none;
+.header-skincare.main-header {
+  /* Define as variáveis de tamanho para este preset.
+    Elas vêm direto da :root (Central de Controle).
+  */
+  --icon-size-user: var(--skincare-icon-size-user);
+}
+.header-skincare .header-icon-link:hover {
+  color: var(--skincare-link-hover);
 }
