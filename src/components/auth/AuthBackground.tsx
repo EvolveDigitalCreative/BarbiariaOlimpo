@@ -1,11 +1,14 @@
 // src/components/auth/AuthBackground.tsx
 import type { FC } from 'react';
 
-// Aqui virá o código do seu background decorativo reutilizável
 export const AuthBackground: FC = () => {
-  return (
-    <div className="auth-background-decorative">
-      {/* Insira aqui o JSX ou SVG complexo do seu background, se houver */}
-    </div>
-  );
+  return (
+  	<div
+  	 	className="auth-background-decorative"
+  	 	// ✅ CORREÇÃO AQUI:
+  	 	style={{ backgroundImage: "url('/OlimpoBarBer/texture/coin.png')" }}
+  	>
+  	 	{/* Este div agora terá a imagem de fundo aplicada via CSS ou style */}
+  	</div>
+  );
 };
