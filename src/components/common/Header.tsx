@@ -4,9 +4,6 @@ import type { FC } from 'react';
 import { useLocation, Link } from 'react-router-dom'; // Adiciona Link
 import { useAuth } from '../auth/AuthContext'; // ✅ Importa useAuth (Ajuste o caminho!)
 
-// ❌ REMOVIDO: Import da Logo aqui, usaremos a URL diretamente ou a prop do preset
-// import OlimpoLogo from '../../../public/OlimpoBarBer/images/logo.webp';
-
 import type { HeaderPreset, IconKey } from './headerTypes'; 
 import { iconLinksMap } from './HeaderComponents'; // Assumindo que iconLinksMap está aqui ou é importado
 

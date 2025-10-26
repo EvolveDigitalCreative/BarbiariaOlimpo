@@ -1,16 +1,17 @@
+//src/components/sections/olimpo_skincare/SkincareAboutUs.tsx
 import type { FC } from 'react';
 import '../../../styles/olimposkincare/skincare_about_us.css'; 
 
 const BARBER_COIN_ICON = "/OlimpoSkincare/icons/whitecoin_optimized.png"; 
-// O PILAR_ICON_PATH já não é usado nesta estrutura.
+const PILAR_ICON_PATH = "/OlimpoSkincare/decoracao/pilar.png"; // Reintroduzido
 
 const SkincareAboutUs: FC = () => {
     return (
         <section className="content-section light-background">
-            {/* O wrapper é o contentor flexível */}
+            {/* O wrapper é o contentor flexível e o referente de posição (position: relative) */}
             <div className="section-content-wrapper"> 
                 
-                {/* 1. Coluna da Imagem (45% no Desktop) */}
+                {/* 1. Coluna da Imagem */}
                 <div className="section-image-container">
                     <img 
                         src="/OlimpoSkincare/images/segunda foto princpal.jpg" 
@@ -19,7 +20,7 @@ const SkincareAboutUs: FC = () => {
                     />
                 </div>
                 
-                {/* 2. Coluna do Texto (55% no Desktop) */}
+                {/* 2. Coluna do Texto */}
                 <div className="section-text-container">
                     <p className="gold-text-strong">FICA A CONHECER-NOS</p>
                     <h2 className="section-title">
@@ -49,7 +50,14 @@ const SkincareAboutUs: FC = () => {
                     </a>
                 </div>
                 
-                {/* O pilar decorativo e o spacer foram removidos. */}
+                {/* 3. A Coluna do Pilar (Spacer) - Reintroduzida */}
+                <div className="section-column-spacer">
+                    <img 
+                        src={PILAR_ICON_PATH} 
+                        alt="Pilar Grego Decorativo"
+                        className="decorative-column-image"
+                    />
+                </div>
 
             </div>
         </section>

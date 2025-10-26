@@ -1,3 +1,4 @@
+/*src/styles/olimposkincare/skincare_about_us.css*/
 /* ==========================================================
 // 0. VARIÁVEIS 
 // ========================================================== */
@@ -23,7 +24,7 @@
 }
 
 .section-content-wrapper {
-    position: relative; 
+    position: relative; /* CRUCIAL: Contém o pilar absoluto no desktop */
     display: flex;
     flex-direction: column; /* Mobile: Empilha */
     gap: 40px; 
@@ -104,11 +105,12 @@
 
 
 /* ==========================================================
-// C. ESTILOS DA IMAGEM E REMOÇÃO DO PILAR
+// C. ESTILOS DA IMAGEM E PILAR (Mobile Base)
 // ========================================================== */
 
 .section-image-container {
     width: 100%;
+    /* CORREÇÃO: Reposto max-width para o valor correto */
     max-width: 450px; 
     position: relative;
 }
@@ -119,17 +121,27 @@
     display: block;
     object-fit: cover;
     z-index: 20;
-    position: relative; 
+    position: relative;
 }
 
 .image-rounded {
+    /* Mantenho o valor de 8px, pois 30px é muito arredondado para o estilo grego/ouro */
     border-radius: 8px; 
 }
 
-/* O PILAR DECORATIVO E O SPACER SÃO REMOVIDOS/DESATIVADOS */
-.decorative-column-image,
+/* Coluna Grega - Mobile */
+.decorative-column-image {
+    position: absolute; 
+    display: none; /* Esconder no mobile */
+    width: 120px; 
+    height: auto;
+    z-index: 10;
+    opacity: 0.3; 
+}
+
+/* Contentor Separador (Spacer) - Mobile */
 .section-column-spacer {
-    display: none; 
+    display: none; /* Esconder no mobile */
 }
 
 
@@ -139,34 +151,61 @@
 
 @media (min-width: 1024px) {
     .content-section {
-        padding: 100px 32px; 
+        padding: 100px 32px; /* Mantemos o padding original */
     }
 
     .section-content-wrapper {
         flex-direction: row; 
-        /* Centraliza os dois elementos restantes no contentor */
-        justify-content: center; 
+        justify-content: space-between; /* Melhor para espaçar as 3 colunas */
         align-items: flex-start;
         gap: 80px; 
     }
     
     .section-image-container {
-        /* 45% da largura total */
-        width: 45%; 
+        /* 40% da largura */
+        width: 40%; 
         flex-shrink: 0; 
         max-width: 450px; 
     }
 
     .section-text-container {
-        /* 55% da largura total */
-        width: 55%; 
+        /* 40% da largura */
+        width: 40%; 
         flex-grow: 1; 
         flex-shrink: 0; 
-        max-width: 600px; 
+        max-width: 500px; /* Mais compacto para deixar espaço para o pilar */
         padding-top: 10px; 
+    }
+
+    /* A CAIXA INVISÍVEL (Spacer) */
+    .section-column-spacer {
+        display: block; /* Mostrar no desktop */
+        position: relative; /* CRUCIAL: Contém o pilar absoluto */
+        width: 20%; /* Ocupa o restante do espaço (40% + 40% + 20% = 100%) */
+        flex-shrink: 0;
+        max-width: 200px; 
+        height: 1px; 
     }
     
     .section-title {
         font-size: 3rem; 
+    }
+
+    /* O PILAR DECORATIVO, posicionado DENTRO da Caixa Invisível */
+    .decorative-column-image {
+        display: block; 
+        position: absolute; /* Relativo ao .section-column-spacer */
+        
+        /* Posição para ficar na margem direita, semelhante à imagem do exemplo */
+        right: 0; 
+        bottom: -100px; /* Ajuste para descer um pouco, como na imagem */
+        
+        left: auto; 
+        transform: none; 
+        
+        width: 180px; 
+        opacity: 1; 
+        
+        z-index: 1; 
     }
 }
