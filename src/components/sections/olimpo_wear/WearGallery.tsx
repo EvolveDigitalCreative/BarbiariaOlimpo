@@ -22,7 +22,7 @@ const products = [
 // === DADOS DAS FOTOS DE LIFESTYLE (AS 5 FOTOS DO CARROSSEL) ===
 const lifestylePhotos = [
     // ATENÇÃO: Os caminhos foram corrigidos para a pasta 'modelos'
-    { id: 1, alt: "Modelo T-shirt Olímpo na rua", imageSrc: "/OlimpoWear/modelos/modelo1.jpg" }, // Exemplo
+    { id: 1, alt: "Modelo T-shirt Olímpo na rua", imageSrc: "/OlimpoWear/modelos/OLIMPO-basic.webp" }, // Exemplo
     { id: 2, alt: "Detalhe de roupa e padrão grego", imageSrc: "/OlimpoWear/modelos/modelo2.JPG" }, // Exemplo
     { id: 3, alt: "Dois modelos com T-shirts Olímpo", imageSrc: "/OlimpoWear/modelos/modelo3.JPG" }, // Exemplo
     { id: 4, alt: "Foto Lifestyle 4", imageSrc: "/OlimpoWear/modelos/modelo 4.JPG" }, // Exemplo
