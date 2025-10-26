@@ -6,14 +6,14 @@ import type { FC } from 'react';
 // ⚠️ ATENÇÃO: Se estes produtos já estão em WearGallery.tsx, estes dados estão duplicados.
 const newProducts = [
     // T-shirts Alex9 (4 modelos)
-    { name: "Alex9", model: "White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex9-white.webp", category: "Alex9" },
-    { name: "Alex9", model: "Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex9-black.webp", category: "Alex9" },
-    { name: "Alex9", model: "Gold White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex9-gold-white.webp", category: "Alex9" },
-    { name: "Alex9", model: "Gold Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex9-gold-black.webp", category: "Alex9" },
+    { name: "Alex9", model: "White", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png", category: "Alex9" },
+    { name: "Alex9", model: "Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-preta e branca costa.png", category: "Alex9" },
+    { name: "Alex9", model: "Gold White", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex- branca e dourada.png", category: "Alex9" },
+    { name: "Alex9", model: "Gold Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png", category: "Alex9" },
 
     // T-shirts Mirror (2 modelos)
-    { name: "Mirror", model: "White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-mirror-white.webp", category: "Mirror" },
-    { name: "Mirror", model: "Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-mirror-black.webp", category: "Mirror" },
+    { name: "Mirror", model: "White", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-Shirt-branca e preta.png", category: "Mirror" },
+    { name: "Mirror", model: "Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png", category: "Mirror" },
 ];
 
 // === COMPONENTE ===
