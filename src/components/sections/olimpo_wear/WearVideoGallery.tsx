@@ -1,31 +1,27 @@
-// src/components/sections/olimpowear/WearVideoGallery.tsx
+// src/components/sections/olimpo_wear/WearVideoGallery.tsx (FINAL SEM TÍTULO)
 
 import type { FC } from 'react';
 
-// Dados para criar 5 placeholders
-const videoData = [
-    { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 },
-];
-
 const WearVideoGallery: FC = () => {
-  return (
-    <section className="wear-video-gallery-section">
-      
-      {/* O Grid com o layout adaptado para 5 itens */}
-      <div className="video-lifestyle-grid">
-        
-        {videoData.map((video) => (
-            /* Os placeholders vão receber os estilos de layout via CSS */
-            <div key={video.id} className={`video-placeholder video-${video.id}`}>
-                {/* Aqui entrará o código do iframe/player de vídeo */}
-                <p>Espaço para Vídeo {video.id}</p>
-            </div>
-        ))}
+    // Array para mapear e criar 4 blocos de vídeo
+    const videoPlaceholders = [1, 2, 3, 4];
 
-      </div>
-      
-    </section>
-  );
+    return (
+        <section className="wear-video-gallery-section no-title">
+            {/* REMOVIDO: <h2 className="video-section-title">A Atitude Olimpo em Ação</h2> */}
+            
+            <div className="video-grid-container">
+                {videoPlaceholders.map((index) => (
+                    <div 
+                        key={index}
+                        className={`video-placeholder`}
+                    >
+                        Espaço para Vídeo {index}
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
 };
 
 export default WearVideoGallery;

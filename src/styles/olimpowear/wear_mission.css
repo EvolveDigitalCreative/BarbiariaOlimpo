@@ -1,0 +1,90 @@
+/* src/styles/olimpowear/wear_mission.css */
+
+/* Define cores e fontes para serem consistentes */
+:root {
+    --color-mission-bg: #f8f7f5; /* Fundo bege/cinza claro da imagem de referência */
+    --color-text-dark: #333;
+    --color-gold: #b8860b;
+}
+
+/* 1. SEÇÃO PRINCIPAL */
+.wear-mission-section {
+    background-color: var(--color-mission-bg);
+    text-align: center;
+    padding: 0 40px 80px 40px; /* Padding ajustado para o fundo */
+    position: relative; /* Para posicionamento da borda grega */
+}
+
+/* 2. BORDA GREGA NO TOPO */
+/* Assumindo que você tem o CSS para greek-pattern-border, mas o reescrevo aqui para o topo da missão: */
+.greek-pattern-border-mission-top {
+    /* Substitua pelo caminho do seu padrão grego repetível */
+    background-image: url('/OlimpoWear/patterns/greek-border-gold.webp'); 
+    background-repeat: repeat-x;
+    background-size: auto 15px; /* Altura do padrão */
+    width: 100%;
+    height: 15px; /* Altura da borda */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/* 3. ÍCONE DE MEDALHA */
+.wear-mission-section .mission-icon {
+    width: 80px; /* Tamanho do ícone */
+    height: 80px;
+    margin: 40px auto 30px auto; /* Espaçamento do topo */
+    display: block;
+}
+
+/* 4. TÍTULO "A NOSSA MISSÃO" */
+.wear-mission-section .section-title {
+    font-family: 'Georgia', serif; /* Fonte serifada para elegância */
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+}
+
+/* 5. PARÁGRAFO */
+.wear-mission-section .section-paragraph {
+    max-width: 650px; /* Largura estreita para o bloco de texto central */
+    margin: 0 auto;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    margin-bottom: 40px;
+}
+
+/* 6. BOTÃO */
+.wear-mission-section .mission-button {
+    background-color: var(--color-text-dark); /* Fundo preto */
+    color: var(--color-mission-bg); /* Texto claro */
+    border: 1px solid var(--color-text-dark);
+    padding: 12px 25px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.wear-mission-section .mission-button:hover {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-text-dark);
+}
+
+/* Media Queries (Ajustes para mobile) */
+@media (max-width: 768px) {
+    .wear-mission-section {
+        padding: 0 20px 60px 20px;
+    }
+    .wear-mission-section .section-title {
+        font-size: 2rem;
+    }
+    .wear-mission-section .section-paragraph {
+        font-size: 1.1rem;
+    }
+}

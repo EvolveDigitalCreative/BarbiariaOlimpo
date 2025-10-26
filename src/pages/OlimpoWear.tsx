@@ -9,13 +9,16 @@ import SectionDivider from '../components/common/SectionDivider';
 // IMPORTS DE COMPONENTES
 // ==========================================================
 import WearHero from '../components/sections/olimpo_wear/WearHero';
-import WearGallery from '../components/sections/olimpo_wear/WearGallery'; // ✅ CORRIGIDO: Agora espera o default export
+import WearGallery from '../components/sections/olimpo_wear/WearGallery';
 import WearBestSeller from '../components/sections/olimpo_wear/WearBestSeller';
 import WearDressLikeGods from '../components/sections/olimpo_wear/WearDressLikeGods';
 import WearMission from '../components/sections/olimpo_wear/WearMission';
-import WearVideoGallery from '../components/sections/olimpo_wear/WearVideoGallery';
 import WearCollectionGrid from '../components/sections/olimpo_wear/WearCollectionGrid';
 import WearContact from '../components/sections/olimpo_wear/WearContact';
+
+// ✅ NOVOS COMPONENTES
+import WearVideoGallery from '../components/sections/olimpo_wear/WearVideoGallery';
+import WearNewProducts from '../components/sections/olimpo_wear/WearNewProducts';
 
 
 // ==========================================================
@@ -26,7 +29,18 @@ import '../styles/global/_header.css';
 import '../styles/global/_footer.css';
 import '../styles/global/SectionDivider.css';
 import '../styles/global/olimpo_shared.css';
-import '../styles/olimpowear/wear_products.css';
+
+// ESTILOS OLIMPO WEAR
+import '../styles/olimpowear/wear_hero.css';
+import '../styles/olimpowear/wear_mission.css';
+import '../styles/olimpowear/wear_dresslikegods.css';
+import '../styles/olimpowear/wear_bestseller.css';
+import '../styles/olimpowear/wear_products.css'; // Estilo geral para Wear
+import '../styles/olimpowear/wear_gallery.css'; // ✅ Estilo para WearGallery E WearNewProducts
+
+// ✅ NOVOS ESTILOS
+import '../styles/olimpowear/wear_video_gallery.css';
+import '../styles/olimpowear/wear_new_products.css'; // ✅ Estilo específico para WearNewProducts (se não for 100% igual ao gallery.css)
 
 
 const OlimpoWear: FC = () => {
@@ -38,17 +52,12 @@ const OlimpoWear: FC = () => {
         <WearGallery />
         <SectionDivider />
         <WearMission />
-        <WearDressLikeGods/>
+        <WearDressLikeGods />
         <WearBestSeller />
-        <WearVideoGallery/>
-        <SectionDivider />
-        <WearCollectionGrid />
-        <SectionDivider />
-        <SectionDivider />
-        <SectionDivider />
         <WearVideoGallery />
         <SectionDivider />
-        <SectionDivider />
+        <WearNewProducts />
+        <WearCollectionGrid />
         <WearContact />
       </main>
       <Footer />

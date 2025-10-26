@@ -1,0 +1,66 @@
+/* src/styles/olimpowear/wear_video_gallery.css (CÓDIGO FINAL - LAYOUT 4 COLUNAS EM LINHA RETA) */
+
+/* 1. SEÇÃO PRINCIPAL E TÍTULO */
+.wear-video-gallery-section {
+    max-width: 1400px; /* Aumenta a largura máxima para caber 4 elementos lado a lado */
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.video-section-title {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+/* 2. CONTAINER PRINCIPAL DO GRID (4 COLUNAS) */
+.video-grid-container {
+    display: grid;
+    /* Define 4 colunas de largura igual (1fr) -> LINHA RETA */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px; /* Espaço entre os vídeos */
+}
+
+/* 3. ESTILO BASE DO PLACEHOLDER (Retangular 16:9 e cantos arredondados) */
+.video-placeholder {
+    /* Fundo e texto como placeholder */
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 1rem;
+    
+    /* Cantos arredondados, como na imagem de referência */
+    border-radius: 12px; 
+    
+    /* Configuração para Aspect Ratio (Retangular 16:9) */
+    width: 100%;
+    height: 0; 
+    padding-top: 56.25%; /* (9 / 16) * 100% */
+    
+    position: relative;
+    overflow: hidden; 
+}
+
+/* Garante que o conteúdo (iframe ou texto) preencha o espaço */
+.video-placeholder > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* 4. MEDIA QUERY: Mobile (empilha todos os vídeos em 1 coluna) */
+@media (max-width: 768px) {
+    .video-grid-container {
+        /* No mobile, usa 1 coluna para que não fiquem excessivamente pequenos */
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
