@@ -1,4 +1,4 @@
-// src/components/common/Header/index.tsx
+// src/components/common/Header.tsx
 
 import type { FC } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -7,20 +7,19 @@ import { useLocation } from 'react-router-dom';
 import OlimpoLogo from '../../../public/OlimpoBarBer/images/logo.webp';
 
 // Importa os tipos
-import type { HeaderProps, HeaderPreset, IconKey } from './headerTypes';
+// ATENÇÃO: Assegure-se de que './headerTypes' está no mesmo diretório
+import type { HeaderPreset, IconKey } from './headerTypes'; 
 
 // Importa o "kit de peças"
 import { iconLinksMap } from './HeaderComponents';
 
-// Importa os TEMPLATES de layout
+// Importa os TEMPLATES de layout 
 import LuxuryLayout from '../layouts/LuxuryLayout';
 import CompactLayout from '../layouts/CompactLayout';
 import CenteredLayout from '../layouts/CenteredLayout';
 
 // ==========================================================
 // CONFIGURAÇÃO CENTRAL DE PRESETS
-// ==========================================================
-// Mapeia a rota para um layout e uma classe CSS
 // ==========================================================
 
 const headerPresets: Record<string, HeaderPreset> = {
@@ -54,12 +53,13 @@ headerPresets['/barber'] = headerPresets['/'];
 
 // ==========================================================
 // COMPONENTE PRINCIPAL (CONTROLADOR)
+// O tipo FC<HeaderProps> precisa ser definido em headerTypes
 // ==========================================================
-const Header: FC<HeaderProps> = () => {
+const Header: FC = () => { // Removi <HeaderProps> pois não há props no seu código atual.
   const location = useLocation();
   const preset = headerPresets[location.pathname] || headerPresets['/'];
 
-  // 1. Prepara os ícones (não precisa mais de tamanhos!)
+  // 1. Prepara os ícones 
   const availableIcons = iconLinksMap();
 
   // 2. Cria a função 'renderIcons'
@@ -99,4 +99,4 @@ const Header: FC<HeaderProps> = () => {
   );
 };
 
-export default Header;
+export default Header; // <-- ESSA LINHA É CRÍTICA PARA RESOLVER O ERRO TS1192

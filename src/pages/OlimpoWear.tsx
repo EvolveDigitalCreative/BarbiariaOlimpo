@@ -1,47 +1,54 @@
-// src/pages/OlimpoWear.tsx
+// src/pages/OlimpoWear.tsx 
 
 import type { FC } from 'react';
-import Header from '../components/common/Header.tsx';
-import Footer from '../components/common/Footer.tsx';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import SectionDivider from '../components/common/SectionDivider';
 
-// ----------------------------------------------------------------
-// 1. ESTILOS 
-// ----------------------------------------------------------------
-import '../styles/global/_global.css';          
-import '../styles/global/_header.css';          
-import '../styles/global/_footer.css';          
+// ==========================================================
+// IMPORTS DE COMPONENTES
+// ==========================================================
+import WearHero from '../components/sections/olimpo_wear/WearHero';
+import WearGallery from '../components/sections/olimpo_wear/WearGallery'; // ✅ CORRIGIDO: Agora espera o default export
+import WearBestSeller from '../components/sections/olimpo_wear/WearBestSeller';
+import WearDressLikeGods from '../components/sections/olimpo_wear/WearDressLikeGods';
+import WearMission from '../components/sections/olimpo_wear/WearMission';
+import WearVideoGallery from '../components/sections/olimpo_wear/WearVideoGallery';
+import WearCollectionGrid from '../components/sections/olimpo_wear/WearCollectionGrid';
+import WearContact from '../components/sections/olimpo_wear/WearContact';
 
-// Estilos Específicos do Wear
-import '../styles/olimpowear/wear_sections_base.css';
-import '../styles/olimpowear/wear_hero.css';          
+
+// ==========================================================
+// IMPORTS DE ESTILO
+// ==========================================================
+import '../styles/global/_global.css';
+import '../styles/global/_header.css';
+import '../styles/global/_footer.css';
+import '../styles/global/SectionDivider.css';
+import '../styles/global/olimpo_shared.css';
 import '../styles/olimpowear/wear_products.css';
-import '../styles/olimpowear/wear_contact.css';
-import '../styles/olimpowear/wear_header.css'; // <--- NOVO CSS DO HEADER WEAR
-
-
-// ----------------------------------------------------------------
-// 2. COMPONENTES
-// ----------------------------------------------------------------
-import WearHero from '../components/sections/olimpo_wear/WearHero.tsx';
-import WearCollections from '../components/sections/olimpo_wear/WearCollections.tsx';
-import WearGallery from '../components/sections/olimpo_wear/WearGallery.tsx';
-import WearMission from '../components/sections/olimpo_wear/WearMission.tsx';
-import WearContact from '../components/sections/olimpo_wear/WearContact.tsx';
-
-import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
 
 
 const OlimpoWear: FC = () => {
   return (
     <div className="wear-page-container">
-      {/* O Header agora sabe que está no domínio "wear" */}
-      <Header domain="wear" />
+      <Header />
       <main>
         <WearHero />
-        <WearCollections />
-        <WearGallery /> 
-        <WearMission /> 
-        <CoinSection />          
+        <WearGallery />
+        <SectionDivider />
+        <WearMission />
+        <WearDressLikeGods/>
+        <WearBestSeller />
+        <WearVideoGallery/>
+        <SectionDivider />
+        <WearCollectionGrid />
+        <SectionDivider />
+        <SectionDivider />
+        <SectionDivider />
+        <WearVideoGallery />
+        <SectionDivider />
+        <SectionDivider />
         <WearContact />
       </main>
       <Footer />

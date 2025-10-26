@@ -1,4 +1,19 @@
-/* src/styles/olimpowear/wear_products.css */
+/* src/styles/olimpowear/wear_products.css (CÓDIGO COMPLETO E FINAL) */
+
+/* =========================================== */
+/* VARIÁVEIS (SUGESTÃO) */
+/* =========================================== */
+:root {
+    --color-gold: #b8860b;
+    --color-wear-dark: #222;
+    --color-wear-light: #fff;
+    --font-family-serif: 'Georgia', serif;
+    --font-family-sans: 'Arial', sans-serif;
+}
+
+/* =========================================== */
+/* BASE DE PRODUTOS EXISTENTE (FEATURED) */
+/* =========================================== */
 
 /* Seção de produtos em destaque/Best Seller */
 .featured-products-section {
@@ -48,55 +63,176 @@
     gap: 15px;
 }
 
-/* Grid de Galeria (Coleções/Todos os Produtos) */
+
+/* =========================================== */
+/* GALERIA DE PRODUTOS (WEAR GALLERY / WEAR CATALOG) */
+/* =========================================== */
+
+/* Wrapper da Seção Geral */
+.wear-gallery-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px 0 40px;
+}
+
+/* Título da Categoria */
+.category-title {
+    font-family: var(--font-family-serif);
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: #333;
+    margin-top: 60px;
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+.category-group:first-child .category-title {
+    margin-top: 0;
+}
+
+/* Grid de Galeria (4 colunas) */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
+    margin: 0 auto 40px auto;
 }
 
+/* Cartão Individual */
 .product-card {
-    text-align: center;
+    text-align: left;
+    display: block;
 }
 
 .product-card-image-wrapper {
-    background-color: #f7f7f7; /* Fundo cinza claro para as t-shirts brancas */
-    padding: 20px;
+    background-color: #f7f7f7;
+    width: 100%;
+    padding-top: 100%;
     margin-bottom: 10px;
     position: relative;
+    overflow: hidden;
 }
 
 .product-card-image-wrapper img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    padding: 20px;
 }
 
 .product-card-name {
-    font-family: var(--font-family-serif);
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 5px;
+    font-family: var(--font-family-sans);
+    font-weight: 400;
+    font-size: 1rem;
+    margin-top: 8px;
+    margin-bottom: 2px;
 }
 
 .product-card-info {
     font-size: 0.9rem;
-    color: #888;
+    color: #333;
+    margin: 0;
 }
+
+
+/* =========================================== */
+/* GALERIA DE FOTOS DE LIFESTYLE (LINHA ÚNICA E COMPACTA - 5 FOTOS) */
+/* =========================================== */
+
+/* Wrapper para centralizar e dar margem */
+.lifestyle-gallery-wrapper {
+    max-width: 1400px;
+    margin: 40px auto 40px auto;
+
+    /* Remove a rolagem horizontal indesejada no desktop, mas permite o layout fluir */
+    overflow-x: hidden;
+}
+
+/* O container flexível que coloca as 5 fotos lado a lado */
+.photo-lifestyle-grid {
+    display: flex;
+    padding: 0 40px;
+    gap: 8px;
+}
+
+/* O placeholder/moldura para cada foto */
+.photo-placeholder {
+    /* Força 5 colunas de largura igual: (100% da área - gap total) / 5 */
+    flex: 0 0 calc((100% - 32px) / 5);
+
+    /* Altura fixa para o retângulo das fotos (compacto) */
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+/* Garante que a imagem preenche o placeholder */
+.photo-placeholder img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =========================================== */
+/* MEDIA QUERIES (Layout adaptável) */
+/* =========================================== */
 
 @media (max-width: 1024px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    /* Layout de 3 colunas para tablets */
+    .photo-lifestyle-grid {
+        padding: 0 20px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .photo-placeholder {
+        /* 3 fotos por linha */
+        flex: 0 0 calc((100% - 16px) / 3);
+        height: 300px;
+        margin-bottom: 8px;
+    }
+
     .featured-products-section {
         flex-direction: column;
     }
+
+    /* Regras de CSS antigas removidas */
 }
+
 @media (max-width: 600px) {
     .product-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Layout de 2 colunas para mobile */
+    .photo-lifestyle-grid {
+        padding: 0 15px;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .photo-placeholder {
+        /* 2 fotos por linha */
+        flex: 0 0 calc(50% - 2.5px);
+        height: 200px;
+    }
+
+    .wear-gallery-section,
+    .wear-video-gallery-section {
+        padding: 40px 15px;
     }
 }
