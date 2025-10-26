@@ -1,10 +1,8 @@
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
-// IMPORTANTE: Mude o caminho abaixo para onde o seu InteractiveCoin3D está
 import InteractiveCoin3D from '../olimpo_shared/InteractiveCoin3D'; 
 
-// Componente auxiliar para carregar o 3D apenas no cliente
 const ClientOnly: FC<{ fallback: React.ReactNode; children: React.ReactNode }> = ({ fallback, children }) => {
     const [isClient, setIsClient] = useState(false);
     useEffect(() => {
@@ -15,18 +13,13 @@ const ClientOnly: FC<{ fallback: React.ReactNode; children: React.ReactNode }> =
 
 const CoinSection: FC = () => {
     return (
-        // Classes para aplicar os estilos de fundo e layout
-        <section className="coin-section">
+        <section className="coin-section w-full h-290">
             
-            {/* Faixa decorativa no topo - como na segunda imagem */}
             <div className="greek-pattern-divider top"></div>
 
-            {/* Fundo claro para o conteúdo */}
             <div className="coin-content-bg">
-                {/* O 'main-layout' gerenciará o Grid de duas colunas */}
                 <div className="section-content-wrapper main-layout">
                     
-                    {/* Texto - O CSS irá colocar este bloco à esquerda (Order 1) */}
                     <div className="section-text-container left-aligned-text">
                         <p className="section-paragraph">
                             Apresentamos a <strong className="gold-text-strong">OLIMPO COIN</strong>.
@@ -45,17 +38,14 @@ const CoinSection: FC = () => {
                         </p>
                     </div>
 
-                    {/* Imagem/3D e Botão - O CSS irá colocar este bloco à direita (Order 2) */}
-                    <div className="section-image-container medium-image-centered">
+                    <div className=" w-full h-290 section-image-container medium-image-centered">
                         
-                        {/* Wrapper para o 3D Coin */}
-                        <div className="coin-3d-wrapper">
-                            {/* Componente 3D Condicional (ClientOnly) */}
+                        <div className="w-full h-290 coin-3d-wrapper">
                              <ClientOnly
                                 fallback={
-                                    <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-full loading-coin-fallback">
+                                    <div className="w-full h-290 flex items-center justify-center bg-gray-200 rounded-full loading-coin-fallback">
                                         <div className="text-center">
-                                            <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-2 loading-spinner"></div>
+                                            <div className="w-full h-290 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-2 loading-spinner"></div>
                                             <p className="text-sm text-gray-700 font-medium">Carregando moeda 3D...</p>
                                         </div>
                                     </div>
@@ -63,18 +53,23 @@ const CoinSection: FC = () => {
                             >
                                 <InteractiveCoin3D 
                                     key="main-page-coin"
-                                    autoRotate={true} // Desabilitado para permitir rotação manual total
-                                    rotationSpeed={0.5}
-                                    scale={0.3} // <<< ATUALIZADO: Usando o novo scale maior
-                                    enableControls={true} // <<< ATUALIZADO: Habilita rotação e zoom manual
-                                    className="w-full h-full"
+                                    
+                                    // Props de visual para combinar com a nova imagem
+                                    scale={0.35} // Moeda menor
+                                    modelPositionY={-40} // Moeda bem baixa
+                                    rotationSpeed={0.5} // Velocidade da rotação
+                                    
+                                    className="w-300 h-290"
                                 />
                             </ClientOnly>
                             
                         </div>
 
-                        {/* Botão abaixo da moeda */}
-                        <Link to="/coins" className="secondary-button coin-button-style">
+<Link 
+                            // AQUI: Mude para a rota da sua nova página
+                            to="/olimpocoin" // Ou o caminho que você definiu no seu roteador
+                            className="secondary-button coin-button-style"
+                        >
                             VER MAIS...
                         </Link>
                     </div>

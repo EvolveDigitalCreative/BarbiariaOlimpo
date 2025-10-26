@@ -1,27 +1,28 @@
-/* Variáveis de Cores (Manter as cores de texto e dourado) */
+/* Variáveis de Cores */
 :root {
-    --color-dourado: #daa520; /* Dourado para destacar o texto */
-    --color-cordefundo: #f8f8f8; /* Cor de fundo principal se a imagem não carregar */
-    --color-defaulttext: #333333; /* Cor do texto padrão */
-    --color-button-border: #000; /* Borda do botão */
-    --color-button-hover-bg: #000; /* Cor do hover do botão */
-    --color-button-hover-text: #fff; /* Cor do texto no hover */
-    --color-marmore-text: #0d0d0d; /* Texto mais escuro para contrastar com o mármore */
+    --color-dourado: #daa520;
+    --color-cordefundo: #f8f8f8;
+    --color-defaulttext: #333333;
+    --color-button-border: #000;
+    --color-button-hover-bg: #000;
+    --color-button-hover-text: #fff;
+    --color-marmore-text: #0d0d0d;
+    overflow: visible;
 }
 
 /* Container Principal da Seção */
 .coin-section {
     padding: 0;
     background-color: transparent;
-    
+    height: 900px;
 }
 
-/* Faixa Decorativa Grega no Topo/Fundo */
+/* Faixa Decorativa Grega */
 .greek-pattern-divider {
     height: 40px; 
     overflow: hidden;
     opacity: 0.4; 
-    background-image: url('/barbershop/stylization/style1.png'); /* Verifique o caminho */
+    background-image: url('/barbershop/stylization/style1.png');
     background-repeat: repeat-x;
     background-size: auto 100%;
     background-position: center;
@@ -32,41 +33,43 @@
 }
 
 
-/* Fundo de Mármore para o Conteúdo */
+/* Fundo de Mármore */
 .coin-content-bg {
-    background-image: url('../../../public/OlimpoBarBer/texture/fundomarmore.webp'); /* Ativa o fundo de mármore */
+    background-image: url('../../../public/OlimpoBarBer/texture/fundomarmore.webp');
     background-size: cover; 
     background-position: bottom; 
     padding: 4rem 1rem; 
+    overflow: visible;
 }
 
-/* Wrapper de Conteúdo Principal (Grid/Flex) */
+/* Wrapper de Conteúdo Principal */
 .section-content-wrapper.main-layout {
     max-width: 1200px; 
     margin: 0 auto;
     display: flex;
-    flex-direction: column-reverse; /* MOBILE: Moeda em cima, Texto embaixo */
+    flex-direction: column-reverse; /* Mobile: Moeda em cima */
     gap: 2rem;
     align-items: center;
     padding: 0 1rem; 
+    overflow: visible;
 }
 
-/* Layout para Telas Maiores (Desktop) */
+/* Layout Desktop */
 @media (min-width: 1024px) {
     .section-content-wrapper.main-layout {
         display: grid;
-        grid-template-columns: 1fr 1.2fr; /* Moeda (Esquerda): 1fr, Texto (Direita): 1.2fr */
+        grid-template-columns: 1fr 1.2fr; /* Moeda (Esquerda), Texto (Direita) */
         flex-direction: row; 
+        height: 20px;
         gap: 6rem; 
         padding: 4rem 2rem; 
     }
 
-    /* ORDEM DA IMAGEM 2: Moeda (Esquerda), Texto (Direita) */
     .section-image-container {
-        order: 1; /* Moeda vai para a Esquerda */
+        order: 1; /* Moeda na Esquerda */
     }
     .section-text-container {
-        order: 2; /* Texto vai para a Direita */
+        order: 2; /* Texto na Direita */
     }
 }
 
@@ -75,6 +78,7 @@
     color: var(--color-marmore-text); 
     text-align: center; 
     padding: 0; 
+    max-height: 400px;
     max-width: 500px; 
 }
 @media (min-width: 1024px) {
@@ -103,20 +107,19 @@
 }
 
 /* Contêiner da Moeda 3D e Botão */
-/* Aumentando a altura do contêiner para posicionar a moeda mais baixo */
 .section-image-container.medium-image-centered {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centraliza verticalmente o bloco Moeda+Botão */
+    justify-content: center;
     text-align: center;
-    /* Aumenta a altura para criar mais espaço para a moeda */
-    height: 350px; 
+    max-height: 950px; 
     margin-left: 7px;
+    overflow: visible;
 }
 @media (min-width: 1024px) {
     .section-image-container.medium-image-centered {
-        height: 450px; /* Mais altura para centralização na coluna */
+        height: 450px;
     }
 }
 
@@ -125,29 +128,34 @@
 .coin-3d-wrapper {
     width: 280px; 
     height: 280px;
-    /* A moeda agora é posicionada mais abaixo no Canvas 3D (InteractiveCoin3D.tsx) 
-       usando 'camera.position.y', então removemos o margin-bottom alto daqui. */
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0.5rem;
+    
+    
+    /* AQUI: A CORREÇÃO DEFINITIVA. */
+    /* Isso permite que a moeda "vaze" para fora da caixa sem ser cortada. */
+    overflow: invisible; 
 }
 @media (min-width: 1024px) {
     .coin-3d-wrapper {
         width: 350px; 
+        overflow: visible;
         height: 350px;
     }
 }
 
-/* Estilo do Fallback (Div de carregamento) - Garantir que se encaixe bem */
+/* Estilo do Fallback (Div de carregamento) */
 .loading-coin-fallback {
     background: radial-gradient(circle, #f0e68c 0%, #daa520 100%); 
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
     color: #444;
+    overflow: visible;
 }
 .loading-spinner {
     border-color: #fff;
     border-top-color: var(--color-dourado);
 }
 
-/* Estilo do Botão "VER MAIS" (Ajustado para o estilo da Imagem 2) */
+/* Estilo do Botão "VER MAIS" */
 .secondary-button.coin-button-style {
     display: inline-flex;
     align-items: center;
@@ -161,9 +169,9 @@
     transition: all 0.3s ease;
     border-radius: 9999px; 
     text-decoration: none;
-    z-index: 10;
     font-family: inherit; 
     font-weight: 500; 
+    /* z-index não é mais necessário */
 }
 
 .secondary-button.coin-button-style:hover,
