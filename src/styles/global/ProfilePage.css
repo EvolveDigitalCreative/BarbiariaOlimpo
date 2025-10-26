@@ -1,0 +1,248 @@
+/* src/styles/pages/ProfilePage.css */
+
+.profile-page-container {
+    background-color: #f7f5f2; /* Fundo claro da página */
+    min-height: 100vh;
+    padding: 2rem;
+    font-family: var(--font-family-sans); /* Fonte padrão */
+}
+
+.profile-header {
+    margin-bottom: 2rem;
+    position: relative; /* Para posicionar a seta */
+    display: flex; /* Para alinhar logo e talvez seta */
+    align-items: center;
+}
+
+.profile-logo {
+    display: block;
+    width: 150px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+    margin-bottom: 0.5rem; /* Espaço abaixo da logo */
+}
+
+.back-arrow {
+    font-size: 2rem;
+    color: #888;
+    text-decoration: none;
+    margin-left: 1rem; /* Espaço após a logo */
+}
+
+.profile-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espaço entre as linhas de cards */
+}
+
+/* Linhas de Cards */
+.profile-top-row,
+.profile-bottom-row {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Layout Desktop para as Linhas */
+@media (min-width: 768px) {
+    .profile-top-row {
+        grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+    }
+    .profile-bottom-row {
+        grid-template-columns: repeat(3, 1fr); /* Três colunas iguais */
+    }
+}
+
+/* Estilo Base dos Cards */
+.profile-card,
+.action-card {
+    background-color: #fff;
+    border: 1px solid #000; /* Borda preta como na imagem */
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card de Perfil Específico */
+.profile-info-card {
+    align-items: flex-start; /* Alinha itens à esquerda */
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e0e0e0; /* Cor de fundo do avatar */
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border: 2px solid #ccc; /* Borda do avatar */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-text {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.user-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.edit-profile-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 100%; /* Ocupa a largura */
+}
+
+.logout-link {
+    background: none;
+    border: none;
+    color: #555;
+    text-decoration: underline;
+    font-size: 0.85rem;
+    cursor: pointer;
+    align-self: flex-start; /* Alinha à esquerda */
+    padding: 0;
+}
+.logout-link:hover {
+    color: #000;
+}
+
+/* Card Olimpo Coin Específico */
+.coin-card {
+    align-items: center; /* Centraliza conteúdo */
+    /* ✅ Fundo de mármore */
+    background-image: url('/OlimpoBarBer/texture/fundomarmore.webp');
+    background-size: cover;
+    background-position: center;
+    position: relative; /* Para o link "VER MAIS" */
+    min-height: 200px; /* Altura mínima para visualização */
+}
+
+.coin-card-title {
+    font-family: var(--font-family-serif); /* Fonte serifada */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.coin-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem; /* Espaço antes do "VER MAIS" */
+}
+
+.static-coin-image {
+    width: 80px; /* Ajuste o tamanho da imagem estática */
+    height: auto;
+}
+
+.coin-balance {
+    font-family: var(--font-family-serif); /* Fonte serifada */
+    font-size: 4rem; /* Tamanho grande para o número */
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+
+.view-more-link {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: underline;
+    position: absolute; /* Posiciona no canto inferior */
+    bottom: 1.5rem;
+    right: 1.5rem;
+}
+.view-more-link:hover {
+    color: #000;
+}
+
+
+/* Cards de Ação Inferiores */
+.action-card {
+    background-color: #f0f0f0; /* Fundo cinza claro */
+    border: 1px solid #ddd; /* Borda mais suave */
+    align-items: flex-start; /* Alinha à esquerda */
+    position: relative; /* Para o botão de seta */
+    min-height: 150px; /* Altura mínima */
+    padding-bottom: 3rem; /* Espaço para o botão */
+}
+
+.card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #000;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.arrow-button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Estados de Loading/Erro */
+.profile-loading,
+.profile-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    font-size: 1.2rem;
+    color: #555;
+}
+.profile-error {
+    color: red;
+}

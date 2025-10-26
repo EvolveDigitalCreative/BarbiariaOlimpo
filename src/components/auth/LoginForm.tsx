@@ -30,7 +30,7 @@ const LoginForm: FC = () => {
             console.log("Login bem-sucedido:", userCredential.user);
             
             // ✅ Redireciona para a dashboard (ou outra página) após o login
-            navigate('/dashboard'); // Mude '/dashboard' para a sua rota desejada
+            navigate('/'); // Mude '/dashboard' para a sua rota desejada
 
         } catch (err: any) {
             console.error("Erro no login:", err);
