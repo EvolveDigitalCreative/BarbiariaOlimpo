@@ -1,4 +1,4 @@
-// src/components/common/Header/layouts/CompactLayout.tsx
+// src/components/layouts/CompactLayout.tsx
 // Este é o layout 'Compact', usado na /skincare.
 // É uma barra única, com a logo (em texto) centralizada e ícones à direita.
 

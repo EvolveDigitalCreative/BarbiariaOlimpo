@@ -10,10 +10,10 @@ import type { IconKey } from './headerTypes';
 // ==========================================================
 // IMPORTAÇÃO DOS ÍCONES
 // ==========================================================
-import WearCoinIcon from '../../../../public/OlimpoBarBer/icons/icone de nevegacao do waer.png';
-import SkincareCoinIcon from '../../../../public/OlimpoBarBer/icons/icone de nevegcao da skincare.png';
-import BarberCoinIcon from '../../../../public/OlimpoBarBer/icons/icone_barber.png';
-import UserIcon from '../../../../public/OlimpoBarBer/icons/profile_highres.png';
+import WearCoinIcon from '../../../public/OlimpoBarBer/icons/profile_highres.png';
+import SkincareCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegcao da skincare.png';
+import BarberCoinIcon from '../../../public/OlimpoBarBer/icons/icone_barber.png';
+import UserIcon from '../../../public/OlimpoBarBer/icons/profile_highres.png';
 
 // ==========================================================
 // ESTILOS DE BASE
