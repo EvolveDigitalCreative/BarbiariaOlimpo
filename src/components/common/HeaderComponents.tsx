@@ -1,25 +1,16 @@
 // src/components/common/Header/HeaderComponents.tsx
-// Este arquivo contém todos os "blocos de montar" (componentes reutilizáveis)
-// que os diferentes layouts do header utilizam, como a Logo, 
-// o Menu de Navegação e o mapa de Ícones.
 
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import type { IconKey } from './headerTypes';
 
-// ==========================================================
-// IMPORTAÇÃO DOS ÍCONES
-// ==========================================================
-import WearCoinIcon from '../../../public/OlimpoBarBer/icons/profile_highres.png';
+// Importações dos ícones (sem mudança)
+import WearCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegacao do waer.png';
 import SkincareCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegcao da skincare.png';
-import BarberCoinIcon from '../../../public/OlimpoBarBer/icons/icone_barber.png';
+import BarberCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegacao do waer.png';
 import UserIcon from '../../../public/OlimpoBarBer/icons/profile_highres.png';
 
-// ==========================================================
-// ESTILOS DE BASE
-// ==========================================================
-
-/** Estilo base para todos os links do header */
+// Estilos de base (sem mudança)
 export const linkBaseStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
@@ -30,46 +21,38 @@ export const linkBaseStyle: React.CSSProperties = {
   fontSize: '15px',
 };
 
-/** Estilo base para as imagens dos ícones (avatar, skin, etc.) */
-export const iconImgStyle: React.CSSProperties = {
-  borderRadius: '50%',
-  objectFit: 'cover',
-};
-
 // ==========================================================
-// COMPONENTE: Logo
+// COMPONENTE: Logo (Modificado)
 // ==========================================================
 
 interface LogoProps {
   src?: string;
   text?: string;
-  size?: { width: number; height: number };
   textStyle?: React.CSSProperties;
 }
 
 /**
  * Componente Logo flexível.
- * Renderiza uma IMAGEM se 'src' e 'size' forem fornecidos.
- * Renderiza TEXTO se 'text' for fornecido.
+ * Não recebe mais 'size'. Os tamanhos virão do CSS via classes.
  */
-export const Logo: FC<LogoProps> = ({ src, text, size, textStyle }) => (
+export const Logo: FC<LogoProps> = ({ src, text, textStyle }) => (
   <Link
     to="/"
+    // Adiciona a classe que o seu CSS espera
+    className="logo-wrapper" 
     style={{ textDecoration: 'none', textAlign: 'center', color: 'inherit' }}
   >
-    {src && size ? (
-      // Renderiza como Imagem
+    {src ? (
       <img
         src={src}
         alt="Olimpo Logo"
-        style={{
-          width: `${size.width}px`,
-          height: `${size.height}px`,
-          objectFit: 'contain',
-        }}
+        // Adiciona a classe que o seu CSS espera
+        className="logo-img"
+        style={{ objectFit: 'contain' }} // Mantém o objectFit
       />
     ) : (
-      // Renderiza como Texto
+      // O Logo em texto não parecia ter classes no seu CSS,
+      // então mantemos o estilo inline por enquanto.
       <span
         style={{
           fontFamily: 'serif',
@@ -87,59 +70,61 @@ export const Logo: FC<LogoProps> = ({ src, text, size, textStyle }) => (
 );
 
 // ==========================================================
-// COMPONENTE: NavMenu (Específico do /wear)
+// COMPONENTE: NavMenu (Modificado)
 // ==========================================================
 
-/** O menu de navegação "CATÁLOGO, OLIMPO COIN..." da página Wear */
+/**
+ * O menu de navegação "CATÁLOGO, OLIMPO COIN..." da página Wear.
+ * Adicionamos a classe 'nav-menu'
+ */
 export const NavMenu: FC = () => (
-  <nav style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
-    <Link to="/wear/catalogo" style={{ ...linkBaseStyle, fontSize: '14px', fontWeight: 700, letterSpacing: '0.5px' }}>
+  <nav className="nav-menu" style={{ display: 'flex', alignItems: 'center' }}>
+    {/* Aplicamos a classe 'nav-link' do seu CSS */}
+    <Link to="/wear/catalogo" className="nav-link">
       CATÁLOGO
     </Link>
-    <Link to="/wear/coin" style={{ ...linkBaseStyle, fontSize: '14px', fontWeight: 700, letterSpacing: '0.5px' }}>
+    <Link to="/wear/coin" className="nav-link">
       OLIMPO COIN
     </Link>
-    <Link to="/wear/carrinho" style={{ ...linkBaseStyle, fontSize: '14px', fontWeight: 700, letterSpacing: '0.5px' }}>
+    <Link to="/wear/carrinho" className="nav-link">
       CARRINHO
     </Link>
-    <Link to="/wear/pesquisa" style={{ ...linkBaseStyle, fontSize: '14px', fontWeight: 700, letterSpacing: '0.5px' }}>
+    <Link to="/wear/pesquisa" className="nav-link">
       PESQUISA
     </Link>
   </nav>
 );
 
 // ==========================================================
-// MAPA DE ÍCONES
+// MAPA DE ÍCONES (Modificado)
 // ==========================================================
 
 /**
- * Um "mapa" que gera o JSX para cada ícone (Skin, Wear, Barber, User)
- * com base nos tamanhos fornecidos.
+ * O mapa de ícones agora não precisa mais de 'sizes'.
+ * Ele aplica as classes do seu CSS diretamente.
  */
-export const iconLinksMap: (
-  sizes: Record<IconKey, number>,
-) => Record<IconKey, React.ReactNode> = (sizes) => ({
+export const iconLinksMap: () => Record<IconKey, React.ReactNode> = () => ({
   skincare: (
-    <Link to="/skincare" style={{...linkBaseStyle, fontWeight: 700}}>
-      <img src={SkincareCoinIcon} alt="Olimpo Skin" style={{ ...iconImgStyle, width: `${sizes.skincare}px`, height: `${sizes.skincare}px` }} />
-      <span>OLIMPO SKIN</span>
+    <Link to="/skincare" className="header-icon-link icon-domain-skincare" style={linkBaseStyle}>
+      <img src={SkincareCoinIcon} alt="Olimpo Skin" className="icon-img icon-skincare" />
+      <span className="icon-label">OLIMPO SKIN</span>
     </Link>
   ),
   wear: (
-    <Link to="/wear" style={{...linkBaseStyle, fontWeight: 700}}>
-      <img src={WearCoinIcon} alt="Olimpo Wear" style={{ ...iconImgStyle, width: `${sizes.wear}px`, height: `${sizes.wear}px` }} />
-      <span>OLIMPO WEAR</span>
+    <Link to="/wear" className="header-icon-link icon-domain-wear" style={linkBaseStyle}>
+      <img src={WearCoinIcon} alt="Olimpo Wear" className="icon-img icon-wear" />
+      <span className="icon-label">OLIMPO WEAR</span>
     </Link>
   ),
   barber: (
-    <Link to="/barber" style={{...linkBaseStyle, fontWeight: 700}}>
-      <img src={BarberCoinIcon} alt="Olimpo Barber" style={{ ...iconImgStyle, width: `${sizes.barber}px`, height: `${sizes.barber}px` }} />
-      <span>OLIMPO BARBER</span>
+    <Link to="/barber" className="header-icon-link icon-domain-barber" style={linkBaseStyle}>
+      <img src={BarberCoinIcon} alt="Olimpo Barber" className="icon-img icon-barber" />
+      <span className="icon-label">OLIMPO BARBER</span>
     </Link>
   ),
   user: (
-    <Link to="/login" style={{ ...linkBaseStyle, gap: 0 }}>
-      <img src={UserIcon} alt="Perfil" style={{ ...iconImgStyle, width: `${sizes.user}px`, height: `${sizes.user}px` }} />
+    <Link to="/login" className="header-icon-link icon-user-profile" style={{...linkBaseStyle, gap: 0}}>
+      <img src={UserIcon} alt="Perfil" className="icon-img icon-user" />
     </Link>
   ),
 });

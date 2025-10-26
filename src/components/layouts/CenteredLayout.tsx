@@ -1,8 +1,4 @@
 // src/components/common/Header/layouts/CenteredLayout.tsx
-// Este é o layout 'Centered', usado na /wear.
-// Possui a barra dupla (dourada + preta) e o layout de 3 colunas.
-// Se precisar ajustar o header da WEAR, mexa SÓ AQUI.
-
 import type { FC } from 'react';
 import type { HeaderPreset } from '../common/headerTypes';
 import { Logo, NavMenu } from '../common/HeaderComponents';
@@ -27,10 +23,7 @@ const CenteredLayout: FC<LayoutProps> = ({ preset, renderIcons }) => {
           alignItems: 'center',
         }}
       >
-        <Logo
-          src={preset.logoSrc}
-          size={preset.logoSize!}
-        />
+        <Logo src={preset.logoSrc} />
       </div>
 
       {/* Barra Preta (com 3 colunas) */}
@@ -66,7 +59,7 @@ const CenteredLayout: FC<LayoutProps> = ({ preset, renderIcons }) => {
         </div>
 
         {/* Direita: Ícones */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+        <div className="header-icons header-icons-full" style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
           {renderIcons()}
         </div>
       </div>
