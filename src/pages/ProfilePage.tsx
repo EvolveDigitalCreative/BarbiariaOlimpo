@@ -1,4 +1,4 @@
-// src/pages/ProfilePage.tsx
+// src/pages/ProfilePage.tsx - COMPLETO
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../services/firebaseConfig';
 import { signOut } from 'firebase/auth';
 
-// ✅ IMPORTAÇÃO DO COMPONENTE 3D
+// Importa o componente 3D (Ajuste o caminho se necessário)
 import InteractiveCoin3D from '../components/sections/olimpo_shared/InteractiveCoin3D';
 
 // Importe o novo CSS
@@ -69,7 +69,6 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-    // Função para pegar as iniciais do nome
     const getInitials = (name: string): string => {
         if (!name) return '?';
         const nameParts = name.split(' ');
@@ -94,21 +93,24 @@ const ProfilePage: React.FC = () => {
     return (
         <div className="profile-page-container">
             <header className="profile-header">
-                {/* Logo Olimpo */}
-                <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo" className="profile-logo" />
-                {/* Botão Voltar */}
-                <Link to="/" className="back-arrow" aria-label="Voltar">←</Link>
+                {/* ✅ GOAL 1: Logo e Seta Agrupados para alinhamento vertical */}
+                <div className="profile-header-group">
+                    <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo" className="profile-logo" />
+                    <Link to="/" className="back-arrow" aria-label="Voltar">←</Link>
+                </div>
             </header>
 
             <main className="profile-main-content">
-                {/* Linha Superior */}
                 <div className="profile-top-row">
                     {/* Card de Perfil */}
                     <div className="profile-card profile-info-card">
-                        <div className="profile-avatar">{userInitials}</div>
-                        <div className="user-info">
-                            <span className="welcome-text">BEM-VINDO</span>
-                            <span className="user-name">{displayName}</span>
+                        {/* ✅ GOAL 2: Avatar e Info Agrupados para alinhamento lateral */}
+                        <div className="avatar-info-group">
+                            <div className="profile-avatar">{userInitials}</div>
+                            <div className="user-info">
+                                <span className="welcome-text">BEM-VINDO</span>
+                                <span className="user-name">{displayName}</span>
+                            </div>
                         </div>
                         <button className="edit-profile-button">Edita o teu perfil</button>
                         <button onClick={handleLogout} className="logout-link">
@@ -120,13 +122,12 @@ const ProfilePage: React.FC = () => {
                     <div className="profile-card coin-card">
                         <h3 className="coin-card-title">Olimpo Coin</h3>
                         <div className="coin-display">
-                            {/* ✅ SUBSTITUÍDO: Agora é o componente 3D estático */}
                             <div className="coin-3d-wrapper-small">
                                 <InteractiveCoin3D 
-                                    autoRotate={false}     // Não gira
-                                    enableControls={false}  // Sem interação
-                                    scale={0.3}             // Ajuste o tamanho
-                                    modelPositionY={-4}    // Posição vertical
+                                    autoRotate={false}
+                                    enableControls={false}
+                                    scale={0.30}
+                                    modelPositionY={-4}
                                 />
                             </div>
                             <span className="coin-balance">{coinBalance}</span>
@@ -137,6 +138,7 @@ const ProfilePage: React.FC = () => {
 
                 {/* Linha Inferior */}
                 <div className="profile-bottom-row">
+                    {/* Os Cards de Ação não precisam de mudança estrutural, só CSS */}
                     {/* Card Favoritos */}
                     <div className="action-card">
                         <div className="card-icon"><HeartIcon /></div>
