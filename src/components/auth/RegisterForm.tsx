@@ -1,13 +1,14 @@
 // src/components/auth/RegisterForm.tsx
 
+import React, { useState } from 'react'; // ✅ CORRIGIDO: useState precisa ser importado aqui!
 import type { FC } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importa a função de registo
-import { doc, setDoc } from 'firebase/firestore'; // Importa funções do Firestore
-import { auth, db } from '../../services/firebaseConfig'; // ✅ Ajuste o caminho
+import { useNavigate } from 'react-router-dom'; // ✅ CORRIGIDO: useNavigate também precisa ser importado
+import { createUserWithEmailAndPassword } from 'firebase/auth'; 
+import { doc, setDoc } from 'firebase/firestore'; 
+import { auth, db } from '../../services/firebaseConfig'; // Ajuste o caminho
 
 const RegisterForm: FC = () => {
-    // Estados para os inputs
+    // Hooks para visibilidade das senhas
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -32,7 +33,7 @@ const RegisterForm: FC = () => {
         if (password !== confirmPassword) {
             setError("As palavras-passe não coincidem.");
             setLoading(false);
-            return; // Interrompe a função se as senhas não baterem
+            return;
         }
         if (password.length < 6) {
             setError("A palavra-passe deve ter pelo menos 6 caracteres.");
@@ -45,33 +46,25 @@ const RegisterForm: FC = () => {
             // --- 1. Cria o utilizador no Firebase Auth ---
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            console.log("Utilizador criado no Auth:", user);
 
             // --- 2. Salva dados adicionais no Firestore ---
-            // Cria uma referência para o documento do novo utilizador na coleção 'users'
-            // O ID do documento será o UID do utilizador do Firebase Auth
             const userDocRef = doc(db, "users", user.uid); 
 
-            // Define os dados a serem salvos
             await setDoc(userDocRef, {
-                uid: user.uid, // Opcional, mas útil ter no documento
+                uid: user.uid, 
                 name: name,
                 email: email,
                 phone: phone,
-                role: 'client', // ✅ Defina uma role padrão (ex: 'client', 'pending', 'customer')
-                createdAt: new Date() // Opcional: guardar data de criação
+                role: 'client', 
+                createdAt: new Date() 
             });
-            console.log("Dados do utilizador salvos no Firestore");
 
             // --- 3. Redireciona ---
-            // Pode redirecionar para a dashboard ou para a página de login
-            // pedindo para ele fazer login pela primeira vez.
-            navigate('/'); // Ou navigate('/login');
+            navigate('/dashboard'); 
 
         } catch (err: any) {
             console.error("Erro no registo:", err);
 
-            // Mapeia erros comuns do Firebase
             let errorMessage = "Ocorreu um erro ao tentar criar a conta. Tente novamente.";
             if (err.code === 'auth/email-already-in-use') {
                 errorMessage = "Este e-mail já está registado.";
@@ -128,7 +121,7 @@ const RegisterForm: FC = () => {
             {/* Campo: Palavra-passe */}
             <div className="password-input-wrapper">
                 <input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     placeholder="Palavra-passe" 
                     className="auth-input"
                     required
@@ -149,7 +142,8 @@ const RegisterForm: FC = () => {
             {/* Campo: Confirmar Palavra-passe */}
             <div className="password-input-wrapper">
                 <input 
-                    type="password" 
+                    // ✅ AQUI o 'showConfirmPassword' está sendo usado para controlar o type
+                    type={showConfirmPassword ? "text" : "password"} 
                     placeholder="Confirmar palavra-passe" 
                     className="auth-input"
                     required
@@ -157,11 +151,15 @@ const RegisterForm: FC = () => {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                 {/* Placeholder para o Ícone */}
-                <div className="password-toggle-icon">
-                    {/* Use aqui o seu elemento de ícone (ex: <img> ou SVG inlinado) */}
-                    <span>{/* Ícone */}</span>
-                </div>
+                 <span 
+                    // ✅ AQUI o 'setShowConfirmPassword' está sendo usado no onClick
+                    className="password-toggle-icon" 
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    role="button" tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setShowConfirmPassword(!showConfirmPassword)}
+                >
+                    👁️
+                </span>
             </div>
 
             {/* Mostra a mensagem de erro */}
@@ -175,10 +173,9 @@ const RegisterForm: FC = () => {
             >
                 {loading ? 'A criar...' : 'Criar conta'} 
             </button>
+            
         </form>
     );
 };
-
-// Lembre-se de ter o estilo .auth-error-message no seu CSS
 
 export { RegisterForm };
