@@ -5,7 +5,7 @@ import type { FC } from 'react';
 const WearDressLikeGods: FC = () => {
   // ⚠️ ATENÇÃO: Substitua pelos caminhos reais das suas duas imagens
   const img1Src = '/OlimpoWear/foto/OLIMPO foto t-shirts 15.JPG'; // Modelo com T-shirt preta
-  const img2Src = '/OlimpoWear/foto/OLIMPO_foto _t-shirts 18.JPG'; // Modelo com T-shirt branca (ou Mirror)
+  const img2Src = '/OlimpoWear/foto/OLIMPO_foto_t-shirts_18.webp'; // Modelo com T-shirt branca (ou Mirror)
 
   return (
     <section className="wear-dresslikegods-section">
