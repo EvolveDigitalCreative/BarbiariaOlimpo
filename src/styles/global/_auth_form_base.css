@@ -55,8 +55,9 @@
 
 /* Logo "OLIMPO" (agora fora do card) */
 .logo-container {
-    margin-bottom: 2rem; /* Espaço ABAIXO da logo */
-    width: 200px;
+    margin-bottom: -3.1rem; /* Espaço ABAIXO da logo */
+    width: 300px;
+    weight: 400px;
 }
 
 .logo-container img {
