@@ -59,25 +59,6 @@ const RegisterForm: FC = () => {
                 </span>
             </div>
 
-            {/* ✅ Campo: Confirmar Palavra-passe (Mantido por segurança) */}
-            <div className="password-input-wrapper">
-                <input 
-                    type={showConfirmPassword ? "text" : "password"} 
-                    placeholder="Confirmar palavra-passe" 
-                    className="auth-input"
-                    required
-                    autoComplete="new-password" 
-                />
-                 <span 
-                    className="password-toggle-icon" 
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    role="button" tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && setShowConfirmPassword(!showConfirmPassword)}
-                >
-                    👁️
-                </span>
-            </div>
-
             {/* Botão de Criar Conta */}
             <button type="submit" className="auth-submit-button">
                 Criar conta 
