@@ -1,0 +1,172 @@
+/* ==========================================================
+// 0. VARIÁVEIS 
+// ========================================================== */
+
+:root {
+    --color-skincare-accent: #ccb47c; /* Ouro */
+    --color-skincare-text-dark: #222;
+    --color-text-light: #555;
+    --color-background-light: #fefefe; 
+    --font-family-serif: 'Playfair Display', serif; 
+}
+
+
+/* ==========================================================
+// A. ESTRUTURA GERAL DA SECÇÃO (Mobile Base)
+// ========================================================== */
+
+.content-section {
+    padding: 60px 24px; /* Padding Mobile */
+}
+.light-background {
+    background-color: var(--color-background-light);
+}
+
+.section-content-wrapper {
+    position: relative; 
+    display: flex;
+    flex-direction: column; /* Mobile: Empilha */
+    gap: 40px; 
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+
+/* ==========================================================
+// B. ESTILOS DO TEXTO
+// ========================================================== */
+
+.section-text-container {
+    max-width: 500px;
+    padding-left: 0;
+}
+
+.gold-text-strong {
+    color: var(--color-skincare-accent);
+    font-size: 0.875rem; 
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-family: var(--font-family-serif);
+    font-size: 2rem; 
+    font-weight: 700;
+    color: var(--color-skincare-text-dark);
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.section-paragraph {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.barbershop-note {
+    border-left: 2px solid var(--color-skincare-accent);
+    padding-left: 16px;
+    margin-bottom: 32px;
+}
+
+.barbershop-note-title {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    margin-bottom: 4px; 
+}
+
+.barber-coin-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.skincare-main-button {
+    display: inline-block;
+    background-color: var(--color-skincare-text-dark);
+    color: #fff;
+    padding: 14px 48px;
+    border-radius: 2px;
+    font-size: 1rem; 
+    font-family: var(--font-family-serif);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+.skincare-main-button:hover {
+    background-color: #444;
+}
+
+
+/* ==========================================================
+// C. ESTILOS DA IMAGEM E REMOÇÃO DO PILAR
+// ========================================================== */
+
+.section-image-container {
+    width: 100%;
+    max-width: 450px; 
+    position: relative;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    z-index: 20;
+    position: relative; 
+}
+
+.image-rounded {
+    border-radius: 8px; 
+}
+
+/* O PILAR DECORATIVO E O SPACER SÃO REMOVIDOS/DESATIVADOS */
+.decorative-column-image,
+.section-column-spacer {
+    display: none; 
+}
+
+
+/* ==========================================================
+// D. RESPONSIVIDADE (DESKTOP / min-width: 1024px)
+// ========================================================== */
+
+@media (min-width: 1024px) {
+    .content-section {
+        padding: 100px 32px; 
+    }
+
+    .section-content-wrapper {
+        flex-direction: row; 
+        /* Centraliza os dois elementos restantes no contentor */
+        justify-content: center; 
+        align-items: flex-start;
+        gap: 80px; 
+    }
+    
+    .section-image-container {
+        /* 45% da largura total */
+        width: 45%; 
+        flex-shrink: 0; 
+        max-width: 450px; 
+    }
+
+    .section-text-container {
+        /* 55% da largura total */
+        width: 55%; 
+        flex-grow: 1; 
+        flex-shrink: 0; 
+        max-width: 600px; 
+        padding-top: 10px; 
+    }
+    
+    .section-title {
+        font-size: 3rem; 
+    }
+}
