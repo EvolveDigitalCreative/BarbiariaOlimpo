@@ -1,0 +1,242 @@
+/* src/styles/OlimpoCoinPage.css */
+
+.olimpo-coin-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa a altura inteira da tela */
+    background-color: #f8f8f8; /* Cor de fundo base */
+}
+
+/* Área da Moeda 3D */
+.coin-display-area {
+    /* Ocupa a maior parte da tela (80% da altura da janela) */
+    height: 75vh; 
+    width: 100%;
+    background-image: url('../../public/OlimpoBarBer/texture/fundomarmore.webp'); /* Fundo marmore */
+    background-size: cover;
+    background-position: center;
+    position: relative; /* Para o fallback */
+
+    /* IMPORTANTE: Garante que a moeda não seja cortada */
+    overflow: visible; 
+}
+
+.coin-fallback-fullscreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    color: #555;
+}
+
+/* Área das Abas de Informação */
+.coin-info-area {
+    /* Ocupa o espaço restante */
+    flex-grow: 1; 
+    background-color: #ffffff; /* Fundo branco para as abas */
+    padding-top: 2rem; /* Espaço acima das abas */
+    padding-bottom: 4rem; /* Espaço abaixo do conteúdo */
+}
+
+/* --- Estilos Básicos para CoinInfoTabs.tsx --- */
+/* (Adapte ou use seu sistema de estilos/Tailwind) */
+
+.coin-info-tabs-container {
+    /* Estilos gerais do container das abas */
+}
+
+.tabs-header-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem; /* Espaço entre header e conteúdo */
+}
+
+.tabs-header {
+    display: inline-flex;
+    align-items: flex-end; /* Alinha na base */
+    gap: 1.5rem; /* Espaço entre botões */
+    border-bottom: 1px solid #e0e0e0; /* Linha divisória */
+    padding-bottom: 0.75rem; /* Espaço do texto para a linha */
+}
+
+@media (min-width: 1024px) {
+    .tabs-header {
+        gap: 4rem; /* Mais espaço em telas grandes */
+    }
+}
+
+
+.tab-button {
+    padding: 0;
+    font-family: 'Georgia', serif; /* Fonte do exemplo */
+    font-weight: bold;
+    font-size: 0.875rem; /* text-sm */
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 0.75rem; /* Mesmo padding da div pai */
+    transition: color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    .tab-button {
+        font-size: 1.125rem; /* text-lg */
+    }
+}
+
+
+.tab-button span {
+     position: relative;
+     display: inline-block;
+}
+
+/* Linha ativa embaixo do botão */
+.tab-button span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -13px; /* Posição relativa ao padding-bottom do botão + borda */
+    height: 2px;
+    background-color: black;
+    transition: width 0.2s ease, opacity 0.2s ease;
+    width: 0;
+    opacity: 0;
+}
+
+.tab-button.active span::after {
+    width: 100%;
+    opacity: 1;
+}
+
+.tab-button:hover {
+    color: #000;
+}
+
+
+.tab-content-wrapper {
+    padding: 1rem 0; /* Espaçamento vertical do conteúdo */
+}
+
+.tab-content {
+    max-width: 7xl; /* Igual ao max-w-7xl */
+    margin: 0 auto;
+    padding: 0 1rem; /* px-4 */
+}
+
+@media (min-width: 1024px) {
+    .tab-content {
+        padding: 0 6rem; /* lg:px-24 */
+    }
+}
+
+
+.tab-pane {
+    /* Estilos para o conteúdo de cada aba */
+    color: #333; /* Texto padrão */
+}
+
+.tab-pane h2 {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-size: 1.25rem; /* text-xl */
+    margin-bottom: 1rem;
+    color: black;
+}
+@media (min-width: 1024px) {
+    .tab-pane h2 {
+        font-size: 2.25rem; /* lg:text-4xl */
+        margin-bottom: 2rem;
+    }
+}
+
+
+.tab-pane p {
+     font-family: 'Arial Unicode MS', Arial, sans-serif; /* Fonte do exemplo */
+     font-size: 0.875rem; /* text-sm */
+     margin-bottom: 2rem;
+     line-height: 1.6;
+}
+@media (min-width: 1024px) {
+     /* .tab-pane p { font-size: 1rem; } */ /* Ajuste se necessário */
+}
+
+.tab-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+@media (min-width: 640px) {
+    .tab-buttons {
+        grid-template-columns: 1fr 1fr; /* sm:grid-cols-2 */
+    }
+}
+
+
+.tab-action-button {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    border-radius: 0.125rem; /* rounded-sm */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem; /* h-12 */
+    width: 100%;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tab-action-button:hover {
+    background-color: #333;
+}
+
+
+.coin-balance-display {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.coin-balance-display span {
+    position: relative;
+    display: inline-block;
+    font-family: 'Georgia', serif;
+    font-size: 6.75rem; /* text-[108px] */
+    color: black;
+    line-height: 1;
+}
+
+/* Linha embaixo do saldo */
+.coin-balance-display span::after {
+     content: '';
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     bottom: -1rem; /* -bottom-4 */
+     height: 2px;
+     background-color: rgba(0, 0, 0, 0.1); /* bg-black/20 */
+     width: calc(100% + 100px); /* w-[calc(100%+100px)] */
+}
+@media (min-width: 1024px) {
+    .coin-balance-display span::after {
+        width: calc(100% + 200px); /* lg:w-[calc(100%+200px)] */
+    }
+}
+
+
+.benefits-list {
+    space-y: 0.5rem; /* space-y-2 */
+}
+.benefits-list p {
+    font-family: 'Arial Unicode MS', Arial, sans-serif;
+    font-size: 0.875rem; /* text-sm */
+    margin-bottom: 0; /* Remover margin padrão do p */
+}
+.benefit-highlight {
+     font-family: 'Georgia', serif;
+     font-weight: bold;
+}
