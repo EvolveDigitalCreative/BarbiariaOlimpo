@@ -1,9 +1,9 @@
-import { initializeApp, FirebaseOptions } from "firebase/app";
+import { initializeApp, type FirebaseOptions } from 'firebase/app';
 import { getFirestore, Firestore } from "firebase/firestore";
-import { getStorage, FirebaseStorage } from "firebase/storage";
-import { getAuth, Auth } from "firebase/auth";
-import { getFunctions, Functions } from "firebase/functions";
-import { getAnalytics, Analytics } from "firebase/analytics";
+import { getStorage, type FirebaseStorage } from 'firebase/storage';
+import { getAuth, type Auth } from 'firebase/auth';
+import { getFunctions, type Functions } from 'firebase/functions';
+import { getAnalytics, type Analytics } from 'firebase/analytics';
 
 // Definição da interface para garantir que a configuração tem o tipo correto
 const firebaseConfig: FirebaseOptions = {
