@@ -67,7 +67,7 @@ const RegisterForm: FC = () => {
             // --- 3. Redireciona ---
             // Pode redirecionar para a dashboard ou para a página de login
             // pedindo para ele fazer login pela primeira vez.
-            navigate('/dashboard'); // Ou navigate('/login');
+            navigate('/'); // Ou navigate('/login');
 
         } catch (err: any) {
             console.error("Erro no registo:", err);
