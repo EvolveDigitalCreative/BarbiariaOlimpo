@@ -7,7 +7,7 @@ import type { IconKey } from './headerTypes';
 // Importações dos ícones (sem mudança)
 import WearCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegacao do waer.png';
 import SkincareCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegcao da skincare.png';
-import BarberCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegacao do waer.png';
+import BarberCoinIcon from '../../../public/OlimpoBarBer/icons/icone de nevegacao do waer - Copia.png';
 import UserIcon from '../../../public/OlimpoBarBer/icons/profile_highres.png';
 
 // Estilos de base (sem mudança)
@@ -117,7 +117,7 @@ export const iconLinksMap: () => Record<IconKey, React.ReactNode> = () => ({
     </Link>
   ),
   barber: (
-    <Link to="/barber" className="header-icon-link icon-domain-barber" style={linkBaseStyle}>
+    <Link to="/" className="header-icon-link icon-domain-barber" style={linkBaseStyle}>
       <img src={BarberCoinIcon} alt="Olimpo Barber" className="icon-img icon-barber" />
       <span className="icon-label">OLIMPO BARBER</span>
     </Link>
