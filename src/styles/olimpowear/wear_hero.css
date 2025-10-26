@@ -13,8 +13,9 @@
     background-position: center;
     background-repeat: no-repeat;
     
-    /* Altura Mínima (Altura da foto) */
-    min-height: 50vh; 
+    /* CORREÇÃO: Usar 70vh ou 100vh se for para ser full screen, mas 70vh é um bom compromisso */
+    height: 70vh; 
+    min-height: 400px; /* Garante uma altura mínima em monitores pequenos */
     
     /* Configuração Flex para centralizar o conteúdo vertical e horizontalmente */
     display: flex;
@@ -22,7 +23,8 @@
     justify-content: center;
     
     position: relative;
-    padding: 60px 0; 
+    padding: 0; /* Remove o padding que pode interferir com a altura */
+    overflow: hidden;
 }
 
 /* Overlay Escuro (Recomendado para o texto branco sobressair) */
@@ -49,15 +51,15 @@
 
 /* Estilo do Título (Olimpo Wear) */
 .wear-hero-section .hero-title {
-    font-family: 'Times New Roman', Times, serif; /* Ajuste esta fonte se for diferente */
+    font-family: 'Times New Roman', Times, serif; /* Mantido conforme o seu código */
     font-size: 5rem;
-    font-weight: 300;
+    font-weight: 700; /* Aumentei para 700 para melhor visibilidade e destaque */
     margin: 0;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
     text-transform: uppercase;
 }
 
-/* Oculta os elementos que foram removidos do HTML */
+/* Oculta os elementos que foram removidos do HTML (Boas práticas) */
 .wear-hero-section .hero-subtitle, 
 .wear-hero-section .primary-button {
     display: none; 
@@ -66,7 +68,8 @@
 /* Media Query para Mobile */
 @media (max-width: 768px) {
     .wear-hero-section {
-        min-height: 60vh;
+        height: 50vh; /* Altura reduzida no mobile */
+        min-height: 300px;
     }
     .wear-hero-section .hero-title {
         font-size: 3rem;

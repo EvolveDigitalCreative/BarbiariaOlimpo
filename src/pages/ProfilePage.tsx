@@ -1,20 +1,23 @@
-// src/pages/ProfilePage.tsx
+// src/pages/ProfilePage.tsx - COMPLETO
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/auth/AuthContext'; // Ajuste o caminho se necessário
+import { useAuth } from '../components/auth/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
-import { db, auth } from '../services/firebaseConfig'; // Ajuste o caminho se necessário
+import { db, auth } from '../services/firebaseConfig';
 import { signOut } from 'firebase/auth';
+
+// Importa o componente 3D (Ajuste o caminho se necessário)
+import InteractiveCoin3D from '../components/sections/olimpo_shared/InteractiveCoin3D';
 
 // Importe o novo CSS
 import '../styles/global/ProfilePage.css';
 
 // Ícones (você pode usar SVGs ou uma biblioteca como react-icons)
-const HeartIcon = () => <span>❤️</span>; // Placeholder
-const InfoIcon = () => <span>➕</span>; // Placeholder
-const DiscountIcon = () => <span>⚙️</span>; // Placeholder
-const ArrowRightIcon = () => <span>➔</span>; // Placeholder
+const HeartIcon = () => <span>❤️</span>;
+const InfoIcon = () => <span>➕</span>;
+const DiscountIcon = () => <span>⚙️</span>;
+const ArrowRightIcon = () => <span>➔</span>;
 
 const ProfilePage: React.FC = () => {
     const { currentUser } = useAuth();
@@ -25,7 +28,6 @@ const ProfilePage: React.FC = () => {
 
     useEffect(() => {
         if (!currentUser) {
-            // Se não estiver logado, redireciona para login (ProtectedRoute já deve fazer isso, mas é uma segurança extra)
             navigate('/login');
             return;
         }
@@ -39,12 +41,11 @@ const ProfilePage: React.FC = () => {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     setUserData({
-                        name: data.name || 'Utilizador', // Pega o nome, default 'Utilizador'
-                        olimpoCoins: data.olimpoCoins || 0 // Pega as moedas, default 0
+                        name: data.name || 'Utilizador',
+                        olimpoCoins: data.olimpoCoins || 0
                     });
                 } else {
                     setError("Dados do perfil não encontrados.");
-                    // Define dados padrão para exibição mínima
                     setUserData({ name: 'Utilizador', olimpoCoins: 0 });
                 }
             } catch (err) {
@@ -68,7 +69,6 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-    // Função para pegar as iniciais do nome
     const getInitials = (name: string): string => {
         if (!name) return '?';
         const nameParts = name.split(' ');
@@ -79,14 +79,13 @@ const ProfilePage: React.FC = () => {
     };
 
     if (loading) {
-        return <div className="profile-loading">A carregar perfil...</div>; // Ou um spinner
+        return <div className="profile-loading">A carregar perfil...</div>;
     }
 
     if (error) {
-         return <div className="profile-error">Erro: {error}</div>;
+        return <div className="profile-error">Erro: {error}</div>;
     }
 
-    // Garante que userData não é null aqui (embora já tenhamos defaults)
     const displayName = userData?.name ?? 'Utilizador';
     const coinBalance = userData?.olimpoCoins ?? 0;
     const userInitials = getInitials(displayName);
@@ -94,21 +93,24 @@ const ProfilePage: React.FC = () => {
     return (
         <div className="profile-page-container">
             <header className="profile-header">
-                {/* Logo Olimpo */}
-                <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo" className="profile-logo" />
-                {/* Botão Voltar */}
-                <Link to="/" className="back-arrow" aria-label="Voltar">←</Link>
+                {/* ✅ GOAL 1: Logo e Seta Agrupados para alinhamento vertical */}
+                <div className="profile-header-group">
+                    <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo" className="profile-logo" />
+                    <Link to="/" className="back-arrow" aria-label="Voltar">←</Link>
+                </div>
             </header>
 
             <main className="profile-main-content">
-                {/* Linha Superior */}
                 <div className="profile-top-row">
                     {/* Card de Perfil */}
                     <div className="profile-card profile-info-card">
-                        <div className="profile-avatar">{userInitials}</div>
-                        <div className="user-info">
-                            <span className="welcome-text">BEM-VINDO</span>
-                            <span className="user-name">{displayName}</span>
+                        {/* ✅ GOAL 2: Avatar e Info Agrupados para alinhamento lateral */}
+                        <div className="avatar-info-group">
+                            <div className="profile-avatar">{userInitials}</div>
+                            <div className="user-info">
+                                <span className="welcome-text">BEM-VINDO</span>
+                                <span className="user-name">{displayName}</span>
+                            </div>
                         </div>
                         <button className="edit-profile-button">Edita o teu perfil</button>
                         <button onClick={handleLogout} className="logout-link">
@@ -120,17 +122,23 @@ const ProfilePage: React.FC = () => {
                     <div className="profile-card coin-card">
                         <h3 className="coin-card-title">Olimpo Coin</h3>
                         <div className="coin-display">
-                            {/* ✅ Use a imagem ESTÁTICA da moeda aqui */}
-                            <img src="/OlimpoBarBer/texture/coin.png" alt="Olimpo Coin" className="static-coin-image" />
+                            <div className="coin-3d-wrapper-small">
+                                <InteractiveCoin3D 
+                                    autoRotate={false}
+                                    enableControls={false}
+                                    scale={0.30}
+                                    modelPositionY={-4}
+                                />
+                            </div>
                             <span className="coin-balance">{coinBalance}</span>
                         </div>
-                        {/* ✅ Link para a página /olimpocoin */}
                         <Link to="/olimpocoin" className="view-more-link">VER MAIS...</Link>
                     </div>
                 </div>
 
                 {/* Linha Inferior */}
                 <div className="profile-bottom-row">
+                    {/* Os Cards de Ação não precisam de mudança estrutural, só CSS */}
                     {/* Card Favoritos */}
                     <div className="action-card">
                         <div className="card-icon"><HeartIcon /></div>
