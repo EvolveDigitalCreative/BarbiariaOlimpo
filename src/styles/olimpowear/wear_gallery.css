@@ -1,18 +1,22 @@
 /* src/styles/olimpowear/wear_gallery.css */
 
-/* VARIÁVEIS */
+/* VARIÁVEIS (Apenas se não estiverem definidas globalmente) */
 :root {
     --color-wear-text: #333;
     --color-wear-light-bg: #f5f5f5;
+    /* Cor de fundo dos cards e da seção Mission */
     --color-gold: #b8860b;
+    --color-white: #ffffff;
+    --color-black: #000000;
 }
 
 /* ======================================================= */
 /* 1. SEÇÃO PRINCIPAL E TÍTULOS DE CATEGORIA */
 /* ======================================================= */
 
+/* Aplica-se à galeria original e à nova galeria (WearNewProducts) */
 .wear-gallery-section,
-.wear-new-products-section { /* Aplica-se a ambas as galerias */
+.wear-new-products-section {
     max-width: 1400px;
     margin: 60px auto;
     padding: 0 20px;
@@ -23,20 +27,23 @@
 }
 
 .category-title {
+    font-family: 'Times New Roman', Times, serif;
+    /* Exemplo de fonte séria/serif */
     font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-wear-text);
     margin: 40px 0 20px 0;
     text-align: left;
+    /* Título alinhado à esquerda como nas imagens */
 }
 
 /* ======================================================= */
-/* 2. GRADE DE PRODUTOS */
+/* 2. GRADE DE PRODUTOS (LAYOUT DE 4 COLUNAS) */
 /* ======================================================= */
 
 .product-grid {
     display: grid;
-    /* 4 COLUNAS para desktop */
+    /* 4 COLUNAS para desktop - conforme o design das imagens */
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
@@ -44,6 +51,7 @@
 /* O Cartão Individual do Produto */
 .product-card {
     background-color: var(--color-wear-light-bg);
+    /* Fundo cinza claro */
     border-radius: 4px;
     overflow: hidden;
     text-align: center;
@@ -55,30 +63,37 @@
     display: block;
 }
 
+/* Wrapper da Imagem (Crucial para manter a proporção e o design vertical) */
 .product-card-image-wrapper {
-    /* Garante que a imagem preencha o espaço e mantém a proporção */
-    padding-bottom: 125%; /* Altura ligeiramente maior que a largura para t-shirts */
+    /* Altura ligeiramente maior que a largura (proporção de T-shirt) */
+    padding-bottom: 125%;
     position: relative;
     overflow: hidden;
+    background-color: var(--color-white);
+    /* Fundo branco para a imagem */
 }
 
 .product-card-image-wrapper img {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    /* Usa 'contain' para mostrar a camisa completa sem cortar */
     transition: transform 0.3s ease;
 }
 
 .product-card a:hover .product-card-image-wrapper img {
-    transform: scale(1.05); /* Efeito hover sutil */
+    transform: scale(1.05);
+    /* Efeito hover sutil */
 }
 
 .product-card-name {
     font-size: 1rem;
     font-weight: 400;
     margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .product-card-info {
@@ -89,35 +104,57 @@
 }
 
 /* ======================================================= */
-/* 3. GALERIA DE LIFESTYLE (APENAS USADO EM WearGallery.tsx) */
+/* 3. GALERIA DE LIFESTYLE (CARROSSEL HORIZONTAL) */
 /* ======================================================= */
 
 .lifestyle-gallery-wrapper {
     margin: 80px 0;
-    padding: 0; 
+    padding: 0;
 }
 
 .photo-lifestyle-grid {
     display: flex;
-    overflow-x: auto; 
+    overflow-x: auto;
+    /* Permite o scroll horizontal */
     scroll-snap-type: x mandatory;
+    /* Faz o scroll parar perfeitamente em cada imagem */
     gap: 10px;
     padding-bottom: 20px;
+    /* Espaço para a barra de scroll */
+    -webkit-overflow-scrolling: touch;
+    /* Melhor scroll em iOS */
+}
+
+/* Esconder barra de scroll (Opcional, para Chrome, Safari, etc.) */
+.photo-lifestyle-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.photo-lifestyle-grid {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .photo-placeholder {
-    flex: 0 0 auto; 
-    width: 250px;
-    height: 320px;
+    flex: 0 0 auto;
+    /* Não permite que os itens encolham */
+    width: 280px;
+    /* Largura definida para cada foto */
+    height: 400px;
+    /* Altura definida para cada foto */
     border-radius: 8px;
     overflow: hidden;
     scroll-snap-align: start;
+    /* Alinha o início da foto ao iniciar o scroll */
 }
 
 .photo-placeholder img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Garante que a imagem preencha o placeholder */
 }
 
 /* ======================================================= */
@@ -125,11 +162,12 @@
 /* ======================================================= */
 
 .greek-pattern-border-wear {
-    background-image: url('/OlimpoWear/patterns/greek-border-gold.webp'); 
+    /* Certifique-se de que o caminho do seu padrão grego está correto */
+    background-image: url('/OlimpoWear/patterns/greek-border-gold.webp');
     background-repeat: repeat-x;
-    background-size: auto 15px; 
+    background-size: auto 15px;
     width: 100%;
-    height: 15px; 
+    height: 15px;
     margin-top: 50px;
 }
 
@@ -138,22 +176,34 @@
 /* ======================================================= */
 
 @media (max-width: 1024px) {
+
+    /* Reduz para 3 colunas no tablet */
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 768px) {
+
+    /* Reduz para 2 colunas no mobile */
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .photo-placeholder {
+        width: 200px;
+        /* Fotos de lifestyle um pouco menores no mobile */
+        height: 280px;
     }
 }
 
 @media (max-width: 500px) {
+
+    /* 1 coluna no mobile mais estreito */
     .product-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .category-title {
         text-align: center;
     }

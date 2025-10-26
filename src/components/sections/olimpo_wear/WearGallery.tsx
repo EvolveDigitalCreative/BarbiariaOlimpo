@@ -2,29 +2,31 @@
 
 import type { FC } from 'react';
 
-// === DADOS DOS PRODUTOS ===
+// === DADOS DOS PRODUTOS (BASIC E ALEX) ===
 const products = [
-    // T-shirts Basic (Grupo 1)
-    { name: "Basic", model: "White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-basic.webp", category: "Basic" },
-    { name: "Basic", model: "Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-basic-black.webp", category: "Basic" },
-    { name: "Basic", model: "Gold White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-basic-gold-white.webp", category: "Basic" },
-    { name: "Basic", model: "Gold Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-basic-gold-black.webp", category: "Basic" },
+    // T-shirts Basic (4 modelos)
+    // Frente: LOGO "OLIMPO" no peito.
+    { name: "Basic", model: "White Black Logo", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-branco e preta.png", category: "Basic" },
+    { name: "Basic", model: "Black White Logo", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png", category: "Basic" },
+    { name: "Basic", model: "White Gold Logo", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT- branco e dourado.png", category: "Basic" },
+    { name: "Basic", model: "Black Gold Logo", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png", category: "Basic" },
 
-    // T-shirts Alex (Grupo 2)
-    { name: "Alex", model: "White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex.webp", category: "Alex" },
-    { name: "Alex", model: "Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex-black.webp", category: "Alex" },
-    { name: "Alex", model: "Gold White", color: "White", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex-gold-white.webp", category: "Alex" },
-    { name: "Alex", model: "Gold Black", color: "Black", price: "25€", image: "/OlimpoWear/shirts/OLIMPO-alex-gold-black.webp", category: "Alex" },
+    // T-shirts Alex (4 modelos)
+    // Verso: Moeda GRANDE com o rosto.
+    { name: "Alex", model: "White Black Coin", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT- branca e preta moeda 3d costa.png", category: "Alex" },
+    { name: "Alex", model: "Black White Coin", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-preta e branca moeda 3d verso.png", category: "Alex" },
+    { name: "Alex", model: "White Gold Coin", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png", category: "Alex" },
+    { name: "Alex", model: "Black Gold Coin", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-basica moeda 3d.png", category: "Alex" },
 ];
 
 // === DADOS DAS FOTOS DE LIFESTYLE (AS 5 FOTOS DO CARROSSEL) ===
 const lifestylePhotos = [
-    // ATENÇÃO: Preencha com os caminhos corretos das suas 5 imagens de lifestyle
-    { id: 1, alt: "Foto Lifestyle 1", imageSrc: "/OlimpoWear/lifestyle/lifestyle-1.webp" },
-    { id: 2, alt: "Foto Lifestyle 2", imageSrc: "/OlimpoWear/lifestyle/lifestyle-2.webp" },
-    { id: 3, alt: "Foto Lifestyle 3", imageSrc: "/OlimpoWear/lifestyle/lifestyle-3.webp" },
-    { id: 4, alt: "Foto Lifestyle 4", imageSrc: "/OlimpoWear/lifestyle/lifestyle-4.webp" },
-    { id: 5, alt: "Foto Lifestyle 5", imageSrc: "/OlimpoWear/lifestyle/lifestyle-5.webp" },
+    // ATENÇÃO: Os caminhos foram corrigidos para a pasta 'modelos'
+    { id: 1, alt: "Modelo T-shirt Olímpo na rua", imageSrc: "/OlimpoWear/modelos/modelo1.jpg" }, // Exemplo
+    { id: 2, alt: "Detalhe de roupa e padrão grego", imageSrc: "/OlimpoWear/modelos/modelo2.JPG" }, // Exemplo
+    { id: 3, alt: "Dois modelos com T-shirts Olímpo", imageSrc: "/OlimpoWear/modelos/modelo3.JPG" }, // Exemplo
+    { id: 4, alt: "Foto Lifestyle 4", imageSrc: "/OlimpoWear/modelos/modelo 4.JPG" }, // Exemplo
+    { id: 5, alt: "Foto Lifestyle 5", imageSrc: "/OlimpoWear/modelos/modelo 5.JPG" }, // Exemplo
 ];
 
 // === COMPONENTE ===

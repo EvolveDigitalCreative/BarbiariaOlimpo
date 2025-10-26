@@ -13,7 +13,6 @@ import WearGallery from '../components/sections/olimpo_wear/WearGallery';
 import WearBestSeller from '../components/sections/olimpo_wear/WearBestSeller';
 import WearDressLikeGods from '../components/sections/olimpo_wear/WearDressLikeGods';
 import WearMission from '../components/sections/olimpo_wear/WearMission';
-import WearCollectionGrid from '../components/sections/olimpo_wear/WearCollectionGrid';
 import WearContact from '../components/sections/olimpo_wear/WearContact';
 
 // ✅ NOVOS COMPONENTES
@@ -57,7 +56,6 @@ const OlimpoWear: FC = () => {
         <WearVideoGallery />
         <SectionDivider />
         <WearNewProducts />
-        <WearCollectionGrid />
         <WearContact />
       </main>
       <Footer />
