@@ -3,6 +3,19 @@
 /* Importar os estilos base de layout da barbearia (para o layout de duas colunas) */
 @import '../olimpobarber/barber_sections_base.css';
 
+/* Sobrescreve a imagem de fundo da barbearia que é aplicada no body/html globalmente */
+body, html {
+    /* Define o fundo da página como a cor de mármore claro */
+    background-color: var(--color-skincare-marble-light) !important; 
+    /* Remove qualquer background-image (que é o salão) */
+    background-image: none !important; 
+}
+
+/* Se a imagem de fundo do salão estiver a vir do container principal (main) ou um body wrapper */
+.skincare-page-container {
+    background-image: none !important;
+}   
+
 /* Títulos do Skincare */
 .skincare-section-title {
     font-family: var(--font-family-serif);

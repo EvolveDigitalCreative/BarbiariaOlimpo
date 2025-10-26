@@ -38,8 +38,8 @@ import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
 const OlimpoSkincare: FC = () => {
   return (
     <div className="skincare-page-container">
-      <Header />
-      <main>
+      <Header />
+      <main>
         <SkincareHero />
         <SkincareAboutUs />      // Fica a Conhecer-nos
         <SkincareMission />

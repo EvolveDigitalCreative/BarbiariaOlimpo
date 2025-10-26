@@ -1,54 +1,208 @@
-/* src/styles/olimposkincare/skincare_hero.css */
+/* ==========================================================
+// VARIAVEIS E REGRAS DE BASE
+// ========================================================== */
+:root {
+    /* Cores ajustadas - Usamos o mármore claro como fundo base */
+    --color-skincare-background: #fff; 
+    --color-skincare-marble-light: #f9f9f7; /* Cor base clara */
+    --color-skincare-accent: #ccb47c; 
+    --color-skincare-text-dark: #222; 
+    
+    --font-family-serif: 'Playfair Display', serif; 
+    --font-family-sans: 'Montserrat', sans-serif;
+}
 
 .skincare-hero {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    background-color: #fff; 
-    padding-top: 80px;
+    /* GARANTE A CORREÇÃO DE FUNDO */
+    background-color: var(--color-skincare-marble-light); 
+    min-height: calc(100vh - 80px); 
     overflow: hidden;
+    z-index: 10; /* Z-Index alto para ter certeza que COBRE tudo */
 }
 
-.skincare-hero-brand img {
-    width: 120px;
-    margin-bottom: 20px;
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 80px 0 80px; 
+    display: flex;
+    gap: 40px; 
+    align-items: flex-start;
+    padding-bottom: 50px; 
+    height: 100%; 
+    position: relative; 
+    z-index: 2; /* Garante que o conteúdo (texto/imagem) está acima do texto gigante */
+}
+
+/* ==========================================================
+// 1. CONTEÚDO DE TEXTO (COLUNA ESQUERDA)
+// ========================================================== */
+.hero-text-content {
+    flex: 0 0 450px; 
+    padding-top: 150px; 
+    z-index: 3;
 }
 
 .skincare-hero-title {
-    font-size: 2.8rem;
+    /* 3xl do tailwind */
+    font-size: 1.875rem; 
     font-family: var(--font-family-serif);
-    color: var(--color-text-dark);
-    line-height: 1.1;
+    color: var(--color-skincare-text-dark);
+    line-height: 1.2;
+    margin: 0 0 5px 0;
 }
 
 .skincare-hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    /* 3xl do tailwind */
+    font-size: 1.875rem; 
+    font-family: var(--font-family-serif);
+    color: var(--color-skincare-text-dark);
+    margin-bottom: 40px;
 }
 
-.skincare-hero-image-container {
-    position: absolute;
+.skincare-main-button {
+    /* Replicando o botão preto do código antigo */
+    display: inline-block;
+    padding: 16px 96px; /* px-24 py-4 */
+    background-color: var(--color-skincare-text-dark); 
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: var(--font-family-serif); /* Usando serif para o botão conforme o antigo */
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 700;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+.skincare-main-button:hover {
+    background-color: #444; 
+}
+
+
+/* ==========================================================
+// 2. CONTEÚDO VISUAL (COLUNA DIREITA)
+// ========================================================== */
+
+.hero-visual-content {
+    flex: 1; 
+    position: absolute; /* Usamos absoluto para que o arco e texto gigante não afetem a altura do flex container */
+    right: 0;
+    top: 0;
+    width: 65%; /* Permite ocupar a maior parte da direita */
+    height: 100%;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: flex-end; /* Alinha o conteúdo à direita */
+    z-index: 3;
+}
+
+.skincare-image-arch-wrapper {
+    position: relative; /* Mudamos de absoluto para relativo, pois o pai já é absoluto */
     bottom: 0;
-    width: 100%;
-    max-width: 800px; 
-    text-align: center;
-    z-index: 10;
+    /* Damos um max-width fixo para controlar o tamanho do arco */
+    width: 650px; 
+    height: 750px; 
+    background-color: #fff; 
+    border-radius: 50% / 100px 100px 0 0; 
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 4; 
 }
 
 .skincare-hero-image {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-    height: auto;
-    /* Efeito de arco na parte superior da imagem */
-    clip-path: ellipse(50% 100% at 50% 100%); 
+    max-height: 100%;
+    /* CORREÇÃO: Usamos 'contain' para garantir que a imagem inteira da modelo é visível 
+       e 'object-fit' para controlar como ela preenche a área do arco. 
+       A imagem desejada parece usar 'object-fit: cover' para preencher a largura, mas 
+       como a foto tem muito espaço branco por cima, 'contain' pode ser melhor se 
+       a foto for cortada. Usamos 'cover' e ajustamos o padding: */
+    object-fit: cover; 
+    
+    border-top-left-radius: 350px;
+    border-top-right-radius: 350px;
+    
+    /* Aumentar o padding/ajuste para empurrar o modelo para a posição correta, 
+       como a imagem no arco parece ter margem interior. */
+    padding: 30px 20px 0 20px; /* Mais padding no topo para centrar no arco */
+    box-sizing: border-box;
+    
+    /* Garante que a imagem está no topo dentro do arco */
+    z-index: 5;
 }
 
-@media (max-width: 768px) {
-    .skincare-hero-title {
-        font-size: 2rem;
+/* Texto OLIMPO SKIN CARE (Banner Grande no Fundo) */
+.skincare-hero-banner-text {
+    position: absolute;
+    bottom: 150px; 
+    left: 0;
+    right: 0;
+    z-index: 1; 
+    
+    /* Alinha o texto na largura total da página */
+    display: flex;
+    justify-content: space-between;
+    
+    max-width: 1400px;
+    margin: 0 auto; 
+    padding: 0 80px;
+    width: 100%; 
+}
+
+/* ==========================================================
+// 3. RESPONSIVIDADE
+// ========================================================== */
+
+@media (max-width: 1200px) {
+    .skincare-hero-banner-text {
+        font-size: 7rem;
     }
-    .skincare-hero-image-container {
-        max-width: 500px;
+}
+
+@media (max-width: 900px) {
+    .skincare-hero {
+        min-height: auto;
+    }
+    .hero-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 20px 0 20px;
+    }
+
+    .hero-text-content {
+        order: 2; /* Texto por baixo no mobile */
+        flex: auto;
+        padding-top: 30px;
+        max-width: 100%;
+        text-align: center;
+    }
+    .skincare-hero-title, .skincare-hero-subtitle {
+        font-size: 1.25rem; /* text-xl */
+        text-align: center;
+    }
+    .skincare-main-button {
+        padding: 12px 64px; /* px-8 py-3 */
+        font-size: 1rem; /* text-base */
+    }
+    
+    .hero-visual-content {
+        order: 1; /* Imagem por cima no mobile */
+        height: 500px;
+    }
+    .skincare-image-arch-wrapper {
+        width: 100%;
+        max-width: 400px; /* Limite do tamanho da imagem no mobile */
+        height: 450px;
+        border-radius: 50% / 80px 80px 0 0;
+    }
+    .skincare-hero-banner-text {
+        bottom: 80px;
+        font-size: 2.5rem; /* text-4xl */
+        padding: 0 20px;
+        letter-spacing: normal;
     }
 }

@@ -14,11 +14,7 @@ import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/OlimpoBarBer';     // Rota: /
 import OlimpoSkincare from './pages/OlimpoSkincare.tsx'; // Rota: /skincare
 import OlimpoCoin from './components/sections/olimpo_barber/OlimpoCoinPage.tsx';
-// --------------------------------------------
-// 🥇 IMPORTAÇÃO DA NOVA PÁGINA WEAR
 import OlimpoWear from './pages/OlimpoWear.tsx';    // Rota: /wear
-// --------------------------------------------
-
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
