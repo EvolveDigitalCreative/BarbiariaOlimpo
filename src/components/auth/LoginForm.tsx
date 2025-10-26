@@ -1,40 +1,51 @@
 // src/components/auth/LoginForm.tsx
 
+import React, { useState } from 'react'; 
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 const LoginForm: FC = () => {
+    const [showPassword, setShowPassword] = useState(false);
+
     return (
         <form className="login-form-container">
             
-            {/* Campo E-mail */}
+            {/* ✅ Título "Login" ADICIONADO de volta */}
+            <h2 className="login-title">Login</h2>
+            
             <input 
                 type="email" 
-                placeholder="E-mail" 
+                placeholder="E-mail ou número" 
                 className="auth-input"
                 required
             />
             
-            {/* Campo Palavra-passe */}
             <div className="password-input-wrapper">
                 <input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     placeholder="Palavra-passe" 
                     className="auth-input"
                     required
                 />
-                {/* Ícone do Olho/Mudar Visibilidade aqui se necessário */}
+                <span 
+                    className="password-toggle-icon" 
+                    onClick={() => setShowPassword(!showPassword)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setShowPassword(!showPassword)}
+                >
+                    👁️
+                </span>
             </div>
 
-            {/* Link Esqueceu a Palavra-passe */}
+            <button type="submit" className="auth-submit-button">
+                Aceder
+            </button>
+            
             <Link to="/forgot-password" className="forgot-password-link">
                 Esqueci-me da palavra-passe
             </Link>
 
-            {/* Botão de Aceder */}
-            <button type="submit" className="auth-submit-button">
-                Aceder
-            </button>
         </form>
     );
 };

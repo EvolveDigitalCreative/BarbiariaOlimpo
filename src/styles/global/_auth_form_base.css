@@ -1,116 +1,210 @@
 /* src/styles/global/_auth_form_base.css */
 
-/* Definição do Layout da Página de Autenticação */
+/* Layout da Página - Centraliza verticalmente */
 .auth-page-layout {
     position: relative;
     width: 100vw;
     min-height: 100vh;
     display: flex;
-    justify-content: center; 
-    align-items: center;    
-    background-color: var(--color-background-light); 
-    overflow: hidden;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;
+    background-color: var(--color-background-light);
+    overflow-x: hidden; /* Evita scroll horizontal */
+    padding: 2rem 1rem; /* Padding geral */
 }
 
-/* Container para o formulário */
-.relative-z20 {
-    position: relative;
-    z-index: 20;
+/* Fundo decorativo */
+.auth-background-decorative {
+    position: absolute;
+    top: -90vh;
+    right: -39vw;
+    width: 100%;
+    height: 200vh;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 1;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.max-width-wrapper {
-    max-width: 450px; 
-    width: 90%; 
-    background-color: white; 
-    border: 1px solid #ccc; 
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* Botão de fechar */
+.absolute-top-left {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    z-index: 30;
+    color: #333;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
 }
 
-.auth-content-padding {
-    padding: 40px;
-    text-align: center;
+/* Wrapper para o conteúdo centralizado (logo, card, link registro) */
+.login-content-wrapper {
+    position: relative; /* Garante que fique acima do z-index 1 do fundo */
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ocupa a largura disponível */
+    max-width: 450px; /* Mantém a largura máxima */
 }
 
-/* Logo "OLIMPO" no topo */
+/* Logo "OLIMPO" (agora fora do card) */
 .logo-container {
-    margin-bottom: 20px;
+    margin-bottom: 2rem; /* Espaço ABAIXO da logo */
+    width: 200px;
 }
 
 .logo-container img {
-    width: 150px; 
+    display: block; /* Remove espaço extra */
+    width: 100%;
     height: auto;
-    /* Ajuste de cor para simular o dourado/creme do logo sobre o fundo branco */
-    filter: sepia(0.5) hue-rotate(30deg) brightness(0.9); 
+    filter: none;
 }
 
-/* Título (Login/Registo) */
-.form-title {
+/* Card Branco */
+.max-width-wrapper {
+    max-width: 100%; /* Ocupa a largura do login-content-wrapper */
+    width: 100%;
+    background-color: white;
+    /* ✅ AJUSTE: Borda mais escura */
+    border: 1px solid #333;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Padding interno do Card */
+.auth-content-padding {
+    /* ✅ AJUSTE: Reduzir o padding inferior para diminuir espaço */
+    padding: 3.5rem 2rem 4.5rem 2rem; /* Top: 3.5rem, L/R: 2rem, Bottom: 2.5rem */
+    text-align: center;
+}
+
+/* Título H2 DENTRO do card */
+.login-title {
     font-family: var(--font-family-serif);
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    font-size: 2rem;
+    margin-bottom: 2rem; 
     color: var(--color-text-dark);
-    font-weight: normal;
+    font-weight: 700; 
+    /* ✅ Garantir centralização (já tinha text-align: center no pai, mas reforça aqui) */
+    text-align: center; 
 }
 
-/* Estilos para os campos de input */
+
+/* --- Estilos internos do formulário --- */
+
 .auth-input {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid var(--color-form-border);
-    border-radius: 4px;
-    font-size: 1rem;
+    height: 50px;
+    padding: 0 1rem;
+    top:    20px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
     background-color: #fff;
+    font-family: var(--font-family-sans);
 }
 
-/* Botão Principal "Aceder" / "Criar conta" */
+.auth-input::placeholder {
+    color: #888;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-wrapper .auth-input {
+    padding-right: 45px;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #888;
+    user-select: none;
+}
+
 .auth-submit-button {
     width: 100%;
-    padding: 12px;
-    background-color: var(--color-background-dark); /* Preto */
+    height: 50px;
+    background-color: #222;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: bold;
+    font-family: var(--font-family-serif);
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
+    transition: background-color 0.2s ease;
+    margin-top: 0;
 }
 
 .auth-submit-button:hover {
-    background-color: var(--color-gold); 
+    background-color: #444;
 }
 
-/* Estilo para links e textos extra */
+/* Link de Registro (Abaixo do card) */
 .register-link-container {
-    margin-top: 30px;
+    margin-top: 2rem; /* Espaço abaixo do card */
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+    font-family: var(--font-family-sans);
 }
 
-.link-style {
-    color: var(--color-gold); 
+.register-link-container .register-link {
     font-weight: bold;
-    text-decoration: underline;
-    transition: color 0.3s;
+    color: #000;
+    text-decoration: none;
 }
 
-.link-style:hover {
-    color: var(--color-gold-hover);
+.register-link-container .register-link:hover {
+    text-decoration: underline;
 }
 
 .signup-text-style {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     font-size: 0.9rem;
+    color: #555;
 }
 
-/* Estilo do botão de fechar/voltar (Canto superior esquerdo) */
-.absolute-top-left {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 30;
-    color: var(--color-text-dark);
-    text-decoration: none;
-    font-size: 1.2rem;
+
+/* Media Queries */
+@media (max-width: 480px) {
+    .auth-page-layout {
+        padding: 4rem 1rem 2rem 1rem;
+        justify-content: flex-start; /* Alinha no topo em telas pequenas */
+    }
+
+    .absolute-top-left {
+        top: 20px;
+        left: 20px;
+    }
+
+    .login-content-wrapper {
+        max-width: 100%; /* Ocupa a largura toda */
+    }
+
+    .auth-content-padding {
+        padding: 2rem 1.5rem;
+    }
+
+    .logo-container {
+        margin-bottom: 1.5rem;
+        width: 150px; /* Logo menor no mobile */
+    }
+
+    .register-link-container {
+        margin-top: 1.5rem;
+    }
 }
