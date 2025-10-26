@@ -6,7 +6,7 @@ const MissionSection: FC = () => {
     return (
         <section className="content-section mission-section light-background">
             {/* O max-width e mx-auto já estão em .section-content-wrapper */}
-            <div className="section-content-wrapper reverse-layout"> 
+            <div className="section-content-wrapper"> 
                 {/* Texto */}
                 <div className="section-text-container">
                     {/* Título com classes existentes, mas a margem será ajustada no CSS */}

@@ -21,7 +21,6 @@ import OlimpoWear from './pages/OlimpoWear.tsx';    // Rota: /wear
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
     <BrowserRouter>
       <Routes>
         {/* ROTAS DE DOMÍNIO */}
@@ -35,5 +34,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
 );
