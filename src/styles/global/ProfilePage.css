@@ -7,18 +7,20 @@
     font-family: var(--font-family-sans); /* Fonte padrão */
 }
 
+/* --- Cabeçalho e Navegação --- */
+
 .profile-header {
     margin-bottom: 2rem;
-    position: relative; /* Para posicionar a seta */
-    display: flex; /* Para alinhar logo e talvez seta */
+    position: relative;
+    display: flex;
     align-items: center;
 }
 
 .profile-logo {
     display: block;
-    width: 150px; /* Ajuste o tamanho conforme necessário */
+    width: 150px; 
     height: auto;
-    margin-bottom: 0.5rem; /* Espaço abaixo da logo */
+    margin-bottom: 0.5rem;
 }
 
 .back-arrow {
@@ -27,6 +29,8 @@
     text-decoration: none;
     margin-left: 1rem; /* Espaço após a logo */
 }
+
+/* --- Layout Principal de Conteúdo --- */
 
 .profile-main-content {
     display: flex;
@@ -51,7 +55,8 @@
     }
 }
 
-/* Estilo Base dos Cards */
+/* --- Estilo Base dos Cards --- */
+
 .profile-card,
 .action-card {
     background-color: #fff;
@@ -63,7 +68,8 @@
     flex-direction: column;
 }
 
-/* Card de Perfil Específico */
+/* --- Card de Perfil (Informações) --- */
+
 .profile-info-card {
     align-items: flex-start; /* Alinha itens à esquerda */
 }
@@ -114,7 +120,7 @@
     cursor: pointer;
     margin-bottom: 1rem;
     text-align: center;
-    width: 100%; /* Ocupa a largura */
+    width: 190px; /* Ocupa a largura */
 }
 
 .logout-link {
@@ -126,24 +132,25 @@
     cursor: pointer;
     align-self: flex-start; /* Alinha à esquerda */
     padding: 0;
+    padding-left: 30px;
 }
 .logout-link:hover {
     color: #000;
 }
 
-/* Card Olimpo Coin Específico */
+/* --- Card Olimpo Coin (Moeda 3D) --- */
+
 .coin-card {
     align-items: center; /* Centraliza conteúdo */
-    /* ✅ Fundo de mármore */
     background-image: url('/OlimpoBarBer/texture/fundomarmore.webp');
     background-size: cover;
     background-position: center;
-    position: relative; /* Para o link "VER MAIS" */
-    min-height: 200px; /* Altura mínima para visualização */
+    position: relative;
+    min-height: 200px; 
 }
 
 .coin-card-title {
-    font-family: var(--font-family-serif); /* Fonte serifada */
+    font-family: var(--font-family-serif);
     font-size: 1.5rem;
     font-weight: bold;
     color: #000;
@@ -151,21 +158,24 @@
     text-align: center;
 }
 
+/* Container horizontal da Moeda + Saldo */
 .coin-display {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem; /* Espaço antes do "VER MAIS" */
+    align-items: center; 
+    justify-content: center; /* Centraliza o bloco Moeda+Número */
+    gap: 3.5rem; /* Espaço entre a moeda e o número */
+    margin-bottom: 1.5rem; 
 }
 
-.static-coin-image {
-    width: 80px; /* Ajuste o tamanho da imagem estática */
-    height: auto;
+/* ✅ Wrapper para o Componente 3D (Controla o tamanho da moeda estática) */
+.coin-3d-wrapper-small {
+    width: 120px; /* Aumentado de 100px para 120px */
+    height: 120px; /* Aumentado de 100px para 120px */
+    overflow: visible; 
 }
 
 .coin-balance {
-    font-family: var(--font-family-serif); /* Fonte serifada */
+    font-family: var(--font-family-serif);
     font-size: 4rem; /* Tamanho grande para o número */
     font-weight: bold;
     color: #000;
@@ -186,14 +196,15 @@
 }
 
 
-/* Cards de Ação Inferiores */
+/* --- Cards de Ação Inferiores (Favoritos, Sobre Nós, Descontos) --- */
+
 .action-card {
     background-color: #f0f0f0; /* Fundo cinza claro */
     border: 1px solid #ddd; /* Borda mais suave */
     align-items: flex-start; /* Alinha à esquerda */
-    position: relative; /* Para o botão de seta */
-    min-height: 150px; /* Altura mínima */
-    padding-bottom: 3rem; /* Espaço para o botão */
+    position: relative; 
+    min-height: 150px;
+    padding-bottom: 3rem; 
 }
 
 .card-icon {
@@ -233,7 +244,7 @@
     cursor: pointer;
 }
 
-/* Estados de Loading/Erro */
+/* --- Estados de Loading/Erro --- */
 .profile-loading,
 .profile-error {
     display: flex;
