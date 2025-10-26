@@ -142,9 +142,10 @@
 
 .coin-card {
     align-items: center; /* Centraliza conteúdo */
-    background-image: url('/OlimpoBarBer/texture/fundomarmore.webp');
+    background-image: url('/public/OlimpoBarBer/texture/fundomarmore.webp');
     background-size: cover;
     background-position: center;
+    background-position-y: -12vw;
     position: relative;
     min-height: 200px; 
 }
