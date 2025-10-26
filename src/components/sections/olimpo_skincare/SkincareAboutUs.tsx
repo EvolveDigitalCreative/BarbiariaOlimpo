@@ -1,13 +1,25 @@
-// src/components/sections/olimpo_skincare/SkincareAboutUs.tsx
-
 import type { FC } from 'react';
+import '../../../styles/olimposkincare/skincare_about_us.css'; 
+
+const BARBER_COIN_ICON = "/OlimpoSkincare/icons/whitecoin_optimized.png"; 
+// O PILAR_ICON_PATH já não é usado nesta estrutura.
 
 const SkincareAboutUs: FC = () => {
     return (
         <section className="content-section light-background">
-            <div className="section-content-wrapper reverse-on-mobile">
+            {/* O wrapper é o contentor flexível */}
+            <div className="section-content-wrapper"> 
                 
-                {/* Coluna do Texto */}
+                {/* 1. Coluna da Imagem (45% no Desktop) */}
+                <div className="section-image-container">
+                    <img 
+                        src="/OlimpoSkincare/images/segunda foto princpal.jpg" 
+                        alt="Esteticista Olimpo Skin" 
+                        className="responsive-image image-rounded" 
+                    />
+                </div>
+                
+                {/* 2. Coluna do Texto (55% no Desktop) */}
                 <div className="section-text-container">
                     <p className="gold-text-strong">FICA A CONHECER-NOS</p>
                     <h2 className="section-title">
@@ -19,7 +31,14 @@ const SkincareAboutUs: FC = () => {
                     </p>
                     
                     <div className="barbershop-note">
-                        <p className="gold-text-strong">Olimpo barbershop</p>
+                        <div className="barbershop-note-title">
+                            <img 
+                                src={BARBER_COIN_ICON} 
+                                alt="Olimpo Barbershop Icon" 
+                                className="barber-coin-icon"
+                            />
+                            <p className="gold-text-strong">Olimpo barbershop</p>
+                        </div>
                         <p className="section-paragraph">
                             Atendemos o cuidado num espaço calmo e acolhedor, dentro da Barbearia Olimpo.
                         </p>
@@ -30,14 +49,8 @@ const SkincareAboutUs: FC = () => {
                     </a>
                 </div>
                 
-                {/* Coluna da Imagem */}
-                <div className="section-image-container">
-                    <img 
-                        src="/skincare/images/about-us-image.jpg" 
-                        alt="Esteticista Olimpo Skin" 
-                        className="responsive-image image-rounded" 
-                    />
-                </div>
+                {/* O pilar decorativo e o spacer foram removidos. */}
+
             </div>
         </section>
     );

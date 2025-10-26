@@ -1,54 +1,384 @@
-/* src/styles/olimposkincare/skincare_hero.css */
+/* ==========================================================
+// 0. VARIAVEIS E REGRAS DE BASE ESTRUTURAIS
+// ========================================================== */
 
-.skincare-hero {
+:root {
+    --color-skincare-accent: #ccb47c; /* Ouro */
+    --color-skincare-text-dark: #222;
+    --color-overlay: rgba(255, 255, 255, 0.2); /* bg-white/20 */
+    --color-marble-light: #f9f9f7; 
+    --font-family-serif: 'Playfair Display', serif; 
+}
+
+.skincare-hero-section {
     position: relative;
+    min-height: calc(100vh - 80px); 
+    overflow: hidden;
+    z-index: 10;
+    background-color: var(--color-marble-light); 
+    padding-bottom: 32px; /* pb-8 (Mobile) */
+}
+
+.hero-content-wrapper {
+    /* Estilos de Estrutura e Alinhamento */
+    position: relative;
+    z-index: 11;
+    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    background-color: #fff; 
-    padding-top: 80px;
+    align-items: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* Padding Mobile (pt-6, px-6) */
+    padding: 24px 24px 0 24px; 
+}
+
+
+/* ==========================================================
+// A. FUNDO E OVERLAY
+// ========================================================== */
+
+.hero-background {
+    position: absolute;
+    inset: 0; 
+}
+.hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom; 
+}
+.hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-overlay); 
+}
+
+
+/* ==========================================================
+// B. CONTEÚDO ESQUERDO (HEADLINE E CTA)
+// ========================================================== */
+
+.hero-left-content {
+    /* Regras Mobile (Padrão) */
+    display: block; 
+    width: 100%;
+    text-align: left; 
+    padding-top: 40px; 
+    padding-left: 24px; 
+}
+
+.hero-headline {
+    margin-bottom: 24px;
+}
+
+.hero-title, .hero-subtitle {
+    font-size: 1.25rem; /* text-xl (Mobile) */
+    font-family: var(--font-family-serif);
+    color: var(--color-skincare-text-dark);
+    line-height: 1.2;
+}
+
+.hero-cta-button {
+    /* Estilos CTA Mobile/Base */
+    display: inline-block;
+    background-color: var(--color-skincare-text-dark);
+    color: #fff;
+    padding: 12px 32px;
+    border-radius: 2px;
+    font-size: 1rem; 
+    font-family: var(--font-family-serif);
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.hero-cta-button:hover {
+    background-color: #333; /* hover:bg-gray-800 */
+    transform: scale(1.05);
+}
+
+
+/* ==========================================================
+// C. IMAGEM CENTRAL (O ARCO)
+// ========================================================== */
+
+.hero-center-image-wrapper {
+    position: absolute;
+    top: 50px;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(50%);
+    z-index: 15; 
+    
+    /* Configurações Mobile (Padrão) */
+    width: 100%; 
+    max-width: 350px; 
+    height: 22rem; 
+    
+    /* Forma do Arco (Mobile) */
+    background-color: #fff;
+    border-top-left-radius: 200px; 
+    border-top-right-radius: 200px; 
     overflow: hidden;
 }
 
-.skincare-hero-brand img {
-    width: 120px;
-    margin-bottom: 20px;
+.hero-center-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Padding e Scale Mobile */
+    padding: 12px; 
+    transform: scale(1.5);
 }
 
-.skincare-hero-title {
-    font-size: 2.8rem;
-    font-family: var(--font-family-serif);
-    color: var(--color-text-dark);
-    line-height: 1.1;
-}
+/* ==========================================================
+// D. TEXTO GRANDE DE FUNDO (OLIMPO SKIN CARE)
+// ========================================================== */
 
-.skincare-hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-.skincare-hero-image-container {
+.hero-large-text-wrapper {
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    max-width: 800px; 
-    text-align: center;
-    z-index: 10;
+    bottom: 128px; 
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 20;
+    padding: 0 24px; 
 }
 
-.skincare-hero-image {
-    width: 100%;
-    height: auto;
-    /* Efeito de arco na parte superior da imagem */
-    clip-path: ellipse(50% 100% at 50% 100%); 
+.hero-large-text {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-family-serif);
+    font-weight: 700;
+    color: var(--color-skincare-accent);
+    opacity: 0.6;
+    
+    /* Estilos Mobile (Padrão) */
+    font-size: 2.25rem; /* text-4xl */
+    letter-spacing: normal;
 }
 
-@media (max-width: 768px) {
-    .skincare-hero-title {
-        font-size: 2rem;
+.hero-large-text .text-space {
+    margin-left: 0.25rem; /* ml-1 */
+}
+
+/* ==========================================================
+// E. MOEDAS (WIDGET)
+// ========================================================== */
+
+.hero-coins-widget {
+    position: absolute;
+    right: 0;
+    top: 64px; 
+    z-index: 20; 
+}
+.coins-container {
+    background-color: #000;
+    border-top-left-radius: 1rem; 
+    border-bottom-left-radius: 1rem; 
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    width: 64px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0; 
+}
+.coin-link {
+    display: block;
+    width: 96px; 
+    height: 96px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -15px; 
+    margin-bottom: -15px;
+}
+.coin-image-barber {
+    width: 48px; 
+    height: 48px; 
+}
+.coin-image-wear {
+    width: 80px; 
+    height: 80px; 
+}
+
+
+/* ==========================================================
+// F. IMAGEM DE CANTO ESQUERDO (MULHER)
+// ========================================================== */
+
+.hero-corner-image {
+    /* Mobile (Visível) */
+    display: block;
+    position: absolute;
+    bottom: -40px; 
+    left: 0;
+    z-index: 30;
+    padding-left: 24px;
+}
+.corner-image-asset {
+    width: 128px; 
+    height: 128px; 
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+/* ==========================================================
+// H. RESPONSIVIDADE (TABLET / min-width: 768px) - NOVO BLOCO
+// ========================================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* 0. ESTRUTURA */
+    .hero-content-wrapper {
+        flex-direction: row; 
+        align-items: flex-start;
+        padding: 40px 24px 0 24px;
     }
-    .skincare-hero-image-container {
-        max-width: 500px;
+    
+    /* B. CONTEÚDO ESQUERDO (Texto e CTA) */
+    .hero-left-content {
+        padding-top: 60px; 
+        width: 40%; 
+        text-align: left;
+        padding-left: 0; /* Ajuste para o padding principal */
+    }
+    .hero-title, .hero-subtitle {
+        font-size: 1.5rem; /* text-2xl */
+    }
+    .hero-cta-button {
+        padding: 14px 48px;
+        font-size: 1.05rem; 
+    }
+
+    /* C. IMAGEM CENTRAL (O ARCO) */
+    .hero-center-image-wrapper {
+        max-width: 450px; 
+        height: 65vh; /* Usa viewport height */
+        border-top-left-radius: 280px; 
+        border-top-right-radius: 280px; 
+    }
+    .hero-center-image {
+        padding: 15px; 
+        transform: scale(1.25); 
+    }
+    
+    /* D. TEXTO GRANDE DE FUNDO */
+    .hero-large-text-wrapper {
+        bottom: 80px; 
+    }
+    .hero-large-text {
+        font-size: 4rem; 
+        letter-spacing: normal;
+    }
+    .hero-large-text .text-space {
+        margin-left: 0.25rem;
+    }
+
+    /* F. IMAGEM DE CANTO ESQUERDO (Mulher) */
+    .hero-corner-image {
+        bottom: 24px;
+        margin-left: -1rem; 
+    }
+    .corner-image-asset {
+        width: 200px; 
+        height: 200px; 
+    }
+}
+
+
+/* ==========================================================
+// G. RESPONSIVIDADE (DESKTOP / min-width: 1024px) - ALTERADO
+// ========================================================== */
+
+@media (min-width: 1024px) { 
+    /* 0. ESTRUTURA - ALTERADO */
+    .skincare-hero-section {
+        padding-bottom: 0; 
+        min-height: calc(100vh - 80px); /* Garante altura mínima */
+        height: auto; /* Permite que o conteúdo defina a altura se exceder min-height */
+    }
+    .hero-content-wrapper {
+        padding: 40px 32px 0 32px; 
+    }
+
+    /* B. CONTEÚDO ESQUERDO (Texto e CTA) */
+    .hero-left-content {
+        display: block; 
+        padding-top: 100px; 
+        width: 35%; 
+        padding-left: 0; 
+    }
+    .hero-headline {
+        margin-bottom: 16px; 
+    }
+    .hero-title, .hero-subtitle {
+        font-size: 1.875rem; 
+        margin-bottom: 16px; 
+    }
+    .hero-cta-button {
+        padding: 16px 96px;
+        font-size: 1.125rem; 
+    }
+
+    /* C. IMAGEM CENTRAL (O ARCO) - ALTERADO: uso de VH/VW */
+    .hero-center-image-wrapper {
+        width: 38vw; 
+        max-width: 40rem;
+        height: 80vh; /* Chave: O arco usa 80% da altura do ecrã */
+        max-height: 50rem; 
+        
+        bottom: 0; 
+        left: 50%;
+        transform: translateX(-50%);
+        
+        border-top-left-radius: 350px; 
+        border-top-right-radius: 350px; 
+    }
+    .hero-center-image {
+        padding: 20px; 
+        transform: scale(1.1); 
+    }
+
+    /* D. TEXTO GRANDE DE FUNDO - ALTERADO: uso de VW */
+    .hero-large-text-wrapper {
+        padding: 0 32px; 
+        bottom: 50px; /* Reduzida para que não invada a headline */
+    }
+    .hero-large-text {
+        font-size: 7vw; /* Chave: O tamanho do texto escala com a largura do ecrã */
+        /* max-font-size é apenas uma boa prática, mas 9rem também pode ser usada */
+        letter-spacing: -0.05em; 
+    }
+    .hero-large-text .text-space {
+        margin-left: 0.5rem; 
+    }
+    
+    /* E. MOEDAS (WIDGET) */
+    .coins-container {
+        width: 80px; 
+    }
+    .coin-link {
+        width: 112px; 
+        height: 112px; 
+    }
+    .coin-image-barber {
+        width: 64px; 
+        height: 64px; 
+    }
+    .coin-image-wear {
+        width: 96px; 
+        height: 96px; 
+    }
+
+    /* F. IMAGEM DE CANTO ESQUERDO (Mulher) */
+    .hero-corner-image {
+        display: block;
+        bottom: 24px; 
+        left: 24px; 
+        margin-left: -48px; 
+    }
+    .corner-image-asset {
+        width: 288px; 
+        height: 288px; 
     }
 }
