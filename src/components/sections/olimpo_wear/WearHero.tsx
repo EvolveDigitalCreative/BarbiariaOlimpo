@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 const WearHero: FC = () => {
   // ⚠️ CAMINHO DA FOTO: Você pode mudar esta URL para alterar a imagem de fundo.
-  const heroImageUrl = '/OlimpoWear/foto/olimpo_best_seller.webp';
+  const heroImageUrl = '/OlimpoWear/foto/OLIMPO foto t-shirts 18.JPG';
 
   return (
     <section
