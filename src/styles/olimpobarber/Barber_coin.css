@@ -5,7 +5,7 @@
 /* 1. DECLARAÇÃO DA FONTE E VARIÁVEIS */
 @font-face {
     font-family: 'FonteCoin';
-    src: url('/public/fonts/GeorgiaProBold.ttf') format('opentype');
+    src: url('/src/fonts/GeorgiaProBold.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -30,7 +30,7 @@
     height: 40px;
     overflow: hidden;
     opacity: 0.4;
-    background-image: url('/barbershop/stylization/style1.png');
+    background-image: url('/src/barbershop/stylization/style1.png');
     background-repeat: repeat-x;
     background-size: auto 100%;
     background-position: center;

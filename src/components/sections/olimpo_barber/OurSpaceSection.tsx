@@ -4,14 +4,14 @@ import type { FC } from 'react';
 const OurSpaceSection: FC = () => {
     // Array de imagens do projeto anterior, mas formatado para o seu atual
     const images = [
-        { src: 'public/OlimpoBarBer/images/primeira foto da sequnecia.webp', alt: 'Espaço da barbearia 1' },
+        { src: 'src/OlimpoBarBer/images/primeira foto da sequnecia.webp', alt: 'Espaço da barbearia 1' },
         // A próxima linha tem uma correção no caminho de 'our-space' para 'space' para manter a convenção,
         // mas você pode ajustar conforme o caminho real no seu projeto atual.
-        { src: 'public/OlimpoBarBer/images/Segunda foto da sequencia.webp', alt: 'Espaço da barbearia 2' },
-        { src: 'public/OlimpoBarBer/images/terceira foto da sequencia.webp', alt: 'Espaço da barbearia 3' },
-        { src: 'public/OlimpoBarBer/images/quarta foto da sequencia.webp', alt: 'Espaço da barbearia 4' },
-        { src: 'public/OlimpoBarBer/images/quinta foto da sequencia.webp', alt: 'Espaço da barbearia 5' },
-        { src: 'public/OlimpoBarBer/images/sexta foto da sequencia.webp', alt: 'Espaço da barbearia 6' },
+        { src: 'src/OlimpoBarBer/images/Segunda foto da sequencia.webp', alt: 'Espaço da barbearia 2' },
+        { src: 'src/OlimpoBarBer/images/terceira foto da sequencia.webp', alt: 'Espaço da barbearia 3' },
+        { src: 'src/OlimpoBarBer/images/quarta foto da sequencia.webp', alt: 'Espaço da barbearia 4' },
+        { src: 'src/OlimpoBarBer/images/quinta foto da sequencia.webp', alt: 'Espaço da barbearia 5' },
+        { src: 'src/OlimpoBarBer/images/sexta foto da sequencia.webp', alt: 'Espaço da barbearia 6' },
     ];
 
     // O código de marcação (JSX) segue a estrutura do seu projeto atual.
@@ -31,7 +31,7 @@ const OurSpaceSection: FC = () => {
                     {/* Se quiser o anel dourado, use: <div className="gold-ring"></div> */}
                     {/* Para usar a imagem do ornamento do projeto anterior, use: */}
                     <img
-                        src="public\OlimpoBarBer\Decoracao\style4_optimized.png"
+                        src="src\OlimpoBarBer\Decoracao\style4_optimized.png"
                         alt=""
                         aria-hidden="true"
                         className="stylization-icon" // **Adicione esta classe ao seu CSS se precisar de um tamanho específico**

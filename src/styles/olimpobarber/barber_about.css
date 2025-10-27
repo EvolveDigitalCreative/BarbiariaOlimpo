@@ -3,7 +3,7 @@
 @font-face {
     font-family: 'Gods';
     /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
-    src: url('../../../public/fonts/GeorgiaProBold.ttf') format('truetype');
+    src: url('/src/fonts/GeorgiaProBold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

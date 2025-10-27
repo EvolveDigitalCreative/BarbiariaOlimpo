@@ -9,13 +9,13 @@ const AboutSection: FC = () => {
             
             {/* Detalhes Decorativos - Atenção ao caminho: use barras normais (/) no React, mesmo no Windows! */}
             <img
-                src="public\OlimpoBarBer\Decoracao\style2_optimized.png" /* Caminho corrigido para barra */
+                src="src\OlimpoBarBer\Decoracao\style2_optimized.png" /* Caminho corrigido para barra */
                 alt=""
                 aria-hidden="true"
                 className="decorative-style style-top-left"
             />
             <img
-                src="public\OlimpoBarBer\Decoracao\style3_optimized.png" /* Caminho corrigido para barra */
+                src="src\OlimpoBarBer\Decoracao\style3_optimized.png" /* Caminho corrigido para barra */
                 alt=""
                 aria-hidden="true"
                 className="decorative-style style-bottom-right"
@@ -43,7 +43,7 @@ const AboutSection: FC = () => {
                     {/* Contêiner interno para o tamanho fixo */}
                     <div className="about-image-wrapper">
                         <img 
-                            src="public\OlimpoBarBer\images\space10_optimized.webp" /* Caminho corrigido e URL de exemplo do Tailwind */
+                            src="src\OlimpoBarBer\images\space10_optimized.webp" /* Caminho corrigido e URL de exemplo do Tailwind */
                             alt="Detalhes do espaço da barbearia" 
                             className="responsive-image object-cover-fit" 
                         />

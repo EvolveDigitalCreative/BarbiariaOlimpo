@@ -4,6 +4,23 @@
     1. Importação de Fontes e Variáveis
     ================================================================= */
 
+
+    
+@font-face {
+    font-family: 'Gods';
+    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
+    src: path('src/fonts/BrittanySignature.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'But';
+    src: url('src/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --color-text-dark: #333;
     --color-gold: #b8860b;
@@ -136,7 +153,7 @@
     /* Mantido: w-full (mobile) */
     width: 100%;
 
-    background-image: url('../../../public/OlimpoBarBer/texture/whitemarble.jpg');
+    background-image: url('/src/OlimpoBarBer/texture/whitemarble.jpg');
     background-size: cover;
     background-position: center;
 
@@ -222,18 +239,3 @@
 }
 
 
-
-@font-face {
-    font-family: 'Gods';
-    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
-    src: url('public/fonts/BrittanySignature.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'But';
-    src: url('public/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
