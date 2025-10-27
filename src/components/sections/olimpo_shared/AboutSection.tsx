@@ -25,13 +25,13 @@ const AboutSection: FC = () => {
             <div className="section-content-wrapper about-content-wrapper relative z-10"> 
                 {/* 1. Texto (Fica à Esquerda) */}
                 <div className="section-text-container">
-                    <h2 className="section-title gold-title about-title-size">A BELEZA DO OLIMPO</h2> 
+                    <h2 className="section-title4 gold-title about-title-size">A BELEZA DO OLIMPO</h2> 
                     
                     <div className="space-y-4">
-                        <p className="section-paragraph about-paragraph-size paragraph-spaced">
+                        <p className="section-paragraph4 about-paragraph-size paragraph-spaced">
                             A nossa barbearia nasce de um conceito singular: unir a excelência do cuidado masculino à grandeza intemporal da Grécia Antiga. Não somos apenas uma barbearia — somos um templo moderno onde a arte da estética é elevada à nobreza de um ritual clássico.
                         </p>
-                        <p className="section-paragraph about-paragraph-size paragraph-spaced">
+                        <p className="section-paragraph4 about-paragraph-size paragraph-spaced">
                             Seja bem-vindo à verdadeira arte de cuidar de si, como um deus grego nos tempos de hoje.
                         </p>
                     </div>

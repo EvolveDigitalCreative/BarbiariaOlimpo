@@ -1,5 +1,13 @@
 /* === AJUSTES NA ESTRUTURA PRINCIPAL PARA A SEÇÃO ABOUT === */
 
+@font-face {
+    font-family: 'Gods';
+    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
+    src: url('../../../public/fonts/GeorgiaProBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* --- VARIÁVEIS (Mantido para referência) --- */
 /* Certifique-se de que estas variáveis estejam no seu arquivo global :root */
 /*
@@ -55,17 +63,22 @@
 /* === ESTILO DO TEXTO === */
 
 /* Título: text-lg/xl/2xl e mb-6 */
-.section-title.about-title-size {
-    font-size: 1.125rem; /* text-lg (18px) */
+.section-title4.about-title-size {
+    font-size: 2.125rem; /* text-lg (18px) */
     margin-bottom: 24px; /* mb-6 */
     font-weight: normal; 
+    color: #bf9e66;
+    font-family: var(--font-handwritten);
 }
 
 /* Parágrafo: text-base/xl e leading-relaxed */
-.section-paragraph.about-paragraph-size {
-    font-size: 1rem; /* text-base (16px) */
-    line-height: 1.75; /* leading-relaxed */
+.section-paragraph4.about-paragraph-size {
+    font-size: 1.26rem; /* text-base (16px) */
+    line-height: 1.89; /* leading-relaxed */
+    width: 33rem;
+    color: white;
     margin-bottom: 0; 
+    font-family: var(--font-handwritten);
 }
 
 /* Espaço entre parágrafos (space-y-4) */
