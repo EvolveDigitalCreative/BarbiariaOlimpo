@@ -55,7 +55,7 @@ const HeroSection: FC = () => {
             <section className={heroClass}>
                 <div className="dark-overlay"></div>
                 <div className="hero-content">
-                    <h2 className="hero-title1">Where Gods are made</h2>
+                    <h2 className="hero-titlesb">Where Gods are made</h2>
 
                     {/* ✅ TROCADO Link por Button */}
                     <button

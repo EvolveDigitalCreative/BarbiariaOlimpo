@@ -21,13 +21,13 @@ const OurSpaceSection: FC = () => {
 
             <div className="space-gallery-wrapper">
                 {/* Cabeçalho */}
-                <h2 className="section-title gold-title section-title-centered">O NOSSO ESPAÇO</h2>
-                <p className="section-subtitle-centered">
+                <h2 className="section-title5 gold-title section-title-centered">O NOSSO ESPAÇO</h2>
+                <p className="section-subtitle-centered5">
                     Bem vindo ao nosso espaço, com linhas contemporâneas a casa dos Deuses, o monte Olimpo
                 </p>
 
                 {/* Ornamento central (Usando a estrutura do anel dourado do projeto atual) */}
-                <div className="divider-icon">
+                <div className="divider-icon6">
                     {/* Se quiser o anel dourado, use: <div className="gold-ring"></div> */}
                     {/* Para usar a imagem do ornamento do projeto anterior, use: */}
                     <img

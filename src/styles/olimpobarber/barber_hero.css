@@ -4,31 +4,14 @@
     1. Importação de Fontes e Variáveis
     ================================================================= */
 
-@font-face {
-    font-family: 'Gods';
-    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
-    src: url('../../public/fonts/BrittanySignature.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'But';
-    src: url('../../public/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 :root {
     --color-text-dark: #333;
     --color-gold: #b8860b;
     --color-form-border: #ccc;
-
     --font-hend: 'But', cursive;
     --font-handwritten: 'Gods', cursive;
     --font-cta: sans-serif;
 }
-
 
 /* =================================================================
     2. Seção Principal (Fundo)
@@ -38,7 +21,7 @@
     position: relative;
     width: 100%;
     /* ✅ AJUSTE MOBILE: Reduz a altura mínima para mobile */
-    min-height: 60vh; 
+    min-height: 60vh;
     overflow: hidden;
     display: block;
     margin-top: 1px;
@@ -98,21 +81,25 @@
     justify-content: flex-end;
 
     /* ✅ AJUSTE MOBILE: Reduz o padding inferior para não ocupar tanto espaço */
-    padding: 0 1rem 4rem 1rem; /* 4rem = 64px (menor que os 7rem anteriores) */
+    padding: 0 1rem 4rem 1rem;
+    /* 4rem = 64px (menor que os 7rem anteriores) */
 
-    gap: 1rem; /* Reduz o espaçamento entre elementos */
+    gap: 1rem;
+    /* Reduz o espaçamento entre elementos */
     color: white;
 }
 
 /* Estilo do Título "Where Gods are made" */
-.hero-title1 {
-    font-family: var(--font-handwritten);
+.hero-titlesb {
+
+    font-family: font-handwritten;
 
     /* ✅ AJUSTE MOBILE: Reduz o tamanho da fonte para mobile */
-    font-size: 2.5rem; /* Padrão Mobile (40px) */
-
+    font-size: 2.5rem;
+    /* Padrão Mobile (40px) */
     font-weight: 400;
-    margin: 0 0 1rem 0; /* Reduz a margem inferior */
+    margin: 0 0 1rem 0;
+    /* Reduz a margem inferior */
     line-height: 1.1;
 
     color: white;
@@ -127,12 +114,14 @@
     }
 
     .hero-section {
-        min-height: 80vh; /* Restaura a altura */
+        min-height: 80vh;
+        /* Restaura a altura */
     }
 
     .hero-title1 {
         /* Restaura a fonte gigante para desktop */
-        font-size: 4.5rem; /* 7xl */
+        font-size: 4.5rem;
+        /* 7xl */
     }
 }
 
@@ -150,23 +139,24 @@
     background-image: url('../../../public/OlimpoBarBer/texture/whitemarble.jpg');
     background-size: cover;
     background-position: center;
-    
+
     /* ✅ REMOVIDO: max-width: 1480px; (Não é necessário aqui e pode causar problemas) */
     /* ✅ REMOVIDO: height: 80px; (Deixe o padding controlar a altura) */
-    
+
     color: black;
-    padding: 0.8rem 1.5rem; /* ✅ AJUSTE MOBILE: Padding levemente reduzido */
-    
+    padding: 0.8rem 1.5rem;
+    /* ✅ AJUSTE MOBILE: Padding levemente reduzido */
+
     border: 2px solid var(--color-gold);
     border-radius: 0.5rem;
     box-shadow: none;
 
     text-decoration: none;
     font-weight: 800;
-    
+
     /* ✅ AJUSTE MOBILE: Reduz o tamanho da fonte */
-    font-size: 1.2rem; 
-    
+    font-size: 1.2rem;
+
     display: inline-block;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -185,8 +175,10 @@
 @media (min-width: 1024px) {
     .hero-booking-button {
         width: auto;
-        padding: 1rem 3rem; /* Restaura o padding grande */
-        font-size: 1.5rem; /* Restaura o tamanho da fonte */
+        padding: 1rem 3rem;
+        /* Restaura o padding grande */
+        font-size: 1.5rem;
+        /* Restaura o tamanho da fonte */
     }
 }
 
@@ -200,7 +192,8 @@
     z-index: 30;
 
     /* ✅ AJUSTE MOBILE: Traz os indicadores para mais perto do botão */
-    bottom: 1.5rem; /* 24px (menor que 2rem anterior) */
+    bottom: 1.5rem;
+    /* 24px (menor que 2rem anterior) */
 
     left: 50%;
     transform: translateX(-50%);
@@ -210,7 +203,8 @@
 
 .indicator {
     display: block;
-    width: 0.6rem; /* ✅ AJUSTE MOBILE: Indicadores ligeiramente menores */
+    width: 0.6rem;
+    /* ✅ AJUSTE MOBILE: Indicadores ligeiramente menores */
     height: 0.6rem;
     border-radius: 50%;
     background-color: #cacaca;
@@ -225,4 +219,21 @@
 
 .indicator:hover:not(.active) {
     background-color: rgba(255, 255, 255, 0.75);
+}
+
+
+
+@font-face {
+    font-family: 'Gods';
+    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
+    src: url('public/fonts/BrittanySignature.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'But';
+    src: url('public/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }

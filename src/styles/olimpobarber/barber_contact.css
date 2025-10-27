@@ -1,5 +1,16 @@
 /* src/styles/olimpobarber/barber_contact.css */
 
+
+@font-face {
+    font-family: 'Gods';
+    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
+    src: url('../../../public/fonts/GeorgiaPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 /* --- Estilos Base --- */
 
 .contact-section {
@@ -10,17 +21,26 @@
     margin-bottom: 80px;
 }
 
-.section-subtitle-centered {
+.section-subtitle-centered5 {
     text-align: center;
     font-size: 1rem;
     margin-bottom: 30px;
-    max-width: 700px;
+    max-width: 470px;
     margin-left: auto;
     margin-right: auto;
+    color: black;
+    font-family: var(--font-handwritten);
+}
+
+.section-title5{
+    margin-bottom: 2rem;
+    color: black;
+    font-size: 30px;
+    font-family: var(--font-handwritten);
 }
 
 /* Ícone Divisor (Anel Dourado) */
-.divider-icon {
+.divider-icon6 {
     text-align: center;
     margin-bottom: 40px;
 }
@@ -44,6 +64,7 @@
     margin: 0 auto;
     /* Padding para não tocar nas bordas em ecrãs maiores */
     padding: 0 20px; 
+    
 }
 
 /* NOVO BLOCO: Wrapper para forçar o aspecto quadrado (1:1) */
@@ -51,14 +72,18 @@
     aspect-ratio: 1 / 1;
     width: 100%; 
     height: 100%;
+    
     overflow: hidden; 
 }
 
 .gallery-item img {
     height: 100%;
     width: 100%;
+    max-height: 400px;
     object-fit: cover;
     border-radius: 4px;
+    margin-bottom: 20px;
+    top: 50px;
 }
 
 /* Estrutura de Contactos e Mapa */
