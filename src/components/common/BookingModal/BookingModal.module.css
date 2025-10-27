@@ -36,7 +36,7 @@
 .modal-overlay {
     position: fixed;
     inset: 0;
-    z-index: 50;
+    z-index: 2000;
     background-color: var(--modal-overlay-bg); /* bg-black/60 */
     padding: 1rem; /* p-4 (padding externo no overlay) */
     display: flex;
