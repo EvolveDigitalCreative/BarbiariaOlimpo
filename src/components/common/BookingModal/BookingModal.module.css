@@ -678,5 +678,171 @@
     padding: 11px; 
 }
 
-/* --- Botões de Ação (Seguinte) --- */
-/* (Reutiliza os estilos .action-buttons-container, .next-button-mobile, .desktop-actions, .next-button-desktop definidos anteriormente) */
+/* --- Estilos para ReviewConfirmStep (Etapa 4) --- */
+
+.summary-container {
+    max-width: 42rem; 
+    margin: 0 auto 1.5rem auto; /* ✅ Centraliza o contêiner principal */
+    width: 100%;
+    
+    /* ✅ ADICIONADO: Centraliza o elemento inline-flex/bloco dentro do container */
+    display: flex; 
+    justify-content: center; 
+}
+.summary-card-review {
+    display: inline-flex; /* inline-flex */
+    align-items: center; /* items-center */
+    border: 2px solid var(--border-color); /* Borda preta 2px */
+    border-radius: var(--card-border-radius); /* rounded-xl (1rem) */
+    padding: 0.75rem 1rem; /* pl-3 e padding vertical */
+    background-color: var(--input-bg); /* bg-[#EFEFEF] */
+}
+.summary-details { min-width: 0; text-align: left; }
+.summary-service { font-family: var(--font-georgia); font-weight: 700; font-size: 0.875rem; color: var(--primary-text-color); }
+.summary-barber { font-family: var(--font-georgia); color: var(--gold-color); font-weight: 700; text-transform: uppercase; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.summary-datetime { font-weight: 700; font-size: 0.875rem; color: var(--primary-text-color); }
+.summary-icon-wrapper { position: relative; margin-left: 1.5rem; /* ml-6 (aumentado) */ flex-shrink: 0; width: 3rem; height: 3rem; }
+.summary-icon { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+
+.form-container {
+    margin-top: 1.5rem; /* mt-6 */
+    width: 100%;
+    max-width: 42rem; /* max-w-2xl */
+    margin-left: auto; margin-right: auto; /* mx-auto */
+}
+.form-fields {
+    font-family: var(--font-georgia); /* font-georgia */
+}
+.form-fields > div:not(:last-child) { margin-bottom: 1rem; /* space-y-4 */ }
+.form-label {
+    display: block; /* block */
+    font-size: 1rem; /* text-base (aumentado) */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 0.5rem; /* mb-2 (aumentado) */
+    color: var(--primary-text-color);
+    text-align: left;
+}
+.form-input {
+    width: 100%; /* w-full */
+    border-radius: var(--button-border-radius); /* rounded-lg */
+    border: 1px solid var(--border-color-light); /* Borda cinza clara */
+    background-color: var(--input-bg); /* bg-[#EFEFEF] */
+    padding: 1rem; /* px-4 py-4 */
+    font-family: var(--font-georgia); 
+    font-size: 1rem; 
+    color: var(--primary-text-color);
+}
+.form-input::placeholder { color: var(--secondary-text-color); }
+.form-input:disabled, .form-input[readonly] {
+    opacity: 0.7; cursor: not-allowed;
+    background-color: #f9f9f9; 
+}
+.error-message-box {
+    margin-top: 1rem; padding: 0.75rem;
+    background-color: #FEE2E2; border: 1px solid #FCA5A5;
+    color: #B91C1C; border-radius: var(--button-border-radius);
+    font-size: 0.875rem; text-align: center;
+}
+.confirm-button-wrapper {
+    margin-top: 1.5rem; 
+    display: flex; 
+    justify-content: center; /* ✅ Garante a centralização horizontal */
+    padding-bottom: 1rem;
+    width: 100%; /* ✅ Garante que ocupe a largura total para centralizar */
+}
+
+@media (max-width: 639px) { /* Mobile */
+    .confirm-button {
+        width: 100%; /* Garante que o botão mobile ocupe a largura */
+    }
+}
+
+
+/* --- Estilos para BookingSuccessStep (Etapa 5) --- */
+.booking-success-container { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
+.content-wrapper { max-width: 42rem; margin-left: auto; margin-right: auto; width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 80px; }
+@media (min-width: 640px) { .content-wrapper { padding-bottom: 0; } }
+
+/* ✅ Estilos atualizados para e4f303.png */
+.success-message-large {
+    font-size: 1.5rem; /* Aumentado (text-2xl) */
+    font-family: var(--font-georgia);
+    font-weight: 600; /* font-semibold (como o título) */
+    margin-top: 0.5rem; /* Reduzido mt-15 para mt-2 */
+    margin-bottom: 0.5rem; /* mb-2 */
+    color: var(--primary-text-color);
+}
+@media (min-width: 1024px) { .success-message-large { font-size: 1.75rem; } }
+
+.success-thank-you {
+    font-size: 1.875rem; /* text-3xl */
+    font-family: var(--font-georgia);
+    font-weight: 700;
+    color: var(--gold-color);
+    margin-bottom: 2.5rem; /* mb-10 */
+}
+@media (min-width: 1024px) { .success-thank-you { font-size: 2.25rem; /* lg:text-4xl */ margin-bottom: 3rem; /* lg:mb-12 */ } }
+
+/* Ícone de Sucesso (SVG ou Imagem) */
+.success-icon { /* Estilo antigo para <img> */
+    width: 5rem; height: 5rem; margin-left: auto; margin-right: auto;
+    margin-bottom: 2.5rem; /* mb-10 */
+}
+.success-icon-svg { /* ✅ NOVO: Estilo para o <svg> */
+    width: 6rem; /* w-24 (maior) */
+    height: 6rem; /* h-24 */
+    margin-left: auto; margin-right: auto;
+    margin-bottom: 2.5rem; /* mb-10 */
+    color: var(--primary-text-color); /* Garante que o fill="black" funcione */
+}
+
+/* ✅ REMOVIDO: Status do Email (Conforme imagem e4f303.png) */
+.email-status-container { display: none; }
+.email-status { display: none; }
+.email-status-sending { display: none; }
+.email-status-text { display: none; }
+
+
+/* ✅ Resumo da Marcação (Etapa 5) - Ajustado para corresponder à Etapa 4 */
+.summary-card-success {
+    margin-bottom: 2.5rem; /* mb-10 (espaço antes do botão Sair) */
+}
+
+/* --- Botões Sair (Etapa 5) --- */
+
+/* ✅ NOVO: Estilo para o botão "Sair" (Reutiliza .confirm-button) */
+
+/* Wrapper para centralizar o botão Confirmar/Sair */
+.confirm-button-wrapper {
+    margin-top: 1.5rem; 
+    display: flex; 
+    justify-content: center; 
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+/* Botão principal (Confirmar / Sair) */
+.confirm-button, .exit-button {
+    padding: 1rem 5rem; /* Padding largo */
+    background-color: var(--border-color); /* Fundo preto */
+    color: white; /* Texto branco */
+    border-radius: var(--button-border-radius);
+    font-family: var(--font-georgia);
+    font-weight: 700;
+    font-size: 1.125rem; /* Ajuste de tamanho (text-lg) */
+    border: none; cursor: pointer;
+    transition: opacity 0.2s;
+    width: auto; /* Para centralizar */
+    margin-left: auto;
+    margin-right: auto;
+}
+.confirm-button:hover, .exit-button:hover { opacity: 0.9; }
+.confirm-button:disabled, .exit-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 640px) { /* Mobile */
+    .exit-button {
+        width: auto; 
+        max-width: none;
+        padding: 0.875rem 0; /* Padding do botão mobile padrão */
+    }
+}
