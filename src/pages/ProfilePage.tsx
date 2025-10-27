@@ -1,4 +1,4 @@
-// src/pages/ProfilePage.tsx - COMPLETO
+// src/pages/ProfilePage.tsx - CÓDIGO COMPLETO E ATUALIZADO
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -69,6 +69,12 @@ const ProfilePage: React.FC = () => {
         }
     };
 
+    // NOVO: Manipulador de clique para o botão "Edita o teu perfil"
+    const handleEditProfile = () => {
+        // Redireciona para a rota onde o AboutProfile.tsx será renderizado
+        navigate('/perfil-info'); 
+    };
+
     const getInitials = (name: string): string => {
         if (!name) return '?';
         const nameParts = name.split(' ');
@@ -112,7 +118,13 @@ const ProfilePage: React.FC = () => {
                                 <span className="user-name">{displayName}</span>
                             </div>
                         </div>
-                        <button className="edit-profile-button">Edita o teu perfil</button>
+                        {/* BOTÃO ATUALIZADO */}
+                        <button 
+                            className="edit-profile-button"
+                            onClick={handleEditProfile}
+                        >
+                            Edita o teu perfil
+                        </button>
                         <button onClick={handleLogout} className="logout-link">
                             Sair da sua conta
                         </button>
