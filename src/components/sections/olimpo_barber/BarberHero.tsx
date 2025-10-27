@@ -6,9 +6,10 @@ import React, { useState, useEffect, useCallback, type FC } from 'react';
 
 // ✅ Importe o componente do Modal
 import { BookingModal } from '../../common/BookingModal/BookingModal'; // Ajuste o caminho se necessário
+import '../../../styles/olimpobarber/barber_hero.css';
 
-const IMAGES_COUNT = 3; 
-const CAROUSEL_INTERVAL_MS = 5000; 
+const IMAGES_COUNT = 3;
+const CAROUSEL_INTERVAL_MS = 5000;
 
 const HeroSection: FC = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(1);
@@ -16,11 +17,11 @@ const HeroSection: FC = () => {
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
     const goToNextImage = useCallback(() => {
-        setCurrentImageIndex(prevIndex => 
+        setCurrentImageIndex(prevIndex =>
             prevIndex === IMAGES_COUNT ? 1 : prevIndex + 1
         );
     }, []);
-    
+
     useEffect(() => {
         const interval = setInterval(goToNextImage, CAROUSEL_INTERVAL_MS);
         return () => clearInterval(interval);
@@ -39,7 +40,7 @@ const HeroSection: FC = () => {
     const handleCloseBookingModal = () => {
         setIsBookingModalOpen(false);
     };
-    
+
     // ✅ Função opcional para lidar com a seleção final no modal (se necessário)
     // const handleBookingComplete = (selectedData) => {
     //    console.log("Marcação finalizada com:", selectedData);
@@ -54,16 +55,16 @@ const HeroSection: FC = () => {
             <section className={heroClass}>
                 <div className="dark-overlay"></div>
                 <div className="hero-content">
-                    <h2 className="hero-title">Where Gods are made</h2>
-                    
+                    <h2 className="hero-title1">Where Gods are made</h2>
+
                     {/* ✅ TROCADO Link por Button */}
-                    <button 
-                        className="hero-booking-button" 
+                    <button
+                        className="hero-booking-button"
                         onClick={handleOpenBookingModal} // Chama a função para abrir o modal
                     >
                         Marcações
                     </button>
-                    
+
                     {/* Indicadores do Carrossel */}
                     <div className="carousel-indicators">
                         {[...Array(IMAGES_COUNT)].map((_, index) => {
@@ -82,11 +83,11 @@ const HeroSection: FC = () => {
             </section>
 
             {/* ✅ Renderiza o Modal condicionalmente */}
-            <BookingModal 
-                isOpen={isBookingModalOpen} 
-                onClose={handleCloseBookingModal} 
-                // Passe outras props necessárias para o modal aqui, se houver
-                // onConfirm={handleBookingComplete} 
+            <BookingModal
+                isOpen={isBookingModalOpen}
+                onClose={handleCloseBookingModal}
+            // Passe outras props necessárias para o modal aqui, se houver
+            // onConfirm={handleBookingComplete} 
             />
         </>
     );

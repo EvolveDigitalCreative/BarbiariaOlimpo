@@ -40,11 +40,19 @@
     box-sizing: border-box;
 }
 
+html, body {
+    /* Define a largura máxima para 100% da tela */
+    max-width: 100%; 
+    /* Esconde qualquer conteúdo que tente sair do eixo X */
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--font-family-sans);
     line-height: 1.6;
     background-color: var(--color-background-light);
     color: var(--color-text-dark);
+    max-width: 100%;
 }
 
 /* Links universais */

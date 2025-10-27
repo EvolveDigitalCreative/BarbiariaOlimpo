@@ -95,7 +95,7 @@
   box-sizing: border-box;
 }
 
-/* --- Container (Layouts Luxury & Compact) --- */
+/* --- Container (Layouts Compact) --- */
 .header-container {
   max-width: var(--header-max-width);
   height: 100%;
@@ -113,12 +113,30 @@
   height: 100%;
   margin: 0 auto;
   max-height: 70px;
+  max-width: 100%;
   padding: var(--header-padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
 }
+
+
+@media (max-width: 1023px) {
+  /* --- Container (Layouts Luxury) --- */
+.header-container2 {
+  max-width: var(--header-max-width);
+  height: 100%;
+  margin: 0 auto;
+  max-height: 70px;
+  max-width: 100%;
+  padding: var(--header-padding);
+  display: flex;
+  padding-left: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}}
 
 /* --- Componente: Logo (Imagem) --- */
 .logo-wrapper {
@@ -300,3 +318,23 @@
 .header-skincare .header-icon-link:hover {
   color: var(--skincare-link-hover);
 }
+
+
+
+@media (max-width: 1023px) {
+/* --- BARBER PRESET (Ajustes Específicos) --- */
+    .header-barber.main-header {
+        /* Reduzir o tamanho da Logo */
+        --logo-height: 90px; 
+               
+        /* Reduz o tamanho dos ícones */
+        --icon-size-skincare: 50px;
+        --icon-size-wear: 60px;
+        --icon-size-user: 15px;
+        
+        /* Reduz a margem entre os ícones */
+        --icon-gap: 6px; 
+        
+        /* Reduz o tamanho do texto do ícone */
+        --icon-label-size: 13px; 
+    }}

@@ -94,6 +94,7 @@
         align-items: center;
         /* Alinha verticalmente no centro */
         gap: 6rem;
+        
     }
 
     /* 2. Define a ordem e o tamanho das colunas */
@@ -104,6 +105,7 @@
         /* Ocupa 50% do espaço */
         text-align: left;
         max-width: none;
+        
     }
 
     .section-image-container.medium-image-centered {
