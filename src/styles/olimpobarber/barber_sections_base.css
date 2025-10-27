@@ -1,5 +1,12 @@
 /* src/styles/olimpobarber/barber_sections_base.css */
 
+@font-face {
+    font-family: 'Gods';
+    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
+    src: url('../../../public/fonts/GeorgiaProBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 /* === Seção Principal (Tradução de py-20/16 e px-8/4) === */
 .content-section {
     /* Mobile: py-20 (80px) e px-8 (32px) */
@@ -31,29 +38,35 @@
 }
 
 /* === Título (Tradução de text-4xl/6xl e mb-8/25) === */
-.section-title {
+.section-title3 {
     /* Estilo base */
     font-weight: bold;
-    line-height: 1.1;
+    line-height: 1.7;
+    width: 20rem;
+
+    color: #bf9e66;
     margin-bottom: 32px; /* mb-8 (32px) */
 }
-.gold-title {
+.gold-title3 {
     color: var(--color-gold); 
 }
 /* A nova classe para diferenciar o tamanho do título */
-.section-title.large-title {
-    font-size: 2.5rem; /* text-4xl (40px) */
+.section-title3.large-title {
+    font-size: 3.5rem; /* text-4xl (40px) */
 }
 
 /* === Parágrafo (Tradução de text-xl e lg:w-3/4) === */
 .section-paragraph {
     margin-bottom: 15px;
     line-height: 1.6;
+    
 }
 /* Estilo text-xl */
 .large-paragraph {
-    font-size: 1.25rem; /* text-xl (20px) */
+    font-size: 1.35rem; /* text-xl (20px) */
     line-height: 1.8; /* leading-relaxed */
+    width: 28rem;
+    font-family: var(--font-handwritten);
 }
 
 /* Contêiner para limitar a largura do parágrafo no desktop */
