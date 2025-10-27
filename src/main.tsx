@@ -1,11 +1,11 @@
-// src/main.tsx
+// src/main.tsx - COMPLETO (SEM STRICTMODE)
 
 // ✅ REMOVIDO: import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Importação do AuthProvider
-import { AuthProvider } from './components/auth/AuthContext'; // Ajuste o caminho se necessário
+import { AuthProvider } from './components/auth/AuthContext';
 
 // Importação dos Estilos Globais
 import './styles/global/_global.css';
@@ -20,6 +20,8 @@ import OlimpoSkincare from './pages/OlimpoSkincare';
 import OlimpoCoin from './components/sections/olimpo_barber/OlimpoCoinPage';
 import OlimpoWear from './pages/OlimpoWear';
 import ProfilePage from './pages/ProfilePage';
+import AboutProfile from './pages/AboutProfile'; // Página de informações detalhadas do perfil
+import ProfileActionsPage from './pages/ProfileActionsPage'; // ✅ NOVA IMPORTAÇÃO: Página de Favoritos/Sobre Nós/Descontos
 
 // --- Layouts e Componentes Admin ---
 import AdminLayout from './components/admin/AdminLayout';
@@ -35,6 +37,7 @@ import AdminServices from './pages/admin/AdminServices';
 import AdminOrders from './pages/admin/AdminOrders';
 */
 
+// O React.StrictMode foi removido, conforme solicitado.
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <AuthProvider>
         <BrowserRouter>
@@ -49,7 +52,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
 
-                {/* ROTA PROTEGIDA PARA O PERFIL */}
+                {/* --- ROTAS PROTEGIDAS DO USUÁRIO --- */}
+                
+                {/* ROTA PROTEGIDA PARA O PERFIL (Página principal) */}
                 <Route
                     path="/profile"
                     element={
@@ -59,14 +64,33 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     }
                 />
 
-                {/* ROTAS PROTEGIDAS DA DASHBOARD ADMIN */}
+                {/* ROTA PROTEGIDA PARA AS INFORMAÇÕES DETALHADAS DO PERFIL */}
                 <Route
-                    path="/admin"
+                    path="/perfil-info"
                     element={
-                        <ProtectedRoute requiredRole="admin">
-                            <AdminLayout />
+                        <ProtectedRoute>
+                            <AboutProfile /> 
                         </ProtectedRoute>
                     }
+                />
+                
+                {/* ✅ NOVA ROTA PROTEGIDA PARA A PÁGINA DE FAVORITOS/SOBRE NÓS/DESCONTOS */}
+                <Route
+                    path="/profile-actions"
+                    element={
+                        <ProtectedRoute>
+                            <ProfileActionsPage /> 
+                        </ProtectedRoute>
+                    }
+                />
+
+
+                {/* --- ROTAS PROTEGIDAS DA DASHBOARD ADMIN --- */}
+                
+                {/* CORREÇÃO: Aplicamos o ProtectedRoute DENTRO do AdminLayout para rotas aninhadas. */}
+                <Route
+                    path="/admin"
+                    element={<AdminLayout />} // AdminLayout deve conter o ProtectedRoute e o Outlet
                 >
                     <Route index element={<AdminOverview />} />
                     {/* <Route path="vendas" element={<AdminSales />} /> */}

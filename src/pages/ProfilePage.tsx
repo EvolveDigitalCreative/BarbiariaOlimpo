@@ -1,4 +1,4 @@
-// src/pages/ProfilePage.tsx - COMPLETO
+// src/pages/ProfilePage.tsx - CÓDIGO COMPLETO E ATUALIZADO
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,6 +18,10 @@ const HeartIcon = () => <span>❤️</span>;
 const InfoIcon = () => <span>➕</span>;
 const DiscountIcon = () => <span>⚙️</span>;
 const ArrowRightIcon = () => <span>➔</span>;
+
+// Mapeamento de abas para a URL
+type ActionTab = 'Favoritos' | 'Sobre nós' | 'Descontos';
+
 
 const ProfilePage: React.FC = () => {
     const { currentUser } = useAuth();
@@ -69,6 +73,17 @@ const ProfilePage: React.FC = () => {
         }
     };
 
+    const handleEditProfile = () => {
+        navigate('/perfil-info'); 
+    };
+
+    // ✅ NOVO: Função para navegar para a página de ações com a aba correta
+    const handleActionClick = (tab: ActionTab) => {
+        // Navega para a rota de ações, passando a aba como query parameter (ex: /profile-actions?tab=Favoritos)
+        navigate(`/profile-actions?tab=${encodeURIComponent(tab)}`);
+    };
+
+
     const getInitials = (name: string): string => {
         if (!name) return '?';
         const nameParts = name.split(' ');
@@ -93,7 +108,6 @@ const ProfilePage: React.FC = () => {
     return (
         <div className="profile-page-container">
             <header className="profile-header">
-                {/* ✅ GOAL 1: Logo e Seta Agrupados para alinhamento vertical */}
                 <div className="profile-header-group">
                     <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo" className="profile-logo" />
                     <Link to="/" className="back-arrow" aria-label="Voltar">←</Link>
@@ -104,7 +118,6 @@ const ProfilePage: React.FC = () => {
                 <div className="profile-top-row">
                     {/* Card de Perfil */}
                     <div className="profile-card profile-info-card">
-                        {/* ✅ GOAL 2: Avatar e Info Agrupados para alinhamento lateral */}
                         <div className="avatar-info-group">
                             <div className="profile-avatar">{userInitials}</div>
                             <div className="user-info">
@@ -112,7 +125,12 @@ const ProfilePage: React.FC = () => {
                                 <span className="user-name">{displayName}</span>
                             </div>
                         </div>
-                        <button className="edit-profile-button">Edita o teu perfil</button>
+                        <button 
+                            className="edit-profile-button"
+                            onClick={handleEditProfile}
+                        >
+                            Edita o teu perfil
+                        </button>
                         <button onClick={handleLogout} className="logout-link">
                             Sair da sua conta
                         </button>
@@ -136,30 +154,33 @@ const ProfilePage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Linha Inferior */}
+                {/* Linha Inferior - Cards de Ação ATUALIZADOS */}
                 <div className="profile-bottom-row">
-                    {/* Os Cards de Ação não precisam de mudança estrutural, só CSS */}
+                    
                     {/* Card Favoritos */}
-                    <div className="action-card">
+                    <div className="action-card" onClick={() => handleActionClick('Favoritos')}>
                         <div className="card-icon"><HeartIcon /></div>
                         <h4 className="card-title">Favoritos</h4>
                         <p className="card-description">Consulta aqui os teus artigos favoritos da Olimpo wear.</p>
                         <button className="arrow-button"><ArrowRightIcon /></button>
                     </div>
+                    
                     {/* Card Sobre nós */}
-                    <div className="action-card">
+                    <div className="action-card" onClick={() => handleActionClick('Sobre nós')}>
                         <div className="card-icon"><InfoIcon /></div>
                         <h4 className="card-title">Sobre nós</h4>
                         <p className="card-description">Fica a conhecer melhor a nossa missão</p>
                         <button className="arrow-button"><ArrowRightIcon /></button>
                     </div>
+                    
                     {/* Card Descontos */}
-                    <div className="action-card">
+                    <div className="action-card" onClick={() => handleActionClick('Descontos')}>
                         <div className="card-icon"><DiscountIcon /></div>
                         <h4 className="card-title">Descontos</h4>
                         <p className="card-description">Não percas descontos imperdíveis</p>
                         <button className="arrow-button"><ArrowRightIcon /></button>
                     </div>
+                    
                 </div>
             </main>
         </div>

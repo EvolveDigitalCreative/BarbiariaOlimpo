@@ -11,6 +11,14 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+=========================================================================================================================================
+## Para rodar o código siga os comando.
+npm install firebase
+npm install react-icons
+npm install three @react-three/fiber @react-three/drei
+npm run dev
+## Para rodar o código siga os comando.
+=========================================================================================================================================
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
