@@ -5,6 +5,26 @@
     padding: 100px 40px; 
 }
 
+.booking-button {
+    display: block;
+    margin: 40px auto; /* Centraliza o botão */
+    padding: 15px 30px;
+    background-color: #333; /* Cor escura como na maioria dos seus botões */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.booking-button:hover {
+    background-color: #555; /* Um tom ligeiramente mais claro no hover */
+}
+
 /* Container da Mensagem de Indisponibilidade */
 .barbers-unavailable-message {
     text-align: center;

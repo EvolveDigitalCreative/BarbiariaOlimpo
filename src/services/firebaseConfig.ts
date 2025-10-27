@@ -1,11 +1,14 @@
+// src/services/firebaseConfig.ts - CÓDIGO LIMPO PARA AMBIENTE DE PRODUÇÃO
+
 import { initializeApp, type FirebaseOptions } from 'firebase/app';
-import { getFirestore, Firestore } from "firebase/firestore";
+// Importações de serviços
+import { getFirestore, type Firestore } from "firebase/firestore";
 import { getStorage, type FirebaseStorage } from 'firebase/storage';
 import { getAuth, type Auth } from 'firebase/auth';
 import { getFunctions, type Functions } from 'firebase/functions';
 import { getAnalytics, type Analytics } from 'firebase/analytics';
 
-// Definição da interface para garantir que a configuração tem o tipo correto
+// Definição da interface de configuração (mantida)
 const firebaseConfig: FirebaseOptions = {
     apiKey: "AIzaSyD9EwV663M-eXBqyZDHToD9xPezfy8OBqw",
     authDomain: "olimpo-3df0d.firebaseapp.com",
@@ -16,22 +19,33 @@ const firebaseConfig: FirebaseOptions = {
     measurementId: "G-R96RQSV305"
 };
 
-// 1. Inicializa o Firebase
+// 1. Inicializa o Firebase App (INSTÂNCIA ÚNICA)
 const app = initializeApp(firebaseConfig);
 
-// 2. Inicializa os serviços e aplica as tipagens (opcional, mas recomendado)
-// O TypeScript infere os tipos, mas definir a variável ajuda na clareza.
+// 2. Inicializa e exporta os serviços
 export const db: Firestore = getFirestore(app);
 export const storage: FirebaseStorage = getStorage(app);
-export const auth: Auth = getAuth(app); 
-export const functions: Functions = getFunctions(app);
+export const auth: Auth = getAuth(app);
 
-// 3. Inicializa o Analytics (O Analytics deve ser inicializado antes de ser usado)
-// Nota: A variável 'analytics' deve ser exportada se for usada fora deste arquivo, 
-// mas geralmente é apenas inicializada aqui.
-const analytics: Analytics = getAnalytics(app);
+// Inicializa functions com a região correta
+export const functions: Functions = getFunctions(app, 'us-central1'); 
 
-// Se precisar do objeto App ou Analytics em outro lugar, exporte-o:
-// export { app, analytics };
+// 3. Inicializa o Analytics
+// Nota: O Analytics precisa ser chamado para ser ativado.
+export const analytics: Analytics = getAnalytics(app);
 
-// Para o seu uso, as exportações de 'db', 'auth', 'storage' e 'functions' são suficientes.
+// Exporta a instância principal do app
+export { app };
+
+/*
+ * NOTA: As chamadas connectEmulator foram removidas.
+ * Isso garante que o app use o servidor (produção) em vez dos emuladores locais.
+ * Para voltar a usar os emuladores, você precisará adicionar novamente a lógica condicional:
+ 
+    if (process.env.NODE_ENV === 'development') {
+        import { connectFunctionsEmulator, connectFirestoreEmulator, connectAuthEmulator } from 'firebase/functions/etc...';
+        connectFunctionsEmulator(functions, "localhost", 5002);
+        connectFirestoreEmulator(db, "localhost", 8081);
+        connectAuthEmulator(auth, "http://localhost:9098");
+    }
+*/

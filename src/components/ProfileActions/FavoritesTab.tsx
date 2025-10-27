@@ -1,17 +1,18 @@
 // src/components/ProfileActions/FavoritesTab.tsx
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../components/auth/AuthContext'; // Assumindo que você usa AuthContext
+import { useAuth } from '../../components/auth/AuthContext'; // Importação do AuthContext
 import { collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { db } from '../../services/firebaseConfig'; // Assumindo que o Firestore está configurado em firebaseConfig.ts
+import { db } from '../../services/firebaseConfig'; 
 import type { FavoriteItem } from '../../types';
 import styles from './ProfileActions.module.css';
 
 interface FavoritesTabProps {
-    styles: typeof styles; // Passa o objeto styles do módulo CSS
+    styles: typeof styles;
 }
 
 const FavoritesTab: React.FC<FavoritesTabProps> = ({ styles }) => {
+    // ✅ Puxa o usuário logado
     const { currentUser } = useAuth();
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [loading, setLoading] = useState(true);
@@ -22,8 +23,9 @@ const FavoritesTab: React.FC<FavoritesTabProps> = ({ styles }) => {
             return;
         }
 
+        setLoading(true);
         try {
-            // Caminho: users/{userId}/favorites
+            // ✅ Caminho para a subcoleção de favoritos do usuário logado
             const favoritesCollectionRef = collection(db, `users/${currentUser.uid}/favorites`);
             const q = query(favoritesCollectionRef);
             const querySnapshot = await getDocs(q);
@@ -36,16 +38,7 @@ const FavoritesTab: React.FC<FavoritesTabProps> = ({ styles }) => {
             setFavorites(items);
         } catch (error) {
             console.error("Erro ao buscar favoritos:", error);
-            // Mock de dados se a busca falhar ou para o caso de teste (BASEADO NA IMAGEM)
-             const mockFavorites: FavoriteItem[] = [
-                { id: '1', type: 'product', name: 'Alex9', colorDetails: 'Cor - preto & branco', price: 25, imageUrl: '/OlimpoBarBer/images/mock/alex9_pb.jpg' },
-                { id: '2', type: 'product', name: 'Mirror', colorDetails: 'Cor - branco & preto', price: 25, imageUrl: '/OlimpoBarBer/images/mock/mirror_bp.jpg' },
-                { id: '3', type: 'product', name: 'Alex9', colorDetails: 'Cor - branco & gold', price: 25, imageUrl: '/OlimpoBarBer/images/mock/alex9_bg.jpg' },
-                { id: '4', type: 'product', name: 'Basic', colorDetails: 'Cor - branco & preto', price: 25, imageUrl: '/OlimpoBarBer/images/mock/basic_bp.jpg' },
-                { id: '5', type: 'product', name: 'Mirror', colorDetails: 'Cor - preto & branco', price: 25, imageUrl: '/OlimpoBarBer/images/mock/mirror_pb.jpg' },
-            ];
-            // Use esta linha se você preferir um mock visual
-            // setFavorites(mockFavorites); 
+            setFavorites([]); // Falha, mostra vazio
         } finally {
             setLoading(false);
         }
@@ -59,10 +52,10 @@ const FavoritesTab: React.FC<FavoritesTabProps> = ({ styles }) => {
         if (!currentUser) return;
         
         try {
+            // ✅ Deleta o documento na subcoleção
             const itemDocRef = doc(db, `users/${currentUser.uid}/favorites`, itemId);
             await deleteDoc(itemDocRef);
             
-            // Atualiza o estado local
             setFavorites(prev => prev.filter(item => item.id !== itemId));
         } catch (error) {
             console.error("Erro ao remover favorito:", error);
@@ -74,10 +67,10 @@ const FavoritesTab: React.FC<FavoritesTabProps> = ({ styles }) => {
     }
 
     if (favorites.length === 0) {
-        // ✅ Corresponde à imagem 'image_9d9840.png'
         return <div className={styles['empty-message']}>Não existem favoritos no momento.</div>;
     }
 
+    // Código de renderização do grid de favoritos (mantido)
     return (
         <div className={styles['favorites-grid']}>
             {favorites.map((item) => (
@@ -103,7 +96,6 @@ const FavoritesTab: React.FC<FavoritesTabProps> = ({ styles }) => {
                         </div>
                         <span className={styles['item-price']}>{item.price}€</span>
                     </div>
-                    {/* Linha separadora, conforme imagem */}
                     <div className={styles['item-separator']}></div>
                 </div>
             ))}
