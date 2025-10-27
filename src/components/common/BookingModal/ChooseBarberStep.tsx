@@ -22,10 +22,6 @@ const translateRole = (roleKey?: string): string => {
         case 'barber':
         case 'barbeiro': // Aceita ambas as chaves internas
             return 'BARBEIRO'; // O que será exibido na UI
-        case 'admin':
-            return 'ADMINISTRADOR';
-        default:
-            return 'barbeiro';
     }
 };
 
