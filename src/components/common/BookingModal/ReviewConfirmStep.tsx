@@ -155,7 +155,7 @@ export function ReviewConfirmStep({ data, onBack, onConfirm, loading = false, er
                     </div>
                     {/* .summary-icon-wrapper */}
                     <div className={styles['summary-icon-wrapper']}>
-                        <img src="/barbershop/icons/OlimpoBarber.png" alt="Olimpo" className={styles['summary-icon']} />
+                        <img src="public/OlimpoBarBer/icons/OlimpoBarber_optimized.png" alt="Olimpo" className={styles['summary-icon']} />
                     </div>
                 </div>
             </div>

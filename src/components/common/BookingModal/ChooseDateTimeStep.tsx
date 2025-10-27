@@ -185,7 +185,7 @@ export const ChooseDateTimeStep: React.FC<Props> = memo(({ data, onChange, onNex
                     <div className={styles['desktop-actions']}>
                         <button type="button" className={styles['next-button-desktop']} onClick={onNext}>
                             <span>Seguinte</span>
-                            <img src="/barbershop/icons/proximo.png" alt="Próximo" className={styles['next-button-icon-desktop']} />
+                            <img src="public/OlimpoBarBer/icons/proximo.png" alt="Próximo" className={styles['next-button-icon-desktop']} />
                         </button>
                     </div>
                 </>

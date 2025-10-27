@@ -122,7 +122,7 @@ export function BookingModal({
                             <div className={styles['header-button-placeholder']}>
                                 {step > initialStep && step < 5 && ( // Aparece nas etapas 2, 3, 4 (se initialStep=1)
                                     <button aria-label="Voltar" onClick={handleBack} className={styles['back-button']}>
-                                        <img src="/barbershop/icons/seta.png" alt="Voltar" />
+                                        <img src="public/OlimpoBarBer/icons/seta.png" alt="Voltar" />
                                     </button>
                                 )}
                             </div>
@@ -132,7 +132,7 @@ export function BookingModal({
                             <div className={styles['header-button-placeholder']}>
                                 {step < 5 && ( // Não aparece na tela de Sucesso
                                     <button aria-label="Fechar" onClick={handleClose} className={styles['close-button']}>
-                                        <img src="/barbershop/icons/close.png" alt="Fechar" />
+                                        <img src="public/OlimpoBarBer/icons/close.png" alt="Fechar" />
                                     </button>
                                 )}
                             </div>

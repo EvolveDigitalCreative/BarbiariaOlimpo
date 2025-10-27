@@ -138,7 +138,7 @@ export const ChooseServiceStep: React.FC<Props> = memo(({ data, onChange, onNext
                                 >
                                     <span>Seguinte</span>
                                     <img
-                                        src="/barbershop/icons/proximo.png" // Verifique o caminho
+                                        src="public/OlimpoBarBer/icons/proximo.png" // Verifique o caminho
                                         alt="Próximo"
                                         className={styles['next-button-icon-desktop']}
                                     />
