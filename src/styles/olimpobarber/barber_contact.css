@@ -1,7 +1,9 @@
 /* src/styles/olimpobarber/barber_contact.css */
 
+/* --- Estilos Base --- */
+
 .contact-section {
-    padding-bottom: 0; /* O footer geralmente vem logo a seguir */
+    padding-bottom: 0; 
 }
 
 .space-gallery-wrapper {
@@ -34,34 +36,29 @@
 /* Grelha de Imagens (Galeria) */
 .gallery-grid {
     display: grid;
+    /* Manter 3 colunas para desktop */
     grid-template-columns: repeat(3, 1fr);
-    /* MUDANÇA CRÍTICA: Remova 'grid-template-rows: repeat(2, 250px);'
-       e deixe as linhas se auto-ajustarem.
-       A altura será definida pelo wrapper de aspecto 1:1.
-    */
-    /* grid-template-rows: repeat(2, 250px); <--- REMOVA ESTA LINHA */
-    grid-template-rows: auto; /* Deixe o grid calcular a altura da linha com base no conteúdo */
+    grid-template-rows: auto; 
     gap: 15px;
     max-width: 1000px;
     margin: 0 auto;
+    /* Padding para não tocar nas bordas em ecrãs maiores */
+    padding: 0 20px; 
 }
 
 /* NOVO BLOCO: Wrapper para forçar o aspecto quadrado (1:1) */
 .gallery-item .image-aspect-wrapper {
-    /* Define a proporção 1:1 (quadrado) */
     aspect-ratio: 1 / 1;
-    /* Garante que a imagem preencha 100% */
     width: 100%; 
     height: 100%;
-    overflow: hidden; /* Para garantir que o canto arredondado seja mantido */
+    overflow: hidden; 
 }
 
 .gallery-item img {
-    /* A imagem preenche o wrapper quadrado */
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 4px; /* Ou o raio que você está usando */
+    border-radius: 4px;
 }
 
 /* Estrutura de Contactos e Mapa */
@@ -70,6 +67,9 @@
     margin: 0 auto;
     padding-top: 50px; 
     padding-bottom: 80px;
+    /* Padding horizontal padrão para mobile/desktop */
+    padding-left: 20px; 
+    padding-right: 20px;
 }
 
 .contact-details-map {
@@ -87,10 +87,10 @@
 }
 
 .stylization-icon {
-    width: 64px; /* Tamanho do ícone do projeto anterior */
+    width: 64px;
     margin: 0 auto;
     display: block;
-    margin-bottom: 40px; /* Espaçamento após o ícone */
+    margin-bottom: 40px; 
 }
 
 /* Cor dos títulos dos detalhes de contacto */
@@ -114,13 +114,73 @@
     width: 100%;
     object-fit: cover;
 }
-/* Responsividade */
+
+/* ---------------------------------- */
+/* ## Responsividade (Ecrãs Pequenos) */
+/* ---------------------------------- */
 @media (max-width: 768px) {
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+    
+    /* Global Section Spacing */
+    .space-gallery-wrapper {
+        margin-bottom: 50px; /* Reduz o espaçamento geral */
     }
+    .contact-info-map-wrapper {
+        padding-top: 30px; 
+        padding-bottom: 50px; /* Reduz o padding inferior */
+    }
+
+    /* Título e Subtítulo */
+    .section-subtitle-centered {
+        font-size: 0.9rem; /* Torna o subtítulo menor */
+        margin-bottom: 20px; /* Reduz o espaçamento */
+        padding: 0 10px; /* Garante que o texto não cola nas bordas */
+    }
+
+    /* Grelha da Galeria */
+    .gallery-grid {
+        /* ✅ QUEBRA PARA 2 COLUNAS em mobile (é visualmente melhor que 1) */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px; /* Reduz a separação */
+        /* Reduz o padding horizontal para ecrãs muito pequenos */
+        padding: 0 15px; 
+    }
+    
+    /* Estrutura de Contactos e Mapa */
     .contact-details-map {
+        /* ✅ QUEBRA para coluna */
         flex-direction: column;
+        gap: 30px; /* Reduz o espaço entre os blocos (detalhes e mapa) */
+        margin-top: 30px;
+    }
+
+    /* Mapa */
+    .contact-map-container {
+        max-width: 100%; /* Ocupa toda a largura disponível */
+        order: 2; /* Coloca o mapa por baixo dos detalhes (detalhes primeiro) */
+    }
+    .contact-map-container img {
+        min-height: 300px; /* Altura mínima menor para telemóveis */
+    }
+
+    /* Detalhes de Contacto */
+    .contact-details-list {
+        order: 1; /* Coloca os detalhes no topo */
+        gap: 20px; /* Reduz o espaçamento entre itens */
+    }
+
+    .contact-item h4 {
+        font-size: 1rem; /* Ajusta o tamanho da fonte */
+    }
+    .stylization-icon {
+        width: 50px; /* Reduz o ícone */
+        margin-bottom: 30px;
+    }
+}
+
+/* Ajustes finos para telemóveis muito pequenos (e.g., iPhone SE) */
+@media (max-width: 480px) {
+    .gallery-grid {
+        /* ✅ Voltar para 1 coluna em ecrãs ultra-pequenos */
+        grid-template-columns: 1fr;
     }
 }

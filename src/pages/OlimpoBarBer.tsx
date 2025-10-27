@@ -10,6 +10,7 @@ import Footer from '../components/common/Footer';
 import SectionDivider from '../components/common/SectionDivider';
 // ✅ CookieModal é um componente comum/partilhado
 import { CookieModal } from '../components/sections/olimpo_barber/CookieModal'; 
+import DiscountModal from '../components/sections/olimpo_barber/DiscountModal';
 
 // ==========================================================
 // IMPORTAÇÕES DE COMPONENTES DE SECÇÃO (Barbearia)
@@ -70,14 +71,8 @@ const OlimpoBarber: FC = () => {
 
         {/* 🛑 MOVIDO: O CookieModal estava aqui dentro */}
       </div>
-
-      {/* ✅ CORREÇÃO CRÍTICA:
-        Movemos o CookieModal para FORA do 'home-page-container'.
-        Isto garante que o 'position: fixed' dele (definido no Tailwind) 
-        não seja quebrado pelo CSS do container principal e flutue 
-        corretamente sobre toda a página.
-      */}
       <CookieModal />
+      <DiscountModal />
     </>
   );
 };

@@ -1,0 +1,150 @@
+/* src/styles/global/DiscountModal.css */
+
+/* ✅ ALTERADO: O wrapper agora posiciona no canto inferior esquerdo */
+.discount-modal-wrapper {
+  position: fixed;
+  bottom: 1.5rem; /* 24px */
+  left: 1.5rem;  /* 24px */
+  z-index: 51; /* Garante que fica sobre outros elementos */
+  
+  /* Removemos as regras de centralização (display: flex, etc.) */
+}
+
+/* 🛑 A regra .discount-modal-backdrop foi removida */
+
+/* O cartão branco do modal */
+.discount-modal-content {
+  position: relative; /* Necessário para o botão fechar (X) */
+  background-color: #ffffff;
+  border-radius: 0.5rem; /* 8px */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 28rem; /* 384px - Um bom tamanho para o canto */
+  padding: 1.5rem; /* 24px */
+  padding-bottom: 2rem;
+  
+  /* Animação de entrada (slide-up) */
+  animation: slideInUp 0.5s ease-out;
+}
+
+/* Botão de fechar (X) - Sem alteração */
+.discount-modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #9CA3AF; /* gray-400 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.discount-modal-close-btn:hover {
+  color: #4B5563; /* gray-600 */
+}
+
+.discount-modal-close-btn svg {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+}
+
+/* Corpo do modal - Sem alteração */
+.discount-modal-body {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1.5rem; 
+  padding-left: 1.5rem;
+  padding-top: 1rem;
+}
+
+.discount-modal-title {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 500;
+  color: #111827; /* gray-900 */
+  margin-bottom: 1rem; /* 16px */
+  text-align: center;
+  font-family: 'Yeseva One', serif; 
+}
+
+.discount-modal-text {
+  font-size: 1rem; /* 16px */
+  color: #374151; /* gray-700 */
+  line-height: 1.5;
+  margin-bottom: 2rem; /* 32px */
+  font-family: 'Inter', sans-serif;
+  text-align: center; 
+}
+
+/* Container dos botões - Sem alteração */
+.discount-modal-actions {
+  display: flex;
+  padding: 0 1.5rem;
+}
+
+.discount-modal-btn {
+  flex: 1;
+  background-color: #000;
+  color: #fff;
+  padding: 0.875rem 1rem; /* 14px 16px */
+  border-radius: 0.375rem; /* 6px */
+  font-weight: 500;
+  font-size: 1.125rem; /* 18px */
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  border: none;
+  font-family: 'Yeseva One', serif; 
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+
+.discount-modal-btn:hover {
+  background-color: #1F2937; /* gray-800 */
+}
+
+/* Animação de entrada */
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ✅ Media Query para ecrãs pequenos (Mobile) */
+@media (max-width: 640px) {
+  .discount-modal-wrapper {
+    /* Em telas pequenas, ocupa a largura toda no fundo */
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    width: auto; /* Deixa o max-width do content controlar */
+  }
+  .discount-modal-content {
+     max-width: 100%; /* Ocupa o espaço disponível */
+     padding: 1rem;
+     padding-bottom: 1.5rem;
+  }
+  .discount-modal-body {
+    padding: 0.5rem;
+  }
+  .discount-modal-actions {
+    padding: 0 0.5rem;
+  }
+  .discount-modal-title {
+    font-size: 1.25rem; /* 20px */
+  }
+  .discount-modal-text {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 1.5rem;
+  }
+  .discount-modal-btn {
+    font-size: 1rem; /* 16px */
+  }
+}
+
