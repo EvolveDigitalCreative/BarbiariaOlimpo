@@ -11,7 +11,7 @@
     height: 40px; 
     
     /* Margem para separar das seções */
-    margin: 3rem 0; 
+    margin:  0; 
     
     /* CORREÇÃO 2: Caminho do arquivo. Certifique-se de que o caminho relativo esteja OK no CSS */
     background-image: url('../../../public/OlimpoBarBer/Decoracao/style1.png');

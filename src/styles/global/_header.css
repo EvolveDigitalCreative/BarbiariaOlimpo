@@ -99,7 +99,7 @@
 .header-container {
   max-width: var(--header-max-width);
   height: 100%;
-  margin: 0 auto;
+  margin: 0;
   padding: var(--header-padding);
   display: flex;
   justify-content: space-between;

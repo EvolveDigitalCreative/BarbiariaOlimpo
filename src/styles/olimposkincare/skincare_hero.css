@@ -9,7 +9,7 @@
     --color-skincare-text-dark: #222;
     --color-overlay: rgba(255, 255, 255, 0.2); /* bg-white/20 */
     --color-marble-light: #f9f9f7; 
-    --font-family-serif: 'Playfair Display', serif; 
+    --font-family-serif: 'Playfair Display', serif;
 }
 
 /* AJUSTE: Redução do espaço no topo */
@@ -152,7 +152,7 @@
 
 .hero-large-text-wrapper {
 /* MANTER position: absolute no MOBILE, pois ele é uma sobreposição no centro/fundo. */
-    position: absolute; 
+    position: absolute;
     bottom: 20px; 
     left: 0;
     right: 0;
@@ -166,14 +166,15 @@
     justify-content: center; 
     flex-wrap: wrap; 
     gap: 0.75rem; 
-
-    font-family: var(--font-family-serif);
     font-weight: 700;
     color: var(--color-skincare-accent);
     opacity: 0.6;
     
     font-size: 2.25rem; 
     letter-spacing: -0.1em; 
+    
+    font-family: var(--font-family-serif); /* Isto aplicará 'Playfair Display' ou 'Times New Roman' */
+    font-weight: 700; /* Assegura que está a usar a versão bold/negrito */
     
     /* Garantir que as linhas quebradas fiquem centradas (se quebrar) */
     text-align: center; 

@@ -30,9 +30,7 @@ import SkincareServices from '../components/sections/olimpo_skincare/SkincareSer
 import SkincareSpace from '../components/sections/olimpo_skincare/SkincareSpace.tsx';
 import SkincareReviews from '../components/sections/olimpo_skincare/SkincareReviews.tsx';
 import SkincareContact from '../components/sections/olimpo_skincare/SkincareContact.tsx';
-
-// Componentes PARTILHADOS (Assumindo que Coin será a mesma em todas as páginas)
-import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
+import SectionDivider from '../components/common/SectionDivider';
 
 
 const OlimpoSkincare: FC = () => {
@@ -41,13 +39,15 @@ const OlimpoSkincare: FC = () => {
       <Header />
       <main>
         <SkincareHero />
-        <SkincareAboutUs />      // Fica a Conhecer-nos
-        <SkincareMission />
-        <SkincareServices />     // Os Nossos Serviços
-        <SkincareSpace />        // O Nosso Espaço
-        <CoinSection />          // Partilhado com Barbearia
-        <SkincareReviews />      // Testimonial & Review
-        <SkincareContact />      // Contacta-nos
+        <SkincareAboutUs />      {/* Fica a Conhecer-nos */}
+        <SectionDivider />
+        <SkincareServices />     {/* Os Nossos Serviços */}
+        <SectionDivider />
+        <SkincareMission />      {/* A Nossa Missão */}
+        <SkincareSpace />        {/* O Nosso Espaço */}
+        <SectionDivider />
+        <SkincareContact />      {/* Contacta-nos */}
+        <SkincareReviews />      {/* Testimonial & Review */}
       </main>
       <Footer />
     </div>
