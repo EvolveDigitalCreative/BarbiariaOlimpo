@@ -4,7 +4,7 @@
 @font-face {
     font-family: 'Gods';
     /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
-    src: url('../../../public/fonts/GeorgiaPro-Regular.ttf') format('truetype');
+    src: url('/fonts/GeorgiaPro-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

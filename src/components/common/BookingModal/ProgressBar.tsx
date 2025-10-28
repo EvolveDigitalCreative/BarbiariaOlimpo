@@ -27,7 +27,7 @@ export function ProgressBar({ step, total = 4, startStep = 1 }: ProgressBarProps
                 />
                  {/* .progress-icon ~ absolute -top-3 h-6 w-6 */}
                 <img
-                    src="public/OlimpoBarBer/icons/fire.png" // Ajuste o caminho
+                    src="/OlimpoBarBer/icons/fire.png" // Ajuste o caminho
                     alt=""
                     aria-hidden="true"
                     className={styles['progress-icon']}

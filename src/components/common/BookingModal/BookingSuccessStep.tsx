@@ -113,7 +113,7 @@ export function BookingSuccessStep({ data, onExit }: Props) {
                 <p className={styles['success-thank-you']}>Obrigado!</p> 
 
                  {/* Ícone de Sucesso */}
-                <img src="public/OlimpoBarBer/icons/sucess.png" alt="Sucesso" className={styles['success-icon']} /> 
+                <img src="/OlimpoBarBer/icons/sucess.png" alt="Sucesso" className={styles['success-icon']} /> 
                 {/* ❌ REMOVIDO: Status do Email */}
 
  {/* ✅ Resumo da Marcação - ESTRUTURA JÁ ESTÁ CORRETA (Serviço primeiro) */}
@@ -129,7 +129,7 @@ export function BookingSuccessStep({ data, onExit }: Props) {
                         </div>
                         {/* Ícone */}
                         <div className={styles['summary-icon-wrapper']}>
-                            <img src="public/OlimpoBarBer/icons/OlimpoBarber_optimized.png" alt="Olimpo" className={styles['summary-icon']} />
+                            <img src="/OlimpoBarBer/icons/OlimpoBarber_optimized.png" alt="Olimpo" className={styles['summary-icon']} />
                         </div>
                     </div>
                 </div>

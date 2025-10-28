@@ -111,7 +111,7 @@ export const ChooseBarberStep: React.FC<Props> = memo(({ data, onChange, onNext,
                     onClick={handleNoPreference}
                     className={`${styles['no-preference-button']} ${selectedBarberId === null ? styles['selected'] : ''}`}
                 >
-                    <span className={styles['no-preference-icon']}><img src="public/OlimpoBarBer/icons/blocked.png" alt="Não" /></span> 
+                    <span className={styles['no-preference-icon']}><img src="/OlimpoBarBer/icons/blocked.png" alt="Não" /></span> 
                     <span className={styles['no-preference-text']}>Sem preferência</span>
                 </button>
             </div>
@@ -145,7 +145,7 @@ export const ChooseBarberStep: React.FC<Props> = memo(({ data, onChange, onNext,
                     className={`${styles['no-preference-button-desktop']} ${selectedBarberId === null ? styles['selected-ring'] : ''}`}
                     onClick={handleNoPreference}
                 >
-                    <img src="public/OlimpoBarBer/icons/blocked.png" alt="Sem preferência" className={styles['no-preference-icon-desktop']} />
+                    <img src="/OlimpoBarBer/icons/blocked.png" alt="Sem preferência" className={styles['no-preference-icon-desktop']} />
                     <span className={styles['no-preference-text-desktop']}>Sem preferência</span>
                 </button>
 
@@ -157,7 +157,7 @@ export const ChooseBarberStep: React.FC<Props> = memo(({ data, onChange, onNext,
                         onClick={onNext}
                     >
                         <span>Seguinte</span>
-                        <img src="public/OlimpoBarBer/icons/proximo.png" alt="Próximo" className={styles['next-button-icon-desktop']} />
+                        <img src="/OlimpoBarBer/icons/proximo.png" alt="Próximo" className={styles['next-button-icon-desktop']} />
                     </button>
                 )}
             </div>

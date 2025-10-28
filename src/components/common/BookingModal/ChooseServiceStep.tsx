@@ -17,10 +17,10 @@ type Props = {
 
 // Fallback services (mantido)
 const FALLBACK_SERVICES: Service[] = [
-    { id: '1', nome: 'Corte Simples', preco: '15', imagem_url: 'public/OlimpoBarBer/cortes/corte simples.png', categoria: 'BARBEARIA' },
-    { id: '2', nome: 'Corte e Barba', preco: '25', imagem_url: 'public/OlimpoBarBer/cortes/corte e barba.png', categoria: 'BARBEARIA' },
-    { id: '3', nome: 'Barba', preco: '12', imagem_url: 'public/OlimpoBarBer/cortes/barba.png', categoria: 'BARBEARIA' },
-    { id: '4', nome: 'Disfarce', preco: '20', imagem_url: 'public/OlimpoBarBer/cortes/disfarce.png', categoria: 'BARBEARIA' },
+    { id: '1', nome: 'Corte Simples', preco: '15', imagem_url: '/OlimpoBarBer/cortes/corte simples.png', categoria: 'BARBEARIA' },
+    { id: '2', nome: 'Corte e Barba', preco: '25', imagem_url: '/OlimpoBarBer/cortes/corte e barba.png', categoria: 'BARBEARIA' },
+    { id: '3', nome: 'Barba', preco: '12', imagem_url: '/OlimpoBarBer/cortes/barba.png', categoria: 'BARBEARIA' },
+    { id: '4', nome: 'Disfarce', preco: '20', imagem_url: '/OlimpoBarBer/cortes/disfarce.png', categoria: 'BARBEARIA' },
 ];
 
 // formatEuroNoTrailing (mantido)
@@ -99,11 +99,11 @@ export const ChooseServiceStep: React.FC<Props> = memo(({ data, onChange, onNext
                                 {/* .service-image-wrapper */}
                                 <div className={styles['service-image-wrapper']}>
                                     <img
-                                        src={service.imagem_url || "public/OlimpoBarBer/cortes/corte simples.png"}
+                                        src={service.imagem_url || "/OlimpoBarBer/cortes/corte simples.png"}
                                         alt={service.nome}
                                         // .service-image
                                         className={styles['service-image']}
-                                        onError={(e) => { e.currentTarget.src = "public/OlimpoBarBer/cortes/corte simples.png"; }}
+                                        onError={(e) => { e.currentTarget.src = "/OlimpoBarBer/cortes/corte simples.png"; }}
                                     />
                                 </div>
                                 {/* .service-info */}
@@ -138,7 +138,7 @@ export const ChooseServiceStep: React.FC<Props> = memo(({ data, onChange, onNext
                                 >
                                     <span>Seguinte</span>
                                     <img
-                                        src="public/OlimpoBarBer/icons/proximo.png" // Verifique o caminho
+                                        src="/OlimpoBarBer/icons/proximo.png" // Verifique o caminho
                                         alt="Próximo"
                                         className={styles['next-button-icon-desktop']}
                                     />

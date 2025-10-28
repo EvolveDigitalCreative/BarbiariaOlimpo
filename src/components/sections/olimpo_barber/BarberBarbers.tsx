@@ -84,7 +84,7 @@ const BarbersSection: FC = () => {
                 {!loading && !error && barbers.length === 0 && (
                     <div className="barbers-unavailable-message">
                         <img 
-                            src="public/OlimpoBarBer/icons/tesoura.png" 
+                            src="/OlimpoBarBer/icons/tesoura.png" 
                             alt="Tesoura" 
                             className="tesoura-icon"
                         />

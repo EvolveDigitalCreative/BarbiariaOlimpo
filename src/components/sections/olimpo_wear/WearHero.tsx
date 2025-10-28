@@ -7,7 +7,7 @@ const WearHero: FC = () => {
     // Verifique o caso (Maiúsculas/Minúsculas)
     // Se a pasta é 'OlimpoWear' e 'foto', use-as exatamente assim.
     // E certifique-se que o nome do ficheiro está *EXATAMENTE* correto (minúsculas recomendadas).
-    const heroImageUrl = 'public/OlimpoWear/foto/OLIMPO_foto_t-shirts_18.webp'; // Sugestão Padronizada
+    const heroImageUrl = '/OlimpoWear/foto/OLIMPO_foto_t-shirts_18.webp'; // Sugestão Padronizada
 
     return (
         <section
