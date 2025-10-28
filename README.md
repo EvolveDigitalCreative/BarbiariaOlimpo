@@ -17,6 +17,7 @@ npm install firebase
 npm install -g firebase-tools
 npm install react-icons
 npm install three @react-three/fiber @react-three/drei
+npm install react-slick slick-carousel @types/react-slick
 npm run dev
 ## Para rodar o código siga os comando.
 =========================================================================================================================================

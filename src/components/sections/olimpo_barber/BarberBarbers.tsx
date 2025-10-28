@@ -1,61 +1,95 @@
-// src/components/sections/olimpo_barber/BarberBarbers.tsx
+// src/components/sections/olimpo_barber/BarberBarbers.tsx - COM CARROSSEL E IMAGENS LOCAIS
 
-import React, { useState, useEffect } from 'react'; // Import useState and useEffect
-import type { FC } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore'; // Import Firestore functions
+import React, { useState, useEffect, type FC } from 'react';
+import { collection, query, where, getDocs } from 'firebase/firestore'; 
 import { db } from '../../../services/firebaseConfig'; // ✅ Ajuste o caminho se necessário
 
-// Interface para definir a estrutura dos dados do barbeiro
+// Importar Slider e CSS (sem alterações)
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import '../../../styles/olimpobarber/barber_barbers.css'; // Ajuste o caminho se necessário
+
+// ✅ 1. Importar as imagens locais (AJUSTE OS NOMES E CAMINHOS!)
+// CUIDADO: Se os ficheiros estão em src/assets/carrossel_barbeiros/, o caminho DEVE ser '../../assets/...'
+import barberImgSimon from '../../../assets/carrossel_barbeiros/OLIMPO_foto_de_perfil_Simon.jpg';
+import barberImgJoao from '../../../assets/carrossel_barbeiros/OLIMPO_barbeiros_Joao.jpg';
+import barberImgAfonso from '../../../assets/carrossel_barbeiros/Foto_de_perfil_Afonso.jpg';
+import barberImgTiago from '../../../assets/carrossel_barbeiros/Foto_de_perfil_Tiago_Antunes.jpg'; 
+// Adicione mais imports conforme necessário
+
+// Interface Barber (agora com 'localImageSrc')
 interface Barber {
-    id: string; // ID do documento do Firestore (será o UID do user)
+    id: string; 
     name: string;
-    // Adicione outros campos que você tenha no Firestore para cada barbeiro
-    // imageUrl?: string;
+    localImageSrc?: string; // ✅ Propriedade para guardar o src da imagem importada
     // specialty?: string;
 }
 
+// ✅ 2. Criar um mapeamento (Nome do Barbeiro -> Imagem Importada)
+const barberImageMap: { [key: string]: string } = {
+    "Simon": barberImgSimon,
+    "João": barberImgJoao,
+    "Afonso": barberImgAfonso,
+    "Tiago": barberImgTiago,
+    // Adicione mais barbeiros aqui
+};
+
+
 const BarbersSection: FC = () => {
-    // Estado para armazenar os barbeiros buscados do Firebase
     const [barbers, setBarbers] = useState<Barber[]>([]);
-    // Estado para indicar o carregamento
     const [loading, setLoading] = useState(true);
-    // Estado para erros (opcional, mas bom ter)
     const [error, setError] = useState<string | null>(null);
 
-    // useEffect para buscar os dados quando o componente montar
     useEffect(() => {
         const fetchBarbers = async () => {
             setLoading(true);
             setError(null);
             try {
-                // 1. Cria uma referência para a coleção 'users'
                 const usersCollectionRef = collection(db, 'users');
-                
-                // 2. Cria uma query para buscar documentos onde 'role' é igual a 'barber'
                 const q = query(usersCollectionRef, where("role", "==", "barber"));
-                
-                // 3. Executa a query
                 const querySnapshot = await getDocs(q);
                 
-                // 4. Mapeia os resultados para o formato da interface Barber
-                const barbersData = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data() // Pega todos os outros campos do documento
-                } as Barber )); // Afirma que o objeto tem o formato Barber
+                const barbersData = querySnapshot.docs.map(doc => {
+                    const data = doc.data();
+                    const barberName = data.name as string; 
+                    return {
+                        id: doc.id,
+                        name: barberName,
+                        // ✅ Mapeia a imagem local: Se o nome for "João" e não "JOÃO", ele pega a imagem.
+                        localImageSrc: barberImageMap[barberName] || '/path/to/placeholder-barber.jpg', 
+                        ...data
+                    } as Barber;
+                }); 
 
-                setBarbers(barbersData); // Atualiza o estado com os dados
-                console.log("Barbeiros carregados:", barbersData);
+                setBarbers(barbersData);
 
             } catch (err) {
                 console.error("Erro ao buscar barbeiros:", err);
                 setError("Não foi possível carregar a lista de barbeiros. Tente novamente mais tarde.");
             } finally {
-                setLoading(false); // Finaliza o carregamento
+                setLoading(false); 
             }
         };
 
-        fetchBarbers(); // Chama a função de busca
-    }, []); // O array vazio [] significa que este efeito roda apenas uma vez, quando o componente monta
+        fetchBarbers(); 
+    }, []); 
+
+    // Configurações do Carrossel (sem alterações)
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: false,
+        dotsClass: "slick-dots slick-thumb",
+        responsive: [
+            { breakpoint: 1024, settings: { slidesToShow: 3 } },
+            { breakpoint: 768, settings: { slidesToShow: 2 } },
+            { breakpoint: 480, settings: { slidesToShow: 1 } }
+        ]
+    };
 
     return (
         <section className="content-section barbers-section light-background">
@@ -63,83 +97,46 @@ const BarbersSection: FC = () => {
             
             <div className="barbers-content-wrapper">
                 
-                {/* Mostra um indicador de carregamento */}
-                {loading && (
-                    <div className="loading-indicator">
-                        <p>A carregar barbeiros...</p>
-                        {/* Pode adicionar um spinner CSS aqui */}
-                    </div>
-                )}
+                {loading && <div className="loading-indicator"><p>A carregar barbeiros...</p></div>}
+                {!loading && error && <div className="barbers-unavailable-message">...</div>}
+                {!loading && !error && barbers.length === 0 && <div className="barbers-unavailable-message">...</div>}
 
-                {/* Mostra mensagem de erro, se houver */}
-                {!loading && error && (
-                     <div className="barbers-unavailable-message">
-                         {/* Pode reusar o ícone da tesoura aqui se quiser */}
-                         <h3 className="unavailable-title">Erro ao Carregar</h3>
-                         <p className="unavailable-text">{error}</p>
-                     </div>
-                )}
-
-                {/* Mostra a mensagem de indisponível APENAS se não estiver carregando, não houver erro E a lista estiver vazia */}
-                {!loading && !error && barbers.length === 0 && (
-                    <div className="barbers-unavailable-message">
-                        <img 
-                            src="/OlimpoBarBer/icons/tesoura.png" 
-                            alt="Tesoura" 
-                            className="tesoura-icon"
-                        />
-                        <p className="tesoura-label">Tesoura</p>
-                        
-                        <h3 className="unavailable-title">Nenhum barbeiro disponível</h3>
-                        <p className="unavailable-text">
-                            No momento não temos barbeiros cadastrados. Tente novamente mais tarde.
-                        </p>
-                    </div>
-                )}
-
-                {/* Mostra a lista de barbeiros se não estiver carregando, não houver erro E a lista NÃO estiver vazia */}
+                {/* ✅ Carrossel com Estrutura de Hover */}
                 {!loading && !error && barbers.length > 0 && (
-                    <div className="barbers-list">
-                        {/* Mapeia os barbeiros para renderizar cada um */}
-                        {barbers.map((barber) => (
-                            // ✅ Crie um componente BarberCard para exibir cada barbeiro
-                            // <BarberCard key={barber.id} barber={barber} /> 
-                            
-                            // Ou um exemplo simples aqui:
-                            <div key={barber.id} className="barber-item">
-                                {/* <img src={barber.imageUrl || '/caminho/para/imagem/padrao.png'} alt={barber.name} /> */}
-                                <h4>{barber.name}</h4>
-                                {/* <p>{barber.specialty}</p> */}
-                            </div>
-                        ))}
+                    <div className="barbers-carousel-container">
+                        <Slider {...settings}>
+                            {barbers.map((barber) => (
+                                <div key={barber.id} className="barber-slide">
+                                    {/* ✅ NOVO CONTAINER PAI PARA O HOVER: barber-card-link */}
+                                    <div className="barber-card-link"> 
+                                        <div className="barber-card"> 
+                                            
+                                            {/* Imagem */}
+                                            <img 
+                                                src={barber.localImageSrc} 
+                                                alt={barber.name} 
+                                                className="barber-image"
+                                            />
+                                            
+                                            {/* ✅ 1. OVERLAY (para escurecer, invisível por padrão) */}
+                                            <div className="barber-overlay"></div>
+                                            
+                                            {/* ✅ 2. INFORMAÇÕES (Nome e Link, invisível por padrão) */}
+                                            <div className="barber-info">
+                                                <h4 className="barber-name">{barber.name}</h4>
+                                                <span className="barber-profile-link">VER PERFIL</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </Slider>
                     </div>
                 )}
             </div>
-
-            <div className="greek-border-bottom"></div>
         </section>
     );
 };
-
-// ✅ Adicione um estilo básico para o loading e para o item do barbeiro no seu CSS
-/* Exemplo no seu barbers_section.css ou similar:
-.loading-indicator {
-    text-align: center;
-    padding: 40px;
-    color: #555;
-}
-
-.barber-item {
-    border: 1px solid #eee;
-    padding: 20px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-.barber-item img {
-    max-width: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-*/
 
 export default BarbersSection;
