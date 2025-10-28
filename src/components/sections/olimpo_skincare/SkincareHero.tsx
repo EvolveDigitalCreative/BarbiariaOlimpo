@@ -22,7 +22,7 @@ const SkincareHero: FC = () => {
             <div className="hero-background">
                 {/* A imagem de fundo de mármore */}
                 <img 
-                    src="public/OlimpoSkincare/espaco/fundomarmore.webp" 
+                    src="/OlimpoSkincare/espaco/fundomarmore.webp" 
                     alt="Fundo mármore" 
                     className="hero-bg-image"
                 />

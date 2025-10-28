@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import type { IconKey } from './headerTypes';
 
 // Importações dos ícones (sem mudança)
-import WearCoinIcon from '/src/OlimpoBarBer/icons/icone de nevegacao do waer.png';
-import SkincareCoinIcon from '/src/OlimpoBarBer/icons/icone de nevegcao da skincare.png';
-import BarberCoinIcon from '/src/OlimpoBarBer/icons/icone de nevegacao do waer - Copia.png';
-import UserIcon from '/src/OlimpoBarBer/icons/profile_highres.png';
+import WearCoinIcon from '/OlimpoBarBer/icons/icone de nevegacao do waer.png';
+import SkincareCoinIcon from '/OlimpoBarBer/icons/icone de nevegcao da skincare.png';
+import BarberCoinIcon from '/OlimpoBarBer/icons/icone de nevegacao do waer - Copia.png';
+import UserIcon from '/OlimpoBarBer/icons/profile_highres.png';
 
 // Estilos de base (sem mudança)
 export const linkBaseStyle: React.CSSProperties = {

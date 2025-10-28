@@ -15,7 +15,7 @@
     margin: 3rem 0; 
     
     /* CORREÇÃO 2: Caminho do arquivo. Certifique-se de que o caminho relativo esteja OK no CSS */
-    background-image: url('/src/OlimpoBarBer/Decoracao/style1.png');
+    background-image: url('/OlimpoBarBer/Decoracao/style1.png');
     
     /* Repetição: ESSENCIAL. Faz o padrão se estender */
     background-repeat: repeat-x; 

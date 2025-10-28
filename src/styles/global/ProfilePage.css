@@ -175,7 +175,7 @@
 
 .coin-card {
     align-items: center;
-    background-image: url('../../../public/OlimpoBarBer/texture/fundomarmore.webp');
+    background-image: url('/OlimpoBarBer/texture/fundomarmore.webp');
     background-size: cover;
     background-position: center;
     background-position-y: -15vw;
