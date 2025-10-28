@@ -2,7 +2,7 @@
 
 
 @font-face {
-    font-family: 'Gods';
+    font-family: 'GodsOlimpo';
     /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
     src: url('/fonts/GeorgiaPro-Regular.ttf') format('truetype');
     font-weight: normal;
@@ -25,18 +25,18 @@
     text-align: center;
     font-size: 1rem;
     margin-bottom: 30px;
-    max-width: 470px;
+    max-width: 390px;
     margin-left: auto;
     margin-right: auto;
     color: black;
-    font-family: var(--font-handwritten);
+    font-family: var(--font-hend);
 }
 
 .section-title5{
     margin-bottom: 2rem;
     color: black;
     font-size: 30px;
-    font-family: var(--font-handwritten);
+    font-family: var(--font-hend);
 }
 
 /* Ícone Divisor (Anel Dourado) */
@@ -155,7 +155,7 @@
     }
 
     /* Título e Subtítulo */
-    .section-subtitle-centered {
+    .section-subtitle-centered5 {
         font-size: 0.9rem; /* Torna o subtítulo menor */
         margin-bottom: 20px; /* Reduz o espaçamento */
         padding: 0 10px; /* Garante que o texto não cola nas bordas */
@@ -209,3 +209,71 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* src/styles/olimpobarber/barber_contact.css */
+
+/* ... (Seu CSS existente aqui) ... */
+
+/* ================================== */
+/* ✅ NOVOS ESTILOS PARA OS ÍCONES */
+/* ================================== */
+
+/* Transforma o item de contacto num container flex */
+.contact-item {
+    display: flex;
+    align-items: flex-start; /* Alinha o topo do ícone com o topo do texto */
+    gap: 15px; /* Espaço entre o ícone e o bloco de texto */
+}
+
+/* Estilo da imagem do ícone */
+.contact-icon-img {
+    width: 30px;   /* Ajuste o tamanho conforme necessário */
+    height: 30px;  /* Ajuste o tamanho conforme necessário */
+    object-fit: contain; /* Garante que o ícone não distorça */
+    flex-shrink: 0; /* Impede que o ícone encolha se o texto for longo */
+    margin-top: 2px; /* Pequeno ajuste vertical para alinhar melhor com a linha de base do texto (opcional) */
+}
+
+/* Container para o texto (label + parágrafos) */
+.contact-text-content {
+    flex-grow: 1; /* Faz o texto ocupar o espaço restante */
+}
+
+/* Ajuste no estilo do label (se necessário, mas o seu já tem cor) */
+.contact-item h4.contact-label { /* Tornando o seletor mais específico */
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--color-gold); 
+}
+
+/* Estilo opcional para texto pequeno (como notas de telefone/email) */
+.small-text {
+    font-size: 0.85rem;
+    color: #666; /* Cinza mais claro */
+    margin-top: 3px;
+}
+
+/* Estilo para o status "Encerrado" */
+.closed-status {
+    font-weight: bold;
+    color: #888; /* Ou uma cor vermelha clara, se preferir */
+}
+
+
+/* --- Responsividade para os ícones (Geralmente não precisa mudar muito) --- */
+@media (max-width: 768px) {
+    .contact-item {
+        gap: 12px; /* Reduz um pouco o espaço no mobile */
+    }
+
+    .contact-icon-img {
+        width: 20px; /* Ícones ligeiramente menores no mobile */
+        height: 20px;
+    }
+     .contact-item h4.contact-label {
+        font-size: 1rem; /* Ajusta o tamanho da fonte do label */
+    }
+}
+
+

@@ -16,7 +16,7 @@
 }
 
 @font-face {
-    font-family: 'But';
+    font-family: 'GodsOlimpo';
     src: url('/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -26,7 +26,7 @@
     --color-text-dark: #333;
     --color-gold: #b8860b;
     --color-form-border: #ccc;
-    --font-hend: 'But', cursive;
+    --font-hend: 'GodsOlimpo', cursive;
     --font-handwritten: 'OlimpoScript', cursive;
     --font-cta: sans-serif;
 }

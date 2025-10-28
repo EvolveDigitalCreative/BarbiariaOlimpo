@@ -66,7 +66,7 @@
     font-size: 1.35rem; /* text-xl (20px) */
     line-height: 1.8; /* leading-relaxed */
     width: 28rem;
-    font-family: var(--font-handwritten);
+    font-family: var(--font-hend);
 }
 
 /* Contêiner para limitar a largura do parágrafo no desktop */

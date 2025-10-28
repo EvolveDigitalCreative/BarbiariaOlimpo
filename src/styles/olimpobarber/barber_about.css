@@ -1,7 +1,7 @@
 /* === AJUSTES NA ESTRUTURA PRINCIPAL PARA A SEÇÃO ABOUT === */
 
 @font-face {
-    font-family: 'Gods';
+    font-family: 'GodsOlimpo';
     /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
     src: url('/fonts/GeorgiaProBold.ttf') format('truetype');
     font-weight: normal;
@@ -68,7 +68,7 @@
     margin-bottom: 24px; /* mb-6 */
     font-weight: normal; 
     color: #bf9e66;
-    font-family: var(--font-handwritten);
+    font-family: var(--font-hend);
 }
 
 /* Parágrafo: text-base/xl e leading-relaxed */
@@ -78,7 +78,7 @@
     width: 33rem;
     color: white;
     margin-bottom: 0; 
-    font-family: var(--font-handwritten);
+    font-family: var(--font-hend);
 }
 
 /* Espaço entre parágrafos (space-y-4) */
