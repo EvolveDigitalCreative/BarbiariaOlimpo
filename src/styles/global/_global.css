@@ -1,5 +1,5 @@
 /* src/styles/global/_global.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
 /* Definição de Variáveis de Cor (Baseado na estética Olimpo) */
 :root {
     /* ✅ Cor de fundo mais clara, como na Image 2 */
@@ -31,7 +31,7 @@
     /* ✅ Fonte sem serifa para o corpo, como na Image 2 (Ex: system-ui, ou Arial) */
     --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-@import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
+
 
 /* Reset Básico */
 * {
