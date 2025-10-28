@@ -50,7 +50,7 @@ const ContactSection: FC = () => {
                     {/* Mapa */}
                     <div className="contact-map-container">
                         <img 
-                            src="/src/OlimpoBarBer/texture/olimpomap.png" 
+                            src="/OlimpoBarBer/texture/olimpomap.png" 
                             alt="Localização no Mapa" 
                             className="responsive-image image-rounded"
                         />
