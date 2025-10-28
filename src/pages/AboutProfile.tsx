@@ -87,7 +87,7 @@ const AboutProfile: React.FC = () => {
         // ✅ Classes usando o objeto 'styles'
         <div className={styles['profile-page']}>
             <header className={styles['main-header']}>
-                <img src="public\OlimpoBarBer\images\logo.webp" alt="Olimpo Logo" className={styles['logo']} />
+                <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo Logo" className={styles['logo']} />
             </header>
 
             <main className={styles['container']}>

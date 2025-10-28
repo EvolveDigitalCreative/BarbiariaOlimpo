@@ -9,13 +9,13 @@ const AboutSection: FC = () => {
             
             {/* Detalhes Decorativos - Atenção ao caminho: use barras normais (/) no React, mesmo no Windows! */}
             <img
-                src="src\OlimpoBarBer\Decoracao\style2_optimized.png" /* Caminho corrigido para barra */
+                src="/OlimpoBarBer/Decoracao/style2_optimized.png" /* Caminho corrigido para barra */
                 alt=""
                 aria-hidden="true"
                 className="decorative-style style-top-left"
             />
             <img
-                src="src\OlimpoBarBer\Decoracao\style3_optimized.png" /* Caminho corrigido para barra */
+                src="/OlimpoBarBer/Decoracao/style3_optimized.png" /* Caminho corrigido para barra */
                 alt=""
                 aria-hidden="true"
                 className="decorative-style style-bottom-right"

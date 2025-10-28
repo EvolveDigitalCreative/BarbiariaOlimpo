@@ -25,7 +25,7 @@ const LoginPage: FC = () => {
       
         {/* ✅ Logo MOVIda PARA FORA e ANTES do card */}
         <div className="logo-container">
-          <img src="public\OlimpoBarBer\images\logo.webp" alt="Olimpo" /> 
+          <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo" /> 
         </div>
 
         {/* O Card Branco */}

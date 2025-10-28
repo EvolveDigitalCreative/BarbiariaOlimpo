@@ -56,7 +56,7 @@ const ProfileActionsPage: React.FC = () => {
         <div className={styles['profile-actions-page']}>
             <header className={styles['main-header']}>
                 {/* O fundo do header é branco no CSS */}
-                <img src="public\OlimpoBarBer\images\logo.webp" alt="Olimpo Logo" className={styles['logo']} />
+                <img src="/OlimpoBarBer/images/logo.webp" alt="Olimpo Logo" className={styles['logo']} />
             </header>
 
             <main className={styles['container']}>
