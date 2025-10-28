@@ -43,7 +43,7 @@ const AboutSection: FC = () => {
                     {/* Contêiner interno para o tamanho fixo */}
                     <div className="about-image-wrapper">
                         <img 
-                            src="src\OlimpoBarBer\images\space10_optimized.webp" /* Caminho corrigido e URL de exemplo do Tailwind */
+                            src="/OlimpoBarBer/images/space10_optimized.webp" /* Caminho corrigido e URL de exemplo do Tailwind */
                             alt="Detalhes do espaço da barbearia" 
                             className="responsive-image object-cover-fit" 
                         />
