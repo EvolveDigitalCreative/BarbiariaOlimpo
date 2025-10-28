@@ -30,7 +30,7 @@ const MissionSection: FC = () => {
                         playsInline
                     >
                         {/* **Mude o caminho e o tipo** */}
-                        <source src="/olimpoBarBer/video/Canavarro.webm" type="video/webm" />
+                        <source src="/OlimpoBarBer/video/Canavarro.webm" type="video/webm" />
                         Seu navegador não suporta a tag de vídeo.
                     </video>
                 </div>
