@@ -1,11 +1,15 @@
-import { initializeApp, type FirebaseOptions } from 'firebase/app';
-import { getFirestore, Firestore } from "firebase/firestore";
+// src/services/firebaseConfig.ts - CÓDIGO LIMPO PARA AMBIENTE DE PRODUÇÃO
+
+// MUDANÇA: A interface FirebaseApp é importada junto com initializeApp.
+import { initializeApp, type FirebaseOptions, type FirebaseApp } from 'firebase/app';
+// Importações de serviços
+import { getFirestore, type Firestore } from "firebase/firestore";
 import { getStorage, type FirebaseStorage } from 'firebase/storage';
 import { getAuth, type Auth } from 'firebase/auth';
 import { getFunctions, type Functions } from 'firebase/functions';
-import { getAnalytics, type Analytics } from 'firebase/analytics';
+import { getAnalytics, isSupported, type Analytics } from 'firebase/analytics'; 
 
-// Definição da interface para garantir que a configuração tem o tipo correto
+// Definição da interface de configuração (mantida)
 const firebaseConfig: FirebaseOptions = {
     apiKey: "AIzaSyD9EwV663M-eXBqyZDHToD9xPezfy8OBqw",
     authDomain: "olimpo-3df0d.firebaseapp.com",
@@ -16,22 +20,54 @@ const firebaseConfig: FirebaseOptions = {
     measurementId: "G-R96RQSV305"
 };
 
-// 1. Inicializa o Firebase
-const app = initializeApp(firebaseConfig);
+// 1. Inicializa o Firebase App (INSTÂNCIA ÚNICA)
+const app: FirebaseApp = initializeApp(firebaseConfig);
 
-// 2. Inicializa os serviços e aplica as tipagens (opcional, mas recomendado)
-// O TypeScript infere os tipos, mas definir a variável ajuda na clareza.
+// 2. Inicializa e exporta os serviços síncronos
 export const db: Firestore = getFirestore(app);
 export const storage: FirebaseStorage = getStorage(app);
-export const auth: Auth = getAuth(app); 
-export const functions: Functions = getFunctions(app);
+export const auth: Auth = getAuth(app);
 
-// 3. Inicializa o Analytics (O Analytics deve ser inicializado antes de ser usado)
-// Nota: A variável 'analytics' deve ser exportada se for usada fora deste arquivo, 
-// mas geralmente é apenas inicializada aqui.
-const analytics: Analytics = getAnalytics(app);
+// Inicializa functions com a região correta
+export const functions: Functions = getFunctions(app, 'us-central1'); 
 
-// Se precisar do objeto App ou Analytics em outro lugar, exporte-o:
-// export { app, analytics };
+// 3. Inicializa o Analytics - Condicional e Assíncrono (mantendo a correção anterior)
+let analytics: Analytics | null = null;
 
-// Para o seu uso, as exportações de 'db', 'auth', 'storage' e 'functions' são suficientes.
+/**
+ * Tenta inicializar o Firebase Analytics.
+ * Deve ser chamado UMA VEZ no lado do cliente (client-side), por exemplo,
+ * dentro de um useEffect ou no ponto de entrada do seu app para evitar erros SSR/IndexedDB.
+ */
+export async function initializeAnalytics(): Promise<void> {
+    try {
+        // Importante: use a função isSupported() para evitar o erro de IndexedDB em ambientes restritos (como SSR).
+        const supported = await isSupported();
+
+        if (supported) {
+            analytics = getAnalytics(app);
+            console.info("@firebase/analytics: Inicializado com sucesso.");
+        } else {
+            analytics = null;
+            console.warn("@firebase/analytics: Inicialização pulada. IndexedDB/Cookies indisponíveis neste ambiente.");
+        }
+    } catch (e) {
+        console.error("Erro inesperado ao inicializar o Firebase Analytics:", e);
+        analytics = null;
+    }
+}
+
+// 4. Função de Acesso. Use esta função para acessar a instância de analytics no resto do seu código.
+export function getFirebaseAnalytics(): Analytics | null {
+    return analytics;
+}
+
+// Exporta a instância principal do app
+export { app };
+
+/*
+ * NOTA: As chamadas connectEmulator foram removidas.
+ * * MUDANÇA CRÍTICA: Você DEVE chamar 'initializeAnalytics()' no seu código principal
+ * (dentro de um bloco que só roda no navegador, como um useEffect ou onMounted) 
+ * para que o Analytics seja ativado sem erros.
+ */

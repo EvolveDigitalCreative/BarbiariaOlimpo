@@ -56,12 +56,12 @@ const Header: FC = () => {
         // Se logado, link para /profile
         <Link to="/profile" className="icon-link user-icon" aria-label="Perfil"> {/* Adicione classes CSS se necessário */}
           {/* Pode manter o ícone original ou trocar por um de perfil */}
-          <img src="/OlimpoBarBer/icons/profile_highres.png" alt="Perfil" /> {/* ✅ Use a URL direta */}
+          <img src="/OlimpoBarBer/icons/profile_optimized.png" alt="Perfil" /> {/* ✅ Use a URL direta */}
         </Link>
       ) : (
         // Se não logado, link para /login (ou mantém o link original de iconLinksMap)
         <Link to="/login" className="icon-link user-icon" aria-label="Login"> {/* Adicione classes CSS se necessário */}
-          <img src="/OlimpoBarBer/icons/profile_highres.png" alt="Login" /> {/* ✅ Use a URL direta */}
+          <img src="/OlimpoBarBer/icons/profile_optimized.png" alt="Login" /> {/* ✅ Use a URL direta */}
         </Link>
         // Alternativa: return baseIcons['user']; // Se o link original já era para /login
       );

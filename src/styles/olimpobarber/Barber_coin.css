@@ -5,7 +5,7 @@
 /* 1. DECLARAÇÃO DA FONTE E VARIÁVEIS */
 @font-face {
     font-family: 'FonteCoin';
-    src: url('/public/fonts/GeorgiaPro-Bold.ttf') format('opentype');
+    src: url('/fonts/GeorgiaProBold.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -94,6 +94,7 @@
         align-items: center;
         /* Alinha verticalmente no centro */
         gap: 6rem;
+        
     }
 
     /* 2. Define a ordem e o tamanho das colunas */
@@ -104,6 +105,7 @@
         /* Ocupa 50% do espaço */
         text-align: left;
         max-width: none;
+        
     }
 
     .section-image-container.medium-image-centered {
@@ -132,9 +134,10 @@
     margin-bottom: 1.5rem;
 }
 
-.section-paragraph {
+.section-paragraph2 {
     font-family: 'FonteCoin', sans-serif;
     font-size: 1.25rem;
+    color:  black;
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
@@ -148,6 +151,7 @@
 
 .gold-text-strong {
     font-family: 'FonteCoin', sans-serif;
+    
     color: var(--color-dourado);
     font-weight: bold;
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);

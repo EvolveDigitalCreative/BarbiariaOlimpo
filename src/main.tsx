@@ -1,8 +1,10 @@
 // src/main.tsx - COMPLETO (SEM STRICTMODE)
 
-// ✅ REMOVIDO: import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Importação do Firebase Analytics
+import { initializeAnalytics } from './services/firebaseConfig'; 
 
 // Importação do AuthProvider
 import { AuthProvider } from './components/auth/AuthContext';
@@ -103,3 +105,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </BrowserRouter>
     </AuthProvider>
 );
+
+// ✅ ADIÇÃO CRÍTICA: Inicializa o Analytics após a montagem do React no DOM.
+// Isso garante que a verificação isSupported() seja feita no ambiente do navegador (client-side).
+initializeAnalytics();

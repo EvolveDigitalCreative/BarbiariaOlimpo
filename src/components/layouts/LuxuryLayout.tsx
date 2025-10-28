@@ -11,7 +11,7 @@ interface LayoutProps {
 const LuxuryLayout: FC<LayoutProps> = ({ preset, renderIcons }) => {
   return (
     // Seu CSS controla o padding, background, etc., via .header-container
-    <div className="header-container">
+    <div className="header-container2">
       <Logo src={preset.logoSrc} />
       <div className="header-icons header-icons-with-labels">{renderIcons()}</div>
     </div>

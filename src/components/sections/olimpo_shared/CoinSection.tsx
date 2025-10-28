@@ -19,16 +19,16 @@ const CoinSection: FC = () => {
                 <div className="section-content-wrapper main-layout">
                     
                     <div className="section-text-container left-aligned-text FonteCoin">
-                        <p className="section-paragraph">
+                        <p className="section-paragraph2">
                             Apresentamos a <strong className="gold-text-strong">OLIMPO COIN</strong>.
                         </p>
-                        <p className="section-paragraph">
+                        <p className="section-paragraph2">
                             Inspirada no minimalismo e na elegância da Grécia Antiga, a Olimpo Coin foi cuidadosamente criada para oferecer benefícios exclusivos aos nossos clientes.
                         </p>
-                        <p className="section-paragraph">
+                        <p className="section-paragraph2">
                             A cada corte realizado na nossa barbearia, recebes uma Olimpo Coin, e a cada skin care realizada na Olimpo Skin recebes 2. Com elas, podes obter descontos nas nossas t-shirts e até ganhar uma gratuita.
                         </p>
-                        <p className="section-paragraph">
+                        <p className="section-paragraph2">
                             Quanto mais coins acumulares, maiores serão as tuas recompensas.
                         </p>
                         <p className="section-small-text">

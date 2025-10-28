@@ -1,11 +1,34 @@
 /* src/styles/olimpobarber/barber_barbers.css */
 
 .barbers-section {
-    /* Pode ter um padding vertical ligeiramente diferente */
+    /* Padrão Desktop */
     padding: 100px 40px; 
 }
 
-/* Container da Mensagem de Indisponibilidade */
+/* --- Botão Principal --- */
+
+.booking-button {
+    display: block;
+    margin: 40px auto; /* Centraliza o botão */
+    padding: 15px 30px;
+    background-color: #333; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.booking-button:hover {
+    background-color: #555; 
+}
+
+/* --- Container da Mensagem de Indisponibilidade --- */
+
 .barbers-unavailable-message {
     text-align: center;
     padding: 50px 0;
@@ -14,7 +37,7 @@
 }
 
 .tesoura-icon {
-    width: 40px; /* Mais pequeno que o ícone sugerido antes para ser mais discreto */
+    width: 40px; 
     height: auto;
     opacity: 0.6;
     margin-bottom: 5px;
@@ -31,11 +54,57 @@
     font-weight: bold;
     margin-bottom: 10px;
     color: var(--color-text-dark);
-    font-family: var(--font-family-serif);
+    /* ✅ Mantenha a fonte específica para títulos, se definida */
+    font-family: var(--font-family-serif); 
 }
 
 .unavailable-text {
     font-size: 1rem;
     color: var(--color-text-dark);
     line-height: 1.5;
+}
+
+/* ---------------------------------- */
+/* ## Responsividade (Ecrãs Pequenos) */
+/* ---------------------------------- */
+
+@media (max-width: 768px) {
+    
+    /* Reduz o padding da seção para dar mais espaço vertical */
+    .barbers-section {
+        padding: 50px 20px; 
+    }
+
+    /* Reduz ligeiramente o tamanho do botão */
+    .booking-button {
+        margin-top: 30px;
+        padding: 12px 25px;
+        font-size: 16px; 
+    }
+
+    /* Ajusta o padding interno da mensagem */
+    .barbers-unavailable-message {
+        padding: 30px 0;
+    }
+
+    /* Reduz o título de indisponibilidade */
+    .unavailable-title {
+        font-size: 1.4rem;
+    }
+
+    /* Ajusta o texto da mensagem */
+    .unavailable-text {
+        font-size: 0.95rem;
+        padding: 0 10px; /* Adiciona padding lateral para telas muito pequenas */
+    }
+
+    /* Reduz o tamanho do ícone e o espaçamento */
+    .tesoura-icon {
+        width: 35px;
+        margin-bottom: 0;
+    }
+
+    .tesoura-label {
+        margin-bottom: 20px;
+    }
 }

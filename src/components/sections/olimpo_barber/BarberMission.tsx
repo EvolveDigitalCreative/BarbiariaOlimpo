@@ -10,11 +10,11 @@ const MissionSection: FC = () => {
                 {/* Texto */}
                 <div className="section-text-container">
                     {/* Título com classes existentes, mas a margem será ajustada no CSS */}
-                    <h2 className="section-title gold-title large-title">A NOSSA MISSÃO</h2> 
+                    <h2 className="section-title3 gold-title large-title">A NOSSA MISSÃO</h2> 
                     
                     {/* Contêiner de Parágrafo para aplicar a limitação de largura (lg:w-3/4) */}
-                    <div className="paragraph-container">
-                        <p className="section-paragraph large-paragraph"> 
+                    <div className="paragraph-container3">
+                        <p className="section-paragraph3 large-paragraph"> 
                             A Olimpo Barbershop é mais do que um corte, é uma experiência pensada para o homem moderno, onde tradição e estilo se fundem num espaço autêntico e único. Aqui cada detalhe importa – do atendimento ao ambiente – criando um momento exclusivo, confortável e marcante. Não se trata apenas de aparência, mas de identidade, confiança e expressão pessoal através de um bom corte.
                         </p>
                     </div>
@@ -30,7 +30,7 @@ const MissionSection: FC = () => {
                         playsInline
                     >
                         {/* **Mude o caminho e o tipo** */}
-                        <source src="../../../public/olimpobarber/video/Canavarro.webm" type="video/webm" />
+                        <source src="/OlimpoBarBer/video/Canavarro.webm" type="video/webm" />
                         Seu navegador não suporta a tag de vídeo.
                     </video>
                 </div>

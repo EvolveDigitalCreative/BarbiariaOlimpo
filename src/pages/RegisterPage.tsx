@@ -22,7 +22,7 @@ const RegisterPage: FC = () => {
    
     {/* ✅ Logo está AQUI (fora do card) */}
     <div className="logo-container">
-     <img src="/barbershop/icons/logo.jpg" alt="Olimpo" /> 
+     <img src="/OlimpoBarBer/icons/logo.jpg" alt="Olimpo" /> 
     </div>
 
     {/* Card Branco */}
