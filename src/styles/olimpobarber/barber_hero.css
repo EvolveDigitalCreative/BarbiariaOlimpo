@@ -7,9 +7,10 @@
 
     
 @font-face {
-    font-family: 'Gods';
-    /* ATENÇÃO: Se o caminho for absoluto, deve ser /public/... */
-    src: url('/fonts/BrittanySignature.ttf') format('truetype');
+    /* ✅ MUDANÇA CRÍTICA: Usar um nome único para contornar o cache de nome interno */
+    font-family: 'OlimpoScript'; 
+    /* ✅ Adiciona um parâmetro de versão para forçar o recarregamento (Cache Bust) */
+    src: url('/fonts/BrittanySignature.ttf?v=1.1') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -26,7 +27,7 @@
     --color-gold: #b8860b;
     --color-form-border: #ccc;
     --font-hend: 'But', cursive;
-    --font-handwritten: 'Gods', cursive;
+    --font-handwritten: 'OlimpoScript', cursive;
     --font-cta: sans-serif;
 }
 
