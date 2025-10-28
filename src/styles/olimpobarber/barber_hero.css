@@ -109,7 +109,7 @@
 /* Estilo do Título "Where Gods are made" */
 .hero-titlesb {
 
-    font-family: font-handwritten;
+    font-family: var(--font-handwritten);
 
     /* ✅ AJUSTE MOBILE: Reduz o tamanho da fonte para mobile */
     font-size: 2.5rem;
