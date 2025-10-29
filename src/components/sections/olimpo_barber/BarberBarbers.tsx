@@ -14,7 +14,7 @@ import '../../../styles/olimpobarber/barber_barbers.css'; // Ajuste o caminho se
 // CUIDADO: Se os ficheiros estão em src/assets/carrossel_barbeiros/, o caminho DEVE ser '../../assets/...'
 import barberImgSimon from '/assets/carrossel_barbeiros/OLIMPO_foto_de_perfil_Simon.jpg';
 import barberImgJoao from '/assets/carrossel_barbeiros/OLIMPO_barbeiros_Joao.jpg';
-import barberImgAfonso from '/../assets/carrossel_barbeiros/Foto_de_perfil_Afonso.jpg';
+import barberImgAfonso from '/assets/carrossel_barbeiros/Foto_de_perfil_Afonso.jpg';
 import barberImgTiago from '/assets/carrossel_barbeiros/Foto_de_perfil_Tiago_Antunes.jpg'; 
 // Adicione mais imports conforme necessário
 
