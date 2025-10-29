@@ -22,7 +22,7 @@ import barberImgTiago from '/assets/carrossel_barbeiros/Foto_de_perfil_Tiago_Ant
 interface Barber {
     id: string; 
     name: string;
-    localImageSrc?: string; // ✅ Propriedade para guardar o src da imagem importada
+    localImageSrc?: string; // ✅ Propriedade para guardar o src da imagem importadaa
     // specialty?: string;
 }
 
