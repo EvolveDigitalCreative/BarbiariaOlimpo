@@ -1,59 +1,193 @@
 /* src/styles/olimposkincare/skincare_services.css */
 
-.services-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto 50px;
+/* ==========================================================
+// 0. VARIÁVEIS 
+// ========================================================== */
+:root {
+    --color-skincare-accent: #222; /* Preto */
+    --color-skincare-text-dark: #222;
+    --color-background-light: #fefefe; 
+    --card-gap: 20px;
+    
+    /* VARIÁVEIS PARA A BARRA DE ROLAGEM CUSTOMIZADA */
+    --scroll-bar-height: 4px;
+    --thumb-height: 4px;
+    --thumb-width: 200px; 
 }
 
-.service-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    width: 280px; 
-    padding: 20px;
+/* ==========================================================
+// ESTILOS GERAIS DA SECÇÃO
+// ========================================================== */
+
+.skincare-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-skincare-text-dark);
     text-align: center;
+    margin-bottom: 60px;
+}
+
+.services-carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 50px; /* Espaço para a barra de progresso */
+    position: relative;
+}
+
+/* ==========================================================
+// IMPLEMENTAÇÃO DA ROLAGEM HORIZONTAL NATIVA
+// ========================================================== */
+.skincare-horizontal-scroll {
+    display: flex; /* Alinha todos os cartões horizontalmente */
+    gap: var(--card-gap); /* Espaçamento entre os cartões */
+    
+    /* A CHAVE: permite a rolagem horizontal */
+    overflow-x: scroll;
+    overflow-y: hidden;
+    
+    /* ✅ Esconde a barra de scroll nativa para usarmos a customizada */
+    -ms-overflow-style: none;  /* IE e Edge */
+    scrollbar-width: none;  /* Firefox */
+    
+    padding: 0 10px 15px 10px; /* Padding para evitar que o conteúdo toque nas bordas */
+    scroll-snap-type: x mandatory; /* Para um bom efeito de slide */
+}
+
+/* Esconde a barra nativa no Chrome/Safari */
+.skincare-horizontal-scroll::-webkit-scrollbar {
+    display: none; 
+}
+
+/* Estilo do SLIDE individual */
+.service-slide-wrapper {
+    /* Largura para mostrar 4 slides no desktop (ajustado para o gap) */
+    flex: 0 0 calc(25% - (3 * var(--card-gap) / 4)); 
+    min-width: 250px;
+    scroll-snap-align: start;
+    outline: none;
+}
+
+/* ==========================================================
+// BARRA DE PROGRESSO CUSTOMIZADA (Sincronizada)
+// ========================================================== */
+
+.custom-scroll-bar-container {
+    position: relative;
+    width: 60%; /* ⭐️ ALTERAÇÃO AQUI: Altere este valor para o cumprimento desejado (ex: 60%) */
+    height: var(--thumb-height);
+    background: white; 
+    border-radius: 2px;
+    margin: 30px auto 0 auto; 
+}
+.custom-scroll-bar-container::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - (var(--scroll-bar-height) / 2)); /* Centraliza o trilho de 4px */
+    left: 0;
+    width: 100%;
+    height: var(--scroll-bar-height);
+    background: #eee; /* Cor do trilho por baixo do pegador */
+    border-radius: 2px;
+    z-index: 1;
+}
+
+
+.scroll-thumb {
+    /* O Pegador (O retangulo dourado de largura fixa) */
+    width: var(--thumb-width); /* ✅ LARGURA FIXA (ex: 50px) */
+    height: var(--thumb-height); /* Altura do Pegador (8px) */
+    background: var(--color-skincare-accent); /* Cor do Pegador (Ouro) */
+    border-radius: 4px;
+    
+    position: absolute;
+    
+    /* Movimenta o elemento (left) de acordo com o JS */
+    transition: left 0.1s linear;
+    transform: translateX(-50%);
+    top: 0; 
+    z-index: 5;
+    cursor: grab;
+    
+    /* ⭐️ NOVO: Define o ponto de origem como a borda esquerda */
+    left: 0%; /* Início, será sobrescrito pelo React */
+}
+
+/* ==========================================================
+// ESTILOS DE CARD (Mantido)
+// ========================================================== */
+.service-card {
+    background-color: var(--color-background-light); 
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 20px;
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .service-card-image-wrapper {
     position: relative;
-    width: 100%;
-    height: 200px; 
-    overflow: hidden;
-    border-radius: 8px;
+    border: 1px solid var(--color-skincare-accent);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
     margin-bottom: 20px;
 }
-
-.service-card img {
+.service-card-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
 }
-
-.service-card h3 {
-    font-family: var(--font-family-serif);
-    font-size: 1.4rem;
+.service-card-title {
+    font-size: 1.5rem;
     margin-bottom: 10px;
-    color: var(--color-text-dark);
 }
-
-.service-card-duration {
-    font-size: 0.9rem;
-    color: #999;
-    margin: 15px 0 20px;
+.service-card-desc {
+    font-size: 0.95rem;
+    color: #555;
+    flex-grow: 1;
+    margin-bottom: 20px;
 }
-
-/* O botão Marcar preto */
-.service-card .skincare-main-button {
+.card-footer {
     width: 100%;
-    padding: 10px;
+    margin-top: auto;
+}
+.skincare-main-button {
+    background-color: var(--color-skincare-accent);
+    color: var(--color-skincare-text-dark);
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 15px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+.skincare-main-button:hover {
+    background-color: #d8c39e;
 }
 
-@media (max-width: 600px) {
-    .service-card {
-        width: 90%;
+
+/* ==========================================================
+// RESPONSIVIDADE (Ajuste da Largura dos Cartões)
+// ========================================================== */
+
+@media (max-width: 1200px) {
+    .service-slide-wrapper {
+        flex: 0 0 calc(33.333% - (2 * var(--card-gap) / 3)); /* 3 slides */
+    }
+}
+@media (max-width: 768px) {
+    .service-slide-wrapper {
+        flex: 0 0 calc(50% - (1 * var(--card-gap) / 2)); /* 2 slides */
+    }
+}
+@media (max-width: 480px) {
+    .service-slide-wrapper {
+        flex: 0 0 calc(100% - var(--card-gap)); /* 1 slide */
     }
 }

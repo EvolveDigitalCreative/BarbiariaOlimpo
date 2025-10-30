@@ -3,7 +3,7 @@
 // ========================================================== */
 
 :root {
-    --color-skincare-accent: #ccb47c; /* Ouro */
+    --color-skincare-accent: #000000; /* Ouro */
     --color-skincare-text-dark: #222;
     --color-text-light: #555;
     --color-background-light: #fefefe; 
@@ -111,19 +111,6 @@
     margin-top: 5px; /* Espaço entre o título e o parágrafo */
     margin-bottom: 0; 
 }
-
-/* ESTAS REGRAS DEVEM SER REMOVIDAS POIS NÃO SE APLICAM À ESTRUTURA ATUAL (o texto usa .barbershop-title e .barbershop-paragraph-text) */
-/*
-.barbershop-text-group .dark-text-strong {
-    margin-bottom: 0; 
-}
-.barbershop-text-group .section-paragraph {
-    margin-top: 8px; 
-    margin-bottom: 0; 
-    font-size: 1rem; 
-    font-weight: 400; 
-}
-*/
 
 .barber-coin-icon {
     /* CORREÇÃO: Tamanho para corresponder visualmente à referência */
