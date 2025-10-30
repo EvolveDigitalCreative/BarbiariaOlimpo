@@ -1,10 +1,10 @@
 // src/components/sections/olimpo_skincare/SkincareServices.tsx
-import React, { type    FC, useRef, useState, useEffect, useCallback } from 'react';
+import React, { type FC, useRef, useState, useEffect, useCallback } from 'react';
 // Importe o CSS para estilizar os seus cards e a rolagem nativa
 import '../../../styles/olimposkincare/skincare_services.css'; 
 
+// Array de serviços (mantido no ficheiro)
 const services = [
-    // SERVIÇOS skincare
     { name: "Glow Skin", desc: "Limpeza essencial com extração, aplicação de ativos e máscara. Ideal para manter a pele limpa, hidratada e luminosa.", duration: "1 hora" },
     { name: "Elevate Skin", desc: "Tratamento facial que combina técnicas de limpeza, esfoliação e regeneração celular para purificar a pele, controlar a oleosidade e reduzir imperfeições. Proporciona frescor imediato, textura mais uniforme e um aspeto visivelmente saudável.", duration: "1 hora e 15 minutos" },
     { name: "Olimpo Skin", desc: "Protocolo completo com tecnologia Aqua Plus, ativos personalizados e hidratação revitalizante. Limpa em profundidade, trata e renova a pele.", duration: "1 hora e 30 minutos" },
@@ -16,31 +16,50 @@ const services = [
 
 
 const SkincareServices: FC = () => {
+    // Referência ao contentor que vamos rolar (os cartões)
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    // Referência ao contentor do trilho da barra customizada
+    const progressBarRef = useRef<HTMLDivElement>(null); 
+    
     // Posição percentual do PEGADOR (0 a 100), não a largura.
     const [thumbPosition, setThumbPosition] = useState(0); 
+    
+    // Largura fixa do pegador em pixels (definida no CSS)
+    const THUMB_WIDTH_PX = 200; 
 
     // Função de cálculo principal
     const calculateThumbPosition = useCallback(() => {
-        const node = scrollContainerRef.current;
-        if (!node) return;
-
-        const scrollLeft = node.scrollLeft;
-        const scrollWidth = node.scrollWidth;
-        const clientWidth = node.clientWidth;
+        const scrollNode = scrollContainerRef.current;
+        const barNode = progressBarRef.current; 
         
-        // Distância total que o conteúdo pode rolar
+        if (!scrollNode || !barNode) return;
+
+        const scrollLeft = scrollNode.scrollLeft;
+        const scrollWidth = scrollNode.scrollWidth;
+        const clientWidth = scrollNode.clientWidth;
+        
+        // ⭐️ Largura real do trilho (ex: 60% da largura do contentor)
+        const barWidth = barNode.clientWidth; 
+        
+        // 1. Distância total que o conteúdo pode rolar (o nosso progresso de 0 a 100%)
         const scrollableDistance = scrollWidth - clientWidth;
         
-        // Se há espaço para rolar
-        if (scrollableDistance > 0) {
-            // Posição: (Posição atual / Distância total rolável) * 100
-            const newPosition = (scrollLeft / scrollableDistance) * 100;
+        // 2. Distância total que o PEGADOR pode percorrer dentro do trilho
+        const thumbTravelDistance = barWidth - THUMB_WIDTH_PX;
+
+        if (scrollableDistance > 0 && thumbTravelDistance > 0) {
+            // Percentagem de rolagem do conteúdo (0 a 1.0)
+            const scrollProgress = scrollLeft / scrollableDistance; 
             
-            // NOTA CHAVE: A posição 100% corresponde ao final do scroll, 
-            // mas o pegador tem uma largura fixa. O CSS irá centrar o pegador 
-            // no ponto calculado por newPosition.
-            setThumbPosition(newPosition);
+            // Distância em Pixels que o pegador deve mover
+            const thumbPixelPosition = scrollProgress * thumbTravelDistance;
+            
+            // Converte a posição em Pixels de volta para Percentagem relativa ao Trilho
+            const newPosition = (thumbPixelPosition / barWidth) * 100;
+            
+            // Limita o valor entre 0 e o ponto máximo
+            setThumbPosition(Math.max(0, Math.min(newPosition, 100)));
+
         } else {
             setThumbPosition(0); 
         }
@@ -51,8 +70,9 @@ const SkincareServices: FC = () => {
         calculateThumbPosition();
     };
     
+    // Configuração dos Event Listeners para scroll e resize
     useEffect(() => {
-        calculateThumbPosition();
+        calculateThumbPosition(); // Cálculo inicial
         window.addEventListener('resize', calculateThumbPosition);
 
         return () => {
@@ -74,7 +94,6 @@ const SkincareServices: FC = () => {
                     className="skincare-horizontal-scroll"
                     onScroll={handleScroll} // Liga o evento de rolagem ao cálculo
                 >
-                    {/* ... (Conteúdo dos cartões map continua igual) ... */}
                     {services.map((service, index) => (
                         <div key={index} className="service-slide-wrapper">
                             
@@ -101,9 +120,13 @@ const SkincareServices: FC = () => {
                 {/* 2. A Barra de Rolagem Customizada com Pegador Fixo */}
                 {/* Mostramos a barra se o contentor puder ser rolado */}
                 {thumbPosition >= 0 && (
-                    <div className="custom-scroll-bar-container">
+                    <div 
+                        ref={progressBarRef} // ⭐️ Referência para o cálculo da largura do trilho
+                        className="custom-scroll-bar-container"
+                    >
                         <div 
                             className="scroll-thumb" 
+                            // Aplica o valor 'left' em percentagem (calculado)
                             style={{ left: `${thumbPosition}%` }} 
                         />
                     </div>

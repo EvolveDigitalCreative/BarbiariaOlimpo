@@ -103,7 +103,7 @@
     
     /* Movimenta o elemento (left) de acordo com o JS */
     transition: left 0.1s linear;
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
     top: 0; 
     z-index: 5;
     cursor: grab;
