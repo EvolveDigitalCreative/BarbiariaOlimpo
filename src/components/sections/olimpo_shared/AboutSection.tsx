@@ -1,4 +1,4 @@
-// src/components/home/AboutSection.tsx (Versão Final e Corrigida)
+// src/components/home/AboutSection.tsx 
 
 import type { FC } from 'react';
 
