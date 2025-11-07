@@ -1,5 +1,7 @@
 /* src/styles/olimposkincare/skincare_patterns.css */
-
+body {
+    background-color: #f4f2ef; 
+}
 /* Padrão Grego Dourado na secção (top/bottom) */
 .greek-pattern-border {
     /* Assumindo que tem uma imagem de padrão grego dourado */

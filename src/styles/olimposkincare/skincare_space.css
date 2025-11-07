@@ -1,0 +1,92 @@
+/* src/styles/olimposkincare/skincare_space.css */
+
+/* ⭐️ ADICIONADO: Cor de fundo e espaçamento geral para a secção */
+.skincare-space-section {
+    padding: 80px 0; /* Padding vertical para dar espaço ao conteúdo */
+}
+
+/* ==========================================================
+// ESTILOS GERAIS DA SECÇÃO
+// ========================================================== */
+
+.skincare-section-title {
+    text-align: center !important;
+    margin-bottom: 5px; /* Reduz a margem abaixo do título */
+}
+
+.skincare-space-subtitle { /* ⭐️ CLASSE RENOMEADA */
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 40px; /* Mais espaço para o divisor */
+}
+
+/* ==========================================================
+// DIVISOR DO CABEÇALHO (Ícone)
+// ========================================================== */
+.skincare-space-header { /* ⭐️ CLASSE RENOMEADA */
+    text-align: center;
+    margin-bottom: 40px; 
+    position: relative;
+    width: 100%;
+}
+
+.skincare-space-icon { /* ⭐️ CLASSE RENOMEADA */
+    width: 70px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ==========================================================
+// GALERIA (CENTRALIZAÇÃO E ESTILO)
+// ========================================================== */
+
+.skincare-gallery-grid-container { /* ⭐️ CLASSE RENOMEADA */
+    /* ⭐️ CORREÇÃO: Necessário definir max-width para o margin: auto funcionar. */
+    max-width: 1200px; 
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 0 20px; 
+}
+
+.skincare-gallery-grid { /* ⭐️ CLASSE RENOMEADA */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
+
+.skincare-gallery-item { /* ⭐️ CLASSE RENOMEADA */
+    overflow: hidden;
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    transition: transform 0.3s ease; /* Transição suave para o hover */
+}
+
+/* ⭐️ HOVER RE-ADICIONADO */
+.skincare-gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
+}
+
+.skincare-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+/* ==========================================================
+// RESPONSIVIDADE
+// ========================================================== */
+
+@media (max-width: 900px) {
+    .skincare-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .skincare-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

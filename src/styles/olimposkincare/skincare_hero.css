@@ -18,9 +18,7 @@
     height: auto; 
     min-height: 10px; 
     overflow: hidden;
-    z-index: 10;
-    background-color: var(--color-marble-light); 
-    
+    z-index: 10;    
     /* AJUSTE CHAVE 1: Reduza o padding-top. 
        Se a navbar tiver 80px, pode manter 80px ou reduzir ligeiramente se a navbar for transparente e o conteúdo puder subir. */
     padding-top: 0px; 
@@ -60,7 +58,6 @@
 .hero-bg-overlay {
     position: absolute;
     inset: 0;
-    background-color: var(--color-overlay); 
 }
 
 
