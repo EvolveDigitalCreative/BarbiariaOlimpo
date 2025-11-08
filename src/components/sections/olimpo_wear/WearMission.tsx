@@ -9,7 +9,7 @@ const WearMission: FC = () => {
 
       {/* ⚠️ SUBSTITUA O CAMINHO PELO SEU ÍCONE/LOGOTIPO DE MEDALHA (Mantenha o nome 'mission-icon') */}
       <img
-        src="/OlimpoWear/icons/mission-icon.webp"
+        src="/OlimpoWear/icons/icone de nevegacao.png"
         alt="Ícone Olimpo Wear"
         className="mission-icon"
       />
