@@ -1,0 +1,159 @@
+/* src/styles/olimpowear/wear_catalog.css */
+
+/* ======================================================= */
+/* 1. LAYOUT GERAL DO CATÁLOGO */
+/* ======================================================= */
+
+.wear-catalog-page {
+    /* Ajusta o padding para a página do catálogo se necessário */
+    padding-top: 20px; 
+    max-width: 1200px; /* Limita a largura para melhor visualização em telas grandes */
+    margin: 0 auto; /* Centraliza a página */
+}
+
+/* Título Principal ("Todos os modelos") */
+.catalog-main-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-wear-text, #000); 
+    margin-bottom: 20px;
+}
+
+/* ======================================================= */
+/* 2. BARRA DE FILTRAGEM (TABS) */
+/* ======================================================= */
+
+.catalog-filter-nav {
+    display: flex;
+    gap: 35px; /* Espaço entre os links/botões */
+    margin-bottom: 40px;
+    padding-bottom: 5px;
+}
+
+.filter-button {
+    background: none;
+    border: none;
+    padding: 5px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #666; /* Cor padrão para não selecionado */
+    transition: color 0.2s, border-bottom 0.2s;
+    text-transform: uppercase;
+}
+
+.filter-button:hover {
+    color: var(--color-wear-text, #333); 
+}
+
+.filter-button.active {
+    color: var(--color-wear-text, #000); /* Cor do texto ativo */
+    font-weight: 600;
+    /* Sublinhado na cor do texto ativo */
+    border-bottom: 2px solid var(--color-wear-text, #000); 
+}
+
+/* ======================================================= */
+/* 3. TÍTULOS DE CATEGORIA DENTRO DO CONTEÚDO (Basic, Alex, etc.) */
+/* ======================================================= */
+
+.category-group {
+    /* Espaço entre diferentes grupos de categoria */
+    margin-bottom: 50px; 
+}
+
+.category-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem; 
+    font-weight: 700;
+    margin: 40px 0 20px 0; /* Espaço para separar as coleções */
+    color: var(--color-wear-text, #000); 
+}
+
+/* ======================================================= */
+/* 4. ESTILOS DA GRELHA DE PRODUTOS */
+/* ======================================================= */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+    gap: 30px 20px;
+}
+
+.product-card {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.product-card-image-wrapper {
+    background-color: #f7f7f7; /* Fundo claro para o produto */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Assegura que todas as caixas de imagem têm altura consistente */
+    aspect-ratio: 1 / 1.1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card-image-wrapper img {
+    width: 90%; /* Ajuste para ter um pouco de padding dentro da caixa */
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-card-image-wrapper img {
+    transform: scale(1.05);
+}
+
+.product-card-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 5px 0 2px 0;
+    color: var(--color-wear-text, #000);
+}
+
+.product-card-info {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .catalog-filter-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        padding: 0 10px;
+    }
+    .filter-button {
+        font-size: 1rem;
+    }
+    .catalog-main-title {
+        font-size: 2rem;
+        padding: 0 10px;
+    }
+    .category-title {
+        font-size: 1.5rem;
+        padding: 0 10px;
+    }
+}

@@ -1,0 +1,310 @@
+/* src/styles/olimpowear/wear_cart_checkout.css */
+
+/* VARIÁVEIS GLOBAIS PARA COERÊNCIA VISUAL */
+:root {
+    --color-wear-text: #333;
+    --color-wear-light-bg: #f8f8f8; /* Usado no cartões de item */
+    --color-gold: #bca46d; /* Tonalidade principal do Olimpo */
+    --color-gold-bg: #d9c8a8; /* Fundo do resumo do checkout */
+    --color-button-primary: #000000;
+}
+
+/* ======================================================= */
+/* LAYOUT BASE (CARRINHO E CHECKOUT) */
+/* ======================================================= */
+
+.wear-cart-page-layout,
+.wear-checkout-page-layout {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.wear-cart-page-layout .main-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-wear-text);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.cart-content-container,
+.wear-checkout-page-layout {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr; /* Duas colunas */
+    gap: 40px;
+}
+
+/* ======================================================= */
+/* 1. ESTILOS DO CARRINHO (WEAR CART) */
+/* ======================================================= */
+
+.cart-items-column {
+    /* Container dos itens do carrinho */
+    padding-right: 20px;
+}
+
+.cart-item-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--color-wear-light-bg);
+    border-radius: 4px;
+}
+
+.item-image {
+    width: 100px;
+    height: 150px; 
+    object-fit: contain;
+    background-color: white;
+}
+
+.item-details {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.item-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-top: 10px;
+}
+
+.remove-button {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    margin-top: 5px;
+}
+
+/* Coluna de Resumo (Direita do Carrinho) */
+.cart-summary-column {
+    padding: 20px;
+    background-color: var(--color-wear-light-bg);
+    border-radius: 4px;
+    height: fit-content;
+}
+
+.summary-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Olimpo Coin Box */
+.olimpo-coin-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.coin-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.coin-warning {
+    color: red;
+    font-size: 0.8rem;
+    width: 100%;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Detalhes Financeiros */
+.summary-details .detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.summary-details .total-row {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.advance-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-button-primary);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.terms-checkbox {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+
+/* ======================================================= */
+/* 2. ESTILOS DO CHECKOUT (WEAR CHECKOUT) */
+/* ======================================================= */
+
+.checkout-form-column {
+    padding: 0 40px 0 0;
+}
+
+.checkout-summary-column {
+    background-color: var(--color-gold-bg); /* Fundo bege/dourado */
+    padding: 30px;
+    border-radius: 4px;
+    height: fit-content;
+}
+
+.form-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.express-payment-methods img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #999;
+}
+
+.section-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 25px 0 10px 0;
+}
+
+/* Campos de Input */
+.full-width-input,
+.input-row input,
+.input-row select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-row input,
+.input-row select {
+    flex: 1;
+}
+
+.submit-payment-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-black); /* Botão preto */
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* Resumo do Pedido no Checkout */
+.summary-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.summary-item-row .item-details {
+    display: flex;
+    gap: 15px;
+}
+
+.summary-item-row .item-thumb {
+    width: 50px;
+    height: 75px;
+    object-fit: contain;
+    background-color: white;
+}
+
+.summary-financials .financial-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.summary-financials .total-row {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+/* Área de Desconto */
+.discount-input-area {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    padding-top: 15px;
+    border-top: 1px solid #c0c0c0;
+}
+
+.discount-input-area input {
+    flex: 3;
+}
+
+.discount-input-area button {
+    flex: 1;
+    background-color: var(--color-gold);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* ======================================================= */
+/* MEDIA QUERIES (RESPONSIVIDADE) */
+/* ======================================================= */
+
+@media (max-width: 900px) {
+    .cart-content-container,
+    .wear-checkout-page-layout {
+        grid-template-columns: 1fr; /* Coluna única no tablet/mobile */
+    }
+    
+    .checkout-form-column {
+        padding: 0;
+        order: 2; /* Formulário depois do resumo */
+    }
+    
+    .checkout-summary-column {
+        order: 1; /* Resumo primeiro no mobile */
+        margin-bottom: 30px;
+    }
+}

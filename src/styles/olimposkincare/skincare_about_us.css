@@ -18,9 +18,7 @@
 .content-section {
     padding: 60px 24px; /* Padding Mobile */
 }
-.light-background {
-    background-color: var(--color-background-light);
-}
+
 
 .section-content-wrapper {
     position: relative; 

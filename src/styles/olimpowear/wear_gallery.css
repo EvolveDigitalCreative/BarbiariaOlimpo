@@ -26,13 +26,14 @@
 
 /* Título da Categoria */
 .category-title {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+    /* Exemplo de fonte séria/serif */
     font-size: 1.8rem;
     font-weight: 600;
-    color: #333;
-    text-align: center;
-    margin: 40px 0 25px 0;
-    letter-spacing: 0.5px;
+    color: var(--color-wear-text);
+    margin: 40px 0 20px 0;
+    text-align: left;
+    /* Título alinhado à esquerda como nas imagens */
 }
 
 
@@ -42,16 +43,16 @@
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Reduzido para 3 colunas para cards maiores */
-    gap: 24px; /* Gap aumentado para melhor respiro visual */
-    max-width: 1400px; /* Largura máxima para manter proporções */
-    margin: 0 auto;
+    /* 4 COLUNAS para desktop - conforme o design das imagens */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
-/* CARTÃO DO PRODUTO - MAIOR */
+/* O Cartão Individual do Produto */
 .product-card {
-    background-color: var(--color-white);
-    border-radius: 12px;
+    background-color: var(--color-wear-light-bg);
+    /* Fundo cinza claro */
+    border-radius: 4px;
     overflow: hidden;
     text-align: left;
     padding: 0;
@@ -65,16 +66,14 @@
 
 .product-card a {
     text-decoration: none;
-    color: #000000; /* Preto puro */
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-    text-align: left; /* Forçar alinhamento à esquerda */
+    color: var(--color-wear-text);
+    display: block;
 }
 
-/* CONTAINER DA IMAGEM - MUITO MAIOR */
+/* Wrapper da Imagem (Crucial para manter a proporção e o design vertical) */
 .product-card-image-wrapper {
+    /* Altura ligeiramente maior que a largura (proporção de T-shirt) */
+    padding-bottom: 125%;
     position: relative;
     display: flex;
     align-items: center;
@@ -86,43 +85,22 @@
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    background-color: var(--color-white);
+    /* Fundo branco para a imagem */
 }
 
-/* IMAGEM DO PRODUTO - OCUPA QUASE TODO O ESPAÇO */
-.product-card-image-wrapper img.product-image {
-    /* Preencher a altura do wrapper para imagens maiores e manter proporção */
-    width: auto;
+.product-card-image-wrapper img {
+    position: absolute;
+    width: 100%;
     height: 100%;
-    max-width: 95%;
     object-fit: contain;
-    display: block;
-    margin: auto;
-    transition: all 0.4s ease;
-    transform-origin: center center;
-}
-
-/* Efeitos hover melhorados */
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    /* Usa 'contain' para mostrar a camisa completa sem cortar */
+    transition: transform 0.3s ease;
 }
 
 .product-card a:hover .product-card-image-wrapper img {
-    transform: scale(1.1);
-}
-
-.product-card:hover .product-card-info-container {
-    background-color: #fafafa;
-}
-
-/* INFORMAÇÕES DO PRODUTO */
-.product-card-info-container {
-    padding: 20px;
-    background-color: var(--color-white);
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    border-top: 1px solid #f0f0f0; /* Linha sutil separando imagem e info */
+    transform: scale(1.05);
+    /* Efeito hover sutil */
 }
 
 /* Nome do Produto - Maior */
@@ -160,7 +138,8 @@
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 15px;
+    /* Faz o scroll parar perfeitamente em cada imagem */
+    gap: 10px;
     padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
 }
@@ -177,8 +156,11 @@
 
 .photo-placeholder {
     flex: 0 0 auto;
-    width: 320px; /* Fotos de lifestyle maiores */
-    height: 450px;
+    /* Não permite que os itens encolham */
+    width: 280px;
+    /* Largura definida para cada foto */
+    height: 400px;
+    /* Altura definida para cada foto */
     border-radius: 8px;
     overflow: hidden;
     scroll-snap-align: start;
@@ -188,6 +170,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Garante que a imagem preencha o placeholder */
 }
 
 /* ======================================================= */
@@ -207,7 +190,9 @@
 /* 5. MEDIA QUERIES (RESPONSIVIDADE) */
 /* ======================================================= */
 
-@media (max-width: 1400px) {
+@media (max-width: 1024px) {
+
+    /* Reduz para 3 colunas no tablet */
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
@@ -247,25 +232,9 @@
     }
 
     .photo-placeholder {
-        width: 280px;
-        height: 380px;
-    }
-    
-    .product-card-info-container {
-        padding: 16px;
-    }
-    
-    .product-card-name {
-        font-size: 1.3rem;
-    }
-    
-    .product-card-info {
-        font-size: 1.4rem;
-    }
-    
-    .category-title {
-        font-size: 1.8rem;
-        margin: 32px 0 24px 0;
+        width: 200px;
+        /* Fotos de lifestyle um pouco menores no mobile */
+        height: 280px;
     }
 }
 

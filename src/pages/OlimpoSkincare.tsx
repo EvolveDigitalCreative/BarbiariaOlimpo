@@ -12,11 +12,12 @@ import '../styles/global/_global.css';
 import '../styles/global/_header.css';          
 import '../styles/global/_footer.css';          
 
-// Estilos Específicos do Skincare (Nova Pasta)
+// Estilos Específicos do Skincare
 import '../styles/olimposkincare/skincare_patterns.css';
 import '../styles/olimposkincare/skincare_hero.css';          
 import '../styles/olimposkincare/skincare_sections_base.css'; // Para layout (similar ao barber_sections_base)
 import '../styles/olimposkincare/skincare_services.css';
+import '../styles/olimposkincare/skincare_about_us.css';
 import '../styles/olimposkincare/skincare_review.css';
 
 // ----------------------------------------------------------------
@@ -27,6 +28,8 @@ import SkincareHero from '../components/sections/olimpo_skincare/SkincareHero.ts
 import SkincareAboutUs from '../components/sections/olimpo_skincare/SkincareAboutUs.tsx';
 import SkincareMission from '../components/sections/olimpo_skincare/SkincareMission.tsx';
 import SkincareServices from '../components/sections/olimpo_skincare/SkincareServices.tsx';
+import SkincareGallery from '../components/sections/olimpo_skincare/skincare_gallery_section.tsx';
+import SkincareWhatWeDo from '../components/sections/olimpo_skincare/skincare_what_we_do.tsx';
 import SkincareSpace from '../components/sections/olimpo_skincare/SkincareSpace.tsx';
 import SkincareReviews from '../components/sections/olimpo_skincare/SkincareReviews.tsx';
 import SkincareContact from '../components/sections/olimpo_skincare/SkincareContact.tsx';
@@ -42,6 +45,8 @@ const OlimpoSkincare: FC = () => {
         <SkincareAboutUs />      {/* Fica a Conhecer-nos */}
         <SectionDivider />
         <SkincareServices />     {/* Os Nossos Serviços */}
+        {/*<SkincareGallery /> */}     {/* Galeria de Serviços */}
+        <SkincareWhatWeDo />     {/* O Que Fazemos */}
         <SectionDivider />
         <SkincareMission />      {/* A Nossa Missão */}
         <SkincareSpace />        {/* O Nosso Espaço */}

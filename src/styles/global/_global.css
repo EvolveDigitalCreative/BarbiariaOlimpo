@@ -48,7 +48,7 @@ html, body {
 }
 
 body {
-    font-family: var(--font-family-sans);
+    font-family: var(--font-family-serif) ; 
     line-height: 1.6;
     background-color: var(--color-background-light);
     color: var(--color-text-dark);
@@ -65,9 +65,12 @@ a {
 /* Títulos universais */
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-family-serif);
-    font-weight: normal;
+    font-weight: bold;
 }
 
 /* Classe utilitária: O Título da Secção */
