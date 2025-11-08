@@ -33,6 +33,13 @@ import AdminLayout from './components/admin/AdminLayout';
 import AdminOverview from './components/admin/AdminOverview';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
+// Admin pages (implementações básicas adicionadas)
+import AdminSales from './pages/admin/AdminSales';
+import AdminAppointments from './pages/admin/AdminAppointments';
+import AdminUsers from './pages/admin/AdminUsers';
+// import AdminServices from './pages/admin/AdminServices';
+import AdminOrders from './pages/admin/AdminOrders';
+
 // --- Páginas Admin (Comentadas) ---
 /*
 import AdminSales from './pages/admin/AdminSales';
@@ -99,11 +106,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
                 <Route
                     path="/admin"
-                    element={<AdminLayout />}
+                    element={
+                        <ProtectedRoute requiredRole="admin">
+                            <AdminLayout />
+                        </ProtectedRoute>
+                    }
                 >
                     <Route index element={<AdminOverview />} />
-                    {/* <Route path="vendas" element={<AdminSales />} /> */}
-                    {/* ... outras rotas admin comentadas ... */}
+                    <Route path="vendas" element={<AdminSales />} />
+                    <Route path="marcacoes" element={<AdminAppointments />} />
+                    <Route path="colaboradores" element={<AdminUsers />} />
+                    <Route path="encomendas" element={<AdminOrders />} />
                 </Route>
 
                 {/* <Route path="*" element={<div>Página não encontrada</div>} /> */}
