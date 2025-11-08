@@ -4,7 +4,6 @@
 :root {
     --color-wear-text: #333;
     --color-wear-light-bg: #f5f5f5;
-    /* Cor de fundo dos cards e da seção Mission */
     --color-gold: #b8860b;
     --color-white: #ffffff;
     --color-black: #000000;
@@ -14,93 +13,138 @@
 /* 1. SEÇÃO PRINCIPAL E TÍTULOS DE CATEGORIA */
 /* ======================================================= */
 
-/* Aplica-se à galeria original e à nova galeria (WearNewProducts) */
 .wear-gallery-section,
 .wear-new-products-section {
-    max-width: 1400px;
-    margin: 60px auto;
-    padding: 0 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 15px;
 }
 
 .category-group {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
+/* Título da Categoria */
 .category-title {
-    font-family: 'Times New Roman', Times, serif;
-    /* Exemplo de fonte séria/serif */
+    font-family: 'Inter', sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--color-wear-text);
-    margin: 40px 0 20px 0;
-    text-align: left;
-    /* Título alinhado à esquerda como nas imagens */
+    color: #333;
+    text-align: center;
+    margin: 40px 0 25px 0;
+    letter-spacing: 0.5px;
 }
 
+
 /* ======================================================= */
-/* 2. GRADE DE PRODUTOS (LAYOUT DE 4 COLUNAS) */
+/* 2. GRADE DE PRODUTOS - TAMANHO AUMENTADO SIGNIFICATIVAMENTE */
 /* ======================================================= */
 
 .product-grid {
     display: grid;
-    /* 4 COLUNAS para desktop - conforme o design das imagens */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* Reduzido para 3 colunas para cards maiores */
+    gap: 24px; /* Gap aumentado para melhor respiro visual */
+    max-width: 1400px; /* Largura máxima para manter proporções */
+    margin: 0 auto;
 }
 
-/* O Cartão Individual do Produto */
+/* CARTÃO DO PRODUTO - MAIOR */
 .product-card {
-    background-color: var(--color-wear-light-bg);
-    /* Fundo cinza claro */
-    border-radius: 4px;
+    background-color: var(--color-white);
+    border-radius: 12px;
     overflow: hidden;
-    text-align: center;
+    text-align: left;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    min-height: 520px; /* Altura significativamente aumentada */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
 }
 
 .product-card a {
     text-decoration: none;
-    color: var(--color-wear-text);
-    display: block;
-}
-
-/* Wrapper da Imagem (Crucial para manter a proporção e o design vertical) */
-.product-card-image-wrapper {
-    /* Altura ligeiramente maior que a largura (proporção de T-shirt) */
-    padding-bottom: 125%;
-    position: relative;
-    overflow: hidden;
-    background-color: var(--color-white);
-    /* Fundo branco para a imagem */
-}
-
-.product-card-image-wrapper img {
-    position: absolute;
-    width: 100%;
+    color: #000000; /* Preto puro */
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    justify-content: space-between;
+    text-align: left; /* Forçar alinhamento à esquerda */
+}
+
+/* CONTAINER DA IMAGEM - MUITO MAIOR */
+.product-card-image-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8; /* Fundo sutilmente diferente para destaque */
+    padding: 1em; /* reduzir padding para entregar mais área útil à imagem */
+    margin-bottom: 0;
+    height: 440px; /* Altura aumentada para tornar a imagem mais proeminente */
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* IMAGEM DO PRODUTO - OCUPA QUASE TODO O ESPAÇO */
+.product-card-image-wrapper img.product-image {
+    /* Preencher a altura do wrapper para imagens maiores e manter proporção */
+    width: auto;
+    height: 100%;
+    max-width: 95%;
     object-fit: contain;
-    /* Usa 'contain' para mostrar a camisa completa sem cortar */
-    transition: transform 0.3s ease;
+    display: block;
+    margin: auto;
+    transition: all 0.4s ease;
+    transform-origin: center center;
+}
+
+/* Efeitos hover melhorados */
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .product-card a:hover .product-card-image-wrapper img {
-    transform: scale(1.05);
-    /* Efeito hover sutil */
+    transform: scale(1.1);
 }
 
+.product-card:hover .product-card-info-container {
+    background-color: #fafafa;
+}
+
+/* INFORMAÇÕES DO PRODUTO */
+.product-card-info-container {
+    padding: 20px;
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-top: 1px solid #f0f0f0; /* Linha sutil separando imagem e info */
+}
+
+/* Nome do Produto - Maior */
 .product-card-name {
-    font-size: 1rem;
-    font-weight: 400;
-    margin-top: 10px;
-    margin-bottom: 2px;
-    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: none;
     letter-spacing: 0.5px;
+    line-height: 1.3;
+    color: #000000; /* Preto puro */
+    text-align: left !important; /* Forçar alinhamento à esquerda */
 }
 
+/* Preço - Maior e mais destacado */
 .product-card-info {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-wear-text);
-    margin-bottom: 15px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #000000; /* Preto puro */
+    margin: 0;
+    line-height: 1.3;
+    text-align: left !important; /* Forçar alinhamento à esquerda */
 }
 
 /* ======================================================= */
@@ -115,46 +159,35 @@
 .photo-lifestyle-grid {
     display: flex;
     overflow-x: auto;
-    /* Permite o scroll horizontal */
     scroll-snap-type: x mandatory;
-    /* Faz o scroll parar perfeitamente em cada imagem */
-    gap: 10px;
+    gap: 15px;
     padding-bottom: 20px;
-    /* Espaço para a barra de scroll */
     -webkit-overflow-scrolling: touch;
-    /* Melhor scroll em iOS */
 }
 
-/* Esconder barra de scroll (Opcional, para Chrome, Safari, etc.) */
+/* Esconder barra de scroll */
 .photo-lifestyle-grid::-webkit-scrollbar {
     display: none;
 }
 
 .photo-lifestyle-grid {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
 }
 
 .photo-placeholder {
     flex: 0 0 auto;
-    /* Não permite que os itens encolham */
-    width: 280px;
-    /* Largura definida para cada foto */
-    height: 400px;
-    /* Altura definida para cada foto */
+    width: 320px; /* Fotos de lifestyle maiores */
+    height: 450px;
     border-radius: 8px;
     overflow: hidden;
     scroll-snap-align: start;
-    /* Alinha o início da foto ao iniciar o scroll */
 }
 
 .photo-placeholder img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Garante que a imagem preencha o placeholder */
 }
 
 /* ======================================================= */
@@ -162,7 +195,6 @@
 /* ======================================================= */
 
 .greek-pattern-border-wear {
-    /* Certifique-se de que o caminho do seu padrão grego está correto */
     background-image: url('/OlimpoWear/patterns/greek-border-gold.webp');
     background-repeat: repeat-x;
     background-size: auto 15px;
@@ -175,36 +207,111 @@
 /* 5. MEDIA QUERIES (RESPONSIVIDADE) */
 /* ======================================================= */
 
-@media (max-width: 1024px) {
-
-    /* Reduz para 3 colunas no tablet */
+@media (max-width: 1400px) {
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+    
+    .product-card-image-wrapper {
+        height: 420px; /* manter imagem grande em tablet, ligeiramente menor que desktop */
+    }
+    
+    .product-card {
+        min-height: 500px; /* ajustar para comportar imagem maior */
     }
 }
 
 @media (max-width: 768px) {
-
-    /* Reduz para 2 colunas no mobile */
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 0 16px;
+    }
+
+    .product-card-image-wrapper {
+        height: 380px; /* mobile/tablet compacto, ainda maior que antes */
+        padding: 1em;
+    }
+
+    .product-card {
+        min-height: 460px;
     }
 
     .photo-placeholder {
-        width: 200px;
-        /* Fotos de lifestyle um pouco menores no mobile */
-        height: 280px;
+        width: 280px;
+        height: 380px;
+    }
+    
+    .product-card-info-container {
+        padding: 16px;
+    }
+    
+    .product-card-name {
+        font-size: 1.3rem;
+    }
+    
+    .product-card-info {
+        font-size: 1.4rem;
+    }
+    
+    .category-title {
+        font-size: 1.8rem;
+        margin: 32px 0 24px 0;
     }
 }
 
 @media (max-width: 500px) {
-
-    /* 1 coluna no mobile mais estreito */
     .product-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .product-card-image-wrapper {
+        height: 350px; /* Muito grande mesmo em mobile */
+        padding: 15px 10px;
+    }
+
+    .product-card {
+        min-height: 420px;
     }
 
     .category-title {
         text-align: center;
+        font-size: 1.6rem;
+    }
+    
+    .product-card-name {
+        font-size: 1.1rem;
+    }
+    
+    .product-card-info {
+        font-size: 1.2rem;
+    }
+}
+
+/* Para telas muito grandes */
+@media (min-width: 1600px) {
+    .wear-gallery-section,
+    .wear-new-products-section {
+        max-width: 1600px;
+    }
+    
+    .product-card-image-wrapper {
+        height: 520px; /* Ainda maior em telas gigantes */
+    }
+    
+    .product-card {
+        min-height: 600px;
     }
 }

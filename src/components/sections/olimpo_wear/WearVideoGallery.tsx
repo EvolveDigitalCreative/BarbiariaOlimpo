@@ -1,6 +1,6 @@
 // src/components/sections/olimpowear/WearVideoGallery.tsx
 
-import type { FC } from 'react';
+import { type FC, useState, useRef, useEffect } from 'react';
 
 // === DADOS DOS VÍDEOS ===
 const videoItems = [
@@ -24,32 +24,63 @@ const videoItems = [
 
 // === COMPONENTE ===
 const WearVideoGallery: FC = () => {
+    const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+    const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+    // Avança para o próximo índice em loop
+    const playNext = (currentIndex: number) => {
+        const nextIndex = (currentIndex + 1) % videoItems.length;
+        setActiveVideoIndex(nextIndex);
+    };
+
+    // Sempre que o índice ativo muda, pause todos os vídeos e tente tocar o ativo
+    useEffect(() => {
+        videoRefs.current.forEach((v, i) => {
+            if (!v) return;
+            try {
+                if (i === activeVideoIndex) {
+                    v.currentTime = 0;
+                    // garantir muted para permitir autoplay
+                    v.muted = true;
+                    // play() retorna uma promise — ignoramos falhas silenciosamente
+                    const p = v.play();
+                    if (p && typeof p.then === 'function') p.catch(() => {/* autoplay prevented */});
+                    v.style.opacity = '1';
+                } else {
+                    v.pause();
+                    v.style.opacity = '0.3';
+                }
+            } catch (e) {
+                // seguramos erros de reprodução para não quebrar o fluxo
+            }
+        });
+    }, [activeVideoIndex]);
+
+    // Quando um vídeo termina, avançar
+    const handleVideoEnd = (currentIndex: number) => {
+        playNext(currentIndex);
+    };
+
     return (
         <section className="content-section wear-video-gallery-section">
-            
-            {/* O título "A Atitude Olimpo em Ação" FOI REMOVIDO para replicar o design final. */}
-
             <div className="video-grid-container">
-                {videoItems.map((video) => (
-                    <div key={video.id} className="video-card">
-                        {/* Wrapper para proporção vertical */}
+                {videoItems.map((video, index) => (
+                    <div key={video.id} className={`video-card ${index === activeVideoIndex ? 'active' : ''}`}>
                         <div className="video-player-wrapper">
                             <video 
+                                ref={(el) => { if (el) videoRefs.current[index] = el; }}
                                 className="video-player"
-                                controls 
-                                loop 
                                 muted
                                 playsInline
-                                // Se for para ter autoplay (sem som, com loop), adicione 'autoplay'
-                                // autoplay
+                                loop={false}
+                                onEnded={() => handleVideoEnd(index)}
+                                // estilo de opacidade controlado em effect, mas mantemos inline como fallback
+                                style={{ opacity: index === activeVideoIndex ? 1 : 0.3 }}
                             >
                                 <source src={video.videoSrc} type="video/mp4" />
                                 O seu browser não suporta o elemento de vídeo.
                             </video>
                         </div>
-                        
-                        {/* O nome do vídeo está agora escondido pelo CSS, mas o elemento HTML permanece. */}
-                        {/* <p className="video-title-name">{video.name}</p> */}
                     </div>
                 ))}
             </div>
