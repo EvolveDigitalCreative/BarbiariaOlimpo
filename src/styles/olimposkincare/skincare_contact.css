@@ -1,0 +1,112 @@
+/* src/styles/olimposkincare/skincare_contact.css */
+
+:root {
+    --color-skincare-text-dark: #333;
+    --color-skincare-background: #fdfdf9; /* Fundo muito claro */
+    --color-gold-accent: #b89c6c; /* Cor dourada para acentos */
+    --section-max-width: 1000px;
+}
+
+/* ==========================================================
+// ESTILOS GERAIS DA SECÇÃO
+// ========================================================== */
+
+.skincare-contact-section {
+    background-color: var(--color-skincare-background);
+    padding: 80px 20px; /* Padding vertical e lateral */
+}
+
+/* Garante que o subtítulo centraliza */
+.section-subtitle-centered { 
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 50px; /* Centraliza o parágrafo abaixo do título */
+    color: var(--color-skincare-text-dark);
+}
+
+/* ==========================================================
+// CONTENTOR PRINCIPAL (Flexbox para 2 Colunas)
+// ========================================================== */
+
+.skincare-contact-content-wrapper { /* Contentor da coluna de contacto + mapa */
+    display: flex;
+    justify-content: center; /* Centraliza o bloco inteiro */
+    align-items: flex-start; /* Alinha o topo dos dois contentores */
+    max-width: var(--section-max-width);
+    margin: 0 auto;
+    gap: 50px; /* Espaço entre as colunas */
+}
+
+/* ==========================================================
+// COLUNA DE DETALHES DE CONTACTO
+// ========================================================== */
+
+.skincare-contact-details-container {
+    flex: 1 1 45%; /* Ocupa cerca de 45% do espaço disponível */
+    padding-right: 40px;
+}
+
+.skincare-contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.skincare-contact-icon {
+    width: 24px; /* Tamanho do ícone */
+    height: 24px;
+    margin-right: 15px;
+    margin-top: 3px; /* Pequeno ajuste vertical */
+    filter: invert(70%) sepia(20%) saturate(1000%) hue-rotate(3deg) brightness(95%) contrast(80%); /* Simula uma cor dourada/acobreada */
+}
+
+.skincare-contact-label {
+    font-weight: bold;
+    color: var(--color-gold-accent);
+    margin-bottom: 2px;
+}
+
+.skincare-contact-text,
+.skincare-contact-hint {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--color-skincare-text-dark);
+}
+
+.skincare-contact-hint {
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* ==========================================================
+// COLUNA DO MAPA
+// ========================================================== */
+
+.skincare-map-container {
+    flex: 1 1 55%; /* Ocupa cerca de 55% do espaço disponível */
+}
+
+.skincare-map-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* ⭐️ Estilo do Mapa (Bordas arredondadas, conforme a imagem) */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+}
+
+/* ==========================================================
+// RESPONSIVIDADE (Quebra para 1 Coluna)
+// ========================================================== */
+
+@media (max-width: 800px) {
+    .skincare-contact-content-wrapper {
+        flex-direction: column; /* Empilha colunas em ecrãs mais pequenos */
+        gap: 40px;
+    }
+    
+    .skincare-contact-details-container {
+        padding-right: 0;
+        padding-left: 20px; /* Pequeno padding para alinhar com o mapa */
+    }
+}

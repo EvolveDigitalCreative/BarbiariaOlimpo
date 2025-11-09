@@ -32,7 +32,7 @@ import SkincareGallery from '../components/sections/olimpo_skincare/skincare_gal
 import SkincareWhatWeDo from '../components/sections/olimpo_skincare/skincare_what_we_do.tsx';
 import SkincareSpace from '../components/sections/olimpo_skincare/SkincareSpace.tsx';
 import SkincareReviews from '../components/sections/olimpo_skincare/SkincareReviews.tsx';
-import SkincareContact from '../components/sections/olimpo_skincare/SkincareContact.tsx';
+import ContactSection from '../components/sections/olimpo_barber/BarberContact';
 import SectionDivider from '../components/common/SectionDivider';
 
 
@@ -51,7 +51,7 @@ const OlimpoSkincare: FC = () => {
         <SkincareMission />      {/* A Nossa Missão */}
         <SkincareSpace />        {/* O Nosso Espaço */}
         <SectionDivider />
-        <SkincareContact />      {/* Contacta-nos */}
+        <ContactSection />       {/* Contacta-nos */}
         <SkincareReviews />      {/* Testimonial & Review */}
       </main>
       <Footer />
