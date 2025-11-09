@@ -1,7 +1,7 @@
 // src/components/sections/olimpo_skincare/SkincareServices.tsx
 import { type FC, useRef, useState, useEffect, useCallback } from 'react';
-// Importe o CSS para estilizar os seus cards e a rolagem nativa
 import '../../../styles/olimposkincare/skincare_services.css'; 
+import SkincareBookingModal from '../olimpo_skincare/common/SkincareBookingModal';
 // Array de serviços (mantido no ficheiro)
 const services = [
     { name: "Glow Skin", desc: "Limpeza essencial com extração, aplicação de ativos e máscara. Ideal para manter a pele limpa, hidratada e luminosa.", duration: "1 hora" },
@@ -33,7 +33,6 @@ const getImagePath = (serviceName: string): string => {
  * Assumindo que os ícones estão em /public/OlimpoSkincare/icons/Nome Do Serviço.png
  */
 const getIconPath = (serviceName: string): string => {
-    // ⚠️ ATENÇÃO: Verifique se a pasta é 'icons' ou 'Icons' no seu projeto.
     // Usando a mesma convenção de nome do serviço + .png
     return `/OlimpoSkincare/icons/${serviceName}.png`; 
 };
@@ -45,6 +44,12 @@ const SkincareServices: FC = () => {
     
     const [thumbPosition, setThumbPosition] = useState(0); 
     const THUMB_WIDTH_PX = 200; 
+
+    // ⭐️ GESTÃO DO ESTADO DO MODAL
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
 
     const calculateThumbPosition = useCallback(() => {
         const scrollNode = scrollContainerRef.current;
@@ -87,69 +92,82 @@ const SkincareServices: FC = () => {
 
 
     return (
-        <section className="content-section light-background">
-            <h2 className="skincare-section-title section-title-centered">
-                OS NOSSOS SERVIÇOS
-            </h2>
-            
-            <div className="services-carousel-container">
-                <div 
-                    ref={scrollContainerRef}
-                    className="skincare-horizontal-scroll"
-                    onScroll={handleScroll}
-                >
-                    {services.map((service, index) => (
-                        <div key={index} className="service-slide-wrapper">
-                            
-                            <div className="service-card"> 
-                                {/* Adorno no canto superior esquerdo */}
-                                <img 
-                                    src="OlimpoBarBer/Decoracao/style2_optimized.png"
-                                    alt="Adorno de canto" 
-                                    className="card-corner-adorno" 
-                                />
+        <> {/* Usa Fragment para poder retornar a Section e o Modal */}
+            <section className="content-section light-background">
+                <h2 className="skincare-section-title section-title-centered">
+                    OS NOSSOS SERVIÇOS
+                </h2>
+                
+                <div className="services-carousel-container">
+                    <div 
+                        ref={scrollContainerRef}
+                        className="skincare-horizontal-scroll"
+                        onScroll={handleScroll}
+                    >
+                        {services.map((service, index) => (
+                            <div key={index} className="service-slide-wrapper">
+                                
+                                <div className="service-card"> 
+                                    {/* Adorno no canto superior esquerdo */}
+                                    <img 
+                                        src="OlimpoBarBer/Decoracao/style2_optimized.png"
+                                        alt="Adorno de canto" 
+                                        className="card-corner-adorno" 
+                                    />
 
-                                <div className="service-card-image-wrapper">
-                                    <img 
-                                        src={getImagePath(service.name)} 
-                                        alt={`Imagem do serviço ${service.name}`} 
-                                    />
-                                    {/* icon dourado */}
-                                    <img 
-                                        src={getIconPath(service.name)} 
-                                        alt={`Ícone do serviço ${service.name}`} 
-                                        className="service-icon"
-                                    />
-                                </div>
-                                
-                                <h3 className="service-card-title">{service.name}</h3>
-                                <p className="service-card-desc">{service.desc}</p>
-                                
-                                <div className="card-footer">
-                                    <p className="service-card-duration"><b>Duração:</b> {service.duration}</p>
-                                    <div className="card-separator"></div>
-                                    <a href="/marcacoes" className="skincare-main-button service-button">
-                                        Marcar
-                                    </a>
+                                    <div className="service-card-image-wrapper">
+                                        <img 
+                                            src={getImagePath(service.name)} 
+                                            alt={`Imagem do serviço ${service.name}`} 
+                                        />
+                                        {/* icon dourado */}
+                                        <img 
+                                            src={getIconPath(service.name)} 
+                                            alt={`Ícone do serviço ${service.name}`} 
+                                            className="service-icon"
+                                        />
+                                    </div>
+                                    
+                                    <h3 className="service-card-title">{service.name}</h3>
+                                    <p className="service-card-desc">{service.desc}</p>
+                                    
+                                    <div className="card-footer">
+                                        <p className="service-card-duration"><b>Duração:</b> {service.duration}</p>
+                                        <div className="card-separator"></div>
+                                        
+                                        {/* ⭐️ BOTÃO ATUALIZADO: Substitui <a> por <button> e adiciona onClick */}
+                                        <button 
+                                            onClick={openModal} 
+                                            className="skincare-main-button service-button"
+                                        >
+                                            Marcar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-                
-                {thumbPosition >= 0 && (
-                    <div 
-                        ref={progressBarRef}
-                        className="custom-scroll-bar-container"
-                    >
-                        <div 
-                            className="scroll-thumb" 
-                            style={{ left: `${thumbPosition}%` }} 
-                        />
+                        ))}
                     </div>
-                )}
-            </div>
-        </section>
+                    
+                    {thumbPosition >= 0 && (
+                        <div 
+                            ref={progressBarRef}
+                            className="custom-scroll-bar-container"
+                        >
+                            <div 
+                                className="scroll-thumb" 
+                                style={{ left: `${thumbPosition}%` }} 
+                            />
+                        </div>
+                    )}
+                </div>
+            </section>
+
+            {/* ⭐️ RENDERIZAÇÃO DO MODAL: Apenas visível se isModalOpen for true */}
+            <SkincareBookingModal 
+                isOpen={isModalOpen} 
+                onClose={closeModal} 
+            />
+        </>
     );
 };
 

@@ -1,0 +1,154 @@
+:root {
+    --color-skincare-background-dark: #333;
+    --color-skincare-background-light: #fff;
+    --color-skincare-gold: #b89c6c;
+}
+
+/* ------------------------------------------------------------
+// 1. OVERLAY (Escurece o fundo e centraliza o modal)
+// ------------------------------------------------------------ */
+
+.skincare-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Fundo escurecido e semi-transparente (85% opacidade) */
+    background-color: rgba(0, 0, 0, 0.85); 
+    z-index: 1000; /* Garante que está à frente de tudo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Efeito de transição para o overlay aparecer suavemente */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Opcional: Adicionar uma classe de "aberto" no componente pai para aplicar a transição */
+.skincare-modal-overlay[data-is-open="true"] {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ------------------------------------------------------------
+// 2. CARD PRINCIPAL
+// ------------------------------------------------------------ */
+
+.skincare-modal-card {
+    background-color: var(--color-skincare-background-light);
+    color: var(--color-skincare-background-dark);
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 650px; /* Tamanho médio-grande para o formulário */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.skincare-modal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-skincare-background-dark);
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+// 3. BARRA DE PROGRESSO
+// ------------------------------------------------------------ */
+
+.skincare-progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: #eee;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.skincare-progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-skincare-gold);
+    transition: width 0.4s ease-in-out; /* Anima a barra em tempo real */
+    border-radius: 4px;
+}
+
+.skincare-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.skincare-progress-label {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 500;
+    flex: 1; /* Distribui o espaço igualmente */
+    text-align: center;
+    position: relative;
+    /* Ajuste fino para alinhar o texto com o início de cada passo */
+    transform: translateX(0); 
+}
+
+/* Faz o texto do passo atual brilhar */
+.skincare-progress-label.active {
+    color: var(--color-skincare-background-dark);
+    font-weight: bold;
+}
+
+.skincare-modal-separator {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* ------------------------------------------------------------
+// 4. ESTILOS DO CONTEÚDO E BOTÕES
+// ------------------------------------------------------------ */
+
+.skincare-modal-step h3 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    color: var(--color-skincare-gold);
+}
+
+.skincare-modal-step p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.skincare-modal-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.skincare-modal-next-button,
+.skincare-modal-back-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.skincare-modal-next-button {
+    background-color: var(--color-skincare-gold);
+    color: white;
+}
+
+.skincare-modal-next-button:hover {
+    background-color: #a0855a;
+}
+
+.skincare-modal-back-button {
+    background-color: #ddd;
+    color: var(--color-skincare-background-dark);
+}
