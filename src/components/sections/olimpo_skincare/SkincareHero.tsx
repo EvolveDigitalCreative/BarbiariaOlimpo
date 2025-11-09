@@ -14,10 +14,6 @@ const SkincareBookingModal: FC<SkincareBookingModalProps> = () => null; // Place
 const SkincareHero: FC = () => {
     const [openBooking, setOpenBooking] = useState(false);
 
-    function openModal(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
-        throw new Error('Function not implemented.');
-    }
-
     return (
         <section className="skincare-hero-section">
             
@@ -50,9 +46,12 @@ const SkincareHero: FC = () => {
                         <h2 className="hero-title">Uma pele radiante começa aqui.</h2>
                         <h2 className="hero-subtitle">Eleva o teu brilho.</h2>
                     </div>
-                <button onClick={openModal} className="skincare-main-button">
-                    Marcações
-                </button>
+                    <button 
+                        onClick={() => setOpenBooking(true)}
+                        className="hero-cta-button"
+                    >
+                        Marcações
+                    </button>
                 </div>
                 
                 {/* 3. Imagem Central (O ARCO) */}
