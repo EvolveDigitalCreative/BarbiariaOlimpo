@@ -2,35 +2,37 @@
 
 import type { FC } from 'react';
 import { useState, useMemo } from 'react';
+import WearHeader from '../components/common/WearHeader';
+import Footer from '../components/common/Footer';
+import '../styles/global/wearhearder.css';
+import '../styles/olimpowear/wear_catalog.css';
+import '../styles/olimpowear/wear_gallery.css';
 
 // === DADOS DO CATÁLOGO COMPLETO ===
 // Definimos as categorias disponíveis
 const CATEGORIES = ["Todas as T-shirts", "Basic", "Alex", "Alex9", "Mirror"];
 
-// Dados dummy (adaptados dos seus modelos nas imagens)
+// Dados com os nomes reais dos arquivos
 const allProducts = [
     // --- BASIC ---
-    { id: 1, name: "Basic", model: "White Black Logo", color: "White", price: "25€", image: "/OlimpoWear/shirts/t-shirt-basic-white-black.png", category: "Basic" },
-    { id: 2, name: "Basic", model: "Black White Logo", color: "Black", price: "25€", image: "/OlimpoWear/shirts/t-shirt-basic-black-white.png", category: "Basic" },
-    { id: 3, name: "Basic", model: "White Gold Logo", color: "White", price: "25€", image: "/OlimpoWear/shirts/t-shirt-basic-white-gold.png", category: "Basic" },
-    { id: 4, name: "Basic", model: "Black Gold Logo", color: "Black", price: "25€", image: "/OlimpoWear/shirts/t-shirt-basic-black-gold.png", category: "Basic" },
+    { id: 1, name: "Basic", model: "White Black Logo", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png", category: "Basic" },
+    { id: 2, name: "Basic", model: "Black White Logo", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-basica moeda 3d.png", category: "Basic" },
+    { id: 3, name: "Basic", model: "White Gold Logo", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-basica branca e dourada moeda 3d nas costas.png", category: "Basic" },
+    { id: 4, name: "Basic", model: "Black Gold Logo", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png", category: "Basic" },
 
     // --- ALEX ---
-    // (Imagens com o busto/moeda)
-    { id: 5, name: "Alex", model: "White Black Coin", color: "White", price: "25€", image: "/OlimpoWear/shirts/t-shirt-alex-white-black.png", category: "Alex" },
-    { id: 6, name: "Alex", model: "Black White Coin", color: "Black", price: "25€", image: "/OlimpoWear/shirts/t-shirt-alex-black-white.png", category: "Alex" },
-    { id: 7, name: "Alex", model: "White Gold Coin", color: "White", price: "25€", image: "/OlimpoWear/shirts/t-shirt-alex-white-gold.png", category: "Alex" },
-    { id: 8, name: "Alex", model: "Black Gold Coin", color: "Black", price: "25€", image: "/OlimpoWear/shirts/t-shirt-alex-black-gold.png", category: "Alex" },
+    { id: 5, name: "Alex", model: "White Black Coin", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-branca e preta.png", category: "Alex" },
+    { id: 6, name: "Alex", model: "Black White Coin", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-preta e branca costa.png", category: "Alex" },
+    { id: 7, name: "Alex", model: "White Gold Coin", color: "White", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png", category: "Alex" },
+    { id: 8, name: "Alex", model: "Black Gold Coin", color: "Black", price: "25€", image: "/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png", category: "Alex" },
 
     // --- ALEX9 ---
-    // (Modelo traseiro complexo, presente no design)
-    { id: 9, name: "Alex9", model: "White Black Design", color: "White", price: "28€", image: "/OlimpoWear/shirts/t-shirt-alex9-white-black.png", category: "Alex9" },
-    { id: 10, name: "Alex9", model: "Black White Design", color: "Black", price: "28€", image: "/OlimpoWear/shirts/t-shirt-alex9-black-white.png", category: "Alex9" },
+    { id: 9, name: "Alex9", model: "White Black Design", color: "White", price: "28€", image: "/OlimpoWear/shirts/T-SHIRT- branca e preta moeda 3d costa.png", category: "Alex9" },
+    { id: 10, name: "Alex9", model: "Black White Design", color: "Black", price: "28€", image: "/OlimpoWear/shirts/T-SHIRT-preta e branca moeda 3d verso.png", category: "Alex9" },
     
     // --- MIRROR ---
-    // (Modelo com desenhos de espelhos, presente no design)
-    { id: 11, name: "Mirror", model: "White Design", color: "White", price: "30€", image: "/OlimpoWear/shirts/t-shirt-mirror-white.png", category: "Mirror" },
-    { id: 12, name: "Mirror", model: "Black Design", color: "Black", price: "30€", image: "/OlimpoWear/shirts/t-shirt-mirror-black.png", category: "Mirror" },
+    { id: 11, name: "Mirror", model: "White Design", color: "White", price: "30€", image: "/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png", category: "Mirror" },
+    { id: 12, name: "Mirror", model: "Black Design", color: "Black", price: "30€", image: "/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png", category: "Mirror" },
 ];
 
 const WearCatalog: FC = () => {
@@ -73,10 +75,12 @@ const WearCatalog: FC = () => {
 
 
     return (
-        <section className="content-section wear-gallery-section wear-catalog-page">
-            <h1 className="catalog-main-title">Todos os modelos</h1>
+        <>
+            <WearHeader />
+            <section className="content-section wear-gallery-section wear-catalog-page">
+                <h1 className="catalog-main-title">Todos os modelos</h1>
 
-            {/* BARRA DE FILTRAGEM DE MODELOS */}
+                {/* BARRA DE FILTRAGEM DE MODELOS */}
             <nav className="catalog-filter-nav">
                 {CATEGORIES.map(category => (
                     <button
@@ -143,6 +147,8 @@ const WearCatalog: FC = () => {
 
             <div className="greek-pattern-border-wear"></div>
         </section>
+        <Footer />
+        </>
     );
 };
 

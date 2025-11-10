@@ -48,6 +48,7 @@ const WearGallery: FC = () => {
                                     <div className="product-card-image-wrapper">
                                         <img src={product.image} alt={`${product.name} ${product.model}`} className="product-image" loading="lazy" />
                                     </div>
+                                    <div className="product-card-cta">Ver Camisa</div>
                                     <div className="product-card-info-container">
                                      <p className="product-card-name">{product.name}</p>
                                      <p className="product-card-info">{product.price}</p>
@@ -66,6 +67,9 @@ const WearGallery: FC = () => {
                     {lifestylePhotos.map((photo) => (
                         <div key={photo.id} className="photo-placeholder">
                             <img src={photo.imageSrc} alt={photo.alt} loading="lazy" />
+                            <div className="photo-overlay">
+                                <span>ver mais</span>
+                            </div>
                         </div>
                     ))}
                 </div>
