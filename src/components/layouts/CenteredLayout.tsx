@@ -36,6 +36,7 @@ const CenteredLayout: FC<LayoutProps> = ({ preset, renderIcons }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          width: '100%',
         }}
       >
         {/* Esquerda: Navegação */}

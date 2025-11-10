@@ -1,84 +1,182 @@
 /* src/styles/olimposkincare/skincare_review.css */
 
-.review-section {
-    background-color: var(--color-background-dark); 
-    color: var(--color-text-light); 
-    padding: 60px 40px;
+:root {
+    --color-skincare-background-light: #f4f2ef; /* Cor de fundo creme */
+    --color-skincare-text-dark: #222;
+    --color-skincare-gold: #b89c6c;
 }
 
-.review-header {
-    max-width: 1200px;
-    margin: 0 auto 40px;
+/* ==========================================================
+// SECÇÃO PRINCIPAL (Fundo e Layout Geral)
+// ========================================================== */
+
+.skincare-review-section { /* ⭐️ CLASSE ATUALIZADA */
+    /* Fundo creme, conforme o design */
+    background-color: var(--color-skincare-background-light); 
+    padding: 80px 0; /* Espaçamento vertical grande */
+    color: var(--color-skincare-text-dark);
+    position: relative;
+    overflow: hidden; /* Importante para que o carrossel não se estenda para além */
+}
+
+.skincare-review-content-wrapper { /* ⭐️ CLASSE ATUALIZADA: Contentor de 2 colunas */
+    display: grid;
+    /* Coluna 1: 300px (Conteúdo Fixo) | Coluna 2: 1fr (Resto do espaço, onde o carrossel desliza) */
+    grid-template-columns: minmax(280px, 350px) 1fr; 
+    
+    /* Centraliza o contentor principal na horizontal */
+    max-width: 1400px; 
+    margin: 0 auto;
+    
+    gap: 40px;
+    padding-left: 50px; /* Padding na esquerda para a coluna de info */
+}
+
+/* ==========================================================
+// COLUNA ESQUERDA (Info e Controlos)
+// ========================================================== */
+
+.skincare-review-info-column { /* ⭐️ CLASSE ATUALIZADA */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    /* Alinha a coluna ao topo, se a review for muito alta */
+    align-self: flex-start; 
 }
 
-.review-title {
-    font-family: var(--font-family-serif);
-    font-size: 2rem;
-    color: white;
+.gold-text-strong {
+    color: var(--color-skincare-gold);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
 }
 
-.review-carousel-controls {
+.skincare-review-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.skincare-review-description { /* ⭐️ CLASSE ATUALIZADA */
+    font-size: 1rem;
+    color: var(--color-skincare-text-dark);
+    margin-bottom: 30px;
+}
+
+.skincare-review-carousel-controls { /* ⭐️ CLASSE ATUALIZADA */
     display: flex;
     gap: 10px;
 }
 
-.review-arrow-button {
-    background: none;
-    border: 1px solid white;
+/* Estilo dos Botões de Seta */
+.skincare-arrow-button { /* ⭐️ CLASSE ATUALIZADA */
+    background: #222; /* Fundo preto/escuro */
+    border: none;
     color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.review-arrow-button:hover {
-    background-color: var(--color-gold);
-    border-color: var(--color-gold);
-}
-
-.review-card-container {
-    display: flex;
-    overflow-x: scroll; 
-    gap: 20px;
-    padding-bottom: 20px; 
-}
-
-.review-card {
-    min-width: 300px; 
-    background-color: white;
-    color: var(--color-text-dark);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.review-card-text {
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.review-card-author {
-    display: flex;
-    align-items: center;
-}
-
-.review-card-author img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
 }
 
-/* NOVO: Estilo para as estrelas (para corrigir o erro TS) */
-.review-card-rating {
-    color: var(--color-gold); 
+.skincare-arrow-button:hover {
+    background-color: var(--color-skincare-gold);
+}
+
+
+/* ==========================================================
+// COLUNA DIREITA (Carrossel Horizontal)
+// ========================================================== */
+
+.skincare-review-carousel-track { /* ⭐️ CLASSE ATUALIZADA: Contentor do carrossel (a deslizar) */
+    display: flex;
+    gap: 20px;
+    
+    overflow-x: scroll; 
+    
+    /* ⭐️ NOVO: Garante o movimento suave (smooth) no scroll com o JS */
+    scroll-behavior: smooth; 
+    
+    /* ⭐️ NOVO: Faz o scroll parar exatamente no próximo item */
+    scroll-snap-type: x mandatory; 
+    
+    /* Remove a barra de rolagem (opcional, mas comum em carrosséis) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding-bottom: 10px; 
+    
+    margin-right: -50px; 
+    padding-right: 50px; 
+
+    will-change: scroll-position; /* Otimização de performance */
+}
+
+/* Para navegadores WebKit (Chrome, Safari) */
+.skincare-review-carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.skincare-review-card { /* ⭐️ CLASSE ATUALIZADA: Cartão individual */
+    min-width: 320px; /* Largura mínima do cartão (pode ajustar) */
+    background-color: white;
+    color: var(--color-skincare-text-dark);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    /* Garante que o cartão não encolhe */
+    flex-shrink: 0; 
+    scroll-snap-align: start;
+     transform: translateZ(0); /* Hack para forçar aceleração GPU em alguns browsers */
+}
+
+.skincare-review-card-text {
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.skincare-review-card-author {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre nome e estrela */
+    font-weight: 500;
+}
+
+.skincare-author-photo { /* ⭐️ CLASSE ATUALIZADA */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Borda para destacar, conforme o design */
+    border: 2px solid var(--color-skincare-gold); 
+    content-visibility: auto; /* Otimização de performance */
+}
+
+.skincare-review-card-rating {
+    color: gold; /* Cor das estrelas */
     font-size: 1.2rem;
-    margin-left: 10px;
+    margin-left: auto; /* Empurra as estrelas para a direita, mantendo-as alinhadas */
+}
+
+/* ==========================================================
+// RESPONSIVIDADE (Ecrãs Pequenos)
+// ========================================================== */
+
+@media (max-width: 850px) {
+    .skincare-review-content-wrapper {
+        /* Muda para uma única coluna */
+        grid-template-columns: 1fr; 
+        padding: 0 20px;
+        gap: 30px;
+    }
+    
+    .skincare-review-carousel-track {
+        /* Ajusta o padding para deslizar corretamente */
+        margin-right: -20px; 
+        padding-right: 40px; 
+    }
 }

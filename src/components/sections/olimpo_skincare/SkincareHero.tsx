@@ -1,54 +1,89 @@
+//src/components/sections/olimpo_skincare/SkincareHero.tsx
 import type { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom'; 
+import '../../../styles/olimposkincare/skincare_hero.css';
 
-// NOTA: O modal e as moedas no canto são widgets externos.
-// Focamos apenas na estrutura do Hero Section: Texto Esquerda e Visual Direita.
+// Assumindo que este componente é externo e existe
+interface SkincareBookingModalProps {
+    open: boolean;
+    onClose: () => void;
+}
+const SkincareBookingModal: FC<SkincareBookingModalProps> = () => null; // Placeholder
 
 const SkincareHero: FC = () => {
-    return (
-        <section className="skincare-hero-section">
-            
-            <div className="skincare-hero-container">
-                
-                {/* COLUNA ESQUERDA: Texto e Botão */}
-                <div className="hero-text-content">
-                    
-                    <h1 className="skincare-hero-title">
-                        Uma pele radiante começa aqui.
-                    </h1>
-                    <p className="skincare-hero-subtitle">
-                        Eleva o teu brilho.
-                    </p>
-                    
-                    {/* Botão - Usamos Link ou um botão se for modal */}
-                    <Link to="/marcacoes" className="skincare-main-button">
-                        Marcações
-                    </Link>
-                </div>
+    const [openBooking, setOpenBooking] = useState(false);
 
-                {/* COLUNA DIREITA: Imagem, Arco e Texto Inferior Grande */}
-                <div className="hero-visual-content">
-                    
-                    {/* O ARCO de fundo (com padrão de mármore) */}
-                    <div className="skincare-image-arch-wrapper">
-                        {/* IMAGEM PRINCIPAL - Path corrigido */}
-                        <img 
-                            src="/OlimpoSkincare/images/foto princpal inicio do web site.jpg" 
-                            alt="Modelo Skincare" 
-                            className="skincare-hero-image"
-                        />
+    return (
+        <section className="skincare-hero-section">
+            
+            {/* 1. Background (Fundo de Mármore) */}
+            <div className="hero-background">
+                <img 
+                    src="OlimpoSkincare/decoracao/fundomarmore.webp"
+                    alt="Fundo mármore"
+                    className="hero-bg-image"
+                />
+                <div className="hero-bg-overlay"></div>
+            </div>
+
+            {/* 4. Texto Grande de Fundo (OLIMPO SKIN CARE) - Movemos para uma posição estrutural mais alta */}
+            {/* Isto ajuda a garantir que fica por baixo do conteúdo principal sem afetar o layout flexível */}
+                <div className="hero-large-text-wrapper">
+                    <div className="hero-large-text">
+                        <span>O L I M P O</span>
+                        <span>S K I N</span>
+                        <span>C A R E</span>
                     </div>
                 </div>
 
-                {/* Texto OLIMPO SKIN CARE por baixo da imagem (Independente das colunas) */}
-                <h2 className="skincare-hero-banner-text">
-                    OLIMPO SKIN CARE
-                </h2>
+            {/* 2. Conteúdo Principal (Texto Esquerda, Imagem Centro) */}
+            <div className="hero-content-wrapper">
+                
+                {/* LADO ESQUERDO: Headline e CTA */}
+                <div className="hero-left-content">
+                    <div className="hero-headline">
+                        <h2 className="hero-title">Uma pele radiante começa aqui.</h2>
+                        <h2 className="hero-subtitle">Eleva o teu brilho.</h2>
+                    </div>
+                    <button 
+                        onClick={() => setOpenBooking(true)}
+                        className="hero-cta-button"
+                    >
+                        Marcações
+                    </button>
+                </div>
+                
+                {/* 3. Imagem Central (O ARCO) */}
+                <div className="hero-center-image-wrapper">
+                    <img 
+                        src="/OlimpoSkincare/images/foto princpal inicio do web site.jpg" 
+                        alt="Olimpo Skin Modelo" 
+                        className="hero-center-image"
+                    />
+                </div>
+                
+            </div>
 
-            </div>
-            
-        </section>
-    );
+            {/* WIDGET: Moedas no lado direito (Widget Externo) - Mantemos fora do wrapper principal para posicionamento absoluto fácil */}
+            <div className="hero-coins-widget">
+                <div className="coins-container">
+                    <Link to="/" className="coin-link">
+                        <img src="OlimpoBarBer/icons/icone de nevegcao da skincare.png" alt="Olimpo Barber" className="coin-image-barber" />
+                    </Link>
+                    <Link to="/wear" className="coin-link">
+                        <img src="OlimpoBarBer/icons/icone de nevegacao do waer.png" alt="Wear" className="coin-image-wear" />
+                    </Link>
+                </div>
+            </div>
+            
+            {/* Modal de Marcações (Placeholder) */}
+            <SkincareBookingModal 
+                open={openBooking} 
+                onClose={() => setOpenBooking(false)} 
+            />
+        </section>
+    );
 };
 
 export default SkincareHero;

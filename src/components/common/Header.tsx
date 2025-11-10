@@ -19,6 +19,14 @@ const headerPresets: Record<string, HeaderPreset> = {
     logoSrc: '/OlimpoBarBer/images/logo.webp', 
     iconsToShow: ['skincare', 'wear', 'user'],
   },
+'/wear/carrinho': {
+    layout: 'centered',
+    rootClass: 'header-wear',
+    logoSrc: '/OlimpoBarBer/images/logo.webp',
+    logoSubtitle: 'WEAR',
+    showNav: true,
+    iconsToShow: ['skincare', 'barber', 'user'],
+  },
   '/wear': {
     layout: 'centered',
     rootClass: 'header-wear',

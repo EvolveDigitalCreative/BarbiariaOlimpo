@@ -1,0 +1,159 @@
+/* src/styles/olimposkincare/gallery_section.css */
+
+/* ==========================================================
+// ESTILOS GERAIS DA SECÇÃO
+// ========================================================== */
+
+.olimpo-gallery-section {
+    padding: 60px 0;
+}
+
+/* ==========================================================
+// GRElHA IRREGULAR (GRID)
+// ========================================================== */
+
+.gallery-grid-container {
+    max-width: 1400px; /* Expande um pouco mais que os 1200px dos cards */
+    margin: 0 auto;
+    padding: 0 40px; 
+    
+    display: grid;
+    /* Define 4 colunas de largura igual e espaçamento de 20px */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* Espaçamento entre as células */
+}
+
+.gallery-card {
+    /* Estilos comuns a todos os cartões */
+    position: relative;
+    overflow: hidden;
+    min-height: 250px; /* Altura mínima de base */
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinha o conteúdo à base */
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: scale(1.02);
+}
+
+
+/* --- DEFINIÇÃO DO LAYOUT DA GRElHA --- */
+
+/* 1. Glow Skin (2 colunas x 1 linha) */
+.grid-item-1 {
+    grid-column: span 2; 
+}
+
+/* 2. Elevate Skin (1 coluna x 1 linha) - Fica na 3ª coluna */
+.grid-item-2 {
+    grid-column: span 1;
+}
+
+/* Os itens 3 e 4 estão na segunda linha (2 colunas) */
+
+/* 3. Olimpo Anti-acne (1 coluna x 2 linhas) */
+.grid-item-3 {
+    grid-column: span 1; /* Fica na 1ª coluna */
+    grid-row: span 2; /* Ocupa 2 linhas verticais (linha 2 e 3) */
+}
+
+/* 4. Skin Scan (2 colunas x 1 linha) - Fica na 2ª e 3ª coluna */
+.grid-item-4 {
+    grid-column: span 2;
+}
+
+/* 5. Olimpo Skin (4 colunas x 1 linha) - Fica na última linha */
+.grid-item-5 {
+    grid-column: span 4;
+}
+
+/* --- ESTILOS DO CONTEÚDO SOBREPOSTO --- */
+
+.card-content {
+    background: rgba(0, 0, 0, 0.4); /* Fundo preto semi-transparente para legibilidade */
+    color: white;
+    padding: 20px;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-subtitle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: var(--color-skincare-accent, #ccb47c); /* Usa a cor dourada */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+/* Botão "Ver mais" */
+.ver-mais-button {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--color-skincare-accent, #ccb47c);
+    padding: 8px 15px;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+    
+    /* ⭐️ NÃO TEM ROTA (href="#") */
+    cursor: pointer; 
+}
+
+.ver-mais-button:hover {
+    background-color: var(--color-skincare-accent, #ccb47c);
+    color: black;
+}
+
+/* ==========================================================
+// RESPONSIVIDADE (Ajuste para Mobile/Tablet)
+// ========================================================== */
+
+@media (max-width: 1024px) {
+    .gallery-grid-container {
+        /* Reduz para 2 colunas */
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Reseta o layout de desktop. Todos ocupam 2 colunas, exceto o 3 que ocupa 2 linhas */
+    .grid-item-1,
+    .grid-item-2,
+    .grid-item-4,
+    .grid-item-5 {
+        grid-column: span 2; /* Ocupam a largura total de 2 colunas */
+        grid-row: span 1; /* Ocupam 1 linha */
+    }
+    
+    /* Item 3 (Olimpo Anti-acne) fica na primeira coluna, ocupando 2 linhas */
+    .grid-item-3 {
+        grid-column: span 1; 
+        grid-row: span 2; 
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-grid-container {
+        /* No mobile, uma coluna apenas */
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .gallery-card {
+        /* Todos ocupam a largura total */
+        grid-column: span 1 !important; 
+        grid-row: span 1 !important;
+        min-height: 200px;
+    }
+}

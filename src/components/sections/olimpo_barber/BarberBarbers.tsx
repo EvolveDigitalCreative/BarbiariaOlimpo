@@ -12,17 +12,17 @@ import '../../../styles/olimpobarber/barber_barbers.css'; // Ajuste o caminho se
 
 // ✅ 1. Importar as imagens locais (AJUSTE OS NOMES E CAMINHOS!)
 // CUIDADO: Se os ficheiros estão em src/assets/carrossel_barbeiros/, o caminho DEVE ser '../../assets/...'
-import barberImgSimon from '../../../assets/carrossel_barbeiros/OLIMPO_foto_de_perfil_Simon.jpg';
-import barberImgJoao from '../../../assets/carrossel_barbeiros/OLIMPO_barbeiros_Joao.jpg';
-import barberImgAfonso from '../../../assets/carrossel_barbeiros/Foto_de_perfil_Afonso.jpg';
-import barberImgTiago from '../../../assets/carrossel_barbeiros/Foto_de_perfil_Tiago_Antunes.jpg'; 
+import barberImgSimon from '../../../assets/carrossel_barbeiros/simon.jpg';
+import barberImgJoao from '../../../assets/carrossel_barbeiros/joao.jpg';
+import barberImgAfonso from '../../../assets/carrossel_barbeiros/afonso.jpg';
+import barberImgTiago from '../../../assets/carrossel_barbeiros/antunes.jpg'; 
 // Adicione mais imports conforme necessário
 
 // Interface Barber (agora com 'localImageSrc')
 interface Barber {
     id: string; 
     name: string;
-    localImageSrc?: string; // ✅ Propriedade para guardar o src da imagem importada
+    localImageSrc?: string; // ✅ Propriedade para guardar o src da imagem importadaa
     // specialty?: string;
 }
 

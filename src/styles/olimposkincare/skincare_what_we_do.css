@@ -1,0 +1,186 @@
+/* src/styles/olimposkincare/skincare_what_we_do.css */
+
+/* VARIÁVEIS (Reutilizar se necessário, ou definir aqui) */
+:root {
+    --color-skincare-accent: #ccb47c;
+    --color-skincare-text-dark: #222;
+    --color-skincare-text-light: #fff;
+    --transition-speed: 0.3s;
+}
+
+/* ==========================================================
+// ESTRUTURA DA SECÇÃO
+// ========================================================== */
+
+.what-we-do-section {
+    background-color: var(--color-background-soft);
+    margin-top: -100px;
+    margin-bottom: 80px;
+}
+
+.what-we-do-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 40px; /* Espaço entre a imagem e o conteúdo */
+    align-items: flex-start; /* Alinha o topo das colunas */
+}
+
+/* ==========================================================
+// COLUNA ESQUERDA (IMAGEM)
+// ========================================================== */
+
+.image-column {
+    flex: 1; /* Ocupa metade do espaço */
+    max-width: 50%;
+    padding-right: 20px; 
+}
+
+.main-service-image {
+    width: 100%;
+    height: auto;
+    max-height: 590px;
+    border-radius: 20px; /* Cantos levemente arredondados */
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: opacity var(--transition-speed) ease-in-out;
+}
+
+/* ==========================================================
+// COLUNA DIREITA (CONTEÚDO)
+// ========================================================== */
+
+.content-column {
+    flex: 1; /* Ocupa metade do espaço */
+    max-width: 50%;
+}
+
+.section-title-wd {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-skincare-text-dark);
+    margin-bottom: 20px;
+}
+
+.intro-text-wd {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.services-list-wd {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaço entre os cards de serviço */
+}
+
+/* ==========================================================
+// CARDS DE SERVIÇO INDIVIDUAIS
+// ========================================================== */
+
+.service-card-wd {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: white; 
+    transition: all var(--transition-speed) ease-in-out;
+}
+
+.icon-wrapper-wd {
+    position: relative;
+    padding: 15px; /* Padding interno para o ícone */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* ⭐️ Fundo para a área do ícone estar "ocupada" (branco/dourado) */
+    background-color: transparent; 
+    transition: background-color var(--transition-speed);
+}
+
+/* ⭐️ ESTADO ATIVO (QUANDO CLICADO) */
+.service-card-wd.active-wd {
+    background-color: var(--color-skincare-accent); /* Fundo Dourado */
+    color: var(--color-skincare-text-dark);
+    border-color: var(--color-skincare-accent);
+    box-shadow: 0 4px 10px rgba(204, 180, 124, 0.4);
+}
+.service-card-wd.active-wd .service-name-wd {
+    color: var(--color-skincare-text-light); /* Título claro no card ativo */
+}
+.service-card-wd.active-wd .service-desc-wd {
+    color: var(--color-skincare-text-light); /* Descrição clara no card ativo */
+}
+
+/* Ícone dentro do card */
+.service-icon-wd {
+    width: 100px; /* Tamanho do ícone */
+    height: auto;
+    object-fit: cover;
+}
+
+/* Barra Vertical Branca (usando pseudo-elemento no texto-content) */
+.text-content-wd::before {
+    content: '';
+    position: absolute;
+    /* Coloca a barra no lado esquerdo do contentor do texto */
+    left: 0; 
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    
+    width: 1px; /* Espessura da barra */
+    height: 75%; /* ⭐️ Altura da barra */
+    background-color: #ccc; /* Cor da barra no card inativo */
+    transition: background-color var(--transition-speed);
+}
+
+.text-content-wd {
+    flex: 1;
+    padding: 15px 20px; /* Padding interno para o texto */
+    position: relative;
+}
+
+.service-name-wd {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--color-skincare-text-dark); /* Título escuro no card inativo */
+}
+
+.service-desc-wd {
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.4;
+}
+
+/* ==========================================================
+// RESPONSIVIDADE
+// ========================================================== */
+
+@media (max-width: 900px) {
+    .what-we-do-container {
+        flex-direction: column; /* Coloca os elementos em coluna no mobile/tablet */
+        padding: 0 20px;
+        gap: 30px;
+    }
+
+    .image-column,
+    .content-column {
+        max-width: 100%;
+    }
+    
+    .main-service-image {
+        /* A imagem pode ter uma altura máxima para não ser excessivamente longa */
+        max-height: 400px; 
+    }
+    
+    .section-title-wd,
+    .intro-text-wd {
+        text-align: center;
+    }
+}

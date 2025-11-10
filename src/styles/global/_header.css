@@ -97,7 +97,7 @@
 
 /* --- Container (Layouts Compact) --- */
 .header-container {
-  max-width: var(--header-max-width);
+  /* max-width: var(--header-max-width); */
   height: 100%;
   margin: 0;
   padding: var(--header-padding);

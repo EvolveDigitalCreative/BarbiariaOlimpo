@@ -1,0 +1,804 @@
+/* src/styles/olimposkincare/skincare_booking_modal.css */
+
+:root {
+    --color-skincare-background-dark: #333;
+    --color-skincare-background-light: #fff;
+    --color-skincare-gold: #b89c6c;
+}
+
+/* ------------------------------------------------------------
+// 1. OVERLAY E CARD PRINCIPAL
+// ------------------------------------------------------------ */
+
+.skincare-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85); 
+    z-index: 1000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.skincare-modal-overlay[data-is-open="true"] {
+    opacity: 1;
+    visibility: visible;
+}
+
+.skincare-modal-card {
+    background-color: var(--color-skincare-background-light);
+    color: var(--color-skincare-background-dark);
+    padding: 20px 30px 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px; /* Adicionado max-width para telas maiores */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.modal-main-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 15px 0 20px;
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: serif;
+}
+
+.skincare-modal-close-button {
+    position: absolute;
+    top: 25px; 
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-skincare-background-dark);
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+}
+
+/* Botão de Voltar do topo */
+.skincare-modal-back-top-button {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-skincare-background-dark);
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* ------------------------------------------------------------
+// 2. BARRA DE PROGRESSO
+// ------------------------------------------------------------ */
+
+.skincare-progress-bar-container {
+    width: 90%;
+    height: 6px; 
+    background-color: #eee;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    overflow: visible; 
+    position: relative;
+    padding-right: 20px; 
+}
+
+.skincare-progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-skincare-gold);
+    transition: width 0.4s ease-in-out; 
+    border-radius: 4px;
+}
+
+/* Ícone de progresso (a ponta dourada - SIMULAÇÃO DA CHAMA) */
+.progress-icon-tip {
+    position: absolute;
+    top: 50%; 
+    transform: translate(-100%, -50%); 
+    width: 25px;
+    height: 25px;
+    transition: left 0.4s ease-in-out;
+    z-index: 5;
+    background: none;
+}
+
+.progress-icon-tip .flame-icon {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-skincare-gold);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
+    box-shadow: 0 0 0 3px white; 
+    transition: background-color 0.2s;
+}
+
+/* Posicionamento do ícone de progresso com base no passo */
+.progress-icon-tip.tip-1 { left: calc(33.33% - 12.5px); } /* Ajuste para centralizar */
+.progress-icon-tip.tip-2 { left: calc(66.66% - 12.5px); }
+.progress-icon-tip.tip-3 { left: calc(100% - 12.5px); }
+
+/* Títulos da barra */
+.skincare-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 95%; 
+    margin-bottom: 20px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.skincare-progress-label {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+.skincare-progress-label:first-child { text-align: left; }
+.skincare-progress-label:last-child { text-align: right; }
+.skincare-progress-label.active {
+    color: var(--color-skincare-background-dark);
+    font-weight: 600;
+}
+
+.skincare-modal-separator {
+    border: none;
+    border-top: 1px solid #eee;
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* ------------------------------------------------------------
+// 3. ESTILOS GERAIS DE CONTEÚDO E BOTÕES
+// ------------------------------------------------------------ */
+
+.skincare-modal-content {
+    width: 100%;
+}
+
+.skincare-modal-step {
+    width: 100%;
+    padding: 0 10px; 
+    box-sizing: border-box;
+}
+
+.skincare-modal-step .step-title {
+    font-size: 1.5rem; 
+    font-weight: 600;
+    text-transform: none; 
+    color: var(--color-skincare-background-dark);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.skincare-modal-controls {
+    display: flex;
+    justify-content: flex-end; /* Alinhado à direita para Seguinte/Confirmar */
+    width: 100%;
+    margin-top: 25px;
+}
+/* No passo 2 e 3, alinhar botões */
+.step-2-controls, .step-3-controls {
+    justify-content: space-between;
+}
+
+.skincare-modal-back-button {
+    background: none;
+    border: none;
+    color: var(--color-skincare-background-dark);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.skincare-modal-next-button {
+    background-color: var(--color-skincare-background-dark);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+    text-transform: uppercase;
+    width: 150px;
+}
+.skincare-modal-next-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ------------------------------------------------------------
+// 4. ESTILOS DO PASSO 1 (Serviços)
+// ------------------------------------------------------------ */
+
+.service-cards-grid {
+    display: grid;
+    /* Ajuste para 4 colunas em telas grandes */
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 15px;
+    margin-bottom: 20px;
+    max-width: 90%;
+    margin: 0 auto 20px;
+}
+
+.skincare-service-card {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    background-color: white;
+    position: relative;
+    /* Fazendo os cards ocuparem 1/7 da grid, mantendo a responsividade do total */
+    grid-column: span 1; 
+}
+
+.skincare-service-card:hover {
+    border-color: var(--color-skincare-gold);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.skincare-service-card.selected {
+    border: 2px solid var(--color-skincare-gold);
+    box-shadow: 0 0 15px rgba(184, 156, 108, 0.5); /* Sombra dourada para seleção */
+}
+
+.card-image-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.service-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+}
+
+/* Ícone de Informação (i) */
+.info-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--color-skincare-background-dark);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    z-index: 10;
+    transition: background-color 0.2s;
+}
+.info-icon:hover {
+    background-color: var(--color-skincare-gold);
+    color: white;
+    border-color: var(--color-skincare-gold);
+}
+
+
+.service-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0 0 5px;
+    color: var(--color-skincare-background-dark);
+}
+
+.service-duration {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+.card-price-hidden {
+    display: none; 
+}
+
+/* BOX DE DESCRIÇÃO */
+.service-description-box {
+    background-color: #f7f7f7;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 20px;
+    min-height: 80px; 
+    text-align: center;
+}
+
+.description-text {
+    font-weight: 600;
+    margin: 0 0 5px;
+    font-size: 1rem;
+    color: var(--color-skincare-gold);
+}
+
+.description-subtext, .description-placeholder {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ------------------------------------------------------------
+// 5. ESTILOS DO POP-UP DE DETALHES/PREÇOS (NOVO)
+// ------------------------------------------------------------ */
+
+.skincare-service-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1010; /* Acima do modal principal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skincare-service-popup-card {
+    background-color: var(--color-skincare-background-light);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px; /* Largura menor para o pop-up */
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    border: 1px solid #ccc;
+}
+/* Estilo específico para o pop-up de Lashes e Antiacne */
+.lashes-popup, .antiacne-popup {
+    /* Adicionar um border ou fundo leve para imitar as imagens */
+    background-color: #fcfcfc; 
+}
+
+
+.popup-close-button {
+    position: absolute;
+    top: 10px; 
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+}
+
+.popup-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--color-skincare-background-dark);
+    text-transform: uppercase;
+}
+
+.popup-content {
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.price-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.price-option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    margin: 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.price-option-item:last-child {
+    border-bottom: none;
+}
+
+.price-option-item.title {
+    font-weight: 600;
+    color: var(--color-skincare-gold);
+    font-size: 1rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.price-option-item.header {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-skincare-background-dark);
+    text-transform: uppercase;
+    margin-top: 15px;
+    border-bottom: 2px solid var(--color-skincare-gold);
+    padding-bottom: 5px;
+}
+
+.option-label {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.option-price {
+    font-weight: 600;
+    color: var(--color-skincare-background-dark);
+    text-align: right;
+    min-width: 50px; /* Garante que os preços alinham verticalmente */
+}
+
+/* ------------------------------------------------------------
+// 6. ESTILOS DO PASSO 2 (Data/Hora) (Inalterado, mantido para contexto)
+// ------------------------------------------------------------ */
+
+.step-2-content-wrapper {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.calendar-box {
+    width: 50%;
+    max-width: 350px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-month-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.calendar-nav-icon {
+    cursor: pointer;
+    color: var(--color-skincare-gold);
+    font-size: 1.2rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.day-name {
+    font-weight: 600;
+    color: var(--color-skincare-gold);
+    font-size: 0.9rem;
+    padding: 5px 0;
+}
+
+.calendar-date {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.9rem;
+}
+
+.calendar-date:hover:not(.past-month) {
+    background-color: #eee;
+}
+
+.calendar-date.selected {
+    background-color: var(--color-skincare-gold);
+    color: white;
+    font-weight: 700;
+}
+
+.calendar-date.past-month {
+    color: #ccc;
+    cursor: default;
+    opacity: 0.6;
+}
+.calendar-date.past-month:hover {
+    background-color: transparent;
+}
+
+
+.time-slots-wrapper {
+    width: 50%;
+    max-width: 300px;
+}
+
+.time-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-size: 0.95rem;
+}
+
+.time-slot:hover {
+    border-color: var(--color-skincare-gold);
+}
+
+.time-slot.selected {
+    background-color: var(--color-skincare-gold);
+    color: white;
+    border-color: var(--color-skincare-gold);
+    font-weight: 600;
+}
+
+.no-slots {
+    text-align: center;
+    color: #999;
+    margin-top: 15px;
+}
+
+/* ------------------------------------------------------------
+// 7. ESTILOS DO PASSO 3 (Detalhes Pessoais) (Inalterado)
+// ------------------------------------------------------------ */
+
+.booking-review-summary-card {
+    background-color: #f7f7f7;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-name-resumo {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-skincare-gold);
+    margin: 0;
+}
+
+.staff-info-resumo {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.staff-name-resumo {
+    font-weight: 500;
+    margin: 0 0 3px;
+    font-size: 0.9rem;
+}
+
+.date-time-resumo {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+.staff-icon-resumo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-skincare-gold);
+    flex-shrink: 0;
+}
+
+.staff-icon-resumo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.booking-form {
+    width: 80%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.step-3-controls {
+    justify-content: flex-end; /* Alinhar Confirmar à direita */
+}
+
+/* ------------------------------------------------------------
+// 8. ESTILOS DO PASSO 4 (Confirmação Final) (Inalterado)
+// ------------------------------------------------------------ */
+
+.step-4-success {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.success-icon-wrapper {
+    margin-bottom: 20px;
+}
+
+.success-icon {
+    font-size: 3rem;
+    color: var(--color-skincare-gold);
+}
+
+.success-title {
+    font-size: 1.8rem;
+    color: var(--color-skincare-gold);
+}
+
+.success-message {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.success-submessage {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.success-details {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.success-details p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.skincare-modal-close-final-button {
+    background-color: var(--color-skincare-background-dark);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+}
+.skincare-modal-close-final-button:hover {
+    background-color: var(--color-skincare-gold);
+}
+
+/* ------------------------------------------------------------
+// 9. RESPONSIVIDADE
+// ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .skincare-modal-card {
+        padding: 15px 15px 30px;
+    }
+    
+    .modal-main-title {
+        font-size: 1.8rem;
+    }
+
+    .service-cards-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 colunas em tablets */
+        gap: 10px;
+        max-width: 100%;
+    }
+    .skincare-service-card {
+        grid-column: span 1;
+    }
+
+    .service-name {
+        font-size: 0.85rem;
+    }
+    .service-duration {
+        font-size: 0.75rem;
+    }
+
+    .step-2-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .calendar-box, .time-slots-wrapper {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .booking-review-summary-card, .booking-form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .skincare-modal-card {
+        padding: 10px 10px 20px;
+    }
+    
+    .modal-main-title {
+        font-size: 1.5rem;
+    }
+
+    .service-cards-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telemóveis */
+        padding: 0 10px;
+    }
+
+    .skincare-service-card {
+        grid-column: span 1;
+        padding: 5px;
+    }
+
+    .info-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 0.75rem;
+    }
+
+    .skincare-modal-next-button {
+        width: 120px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}

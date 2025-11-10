@@ -26,21 +26,28 @@
 }
 
 .video-card {
-    background-color: #f0f0f0; /* Cor de fundo (clara) */
+    background-color: #f0f0f0;
     text-align: center;
+    transition: all 0.5s ease;
+}
+
+.video-card.active {
+    transform: scale(1.05);
+    z-index: 2;
 }
 
 /* Wrapper para criar a PROPORÇÃO VERTICAL (Reel Style) */
 .video-player-wrapper {
     position: relative;
     width: 100%;
-    /* Proporção Vertical (ex: 3:4 => 4/3 * 100 = 133.33%) */
-    padding-bottom: 133%; 
+    padding-bottom: 177.78%; /* Proporção 9:16 para vídeos verticais */
     overflow: hidden;
-    
-    /* BORDA ARREDONDADA (CRUCIAL PARA O DESIGN) */
-    border-radius: 12px; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave, como na imagem */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.video-player {
+    transition: opacity 0.5s ease;
 }
 
 .video-player {
