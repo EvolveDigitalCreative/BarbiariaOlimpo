@@ -1,208 +1,342 @@
+/*src/styles/olimposkincare/skincare_hero.css*/
+
 /* ==========================================================
-// VARIAVEIS E REGRAS DE BASE
+// 0. VARIÁVEIS E ESTRUTURA BASE
 // ========================================================== */
+
 :root {
-    /* Cores ajustadas - Usamos o mármore claro como fundo base */
-    --color-skincare-background: #fff; 
-    --color-skincare-marble-light: #f9f9f7; /* Cor base clara */
-    --color-skincare-accent: #ccb47c; 
-    --color-skincare-text-dark: #222; 
-    
-    --font-family-serif: 'Playfair Display', serif; 
-    --font-family-sans: 'Montserrat', sans-serif;
+    --color-skincare-accent: #ccb47c; /* Ouro */
+    --color-skincare-text-dark: #222;
+    --color-overlay: rgba(255, 255, 255, 0.2); /* bg-white/20 */
+    --color-marble-light: #f9f9f7; 
+    --font-family-serif: 'Playfair Display', serif;
 }
 
-.skincare-hero {
+/* AJUSTE: Redução do espaço no topo */
+.skincare-hero-section {
     position: relative;
-    /* GARANTE A CORREÇÃO DE FUNDO */
-    background-color: var(--color-skincare-marble-light); 
-    min-height: calc(100vh - 80px); 
+    height: auto; 
+    min-height: 10px; 
     overflow: hidden;
-    z-index: 10; /* Z-Index alto para ter certeza que COBRE tudo */
+    z-index: 10;
+    background-color: var(--color-marble-light); 
+    
+    /* AJUSTE CHAVE 1: Reduza o padding-top. 
+       Se a navbar tiver 80px, pode manter 80px ou reduzir ligeiramente se a navbar for transparente e o conteúdo puder subir. */
+    padding-top: 0px; 
 }
 
-.hero-container {
+.hero-content-wrapper {
+    /* Estilos de Estrutura e Alinhamento */
+    position: relative;
+    z-index: 11;
+    
+    /* AJUSTE CHAVE 2: Volte para height: 100% para que o conteúdo preencha a altura da secção ajustada */
+    height: 100%; 
+    
+    display: flex;
+    align-items: flex-start;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 100px 80px 0 80px; 
-    display: flex;
-    gap: 40px; 
-    align-items: flex-start;
-    padding-bottom: 50px; 
-    height: 100%; 
-    position: relative; 
-    z-index: 2; /* Garante que o conteúdo (texto/imagem) está acima do texto gigante */
+    
+    /* Mantenha o padding superior a 0, já que o padding-top da secção já trata do espaço do topo */
+    padding: 0 24px 0 24px; 
 }
 
-/* ==========================================================
-// 1. CONTEÚDO DE TEXTO (COLUNA ESQUERDA)
-// ========================================================== */
-.hero-text-content {
-    flex: 0 0 450px; 
-    padding-top: 150px; 
-    z-index: 3;
+/* ----------------------------------------------------------
+// A. FUNDO E OVERLAY
+// ---------------------------------------------------------- */
+
+.hero-background {
+    position: absolute;
+    inset: 0; 
+}
+.hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom; 
+}
+.hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-overlay); 
 }
 
-.skincare-hero-title {
-    /* 3xl do tailwind */
-    font-size: 1.875rem; 
+
+/* ----------------------------------------------------------
+// B. CONTEÚDO ESQUERDO (HEADLINE E CTA)
+// ---------------------------------------------------------- */
+
+.hero-left-content {
+    /* Regras Mobile (Padrão) */
+    display: block; 
+    width: 100%;
+    text-align: left; 
+    /* AJUSTE: Reduzir ou remover padding-top. Manteremos um pequeno para espaço visual. */
+    padding-top: 10px; /* Reduzido de 40px */
+    padding-left: 0; /* padding lateral vem do wrapper */
+    z-index: 25; 
+}
+
+.hero-headline {
+    margin-bottom: 24px;
+}
+
+.hero-title, .hero-subtitle {
+    font-size: 1.25rem; 
     font-family: var(--font-family-serif);
     color: var(--color-skincare-text-dark);
     line-height: 1.2;
-    margin: 0 0 5px 0;
 }
 
-.skincare-hero-subtitle {
-    /* 3xl do tailwind */
-    font-size: 1.875rem; 
-    font-family: var(--font-family-serif);
-    color: var(--color-skincare-text-dark);
-    margin-bottom: 40px;
-}
-
-.skincare-main-button {
-    /* Replicando o botão preto do código antigo */
+.hero-cta-button {
+    /* Estilos CTA Mobile/Base */
     display: inline-block;
-    padding: 16px 96px; /* px-24 py-4 */
-    background-color: var(--color-skincare-text-dark); 
-    color: #ffffff;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: var(--font-family-serif); /* Usando serif para o botão conforme o antigo */
-    font-size: 1.125rem; /* text-lg */
+    background-color: var(--color-skincare-text-dark);
+    color: #fff;
+    padding: 12px 32px;
+    border-radius: 2px;
+    font-size: 1rem; 
+    font-family: var(--font-family-serif);
     font-weight: 700;
-    border-radius: 3px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+    border: none;
 }
-.skincare-main-button:hover {
-    background-color: #444; 
-}
-
-
-/* ==========================================================
-// 2. CONTEÚDO VISUAL (COLUNA DIREITA)
-// ========================================================== */
-
-.hero-visual-content {
-    flex: 1; 
-    position: absolute; /* Usamos absoluto para que o arco e texto gigante não afetem a altura do flex container */
-    right: 0;
-    top: 0;
-    width: 65%; /* Permite ocupar a maior parte da direita */
-    height: 100%;
-    display: flex;
-    align-items: flex-end; 
-    justify-content: flex-end; /* Alinha o conteúdo à direita */
-    z-index: 3;
+.hero-cta-button:hover {
+    background-color: #333; 
+    transform: scale(1.05);
 }
 
-.skincare-image-arch-wrapper {
-    position: relative; /* Mudamos de absoluto para relativo, pois o pai já é absoluto */
-    bottom: 0;
-    /* Damos um max-width fixo para controlar o tamanho do arco */
-    width: 650px; 
-    height: 750px; 
-    background-color: #fff; 
-    border-radius: 50% / 100px 100px 0 0; 
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    z-index: 4; 
-}
 
-.skincare-hero-image {
+/* ----------------------------------------------------------
+// C. IMAGEM CENTRAL (O ARCO)
+// ---------------------------------------------------------- */
+
+.hero-center-image-wrapper {
     position: absolute;
-    bottom: 0;
+    top: 150px; 
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-height: 100%;
-    /* CORREÇÃO: Usamos 'contain' para garantir que a imagem inteira da modelo é visível 
-       e 'object-fit' para controlar como ela preenche a área do arco. 
-       A imagem desejada parece usar 'object-fit: cover' para preencher a largura, mas 
-       como a foto tem muito espaço branco por cima, 'contain' pode ser melhor se 
-       a foto for cortada. Usamos 'cover' e ajustamos o padding: */
-    object-fit: cover; 
+    z-index: 15; 
     
-    border-top-left-radius: 350px;
-    border-top-right-radius: 350px;
+    width: 90%; 
+    max-width: 400px; 
+    height: 400px; 
     
-    /* Aumentar o padding/ajuste para empurrar o modelo para a posição correta, 
-       como a imagem no arco parece ter margem interior. */
-    padding: 30px 20px 0 20px; /* Mais padding no topo para centrar no arco */
-    box-sizing: border-box;
+    /* Forma do Arco (Mobile) */
+    background-color: #fff;
+    border-top-left-radius: 200px; 
+    border-top-right-radius: 200px; 
+    overflow: hidden;
     
-    /* Garante que a imagem está no topo dentro do arco */
-    z-index: 5;
+    border-top: 3px solid #000; 
+    border-left: 3px solid #000; 
+    border-right: 3px solid #000; 
+    border-bottom: none; /* Ou border-bottom: 0; */
 }
 
-/* Texto OLIMPO SKIN CARE (Banner Grande no Fundo) */
-.skincare-hero-banner-text {
+.hero-center-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    padding: 12px; 
+    transform: scale(1.5);
+}
+
+/* ----------------------------------------------------------
+// D. TEXTO GRANDE DE FUNDO (OLIMPO SKIN CARE)
+// ---------------------------------------------------------- */
+
+.hero-large-text-wrapper {
+/* MANTER position: absolute no MOBILE, pois ele é uma sobreposição no centro/fundo. */
     position: absolute;
-    bottom: 150px; 
+    bottom: 20px; 
     left: 0;
     right: 0;
-    z-index: 1; 
-    
-    /* Alinha o texto na largura total da página */
+    pointer-events: none;
+    z-index: 20; 
+    padding: 0 24px; 
+}
+
+.hero-large-text {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    gap: 0.75rem; 
+    font-weight: 700;
+    color: var(--color-skincare-accent);
+    opacity: 0.6;
     
-    max-width: 1400px;
-    margin: 0 auto; 
-    padding: 0 80px;
-    width: 100%; 
+    font-size: 2.25rem; 
+    letter-spacing: -0.1em; 
+    
+    font-family: var(--font-family-serif); /* Isto aplicará 'Playfair Display' ou 'Times New Roman' */
+    font-weight: 700; /* Assegura que está a usar a versão bold/negrito */
+    
+    /* Garantir que as linhas quebradas fiquem centradas (se quebrar) */
+    text-align: center; 
+}
+
+/* Opcional, mas útil: se as palavras estiverem demasiado grandes, podemos forçar o seu tamanho máximo. */
+.hero-large-text span {
+    white-space: nowrap; /* Garante que a palavra OLIMPO ou SKIN não se quebra */
+}
+
+/* ----------------------------------------------------------
+// E. MOEDAS (WIDGET)
+// ---------------------------------------------------------- */
+
+.hero-coins-widget {
+    position: absolute;
+    right: 0;
+    top: 64px; 
+    z-index: 20; 
+}
+.coins-container {
+    background-color: #000;
+    border-top-left-radius: 1rem; 
+    border-bottom-left-radius: 1rem; 
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    width: 64px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0; 
+}
+.coin-link {
+    display: block;
+    width: 96px; 
+    height: 96px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -15px; 
+    margin-bottom: -15px;
+}
+.coin-image-barber {
+    width: 48px; 
+    height: 48px; 
+}
+.coin-image-wear {
+    width: 80px; 
+    height: 80px; 
+}
+
+/* ----------------------------------------------------------
+// F. RESPONSIVIDADE (TABLET / min-width: 768px)
+// ---------------------------------------------------------- */
+
+@media (min-width: 768px) {
+    /* B. CONTEÚDO ESQUERDO (Texto e CTA) */
+    .hero-left-content {
+        padding-top: 0px; 
+        width: 40%; 
+    }
+    .hero-title, .hero-subtitle {
+        font-size: 1.5rem; 
+    }
+
+    /* C. IMAGEM CENTRAL (O ARCO) */
+    .hero-center-image-wrapper {
+        top: 80px; 
+        max-width: 450px; 
+        height: 65vh; 
+        border-top-left-radius: 280px; 
+        border-top-right-radius: 280px; 
+    }
+    .hero-center-image {
+        padding: 15px; 
+        transform: scale(1.25); 
+    }
+    
+    /* D. TEXTO GRANDE DE FUNDO */
+    .hero-large-text-wrapper {
+        bottom: 80px; 
+    }
+    .hero-large-text {
+        font-size: 4rem; 
+    }
 }
 
 /* ==========================================================
-// 3. RESPONSIVIDADE
+// G. RESPONSIVIDADE (DESKTOP / min-width: 1024px)
 // ========================================================== */
-
-@media (max-width: 1200px) {
-    .skincare-hero-banner-text {
-        font-size: 7rem;
-    }
-}
-
-@media (max-width: 900px) {
-    .skincare-hero {
-        min-height: auto;
-    }
-    .hero-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 50px 20px 0 20px;
+@media (min-width: 1024px) { 
+    /* 0. ESTRUTURA */
+    .skincare-hero-section {
+        /* AJUSTE para que o contentor feche no fim do conteúdo */
+        height: auto; 
+        min-height: 80vh; 
+        /*padding-top q regula o espaço do topo*/
+        padding-top: 30px; 
+        padding-bottom: 0; 
+        margin-bottom: 0; /* Certifica-se de que não há margem negativa */
     }
 
-    .hero-text-content {
-        order: 2; /* Texto por baixo no mobile */
-        flex: auto;
-        padding-top: 30px;
-        max-width: 100%;
-        text-align: center;
+    .hero-content-wrapper {
+        flex-direction: row; 
+        padding: 0 14% 0 32px;
+        align-items: flex-start; 
     }
-    .skincare-hero-title, .skincare-hero-subtitle {
-        font-size: 1.25rem; /* text-xl */
-        text-align: center;
+
+    /* B. CONTEÚDO ESQUERDO (Texto e CTA) */
+    .hero-left-content {
+        display: block;
+        width: 35%; 
+        padding-left: 0; 
     }
-    .skincare-main-button {
-        padding: 12px 64px; /* px-8 py-3 */
-        font-size: 1rem; /* text-base */
+
+    /* C. IMAGEM CENTRAL (O ARCO) - Posicionamento Desktop */
+    .hero-center-image-wrapper {
+        /* Removemos o posicionamento absoluto para que o flexbox o posicione no centro */
+        position: relative; 
+        top: auto; 
+        left: auto;
+        transform: none; 
+        
+        /* Largura e Altura Dinâmicas/Fixas */
+        width: 38vw; 
+        max-width: 40rem;
+        height: 80vh; 
+        max-height: 800px; 
+        
+        /* Ajuste de Margem para Centralizar o Layout */
+        margin: 0 auto; 
+    }
+    .hero-center-image {
+        padding: 20px; 
+        transform: scale(1.1); 
+    }
+
+   /* D. TEXTO GRANDE DE FUNDO - Posicionamento Desktop */
+    .hero-large-text-wrapper {
+        padding: 0 32px; 
+        /* AJUSTE CHAVE: bottom mais baixo para que fique no fundo da secção (e não na base do conteúdo) */
+        bottom: -10px; /* Altera de 150px para 50px */
+    }
+    .hero-large-text {
+        font-size: 7vw; 
+        letter-spacing: -0.08em; 
+        gap: 4vw;
     }
     
-    .hero-visual-content {
-        order: 1; /* Imagem por cima no mobile */
-        height: 500px;
+    /* E. MOEDAS (WIDGET) */
+    .coins-container {
+        width: 80px; 
     }
-    .skincare-image-arch-wrapper {
-        width: 100%;
-        max-width: 400px; /* Limite do tamanho da imagem no mobile */
-        height: 450px;
-        border-radius: 50% / 80px 80px 0 0;
+    .coin-link {
+        width: 112px; 
+        height: 112px; 
     }
-    .skincare-hero-banner-text {
-        bottom: 80px;
-        font-size: 2.5rem; /* text-4xl */
-        padding: 0 20px;
-        letter-spacing: normal;
+    .coin-image-barber {
+        width: 64px; 
+        height: 64px; 
+    }
+    .coin-image-wear {
+        width: 96px; 
+        height: 96px; 
     }
 }

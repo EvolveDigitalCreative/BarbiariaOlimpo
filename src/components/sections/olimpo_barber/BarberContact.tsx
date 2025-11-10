@@ -1,56 +1,78 @@
-// src/components/home/ContactSection.tsx (Atualizado)
+// src/components/sections/olimpo_barber/BarberContact.tsx (ou o caminho correto)
 
-import type { FC } from 'react';
+import React, { type FC } from 'react'; // Adicione a importação do React se não estiver lá
+// ✅ 1. Importe o CSS específico deste componente
+import '../../../styles/olimpobarber/barber_contact.css'; // Ajuste o caminho se necessário
+
+// ✅ 2. Importe as imagens dos ícones (ajuste os caminhos relativos!)
+import locationIcon from '/OlimpoBarBer/icons/location.png'; 
+import phoneIcon from '/OlimpoBarBer/icons/call.png';
+import emailIcon from '/OlimpoBarBer/icons/mail.png';
+import clockIcon from '/OlimpoBarBer/icons/time.png';
 
 const ContactSection: FC = () => {
     
-    // A lista galleryImages foi removida, pois agora está em OurSpaceSection
-    
     return (
-        // Removi a classe 'content-section' para que esta seção não tenha a borda 'greek-border-top'
-        // se ela já estiver no OurSpaceSection. Se precisar dela, volte a adicionar.
         <section className="contact-section light-background" aria-label="Contacte-nos"> 
             
-            {/* A seção O NOSSO ESPAÇO foi removida daqui, agora está em OurSpaceSection */}
-
             {/* Secção CONTACTA-NOS */}
             <div className="contact-info-map-wrapper">
-                <h2 className="section-title gold-title section-title-centered">CONTACTA-NOS</h2>
-                <p className="section-subtitle-centered">
+                <h2 className="section-title gold-title section-title-centered section-title5">CONTACTA-NOS</h2>
+                <p className="section-subtitle-centered2 section-subtitle-centered5">
                     Estamos aqui para responder às suas questões e agendar o seu próximo corte.
                 </p>
 
                 <div className="contact-details-map">
                     {/* Detalhes de Contacto */}
                     <div className="contact-details-list">
-                        <div className="contact-item location">
-                            <h4 className="contact-label">Localização</h4>
-                            <p>Rua João Queijeiro 20</p>
-                            <p>3030-329</p>
-                            <p>Portugal</p>
+
+                        {/* ✅ Item de Contacto com Ícone */}
+                        <div className="contact-item"> 
+                            <img src={locationIcon} alt="" className="contact-icon-img" />
+                            <div className="contact-text-content">
+                                <h4 className="contact-label">Localização</h4>
+                                <p>Rua Júlio Queijeiro 20</p>
+                                <p>2005-403</p> 
+                                <p>Portugal</p>
+                            </div>
                         </div>
-                        <div className="contact-item phone">
-                            <h4 className="contact-label">Telefone</h4>
-                            <p>+351 926 967 132</p>
-                            <p className="small-text">(Chamadas e SMS [horário de funcionamento])</p>
+
+                        {/* ✅ Item de Contacto com Ícone */}
+                        <div className="contact-item">
+                            <img src={phoneIcon} alt="" className="contact-icon-img" />
+                            <div className="contact-text-content">
+                                <h4 className="contact-label">Telefone</h4>
+                                <p>+351 926 967 332</p> {/* Corrigi o número para corresponder à imagem */}
+                                <p className="small-text">(Chamadas e SMS [horário de funcionamento])</p>
+                            </div>
                         </div>
-                        <div className="contact-item email">
-                            <h4 className="contact-label">E-mail</h4>
-                            <p>olimpobarber@gmail.com</p>
-                            <p className="small-text">Respondemos em 24h.</p>
+
+                        {/* ✅ Item de Contacto com Ícone */}
+                        <div className="contact-item">
+                            <img src={emailIcon} alt="" className="contact-icon-img" />
+                            <div className="contact-text-content">
+                                <h4 className="contact-label">E-mail</h4>
+                                <p>olimpobarber@gmail.com</p>
+                                <p className="small-text">Respondemos em 24h.</p>
+                            </div>
                         </div>
-                        <div className="contact-item hours">
-                            <h4 className="contact-label">Horário de Funcionamento</h4>
-                            <p>Segunda a Sexta: 9:00 - 20:00</p>
-                            <p>Sábado: 9:00 - 18:00</p>
-                            <p>Domingo: <span className="closed-status">Encerrado</span></p>
+
+                        {/* ✅ Item de Contacto com Ícone */}
+                        <div className="contact-item">
+                            <img src={clockIcon} alt="" className="contact-icon-img" />
+                            <div className="contact-text-content">
+                                <h4 className="contact-label">Horário de Funcionamento</h4>
+                                <p>Segunda a Sexta: 9:00 - 20:00</p>
+                                <p>Sábado: 9:00 - 18:00</p>
+                                <p>Domingo: <span className="closed-status">Encerrado</span></p>
+                            </div>
                         </div>
                     </div>
                     
-                    {/* Mapa */}
+                    {/* Mapa (Sem alterações) */}
                     <div className="contact-map-container">
                         <img 
-                            src="public\OlimpoBarBer\texture\olimpomap.png" 
+                            src="/OlimpoBarBer/texture/olimpomap.png" 
                             alt="Localização no Mapa" 
                             className="responsive-image image-rounded"
                         />

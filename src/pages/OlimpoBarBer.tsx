@@ -1,29 +1,32 @@
 // src/pages/OlimpoBarBer.tsx
 // O Contentor Principal da sua Home Page (Barbearia).
 
-import type { FC } from 'react';
-// Importações de Componentes Comuns (mantêm-se iguais)
-import Header from '../components/common/Header.tsx';
-import Footer from '../components/common/Footer.tsx';
+// ✅ ADICIONADO: Import 'React' para permitir o uso de Fragments (<>...</>)
+import React, { type FC } from 'react';
 
-// ==========================================================
-// IMPORTAÇÕES DE COMPONENTES DE SECÇÃO (NOVOS CAMINHOS)
-// ==========================================================
-
-// Componentes ESPECÍFICOS da Barbearia
-import HeroSection from '../components/sections/olimpo_barber/BarberHero.tsx';
-import MissionSection from '../components/sections/olimpo_barber/BarberMission.tsx';
-import BarbersSection from '../components/sections/olimpo_barber/BarberBarbers.tsx';
-import ContactSection from '../components/sections/olimpo_barber/BarberContact.tsx';
+// Importações de Componentes Comuns
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
 import SectionDivider from '../components/common/SectionDivider';
-import OurSpaceSection from '../components/sections/olimpo_barber/OurSpaceSection.tsx';
+// ✅ CookieModal é um componente comum/partilhado
+import { CookieModal } from '../components/sections/olimpo_barber/CookieModal'; 
+import DiscountModal from '../components/sections/olimpo_barber/DiscountModal';
+
+// ==========================================================
+// IMPORTAÇÕES DE COMPONENTES DE SECÇÃO (Barbearia)
+// ==========================================================
+import HeroSection from '../components/sections/olimpo_barber/BarberHero';
+import MissionSection from '../components/sections/olimpo_barber/BarberMission';
+import BarbersSection from '../components/sections/olimpo_barber/BarberBarbers';
+import ContactSection from '../components/sections/olimpo_barber/BarberContact';
+import OurSpaceSection from '../components/sections/olimpo_barber/OurSpaceSection';
 
 // Componentes PARTILHADOS (Usados por todas as páginas)
-import CoinSection from '../components/sections/olimpo_shared/CoinSection.tsx';
-import AboutSection from '../components/sections/olimpo_shared/AboutSection.tsx';
+import CoinSection from '../components/sections/olimpo_shared/CoinSection';
+import AboutSection from '../components/sections/olimpo_shared/AboutSection';
 
 // ==========================================================
-// IMPORTAÇÕES DE ESTILO (Os caminhos de CSS já estavam corretos)
+// IMPORTAÇÕES DE ESTILO
 // ==========================================================
 
 // 1. Estilos Universais (Global)
@@ -42,27 +45,37 @@ import '../styles/olimpobarber/barber_about.css';
 
 const OlimpoBarber: FC = () => {
   return (
-    <div className="home-page-container">
-      {/*
-        CORREÇÃO: A prop 'domain' não é mais necessária.
-        O Header agora detecta a rota ('/barber' ou '/') 
-        automaticamente com useLocation.
-      */}
-      <Header />
-      <main>
-        <HeroSection />
-        <BarbersSection />
-        <SectionDivider />
-        <CoinSection />
-        <MissionSection />
-        <AboutSection />
-        <OurSpaceSection />
-        <SectionDivider />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    // ✅ ADICIONADO: React.Fragment para permitir que o Modal fique fora do container
+    <>
+      <div className="home-page-container">
+        {/*
+          CORREÇÃO: A prop 'domain' não é mais necessária.
+          O Header agora detecta a rota ('/barber' ou '/') 
+          automaticamente com useLocation.
+        */}
+        <Header />
+        
+        <main>
+          <HeroSection />
+          <BarbersSection />
+          <SectionDivider />
+          <CoinSection />
+          <MissionSection />
+          <AboutSection />
+          <OurSpaceSection />
+          <SectionDivider />
+          <ContactSection />
+        </main>
+        
+        <Footer />
+
+        {/* 🛑 MOVIDO: O CookieModal estava aqui dentro */}
+      </div>
+      <CookieModal />
+      <DiscountModal />
+    </>
   );
 };
 
 export default OlimpoBarber;
+

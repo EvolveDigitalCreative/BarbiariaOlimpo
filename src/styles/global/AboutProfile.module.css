@@ -1,0 +1,144 @@
+/* src/components/AboutProfile.module.css */
+
+:root {
+    /* Variáveis globais que podem ser definidas em outro lugar, mas são referenciadas aqui */
+    --color-olimpus-gold: #C0A87F; 
+    --color-text-dark: #333;
+    --color-text-light: #999;
+    --color-background-page: #ffffff; 
+    --color-background-field: #f7f7f7; 
+    --color-divider-dark: #333; 
+    --color-divider-light: #e0e0e0; 
+    --padding-side: 50px;
+}
+
+/* --- Estilos Globais e do Layout Principal --- */
+/* Se este for um Módulo, a tag :global() é usada para estilizar tags não-componentes (como body) 
+   mas em geral, evitamos estilos muito genéricos em modules. */
+.profile-page {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-background-page);
+    margin: 0;
+    padding: 0;
+    color: var(--color-text-dark);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 350px 0 auto;
+    padding: 0 20px 40px;
+    margin-top: -50px;
+}
+
+/* --- Cabeçalho e Logo --- */
+.main-header {
+    background-color: var(--color-background-page);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-divider-light); 
+}
+
+.logo {
+    display: block;
+    height: 250px; 
+    margin-left: var(--padding-side); 
+    margin-top: -40px;
+}
+
+/* --- Breadcrumbs e Seta de Voltar (FLECHA) --- */
+
+.breadcrumbs {
+    font-size: 14px;
+    color: var(--color-text-light);
+    margin-top: 30px; 
+    margin-bottom: 5px; 
+    padding-left: var(--padding-side); 
+    display: flex;
+    align-items: center;
+}
+
+.back-link {
+    text-decoration: none;
+    color: var(--color-text-light);
+    margin-right: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+/* Estilo do ÍCONE (A flecha) - Para react-icons, usamos a classe do componente */
+.icon-arrow {
+    font-size: 14px; 
+    margin-right: 8px; 
+    color: var(--color-text-dark); 
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--color-text-dark); 
+}
+
+/* --- Título Principal --- */
+/* Usamos uma classe (ex: h1) no lugar do seletor de tag */
+.h1 { 
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 30px; 
+    padding-left: var(--padding-side); 
+}
+
+/* --- Card de Informações --- */
+
+.profile-card {
+    border: 1px solid var(--color-divider-dark); 
+    max-width: 500px; 
+    margin-left: var(--padding-side);
+    background-color: var(--color-background-page); 
+}
+
+/* Estilização dos Campos Individuais */
+.profile-field {
+    background-color: var(--color-background-field); 
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--color-divider-dark); 
+    display: flex;
+    flex-direction: column;
+}
+
+.last-field {
+    border-bottom: none; 
+}
+
+.profile-field label {
+    font-size: 12px;
+    color: var(--color-text-light); 
+    margin-bottom: 3px;
+    display: block; 
+}
+
+.profile-field input {
+    font-size: 16px;
+    color: var(--color-text-dark);
+    border: none;
+    background-color: transparent; 
+    padding: 0;
+    margin: 0;
+    outline: none; 
+    cursor: default; 
+}
+
+/* Estilo específico para input[type="password"] */
+.profile-field input[type="password"] {
+    font-weight: bold; 
+    letter-spacing: 2px; 
+}
+
+/* Estilos de carregamento e erro */
+.loading-state, .error-state {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+    color: #555;
+}

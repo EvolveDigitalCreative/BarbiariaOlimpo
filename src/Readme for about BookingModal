@@ -1,0 +1,209 @@
+Resumo do Projeto: Olimpo App (Frontend & Backend)
+
+
+
+
+
+-------------------------------------
+-   (pode conter algum(s) erros)    -     Para caso de dúvidas perguntam ao Solo ;)
+-------------------------------------
+
+
+
+
+
+
+
+Este documento resume a arquitetura do código que desenvolvemos para o aplicativo Olimpo, focando no fluxo de agendamento (Booking) e nas funcionalidades do perfil do usuário.
+
+Funcionalidades Implementadas
+
+Perfil de Usuário: Páginas para visualização de perfil (AboutProfile) e um dashboard (ProfilePage).
+
+Ações do Perfil: Uma página com abas para "Favoritos", "Sobre Nós" e "Descontos" (ProfileActionsPage), com busca de dados no Firestore.
+
+Fluxo de Agendamento (Modal): Um modal completo de 5 etapas para agendamento de serviços de barbearia.
+
+Backend (Cloud Function): Lógica de backend para calcular horários de agendamento disponíveis (getAvailableSlots).
+
+Ilustração da Estrutura de Arquivos
+
+Abaixo está uma ilustração de onde os principais arquivos que criamos estão localizados e o que eles fazem.
+
+OlimpoApp/
+|
+|-- /functions/              <-- ⭐️ BACKEND (Firebase Cloud Functions)
+|   |-- /src/
+|   |   |-- index.ts         <-- Contém a lógica de 'getAvailableSlots' (Cálculo de horários)
+|   |-- package.json       <-- Dependências do Backend (date-fns, firebase-admin, etc.)
+|   |-- tsconfig.json      <-- Configs de compilação do Backend
+|
+|-- /src/                    <-- ⭐️ FRONTEND (React App)
+|   |
+|   |-- /components/
+|   |   |-- /common/
+|   |   |   |-- /BookingModal/
+|   |   |   |-- BookingModal.tsx      <-- O "Cérebro" do modal, controla as etapas 1-5
+|   |   |   |-- ChooseBarberStep.tsx  <-- ETAPA 1: Escolher Barbeiro (Busca no Firestore)
+|   |   |   |-- ChooseServiceStep.tsx <-- ETAPA 2: Escolher Corte (Busca no Firestore)
+|   |   |   |-- ChooseDateTimeStep.tsx<-- ETAPA 3: Calendário/Hora (Chama a Cloud Function)
+|   |   |   |-- ReviewConfirmStep.tsx <-- ETAPA 4: Formulário/Resumo (Confirmação)
+|   |   |   |-- BookingSuccessStep.tsx<-- ETAPA 5: Tela de Sucesso
+|   |   |   |-- ProgressBar.tsx       <-- A barra de progresso (1/4)
+|   |   |   |-- BarberCard.tsx        <-- O card de um barbeiro (usado na Etapa 1)
+|   |   |   |-- BookingModal.module.css <-- CSS SÓ para o modal
+|   |   |   
+|   |   |   
+|   |   |
+|   |   |-- /sections/olimpo_barber/
+|   |   |                          |-- BarberHero.tsx         <-- Onde o botão "Marcações" vive e dispara o modal
+|   |   |
+|   |   |-- /ProfileActions/
+|   |   |   |-- FavoritesTab.tsx        <-- Aba de Favoritos (Lê subcoleção do Firestore)
+|   |   |   |-- AboutTab.tsx            <-- Aba Sobre Nós (Texto estático)
+|   |   |   |-- DiscountsTab.tsx        <-- Aba Descontos (Lê subcoleção do Firestore)
+|   |   |   |-- ProfileActions.module.css <-- Estilos para as abas
+|   |
+|   |-- /pages/
+|   |   |-- ProfilePage.tsx             <-- Dashboard do Perfil (Links para Ações e Editar)
+|   |   |-- AboutProfile.tsx            <-- Página "Minha Conta > Perfil" (Detalhes do usuário)
+|   |   |-- ProfileActionsPage.tsx      <-- O componente que renderiza as 3 abas
+|   |   |-- OlimpoBarBer.tsx          <-- (Página principal onde o HeroSection é usado)
+|   |
+|   |-- /services/
+|   |   |-- firebaseConfig.ts         <-- Configuração central (Firebase App, Auth, DB, Functions, Emulators)
+|   |
+|   |-- /types/
+|   |   |-- index.ts                  <-- Nossas interfaces (Barber, Service, AppUser, FavoriteItem, etc.)
+|   |
+|   |-- main.tsx                      <-- Ponto de entrada, define as Rotas (Routes)
+|
+|-- firebase.json            <-- Configuração raiz (define os Emuladores)
+|-- .firebaserc              <-- Define o projeto padrão (ex: olimpo-3df0d)
+
+
+O Que Cada Parte Faz (Resumo da Lógica)
+
+1. Configuração e Backend (Firebase)
+
+firebaseConfig.ts (Frontend):
+
+Inicializa todos os serviços do Firebase (Auth, Firestore, Functions, Storage).
+
+CRÍTICO: Força o SDK de Functions a usar a região correta (getFunctions(app, 'us-central1')).
+
+Detecta o modo de desenvolvimento (import.meta.env.DEV) para conectar automaticamente aos Emuladores locais.
+
+functions/src/index.ts (Backend):
+
+Contém a Cloud Function getAvailableSlots.
+
+Responsabilidade: Receber barberId, serviceId, e date do frontend.
+
+Lógica:
+
+Busca a durationMinutes do serviço na coleção services.
+
+Busca workingHours e breaks do barbeiro na coleção users.
+
+Busca todos os appointments (agendamentos) existentes para aquele dia/barbeiro.
+
+Calcula (gera) todos os slots possíveis (ex: a cada 30 min).
+
+Filtra e remove slots que estão no passado, em pausas ou sobrepõem agendamentos existentes.
+
+Retorna um array de strings (horários): { horarios: [...] }.
+
+2. Fluxo de Agendamento (O Modal)
+
+O fluxo é controlado inteiramente no frontend pelo BookingModal.tsx.
+
+Início (HeroSection.tsx):
+
+O usuário clica no botão "Marcações".
+
+O onClick não navega para uma nova página.
+
+Ele define um estado isBookingModalOpen = true.
+
+Cérebro (BookingModal.tsx):
+
+É renderizado quando isOpen é true.
+
+Controla a etapa atual (um número de 1 a 5) em um estado step.
+
+Controla os dados coletados (barbeiro, serviço, data, hora) em um estado data.
+
+Renderiza o componente da etapa correta (Etapa 1, 2, 3, 4 ou 5) usando um switch case no useMemo.
+
+Renderiza a ProgressBar.tsx (Etapas 1-4).
+
+Renderiza os botões "Voltar" e "Fechar".
+
+Etapa 1 (ChooseBarberStep.tsx):
+
+Busca barbeiros no Firestore (da coleção users onde role == 'barber').
+
+Renderiza BarberCards.
+
+Renderiza "Sem preferência".
+
+Ao selecionar, salva o barberId (ou undefined) no estado data (via onChange) e espera o clique no "Seguinte" (via onNext).
+
+Etapa 2 (ChooseServiceStep.tsx):
+
+Busca serviços no Firestore (da coleção services onde categoria == 'BARBEARIA').
+
+Ao selecionar, salva o serviceId (via onChange) e espera o clique no "Seguinte" (via onNext).
+
+Etapa 3 (ChooseDateTimeStep.tsx):
+
+Renderiza o Calendário e os slots de Horário.
+
+Quando o usuário seleciona um dia, ele chama a Cloud Function getAvailableSlots (via httpsCallable(functions, 'getAvailableSlots')).
+
+A chamada vai para o Emulador (ex: http://127.0.0.1:5001/...) porque firebaseConfig.ts está configurado para isso.
+
+Renderiza os horários retornados pela função.
+
+Ao selecionar a hora, o botão "Seguinte" é ativado.
+
+Etapa 4 (ReviewConfirmStep.tsx):
+
+Busca os nomes (barbeiro/serviço) no Firestore para exibir o resumo.
+
+Busca dados do usuário logado (auth.currentUser e users no Firestore) para pré-preencher o formulário (Nome, Email, Telemóvel).
+
+Ao clicar em "Confirmar", chama onConfirm (que é a função handleConfirm do BookingModal).
+
+Etapa 5 (BookingSuccessStep.tsx):
+
+Aparece após handleConfirm ter sucesso.
+
+Exibe "Marcação registada." e o ícone de check.
+
+Busca os dados novamente para mostrar o resumo final.
+
+O botão "Sair" chama onExit (que é a função handleClose do BookingModal).
+
+3. Como Rodar Localmente (Lembrete)
+
+Para que tudo funcione (especialmente a Etapa 3):
+
+Terminal 1 (Backend):
+
+cd functions
+
+npm install (só na primeira vez)
+
+firebase emulators:start --only functions,firestore,auth
+
+Verifique os logs aqui para erros da Cloud Function.
+
+Terminal 2 (Frontend):
+
+npm install (só na primeira vez)
+
+npm run dev
+
+Abra no navegador e verifique o console do navegador para erros de frontend (como o 404 ou ERR_CONNECTION_REFUSED que corrigimos).

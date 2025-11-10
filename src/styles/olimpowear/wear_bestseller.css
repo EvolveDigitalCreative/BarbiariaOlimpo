@@ -1,0 +1,150 @@
+/* src/styles/olimpowear/wear_bestseller.css (CÓDIGO COMPLETO E FINAL) */
+
+/* VARIÁVEIS */
+:root {
+    --color-gold: #b8860b;
+    --color-wear-dark: #000;
+    /* Fundo Preto */
+    --color-wear-light: #fff;
+    /* Texto Branco */
+    --font-family-sans: 'Arial', sans-serif;
+}
+
+/* 1. SEÇÃO PRINCIPAL (Flexbox para Colunas) */
+.wear-bestseller-section {
+    display: flex;
+    max-width: 1400px;
+    margin: 80px auto;
+    min-height: 500px;
+}
+
+/* 2. COLUNA ESQUERDA: IMAGEM DE FUNDO */
+.bestseller-image-container {
+    flex: 1;
+    /* Ocupa 50% da largura */
+
+    /* CRUCIAL: Recebe a imagem do componente React via variável CSS */
+    background-image: var(--bestseller-bg-url, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: relative;
+    min-height: 500px;
+}
+
+/* 3. COLUNA DIREITA: TEXTO E BOTÕES */
+.bestseller-text-container {
+    flex: 1;
+    /* Ocupa 50% da largura */
+    background-color: var(--color-wear-dark);
+    /* Fundo Preto */
+    color: var(--color-wear-light);
+    /* Texto Branco */
+
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centraliza o conteúdo verticalmente */
+}
+
+/* 4. TÍTULO "OLIMPO BEST SELLER" */
+.bestseller-text-container .bestseller-title {
+    font-family: var(--font-family-sans);
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.bestseller-text-container .bestseller-title .logo-text {
+    /* Estilo para a fonte "Olimpo" (se for uma fonte específica) */
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.bestseller-text-container .bestseller-title .best-seller-text {
+    /* O texto Best Seller em fonte maior e mais grossa */
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-wear-light);
+    margin-top: 5px;
+}
+
+/* 5. PARÁGRAFO */
+.bestseller-text-container .bestseller-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 450px;
+}
+
+/* 6. BOTÕES WRAPPER */
+.bestseller-text-container .bestseller-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* 7. ESTILOS DOS BOTÕES */
+.bestseller-primary-button,
+.bestseller-secondary-button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+/* Botão Primário (Fundo Branco, Borda Branca) */
+.bestseller-primary-button {
+    background-color: var(--color-wear-light);
+    color: var(--color-wear-dark);
+    border: 1px solid var(--color-wear-light);
+}
+
+.bestseller-primary-button:hover {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-wear-dark);
+}
+
+/* Botão Secundário (Fundo Transparente, Borda Branca) */
+.bestseller-secondary-button {
+    background-color: transparent;
+    color: var(--color-wear-light);
+    border: 1px solid var(--color-wear-light);
+}
+
+.bestseller-secondary-button:hover {
+    background-color: var(--color-wear-light);
+    color: var(--color-wear-dark);
+}
+
+/* MEDIA QUERY: Mudar para layout de coluna no mobile/tablet */
+@media (max-width: 1024px) {
+    .wear-bestseller-section {
+        flex-direction: column;
+        margin: 40px auto;
+    }
+
+    .bestseller-image-container {
+        min-height: 350px;
+    }
+
+    .bestseller-text-container {
+        padding: 40px 30px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .bestseller-text-container .bestseller-title {
+        font-size: 2.5rem;
+    }
+
+    .bestseller-text-container .bestseller-buttons {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,104 @@
+/* src/styles/admin/AdminLayout.css */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f6; /* Fundo levemente cinza */
+}
+
+/* --- Sidebar --- */
+.admin-sidebar {
+  width: 250px; /* Largura da sidebar */
+  background-color: #2c3e50; /* Cor escura para a sidebar */
+  color: #ecf0f1; /* Cor clara para o texto */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0; /* Impede que a sidebar encolha */
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #34495e;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.sidebar-nav {
+  flex-grow: 1; /* Ocupa o espaço restante */
+  padding-top: 20px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 12px 20px;
+  color: #bdc3c7; /* Cor dos links */
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav li a:hover {
+  background-color: #34495e; /* Fundo no hover */
+  color: #ffffff; /* Texto branco no hover */
+}
+
+/* Estilo para link ativo (requer NavLink do react-router-dom na sidebar) */
+/* .sidebar-nav li a.active {
+  background-color: #1abc9c;
+  color: #ffffff;
+} */
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid #34495e;
+  font-size: 0.8rem;
+  color: #bdc3c7;
+}
+
+.logout-button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  background-color: #e74c3c; /* Vermelho para logout */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* --- Área de Conteúdo --- */
+.admin-content {
+  flex-grow: 1; /* Ocupa todo o espaço restante */
+  padding: 30px;
+  overflow-y: auto; /* Permite scroll se o conteúdo for grande */
+}
+
+/* Responsividade básica (opcional) */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    /* Pode esconder a sidebar ou torná-la menor/flutuante */
+    width: 60px; /* Exemplo: sidebar encolhida */
+  }
+  .sidebar-header h3, .sidebar-footer p {
+     display: none; /* Esconde texto na sidebar encolhida */
+  }
+   .sidebar-nav li a span { /* Supondo que você use <span> para texto */
+     display: none;
+   }
+   /* Você precisaria adicionar ícones e ajustar o layout */
+}

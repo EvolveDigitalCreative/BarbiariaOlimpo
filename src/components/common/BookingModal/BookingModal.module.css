@@ -1,0 +1,875 @@
+/* src/components/common/BookingModal/BookingModal.module.css - COMPLETO E ATUALIZADO */
+
+/* --- Variáveis --- */
+:root {
+    --modal-overlay-bg: rgba(0, 0, 0, 0.6);
+    --modal-bg: #F6F8FA; /* Fundo cinza claro */
+    --card-bg: #ffffff; /* Fundo branco (para slots selecionados) */
+    --modal-border-radius: 1.5rem; /* 24px */
+    --card-border-radius: 0.75rem; /* 12px */
+    --button-border-radius: 0.5rem; /* rounded-lg */
+    --modal-padding: 1.5rem; /* Padding base interno */
+    --primary-text-color: #000; /* text-black */
+    --secondary-text-color: #555; /* Simulação para text-black/70 etc. */
+    --gold-color: #C0A87F; /* text-dourado */
+    --border-color: #000; /* Borda preta */
+        --border-color-light: #616161; /* Borda cinza clara */
+    --border-color-selected: #000; /* Borda preta para seleção de horário */
+    --border-width-selected: 2px; /* Largura da borda de seleção */
+    --padding-slot-base: 0.75rem; /* 12px (Padding original do slot) */
+    --progress-track-bg: #E5E7EB; /* Cinza claro para a base da barra */
+    --font-georgia: 'Georgia', serif;
+    --font-prompt: 'Prompt', sans-serif;
+    --border-color-transparent: transparent;
+    --transition-default: all 0.2s ease-in-out;
+}
+
+/* Adaptação de padding para telas maiores */
+@media (min-width: 640px) {
+    :root {
+        --modal-padding: 1.5rem; /* sm:px-6 sm:pt-6 */
+    }
+}
+
+
+/* --- Overlay e Wrapper --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background-color: var(--modal-overlay-bg); /* bg-black/60 */
+    padding: 1rem; /* p-4 (padding externo no overlay) */
+    display: flex;
+    align-items: center; /* sm:items-center */
+    justify-content: center; /* sm:justify-center */
+}
+
+/* Modal Wrapper não é estritamente necessário se o overlay já centraliza */
+.modal-wrapper {
+    width: 100%;
+    height: auto; /* Altura automática */
+    display: flex; /* Para centralizar o content se necessário */
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* --- Conteúdo Principal do Modal --- */
+.modal-content {
+    width: 100%; /* w-full */
+    height: auto; /* sm:h-auto */
+    max-width: 56rem; /* sm:max-w-5xl */
+    max-height: 90vh; /* max-h-[90vh] */
+    background-color: var(--modal-bg);
+    border-radius: var(--modal-border-radius); /* sm:rounded-3xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* sm:shadow-xl */
+    position: relative;
+    overflow: hidden; /* Garante cantos arredondados */
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 1280px) { /* xl: */
+     .modal-content { max-width: 72rem; /* xl:max-w-7xl */ }
+}
+
+.modal-padding-wrapper { /* Div interna para padding */
+    padding: var(--modal-padding);
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Ocupa espaço disponível */
+    overflow: hidden; /* Permite scroll no modal-body */
+}
+
+
+/* --- Cabeçalho --- */
+.modal-header {
+    display: grid; /* Usa Grid */
+    /* ✅ 1fr auto 1fr: Colunas laterais (1fr) crescem igualmente, 
+       coluna central (auto) usa apenas o espaço do título. */
+    grid-template-columns: 1fr auto 1fr; 
+    align-items: center; /* Alinha verticalmente */
+    margin-bottom: 1rem;
+    position: relative;
+    width: 100%; /* Garante que o grid ocupe todo o espaço */
+}
+
+.header-button-placeholder {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    /* Remove larguras fixas para deixar o 1fr funcionar */
+}
+.header-button-placeholder:first-child { 
+    justify-self: start; /* Alinha o placeholder à esquerda */
+    grid-column: 1 / 2;
+}
+.header-button-placeholder:last-child { 
+    justify-self: end; /* Alinha o placeholder à direita */
+    grid-column: 3 / 4;
+}
+
+.back-button, .close-button {
+    padding: 0.5rem; /* Adiciona padding para área de clique */
+    background: none; 
+    border: none; 
+    cursor: pointer;
+    font-size: 1.75rem; /* Tamanho do 'X' */
+    font-weight: 300; /* 'X' mais fino */
+    color: var(--primary-text-color);
+    line-height: 1; /* Garante alinhamento vertical */
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+.back-button:hover, .close-button:hover { 
+    opacity: 1; 
+}
+
+/* Ajuste específico para a imagem da seta (se for menor que o 'X') */
+.back-button img { 
+    height: 1.5rem; /* Ajuste o tamanho da seta */
+    width: 1.5rem; 
+}
+
+.back-button:hover img { opacity: 1; }
+
+.close-button img {
+    height: 1.5rem; width: 1.5rem; /* h-6 w-6 */
+    opacity: 0.8; /* opacity-80 */
+    transition: opacity 0.2s;
+}
+.close-button:hover img { opacity: 1; /* hover:opacity-100 */ }
+
+
+.modal-title {
+    grid-column: 2 / 3; /* Coloca o título na coluna do meio */
+    font-family: var(--font-georgia);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center; /* Centraliza o texto dentro da coluna */
+    white-space: nowrap;
+    color: var(--primary-text-color);
+    /* Remove padding/margin que possa descentralizá-lo */
+    padding: 0;
+    margin: 0; 
+}
+@media (min-width: 1024px) { /* lg: */
+    .modal-title { font-size: 2.25rem; }
+}
+
+/* --- Barra de Progresso --- */
+.progress-wrapper {
+    width: 100%;
+    max-width: 300px; 
+    margin: 1.5rem auto 2.5rem; 
+}
+
+.progress-bar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-step-label {
+    font-size: 0.875rem; 
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--primary-text-color);
+}
+
+.progress-track {
+    position: relative; /* ✅ ESSENCIAL: Para posicionar o fill e o icon */
+    height: 0.5rem; 
+    flex: 1;
+    border-radius: 9999px;
+    background-color: var(--progress-track-bg); /* Base cinza */
+    overflow: hidden; /* ✅ ESSENCIAL: Para conter o fill */
+}
+
+.progress-fill {
+    position: absolute; /* ✅ ESSENCIAL: Para sobrepor a base */
+    top: 0;
+    left: 0;
+    height: 100%; /* h-full */
+    background-color: var(--border-color); /* Cor preta do preenchimento */
+    border-radius: 9999px; /* rounded-full */
+    transition: width 0.3s ease-out; /* Animação suave */
+}
+
+.progress-icon {
+    pointer-events: none;
+    user-select: none;
+    position: absolute; /* Posicionado relativo ao track */
+    top: -0.65rem; 
+    height: 1.25rem; 
+    width: 1.25rem;
+    transition: left 0.3s ease-out;
+    filter: grayscale(100%) brightness(0%); 
+}
+/* --- Corpo e Conteúdo da Etapa --- */
+.modal-body {
+    position: relative; /* relative */
+    min-height: 420px; /* min-h-[420px] */
+    max-height: 65vh; /* max-h-[65vh] */
+    overflow-y: auto; /* overflow-y-auto */
+    padding-right: 0.25rem; /* pr-1 */
+    flex: 1; /* flex-1 */
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+}
+@media (min-width: 1024px) { /* lg: */
+     .modal-body { min-height: 460px; /* lg:min-h-[460px] */ }
+}
+
+.step-content {
+    flex: 1; /* flex-1 */
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Garante que o conteúdo use a largura total */
+}
+
+.step-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-family: var(--font-georgia);
+    font-weight: 700; /* font-bold */
+    text-align: center; /* text-center */
+    margin-bottom: 1.5rem; /* mb-6 */
+    color: var(--primary-text-color);
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    padding: 2rem 0; /* py-8 */
+    font-size: 1.125rem; /* text-lg */
+    color: var(--secondary-text-color);
+}
+.error-message { color: #dc2626; /* text-red-600 */ }
+
+
+/* --- Grid de Barbeiros (ChooseBarberStep) --- */
+.barbers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* Responsivo */
+    gap: 1rem; /* gap-4 */
+    place-items: center; /* place-items-center */
+    margin-bottom: 1rem; /* Espaço antes dos botões de ação */
+}
+@media (min-width: 640px) { /* sm: */
+    .barbers-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* sm:grid-cols-3 */
+        gap: 1.5rem; /* sm:gap-6 */
+    }
+}
+@media (min-width: 1280px) { /* xl: */
+    .barbers-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); /* xl:grid-cols-5 */ }
+}
+
+/* --- BarberCard --- */
+.barber-card {
+    width: 100%; /* O grid controla a largura */
+    max-width: 140px; /* Limita a largura do card */
+    border-radius: var(--card-border-radius); /* rounded-2xl */
+    background-color: var(--card-bg); /* bg-white */
+    padding: 0.75rem; /* p-3 */
+    border-width: var(--border-width-selected); /* border-3 */
+    border-color: var(--border-color-transparent); /* border-transparent */
+    transition: var(--transition-default); /* transition */
+    text-align: center; /* text-center */
+    display: block; /* block */
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.barber-card:hover { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* hover:shadow-md */ }
+.barber-card.selected { border-color: var(--border-color); /* border-black */ }
+
+@media (min-width: 640px) { /* sm: */
+    .barber-card {
+        padding-left: 1rem; /* sm:px-4 */
+        padding-right: 1rem;
+        padding-top: 1.5rem; /* sm:pt-6 */
+        padding-bottom: 1rem; /* sm:pb-4 */
+    }
+}
+
+.barber-image-wrapper {
+    height: 80px; width: 80px; /* h-20 w-20 */
+    border-radius: 9999px; /* rounded-full */
+    overflow: hidden; /* overflow-hidden */
+    margin: 0 auto 0.75rem; /* mx-auto mb-3 */
+    background-color: #eee;
+}
+.barber-image { width: 100%; height: 100%; object-fit: cover; /* w-full h-full object-cover */ }
+
+.barber-info { text-align: center; /* sm:text-center */ }
+.barber-info > div:not(:last-child) { margin-bottom: 0.25rem; /* sm:space-y-1 */ }
+.barber-name { font-weight: 700; font-family: var(--font-georgia); /* font-bold font-georgia */ text-transform: uppercase; font-size: 0.875rem; color: var(--primary-text-color);}
+.barber-role {
+    text-transform: uppercase; /* uppercase */
+    font-family: var(--font-prompt); /* font-prompt */
+    color: var(--gold-color); /* text-dourado */
+    font-size: 0.75rem; /* text-xs */
+}
+
+/* --- Botões Sem Preferência / Seguinte (Mobile) --- */
+.no-preference-button-mobile {
+    width: 100%; /* w-full */
+    border-radius: var(--card-border-radius); /* rounded-2xl */
+    background-color: var(--card-bg); /* bg-white */
+    padding: 0.75rem; /* p-3 */
+    border-width: var(--border-width-selected); /* border-3 */
+    border-color: var(--border-color-transparent); /* border-transparent */
+    transition: var(--transition-default); /* transition */
+    text-align: left; /* text-left */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    gap: 0.75rem; /* gap-3 */
+    cursor: pointer;
+    margin-top: 1rem; /* Adiciona espaço acima */
+}
+.no-preference-button-mobile:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* hover:shadow-md */ }
+.no-preference-button-mobile.selected { border-color: var(--border-color); /* border-black */ }
+.no-preference-icon-mobile { width: 2rem; height: 2rem; /* w-8 h-8 */ }
+.no-preference-text-mobile { font-weight: 700; font-family: var(--font-georgia); padding: 0.5rem 0; /* py-2 */ }
+
+@media (min-width: 640px) { /* sm: */
+    .no-preference-button-mobile { display: none; /* sm:hidden */ }
+}
+
+
+.next-button-mobile {
+    width: 100%; /* w-full */
+    border-radius: var(--button-border-radius); /* rounded-lg */
+    background-color: var(--border-color); /* bg-black */
+    color: white; /* text-white */
+    padding: 0.75rem; /* p-3 */
+    text-align: center; /* text-center */
+    font-family: var(--font-georgia); /* font-georgia */
+    font-weight: 700; /* font-bold */
+    transition: opacity 0.2s; /* transition */
+    margin-top: 1rem; /* Adiciona espaço acima */
+    cursor: pointer;
+}
+.next-button-mobile:hover { opacity: 0.9; /* hover:opacity-90 */ }
+
+@media (min-width: 640px) { /* sm: */
+    .next-button-mobile { display: none; /* sm:hidden */ }
+}
+
+/* --- Botões de Ação Desktop --- */
+.desktop-actions {
+    margin-top: auto; /* mt-auto (empurra para o fundo) */
+    position: relative; /* relative */
+    /* padding-bottom: 2rem; /* pb-8 */
+    height: 80px; /* Altura fixa para alinhar os botões */
+    display: none; /* hidden */
+}
+@media (min-width: 640px) { /* sm: */
+    .desktop-actions { display: block; /* sm:block */ }
+}
+
+.no-preference-button-desktop {
+    display: flex; /* hidden sm:flex */
+    position: absolute; /* absolute */
+    left: 50%; /* left-1/2 */
+    transform: translateX(-50%); /* -translate-x-1/2 */
+    bottom: 0.5rem; /* bottom-2 */
+    background-color: var(--card-bg); /* bg-white */
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 1rem 1.5rem; /* px-6 py-4 (ajustado) */
+    transition: var(--transition-default); /* transition */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    gap: 1rem; /* gap-4 */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.no-preference-button-desktop:hover { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* hover:shadow-md */ }
+.no-preference-button-desktop.selected-ring {
+    box-shadow: 0 0 0 3px var(--border-color); /* ring-3 ring-black */
+    outline: none;
+}
+.no-preference-icon-desktop { width: 1.5rem; height: 1.5rem; /* w-6 h-6 */ filter: grayscale(100%) brightness(50%); }
+.no-preference-text-desktop { font-family: var(--font-georgia); font-weight: 700; font-size: 1rem; /* text-base */ color: var(--primary-text-color);}
+
+/* ✅ Botão Seguinte Desktop ATUALIZADO */
+.next-button-desktop {
+    display: flex; /* hidden sm:flex */
+    position: absolute; /* absolute */
+    bottom: 0.5rem; /* bottom-2 */
+    right: 0; /* right-0 */
+    align-items: center; /* items-center */
+    gap: 0.5rem; /* gap-2 */
+    background-color: var(--border-color); /* bg-black */
+    color: white; /* text-white */
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    border-radius: var(--button-border-radius); /* rounded-lg */
+    font-family: var(--font-georgia); /* font-georgia */
+    font-weight: 700; /* font-bold */
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 1rem; /* text-base */
+}
+.next-button-desktop:hover { opacity: 0.9; /* hover:opacity-90 */ }
+.next-button-desktop:focus { outline: none; /* focus:outline-none */ }
+.next-button-icon-desktop {
+    width: 1.25rem; height: 1.25rem; /* w-5 h-5 */
+    object-fit: contain; /* object-contain */
+    filter: brightness(0%) invert(100%); /* filter brightness-0 invert (para branco) */
+}
+
+/* --- Estilos para Serviços (ChooseServiceStep) --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+    gap: 1rem; /* gap-4 */
+    width: 100%; /* Ocupa a largura */
+}
+@media (min-width: 640px) { /* sm: */
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* sm:grid-cols-2 */
+        gap: 1.75rem; /* sm:gap-7 */
+    }
+}
+@media (min-width: 1024px) { /* lg: */
+    .services-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); /* lg:grid-cols-4 */
+    }
+}
+
+.service-card {
+    width: 100%; /* w-full */
+    border-radius: var(--card-border-radius); /* rounded-2xl */
+    background-color: var(--card-bg); /* bg-white */
+    padding: 0.75rem; /* p-3 */
+    border-width: var(--border-width-selected); /* border-3 */
+    border-color: var(--border-color-transparent); /* border-transparent */
+    transition: var(--transition-default); /* transition */
+    text-align: left; /* text-left */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    gap: 0.75rem; /* gap-3 */
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.service-card:hover { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+.service-card.selected { border-color: var(--border-color); }
+
+@media (min-width: 640px) { /* sm: */
+    .service-card {
+        padding-left: 1.25rem; padding-right: 1.25rem; /* sm:px-5 */
+        padding-top: 2.5rem; padding-bottom: 1.5rem; /* sm:pt-10 sm:pb-6 */
+        display: block; /* sm:block */
+        text-align: center; /* sm:text-center */
+    }
+}
+
+.service-image-wrapper {
+    height: 3rem; width: 3rem; /* h-12 w-12 */
+    border-radius: 9999px; /* rounded-full */
+    overflow: hidden; /* overflow-hidden */
+    background-color: #d8d8d8; /* bg-[#d8d8d8] */
+    flex-shrink: 0;
+    display: flex; /* Para centralizar a imagem contida */
+    align-items: center;
+    justify-content: center;
+}
+@media (min-width: 640px) { /* sm: */
+    .service-image-wrapper { height: 5rem; width: 5rem; margin: 0 auto 0.75rem; }
+}
+.service-image { width: 80%; height: 80%; object-fit: contain; }
+
+.service-info { }
+@media (min-width: 640px) { /* sm: */
+    .service-info > div:not(:last-child) { margin-bottom: 0.25rem; }
+}
+.service-name { font-weight: 700; font-family: var(--font-georgia); color: var(--primary-text-color); font-size: 0.875rem;}
+.service-price { text-transform: uppercase; font-family: var(--font-prompt); color: var(--gold-color); font-size: 0.75rem; }
+
+/* --- Container Calendário + Horários (ChooseDateTimeStep) --- */
+.date-time-container {
+    margin-left: auto; /* mx-auto */
+    margin-right: auto;
+    width: 100%; /* w-full */
+    max-width: 64rem; /* max-w-4xl (pode ajustar) */
+    border-radius: var(--card-border-radius); /* rounded-2xl (1rem) */
+    border: 1px solid var(--border-color); /* border border-black */
+    background-color: var(--card-bg); /* bg-white */
+    padding: 1rem; /* p-4 */
+    display: flex;
+    flex-direction: column; /* flex-col */
+    height: auto; /* h-auto */
+}
+@media (min-width: 1024px) { /* lg: */
+    .date-time-container {
+        padding: 1.5rem; /* lg:p-6 */
+        flex-direction: row; /* lg:flex-row */
+        height: 380px; /* lg:h-[380px] */
+    }
+}
+
+/* --- Coluna do Calendário --- */
+.calendar-column {
+    width: 100%; /* w-full */
+    padding-right: 0; /* pr-0 */
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    flex-shrink: 0; /* Evita que encolha */
+}
+@media (min-width: 1024px) { /* lg: */
+    .calendar-column {
+        width: 50%; /* lg:w-1/2 */
+        padding-right: 1rem; /* lg:pr-4 */
+    }
+}
+
+
+.calendar-header {
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: space-between; /* justify-between */
+    margin-bottom: 0.75rem; /* mb-3 */
+}
+.calendar-nav-button {
+    padding: 0.25rem; /* p-1 */
+    border-radius: 0.25rem; /* rounded */
+    transition: background-color 0.2s; /* transition */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem; /* Ajuste para o tamanho das setas */
+    line-height: 1;
+    color: var(--primary-text-color);
+}
+.calendar-nav-button:hover { 
+    background-color: rgba(0,0,0,0.05); /* hover:bg-black/5 */ 
+}
+.calendar-month-label {
+    font-weight: 600; /* font-semibold */
+    font-family: var(--font-georgia); /* font-georgia */
+    text-transform: capitalize; /* capitalize */
+    color: var(--primary-text-color);
+    /* Ajuste tamanho da fonte se necessário */
+    /* font-size: 1.125rem; */ 
+}
+/* Grid dos Dias da Semana */
+.weekdays-grid {
+    display: grid; /* grid */
+    grid-template-columns: repeat(7, minmax(0, 1fr)); /* grid-cols-7 */
+    gap: 0.5rem; /* gap-2 */
+    text-align: center; /* text-center */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
+    color: rgba(0,0,0,0.7); /* text-black/70 */
+    margin-bottom: 0.25rem; /* mb-1 */
+}
+
+/* Grid dos Dias do Mês */
+.days-grid {
+    display: grid; /* grid */
+    grid-template-columns: repeat(7, minmax(0, 1fr)); /* grid-cols-7 */
+    gap: 0.5rem; /* gap-2 */
+}
+
+/* Célula de Dia (Botão) */
+.day-cell {
+    /* Mantido, mas ajustamos a altura para ser quadrada em relação à largura da coluna */
+    height: 2.5rem; 
+    border-radius: var(--card-border-radius); /* ✅ Ajustado para retângulo arredondado */
+    font-size: 0.875rem; 
+    transition: var(--transition-default); 
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Hover para dias disponíveis e não selecionados */
+.day-cell:not(.disabled):not(.selected):hover { 
+    background-color: rgba(0,0,0,0.1); /* hover:bg-black/10 */ 
+}
+
+/* Dia Selecionado */
+.day-cell.selected { 
+    background-color: var(--gold-color);
+    color: var(--primary-text-color); /* Mantém o texto escuro sobre o dourado */
+    font-weight: 700; /* Deixa mais forte */
+    border-radius: var(--card-border-radius); /* Força o formato de cartão */
+}
+
+/* Dia Desabilitado (Passado ou Domingo) */
+.day-cell.disabled {
+    color: var(--border-color-light); /* ✅ Usa um cinza bem claro para ser sutil */
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Célula Vazia (para início/fim do mês) */
+.day-cell-empty {
+    /* Para os números que não são do mês atual (ex: 30, 31, 1, 2, 3) */
+    color: var(--border-color-light); 
+    height: 2.5rem;
+}
+
+/* --- Divisores --- (Estes separam Calendário dos Horários) */
+.divider-mobile {
+    margin-top: 1rem; margin-bottom: 1rem; /* my-4 */
+    height: 1px; /* h-px */
+    background-color: var(--border-color); /* bg-black */
+    display: block; /* block */
+}
+.divider-desktop { display: none; /* hidden */ }
+
+@media (min-width: 1024px) { /* lg: */
+    .divider-mobile { display: none; /* lg:hidden */ }
+    .divider-desktop { 
+        display: block; /* lg:block */
+        width: 1px; /* w-px */
+        background-color: var(--border-color); /* bg-black */
+        margin-left: 1rem; /* Adiciona espaço */
+        margin-right: 1rem; 
+    }
+}
+
+/* --- Coluna de Horários --- */
+.times-column {
+    width: 100%;
+    padding: 0 0.5rem; /* Padding interno */
+    max-height: 16rem; /* Altura máxima no mobile */
+    overflow-y: auto; /* Habilita scroll */
+    /* ✅ Estilização da Scrollbar (WebKit - Chrome/Safari/Edge) */
+    &::-webkit-scrollbar {
+        width: 6px; /* Largura da barra */
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent; /* Fundo transparente */
+        margin: 5px 0; /* Margem interna */
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--border-color); /* Cor preta do "polegar" */
+        border-radius: 10px; /* Arredondado */
+        border: 2px solid transparent; /* Cria um padding visual */
+        background-clip: content-box;
+    }
+    /* ✅ Estilização da Scrollbar (Firefox) */
+    scrollbar-width: thin; /* Largura fina */
+    scrollbar-color: var(--border-color) transparent; /* Cor do polegar e do track */
+}
+@media (min-width: 1024px) { /* lg: */
+    .times-column {
+        width: 50%;
+        padding-left: 1.5rem; /* Espaço após o divisor */
+        padding-right: 0.5rem; /* Espaço para scrollbar */
+        height: 100%;
+        max-height: none; /* Remove altura máxima em desktop */
+    }
+}
+
+.times-placeholder, .times-loading { height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; color: rgba(0,0,0,0.6); padding: 0 1rem; flex-direction: column; }
+.spinner { animation: spin 1s linear infinite; border-radius: 50%; height: 2rem; width: 2rem; border-bottom: 2px solid var(--border-color); margin-bottom: 0.5rem; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.times-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; padding-bottom: 0.5rem; width: 100%; }
+@media (min-width: 1024px) { .times-grid { gap: 1rem; } }
+
+.time-slot-button {
+    border-radius: var(--button-border-radius);
+    /* ✅ Mudar border-width base para 1px */
+    border: 1px solid white; 
+    /* ✅ Padding base de 0.75rem */
+    padding: var(--padding-slot-base); 
+    font-size: 0.875rem;
+    text-align: center;
+    background-color: #F9FAFB; /* Fundo cinza claro */
+    transition: var(--transition-default);
+    cursor: pointer;
+    color: var(--primary-text-color);
+    font-weight: 500;
+}
+.time-slot-button:hover:not(.selected) {
+    background-color: #F3F4F6;
+    border-color: #D1D5DB;
+}
+.time-slot-button.selected {
+    border-color: black; /* Borda preta */
+    border-width: 2px; /* 2px */
+    font-weight: 700; /* Texto Bold */
+    background-color: white; /* ✅ FUNDO BRANCO: Garante que a borda preta apareça. */
+    
+    /* ✅ CORREÇÃO DEFINITIVA DO PADDING: 
+       O padding base é 12px (0.75rem). Aumentamos a borda em 1px.
+       Novo Padding: 12px - 1px = 11px. */
+    padding: 11px; 
+}
+
+/* --- Estilos para ReviewConfirmStep (Etapa 4) --- */
+
+.summary-container {
+    max-width: 42rem; 
+    margin: 0 auto 1.5rem auto; /* ✅ Centraliza o contêiner principal */
+    width: 100%;
+    
+    /* ✅ ADICIONADO: Centraliza o elemento inline-flex/bloco dentro do container */
+    display: flex; 
+    justify-content: center; 
+}
+.summary-card-review {
+    display: inline-flex; /* inline-flex */
+    align-items: center; /* items-center */
+    border: 2px solid var(--border-color); /* Borda preta 2px */
+    border-radius: var(--card-border-radius); /* rounded-xl (1rem) */
+    padding: 0.75rem 1rem; /* pl-3 e padding vertical */
+    background-color: var(--input-bg); /* bg-[#EFEFEF] */
+}
+.summary-details { min-width: 0; text-align: left; }
+.summary-service { font-family: var(--font-georgia); font-weight: 700; font-size: 0.875rem; color: var(--primary-text-color); }
+.summary-barber { font-family: var(--font-georgia); color: var(--gold-color); font-weight: 700; text-transform: uppercase; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.summary-datetime { font-weight: 700; font-size: 0.875rem; color: var(--primary-text-color); }
+.summary-icon-wrapper { position: relative; margin-left: 1.5rem; /* ml-6 (aumentado) */ flex-shrink: 0; width: 3rem; height: 3rem; }
+.summary-icon { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+
+.form-container {
+    margin-top: 1.5rem; /* mt-6 */
+    width: 100%;
+    max-width: 42rem; /* max-w-2xl */
+    margin-left: auto; margin-right: auto; /* mx-auto */
+}
+.form-fields {
+    font-family: var(--font-georgia); /* font-georgia */
+}
+.form-fields > div:not(:last-child) { margin-bottom: 1rem; /* space-y-4 */ }
+.form-label {
+    display: block; /* block */
+    font-size: 1rem; /* text-base (aumentado) */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 0.5rem; /* mb-2 (aumentado) */
+    color: var(--primary-text-color);
+    text-align: left;
+}
+.form-input {
+    width: 100%; /* w-full */
+    border-radius: var(--button-border-radius); /* rounded-lg */
+    border: 1px solid var(--border-color-light); /* Borda cinza clara */
+    background-color: var(--input-bg); /* bg-[#EFEFEF] */
+    padding: 1rem; /* px-4 py-4 */
+    font-family: var(--font-georgia); 
+    font-size: 1rem; 
+    color: var(--primary-text-color);
+}
+.form-input::placeholder { color: var(--secondary-text-color); }
+.form-input:disabled, .form-input[readonly] {
+    opacity: 0.7; cursor: not-allowed;
+    background-color: #f9f9f9; 
+}
+.error-message-box {
+    margin-top: 1rem; padding: 0.75rem;
+    background-color: #FEE2E2; border: 1px solid #FCA5A5;
+    color: #B91C1C; border-radius: var(--button-border-radius);
+    font-size: 0.875rem; text-align: center;
+}
+.confirm-button-wrapper {
+    margin-top: 1.5rem; 
+    display: flex; 
+    justify-content: center; /* ✅ Garante a centralização horizontal */
+    padding-bottom: 1rem;
+    width: 100%; /* ✅ Garante que ocupe a largura total para centralizar */
+}
+
+@media (max-width: 639px) { /* Mobile */
+    .confirm-button {
+        width: 100%; /* Garante que o botão mobile ocupe a largura */
+    }
+}
+
+
+/* --- Estilos para BookingSuccessStep (Etapa 5) --- */
+.booking-success-container { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
+.content-wrapper { max-width: 42rem; margin-left: auto; margin-right: auto; width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 80px; }
+@media (min-width: 640px) { .content-wrapper { padding-bottom: 0; } }
+
+/* ✅ Estilos atualizados para e4f303.png */
+.success-message-large {
+    font-size: 1.5rem; /* Aumentado (text-2xl) */
+    font-family: var(--font-georgia);
+    font-weight: 600; /* font-semibold (como o título) */
+    margin-top: 0.5rem; /* Reduzido mt-15 para mt-2 */
+    margin-bottom: 0.5rem; /* mb-2 */
+    color: var(--primary-text-color);
+}
+@media (min-width: 1024px) { .success-message-large { font-size: 1.75rem; } }
+
+.success-thank-you {
+    font-size: 1.875rem; /* text-3xl */
+    font-family: var(--font-georgia);
+    font-weight: 700;
+    color: var(--gold-color);
+    margin-bottom: 2.5rem; /* mb-10 */
+}
+@media (min-width: 1024px) { .success-thank-you { font-size: 2.25rem; /* lg:text-4xl */ margin-bottom: 3rem; /* lg:mb-12 */ } }
+
+/* Ícone de Sucesso (SVG ou Imagem) */
+.success-icon { /* Estilo antigo para <img> */
+    width: 5rem; height: 5rem; margin-left: auto; margin-right: auto;
+    margin-bottom: 2.5rem; /* mb-10 */
+}
+.success-icon-svg { /* ✅ NOVO: Estilo para o <svg> */
+    width: 6rem; /* w-24 (maior) */
+    height: 6rem; /* h-24 */
+    margin-left: auto; margin-right: auto;
+    margin-bottom: 2.5rem; /* mb-10 */
+    color: var(--primary-text-color); /* Garante que o fill="black" funcione */
+}
+
+/* ✅ REMOVIDO: Status do Email (Conforme imagem e4f303.png) */
+.email-status-container { display: none; }
+.email-status { display: none; }
+.email-status-sending { display: none; }
+.email-status-text { display: none; }
+
+
+/* ✅ Resumo da Marcação (Etapa 5) - Ajustado para corresponder à Etapa 4 */
+.summary-card-success {
+    margin-bottom: 2.5rem; /* mb-10 (espaço antes do botão Sair) */
+}
+
+/* --- Botões Sair (Etapa 5) --- */
+
+/* ✅ NOVO: Estilo para o botão "Sair" (Reutiliza .confirm-button) */
+
+/* Wrapper para centralizar o botão Confirmar/Sair */
+.confirm-button-wrapper {
+    margin-top: 1.5rem; 
+    display: flex; 
+    justify-content: center; 
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+/* Botão principal (Confirmar / Sair) */
+.confirm-button, .exit-button {
+    padding: 1rem 5rem; /* Padding largo */
+    background-color: var(--border-color); /* Fundo preto */
+    color: white; /* Texto branco */
+    border-radius: var(--button-border-radius);
+    font-family: var(--font-georgia);
+    font-weight: 700;
+    font-size: 1.125rem; /* Ajuste de tamanho (text-lg) */
+    border: none; cursor: pointer;
+    transition: opacity 0.2s;
+    width: auto; /* Para centralizar */
+    margin-left: auto;
+    margin-right: auto;
+}
+.confirm-button:hover, .exit-button:hover { opacity: 0.9; }
+.confirm-button:disabled, .exit-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 640px) { /* Mobile */
+    .exit-button {
+        width: auto; 
+        max-width: none;
+        padding: 0.875rem 0; /* Padding do botão mobile padrão */
+    }
+}

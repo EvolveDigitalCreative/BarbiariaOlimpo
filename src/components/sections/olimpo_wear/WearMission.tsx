@@ -1,35 +1,28 @@
-// src/components/sections/olimpowear/WearMission.tsx
+// src/components/sections/olimpo_wear/WearMission.tsx
 
 import type { FC } from 'react';
 
 const WearMission: FC = () => {
-    return (
-        <section className="content-section light-background" style={{ padding: '80px 0', textAlign: 'center' }}>
-            <div className="greek-pattern-border-wear" style={{ margin: '0 0 50px 0' }}></div>
-            
-            <div className="section-content-wrapper" style={{ flexDirection: 'column', textAlign: 'center' }}>
-                
-                {/* Ícone da moeda centralizado (Ajuste o caminho se necessário) */}
-                <div className="mission-icon-container">
-                    <img src="/global/icons/coin-icon.svg" alt="Olimpo Coin" style={{ width: '80px', margin: '0 auto 20px' }} />
-                </div>
+  return (
+    <section className="wear-mission-section">
+      <div className="greek-pattern-border-mission-top"></div> {/* Borda Grega no Topo */}
 
-                <h2 className="wear-section-title" style={{ fontSize: '2rem' }}>
-                    A NOSSA MISSÃO
-                </h2>
-                
-                <p className="section-paragraph" style={{ maxWidth: '700px', fontSize: '1.1rem', marginBottom: '30px' }}>
-                    O Olimpo Wear apresenta uma linha de roupa exclusiva que reflete confiança, presença e identidade urbana.
-                </p>
+      {/* ⚠️ SUBSTITUA O CAMINHO PELO SEU ÍCONE/LOGOTIPO DE MEDALHA (Mantenha o nome 'mission-icon') */}
+      <img
+        src="/OlimpoWear/icons/mission-icon.webp"
+        alt="Ícone Olimpo Wear"
+        className="mission-icon"
+      />
 
-                <a href="/sobre-nos" className="wear-secondary-button">
-                    Descobre mais
-                </a>
+      <h2 className="section-title">A NOSSA MISSÃO</h2>
+      <p className="section-paragraph">
+        O Olimpo Wear apresenta uma linha de roupa exclusiva que reflete confiança, presença e identidade urbana.
+      </p>
 
-            </div>
-            
-        </section>
-    );
+      <button className="mission-button">Descobre mais</button>
+
+    </section>
+  );
 };
 
 export default WearMission;

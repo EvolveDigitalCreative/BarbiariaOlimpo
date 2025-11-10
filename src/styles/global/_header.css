@@ -25,15 +25,15 @@
   --barber-border-bottom: 1px solid #e4e4e0;
   
   /* Tamanhos */
-  --barber-logo-height: 45px;
+  --barber-logo-height: 168px;
   --barber-icon-label-size: 15px; /* Tamanho do texto (ex: "OLIMPO SKIN") */
   --barber-icon-gap: 45px; /* Espaço entre os ícones */
 
   /* --- Tamanhos de Ícones (Individual) --- */
   /* Este preset mostra os ícones: skincare, wear, user */
-  --barber-icon-size-skincare: 45px;
-  --barber-icon-size-wear: 45px;
-  --barber-icon-size-user: 35px;
+  --barber-icon-size-skincare: 60px;
+  --barber-icon-size-wear: 75px;
+  --barber-icon-size-user: 45px;
 
   /*
   ==============================
@@ -95,17 +95,48 @@
   box-sizing: border-box;
 }
 
-/* --- Container (Layouts Luxury & Compact) --- */
+/* --- Container (Layouts Compact) --- */
 .header-container {
   max-width: var(--header-max-width);
   height: 100%;
-  margin: 0 auto;
+  margin: 0;
   padding: var(--header-padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
 }
+
+/* --- Container (Layouts Luxury) --- */
+.header-container2 {
+  max-width: var(--header-max-width);
+  height: 100%;
+  margin: 0 auto;
+  max-height: 70px;
+  max-width: 100%;
+  padding: var(--header-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 1023px) {
+  /* --- Container (Layouts Luxury) --- */
+.header-container2 {
+  max-width: var(--header-max-width);
+  height: 100%;
+  margin: 0 auto;
+  max-height: 70px;
+  max-width: 100%;
+  padding: var(--header-padding);
+  display: flex;
+  padding-left: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}}
 
 /* --- Componente: Logo (Imagem) --- */
 .logo-wrapper {
@@ -287,3 +318,23 @@
 .header-skincare .header-icon-link:hover {
   color: var(--skincare-link-hover);
 }
+
+
+
+@media (max-width: 1023px) {
+/* --- BARBER PRESET (Ajustes Específicos) --- */
+    .header-barber.main-header {
+        /* Reduzir o tamanho da Logo */
+        --logo-height: 90px; 
+               
+        /* Reduz o tamanho dos ícones */
+        --icon-size-skincare: 50px;
+        --icon-size-wear: 60px;
+        --icon-size-user: 15px;
+        
+        /* Reduz a margem entre os ícones */
+        --icon-gap: 6px; 
+        
+        /* Reduz o tamanho do texto do ícone */
+        --icon-label-size: 13px; 
+    }}

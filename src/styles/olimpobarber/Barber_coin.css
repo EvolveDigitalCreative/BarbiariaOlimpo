@@ -1,177 +1,177 @@
-/* Variáveis de Cores */
+/* ============================================== */
+/* ARQUIVO CSS NOVO - ESCRITO DO ZERO */
+/* ============================================== */
+
+/* 1. DECLARAÇÃO DA FONTE E VARIÁVEIS */
+@font-face {
+    font-family: 'FonteCoin';
+    src: url('/fonts/GeorgiaProBold.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --color-dourado: #daa520;
-    --color-cordefundo: #f8f8f8;
-    --color-defaulttext: #333333;
+    --color-marmore-text: #0d0d0d;
     --color-button-border: #000;
     --color-button-hover-bg: #000;
     --color-button-hover-text: #fff;
-    --color-marmore-text: #0d0d0d;
-    overflow: visible;
 }
 
-/* Container Principal da Seção */
+/* 2. FUNDO E SEÇÃO GERAL */
 .coin-section {
     padding: 0;
     background-color: transparent;
-    height: 900px;
+    width: 100%;
 }
 
-/* Faixa Decorativa Grega */
 .greek-pattern-divider {
-    height: 40px; 
+    height: 40px;
     overflow: hidden;
-    opacity: 0.4; 
+    opacity: 0.4;
     background-image: url('/barbershop/stylization/style1.png');
     background-repeat: repeat-x;
     background-size: auto 100%;
     background-position: center;
-    margin-bottom: 2rem; 
-}
-.greek-pattern-divider.top {
-    margin-bottom: 2rem; 
+    margin-bottom: 2rem;
 }
 
-
-/* Fundo de Mármore */
 .coin-content-bg {
-    background-image: url('../../../public/OlimpoBarBer/texture/fundomarmore.webp');
-    background-size: cover; 
-    background-position: bottom; 
-    padding: 4rem 1rem; 
+    background-image: url('/OlimpoBarBer/texture/fundomarmore.webp');
+    background-size: cover;
+    background-position: bottom;
+    padding: 4rem 1rem;
     overflow: visible;
 }
 
-/* Wrapper de Conteúdo Principal */
+/* 3. LAYOUT WRAPPER (Mobile-First) */
+/* Por padrão, no mobile, os itens ficam um em cima do outro */
 .section-content-wrapper.main-layout {
-    max-width: 1200px; 
+    max-width: 1500px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column-reverse; /* Mobile: Moeda em cima */
-    gap: 2rem;
-    align-items: center;
-    padding: 0 1rem; 
+    padding: 0 1rem;
     overflow: visible;
+    /* Configuração mobile: */
+    display: flex;
+    flex-direction: column;
+    /* Um em cima do outro */
+    align-items: center;
+    gap: 4rem;
 }
 
-/* Layout Desktop */
-@media (min-width: 1024px) {
-    .section-content-wrapper.main-layout {
-        display: grid;
-        grid-template-columns: 1fr 1.2fr; /* Moeda (Esquerda), Texto (Direita) */
-        flex-direction: row; 
-        height: 20px;
-        gap: 6rem; 
-        padding: 4rem 2rem; 
-    }
-
-    .section-image-container {
-        order: 1; /* Moeda na Esquerda */
-    }
-    .section-text-container {
-        order: 2; /* Texto na Direita */
-    }
-}
-
-/* Estilização do Texto */
+/* 4. AS DUAS COLUNAS (Mobile) */
 .section-text-container.left-aligned-text {
-    color: var(--color-marmore-text); 
-    text-align: center; 
-    padding: 0; 
-    max-height: 400px;
-    max-width: 500px; 
-}
-@media (min-width: 1024px) {
-    .section-text-container.left-aligned-text {
-        text-align: left; 
-        padding: 0;
-        max-width: none; 
-    }
+    color: var(--color-marmore-text);
+    text-align: center;
+    width: 100%;
+    max-width: 700px;
+    order: 1;
+    /* Texto vem primeiro no mobile */
 }
 
-.section-paragraph {
-    font-size: 1.15rem; 
-    line-height: 1.6;
-    margin-bottom: 1.2rem; 
-}
-
-.section-small-text {
-    font-size: 0.95rem; 
-    color: #555; 
-    margin-top: 1.5rem;
-}
-
-.gold-text-strong {
-    color: var(--color-dourado);
-    font-weight: bold;
-}
-
-/* Contêiner da Moeda 3D e Botão */
 .section-image-container.medium-image-centered {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    max-height: 950px; 
-    margin-left: 7px;
-    overflow: visible;
+    width: 100%;
+    order: 2;
+    /* Moeda/Botão vem depois no mobile */
 }
+
+/* ============================================== */
+/* LAYOUT DESKTOP - O NOVO MÉTODO (Flexbox) */
+/* ============================================== */
 @media (min-width: 1024px) {
+
+    /* 1. Transforma o wrapper em 2 colunas */
+    .section-content-wrapper.main-layout {
+        flex-direction: row;
+        /* Coloca os itens LADO A LADO */
+        justify-content: space-between;
+        /* Espaço entre eles */
+        align-items: center;
+        /* Alinha verticalmente no centro */
+        gap: 6rem;
+        
+    }
+
+    /* 2. Define a ordem e o tamanho das colunas */
+    .section-text-container.left-aligned-text {
+        order: 2;
+        /* Texto na Direita */
+        flex-basis: 50%;
+        /* Ocupa 50% do espaço */
+        text-align: left;
+        max-width: none;
+        
+    }
+
     .section-image-container.medium-image-centered {
+        order: 1;
+        /* Moeda/Botão na Esquerda */
+        flex-basis: 50%;
+        /* Ocupa 50% do espaço */
+    }
+
+    /* 3. Tamanho da moeda no desktop */
+    .coin-3d-wrapper {
+        width: 450px;
         height: 450px;
     }
 }
 
+/* ============================================== */
+/* ESTILOS DE TEXTO E BOTÃO (Restante) */
+/* ============================================== */
 
-/* Wrapper para o Canvas 3D */
+/* Wrapper da moeda (Mobile) */
 .coin-3d-wrapper {
-    width: 280px; 
-    height: 280px;
-    margin-bottom: 0.5rem;
-    
-    
-    /* AQUI: A CORREÇÃO DEFINITIVA. */
-    /* Isso permite que a moeda "vaze" para fora da caixa sem ser cortada. */
-    overflow: invisible; 
-}
-@media (min-width: 1024px) {
-    .coin-3d-wrapper {
-        width: 350px; 
-        overflow: visible;
-        height: 350px;
-    }
-}
-
-/* Estilo do Fallback (Div de carregamento) */
-.loading-coin-fallback {
-    background: radial-gradient(circle, #f0e68c 0%, #daa520 100%); 
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    color: #444;
+    width: 350px;
+    height: 350px;
     overflow: visible;
-}
-.loading-spinner {
-    border-color: #fff;
-    border-top-color: var(--color-dourado);
+    margin-bottom: 1.5rem;
 }
 
-/* Estilo do Botão "VER MAIS" */
+.section-paragraph2 {
+    font-family: 'FonteCoin', sans-serif;
+    font-size: 1.25rem;
+    color:  black;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.section-small-text {
+    font-family: 'FonteCoin', sans-serif;
+    font-size: 1.15rem;
+    color: #444;
+    margin-top: 2rem;
+}
+
+.gold-text-strong {
+    font-family: 'FonteCoin', sans-serif;
+    
+    color: var(--color-dourado);
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
 .secondary-button.coin-button-style {
+    font-family: 'FonteCoin', sans-serif;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--color-button-border);
-    padding: 10px 32px; 
-    font-size: 1rem; 
-    letter-spacing: 0.05em;
+    padding: 12px 38px;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
     color: var(--color-button-border);
     background-color: transparent;
     transition: all 0.3s ease;
-    border-radius: 9999px; 
+    border-radius: 9999px;
     text-decoration: none;
-    font-family: inherit; 
-    font-weight: 500; 
-    /* z-index não é mais necessário */
+    font-weight: 500;
 }
 
 .secondary-button.coin-button-style:hover,
@@ -179,4 +179,16 @@
     background-color: var(--color-button-hover-bg);
     color: var(--color-button-hover-text);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.loading-coin-fallback {
+    background: radial-gradient(circle, #f0e68c 0%, #daa520 100%);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    color: #444;
+    overflow: visible;
+}
+
+.loading-spinner {
+    border-color: #fff;
+    border-top-color: var(--color-dourado);
 }

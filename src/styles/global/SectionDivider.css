@@ -5,16 +5,17 @@
    Use a classe .section-divider (que está no TSX agora)
 ----------------------------------------------------------------- */
 .section-divider {
-    width: 100%;
+    width: 1000rem;
+    max-width: 100%;
     
     /* CORREÇÃO 1: Altura correta. Mude de 1px (ou 250px) para uma altura real (ex: 40px) */
     height: 40px; 
     
     /* Margem para separar das seções */
-    margin: 3rem 0; 
+    margin:  0; 
     
     /* CORREÇÃO 2: Caminho do arquivo. Certifique-se de que o caminho relativo esteja OK no CSS */
-    background-image: url('../../../public/OlimpoBarBer/Decoracao/style1.png');
+    background-image: url('/OlimpoBarBer/Decoracao/style1.png');
     
     /* Repetição: ESSENCIAL. Faz o padrão se estender */
     background-repeat: repeat-x; 

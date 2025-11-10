@@ -1,0 +1,243 @@
+/* ==========================================================
+// 0. VARIÁVEIS 
+// ========================================================== */
+
+:root {
+    --color-skincare-accent: #ccb47c; /* Ouro */
+    --color-skincare-text-dark: #222;
+    --color-text-light: #555;
+    --color-background-light: #fefefe; 
+    --font-family-serif: 'Playfair Display', serif; 
+}
+
+
+/* ==========================================================
+// A. ESTRUTURA GERAL DA SECÇÃO (Mobile Base)
+// ========================================================== */
+
+.content-section {
+    padding: 60px 24px; /* Padding Mobile */
+}
+.light-background {
+    background-color: var(--color-background-light);
+}
+
+.section-content-wrapper {
+    position: relative; 
+    display: flex;
+    flex-direction: column; /* Mobile: Empilha */
+    gap: 40px; 
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center; 
+}
+
+
+/* ==========================================================
+// B. ESTILOS DO TEXTO (AJUSTADO)
+// ========================================================== */
+
+.section-text-container {
+    max-width: 500px;
+    padding-left: 0;
+}
+
+/* dark-text-strong usado apenas para "FICA A CONHECER-NOS" */
+.dark-text-strong {
+    color: var(--color-skincare-text-dark); /* Cor preta/escura */
+    font-size: 0.875rem; 
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 0; 
+    text-transform: uppercase; /* MANTER em maiúsculas para o "FICA A CONHECER-NOS" */
+    line-height: 1.2; 
+}
+
+/* Estilo para texto dourado (mantido para o título "Olimpo barbershop") */
+.gold-text-strong {
+    color: var(--color-skincare-accent);
+    font-size: 0.875rem; 
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-family: var(--font-family-serif);
+    font-size: 2rem; 
+    font-weight: 700;
+    color: var(--color-skincare-text-dark);
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.section-paragraph {
+    font-size: 1rem;
+    color: var(--color-skincare-text-dark); 
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.barbershop-note-aligned {
+    display: flex;
+    align-items: flex-start; /* Alinha o bloco de texto ao topo do ícone */
+    gap: 15px; 
+    margin-bottom: 32px; 
+}
+
+/* Grupo de Texto */
+.barbershop-text-group {
+    display: flex;
+    flex-direction: column; 
+    flex-grow: 1;
+}
+
+/* Título do Barbershop (NOVA CLASSE) */
+.barbershop-title {
+    color: var(--color-skincare-text-dark);
+    font-size: 1.15rem; /* Ajustado para ser maior, como na referência */
+    font-weight: 700; /* Negrito */
+    margin-bottom: 0; 
+    text-transform: none; /* CHAVE: Permite letras minúsculas (Olimpo barber shop) */
+    line-height: 1.2;
+}
+
+/* Parágrafo do Barbershop (NOVA CLASSE) */
+.barbershop-paragraph-text {
+    color: var(--color-skincare-text-dark);
+    font-size: 1rem; 
+    line-height: 1.5;
+    margin-top: 5px; /* Espaço entre o título e o parágrafo */
+    margin-bottom: 0; 
+}
+
+/* ESTAS REGRAS DEVEM SER REMOVIDAS POIS NÃO SE APLICAM À ESTRUTURA ATUAL (o texto usa .barbershop-title e .barbershop-paragraph-text) */
+/*
+.barbershop-text-group .dark-text-strong {
+    margin-bottom: 0; 
+}
+.barbershop-text-group .section-paragraph {
+    margin-top: 8px; 
+    margin-bottom: 0; 
+    font-size: 1rem; 
+    font-weight: 400; 
+}
+*/
+
+.barber-coin-icon {
+    /* CORREÇÃO: Tamanho para corresponder visualmente à referência */
+    width: 32px; 
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0; 
+    margin-top: 0; 
+}
+
+.skincare-main-button {
+    display: inline-block;
+    background-color: var(--color-skincare-text-dark);
+    color: #fff;
+    padding: 14px 48px;
+    border-radius: 2px;
+    font-size: 1rem; 
+    font-family: var(--font-family-serif);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+.skincare-main-button:hover {
+    background-color: #444;
+}
+
+/* ==========================================================
+// C. ESTILOS DA IMAGEM E PILAR (Mobile Base)
+// ========================================================== */
+
+.section-image-container {
+    width: 100%;
+    max-width: 450px; 
+    position: relative;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    z-index: 20;
+    position: relative; 
+}
+
+.image-rounded {
+    border-radius: 20px; 
+}
+
+/* Coluna Grega - Mobile: O pilar deve estar invisível no mobile */
+.decorative-column-image {
+    position: absolute; 
+    display: none; /* CHAVE: Esconder no mobile */
+    width: 120px; 
+    height: auto;
+    z-index: 10;
+    opacity: 0.3; 
+}
+
+/* Contentor Separador (Spacer) - Mantido invisível */
+.section-column-spacer {
+    display: none; 
+}
+
+
+/* ==========================================================
+// D. RESPONSIVIDADE (DESKTOP / min-width: 1024px)
+// ========================================================== */
+
+@media (min-width: 1024px) {
+    .content-section {
+        padding: 100px 32px; 
+        padding-bottom: 150px; 
+    }
+
+    .section-content-wrapper {
+        flex-direction: row; 
+        justify-content: space-evenly; 
+        align-items: center; 
+        gap: 40px;
+    }
+    
+    .section-image-container {
+        width: 100%;
+        flex-shrink: 0;
+        max-width: 550px;
+    }
+
+    .section-text-container {
+        width: auto; 
+        flex-grow: 1; 
+        max-width: 800px; 
+        padding-top: 0;
+        margin-right: 0; 
+        padding-right: 180px; /* Garante que o texto não colide com o pilar */
+        padding-left: 0px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem; 
+        margin-bottom: 15px;
+    }
+    
+    /* O PILAR DECORATIVO - Visível e posicionado */
+    .decorative-column-image {
+        display: block; 
+        position: absolute; 
+        right: 0px; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        width: 200px; 
+        opacity: 1; 
+        z-index: 1; 
+        max-height: 480px; 
+        object-fit: contain;
+    }
+}

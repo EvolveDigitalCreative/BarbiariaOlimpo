@@ -1,26 +1,21 @@
 // src/components/sections/olimpowear/WearHero.tsx
 
 import type { FC } from 'react';
+import React from 'react';
 
 const WearHero: FC = () => {
+    // Verifique o caso (Maiúsculas/Minúsculas)
+    // Se a pasta é 'OlimpoWear' e 'foto', use-as exatamente assim.
+    // E certifique-se que o nome do ficheiro está *EXATAMENTE* correto (minúsculas recomendadas).
+    const heroImageUrl = '/OlimpoWear/foto/OLIMPO_foto_t-shirts_18.webp'; // Sugestão Padronizada
+
     return (
-        <section className="wear-hero-section">
-            <div className="wear-hero-split">
-                {/* Imagem da esquerda */}
-                <img src="/OlimpoWear/images/hero-left.jpg" alt="Coleção Wear Esquerda" style={{ filter: 'brightness(0.8)' }}/>
-                
-                {/* Imagem da direita */}
-                <img src="/OlimpoWear/images/hero-right.jpg" alt="Coleção Wear Direita" style={{ filter: 'brightness(0.7)' }}/>
-            </div>
-            
-            <div className="wear-hero-content">
-                <h1 className="wear-hero-title-large">
-                    FIT FOR GODS. WORN ON EARTH.
-                </h1>
-                
-                <a href="/wear/shop" className="wear-main-button" style={{ marginTop: '20px' }}>
-                    Ver Coleção
-                </a>
+        <section
+            className="wear-hero-section"
+            style={{ '--hero-bg-url': `url(${heroImageUrl})` } as React.CSSProperties}
+        >
+            <div className="section-content-wrapper">
+                <h1 className="hero-title">Olimpo Wear</h1>
             </div>
         </section>
     );

@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 const SkincareHero: FC = () => {
     return (
-        <section className="hero-section skincare-hero">
+        <section className="skincare-hero-section">
             
-            <div className="hero-container">
+            <div className="skincare-hero-container">
                 
                 {/* COLUNA ESQUERDA: Texto e Botão */}
                 <div className="hero-text-content">

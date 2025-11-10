@@ -1,0 +1,300 @@
+/* src/styles/pages/ProfilePage.css - COMPLETO */
+
+.profile-page-container {
+    background-color: #f7f5f2;
+    /* Fundo claro da página */
+    min-height: 100vh;
+    padding: 2rem;
+    font-family: var(--font-family-sans);
+    /* Fonte padrão */
+}
+
+/* --- Cabeçalho e Navegação --- */
+
+.profile-header {
+    margin-bottom: 2rem;
+    /* ✅ GOAL 1: Layout de coluna no cabeçalho */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Alinha tudo à esquerda */
+}
+
+.profile-logo-wrapper {
+    /* Novo wrapper para a logo e seta */
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-logo {
+    display: block;
+    width: 150px;
+    height: auto;
+    /* Removido margin-bottom, o wrapper cuida disso */
+}
+
+.back-arrow {
+    /* ✅ GOAL 1: Seta de voltar abaixo da logo */
+    font-size: 1.5rem;
+    /* Ajustado para ficar proporcional */
+    color: #888;
+    text-decoration: none;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    left: 3rem;
+    top: 8.5rem;
+    position: absolute;
+    /* Espaço entre a logo e a seta */
+    align-self: flex-start;
+    /* Garante alinhamento esquerdo se necessário */
+}
+
+/* --- Layout Principal de Conteúdo --- */
+
+.profile-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Linhas de Cards */
+.profile-top-row,
+.profile-bottom-row {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Layout Desktop para as Linhas */
+@media (min-width: 768px) {
+    .profile-top-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .profile-bottom-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* --- Estilo Base dos Cards --- */
+
+.profile-card,
+.action-card {
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Card de Perfil (Informações) --- */
+
+.profile-info-card {
+    align-items: flex-start;
+}
+
+/* ✅ GOAL 2: Novo wrapper para alinhar Avatar e Info */
+.avatar-info-group {
+    display: flex;
+    align-items: center;
+    /* Alinha o avatar e o texto verticalmente */
+    gap: 1rem;
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    /* Removido margin-bottom antigo */
+    border: 2px solid #ccc;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    /* Removido margin-bottom antigo */
+}
+
+.welcome-text {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.user-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.edit-profile-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 190px;
+}
+
+.logout-link {
+    background: none;
+    border: none;
+    color: #555;
+    text-decoration: underline;
+    font-size: 0.85rem;
+    cursor: pointer;
+    align-self: flex-start;
+    padding: 0;
+    padding-left: 30px;
+}
+
+.logout-link:hover {
+    color: #000;
+}
+
+/* --- Card Olimpo Coin (Moeda 3D) --- */
+
+.coin-card {
+    align-items: center;
+    background-image: url('/OlimpoBarBer/texture/fundomarmore.webp');
+    background-size: cover;
+    background-position: center;
+    background-position-y: -15vw;
+    position: relative;
+    min-height: 200px;
+}
+
+.coin-card-title {
+    font-family: var(--font-family-serif);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Container horizontal da Moeda + Saldo */
+.coin-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.coin-3d-wrapper-small {
+    width: 120px;
+    height: 120px;
+    overflow: visible;
+}
+
+.coin-balance {
+    font-family: var(--font-family-serif);
+    font-size: 4rem;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+
+.view-more-link {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: underline;
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+}
+
+.view-more-link:hover {
+    color: #000;
+}
+
+
+/* --- Cards de Ação Inferiores (Favoritos, Sobre Nós, Descontos) --- */
+
+.action-card {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    align-items: flex-start;
+    position: relative;
+    min-height: 150px;
+    padding-bottom: 3rem;
+}
+
+.card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #000;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* ✅ GOAL 3: Botão de Seta Movido para a Esquerda */
+.arrow-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+
+    /* REPOSICIONAMENTO */
+    position: absolute;
+    bottom: 1rem;
+    left: 1.5rem;
+    /* Mover para o canto esquerdo */
+    right: auto;
+    /* Desfaz o posicionamento antigo */
+}
+
+/* --- Estados de Loading/Erro --- */
+.profile-loading,
+.profile-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.profile-error {
+    color: red;
+}
