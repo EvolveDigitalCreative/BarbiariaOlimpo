@@ -26,7 +26,8 @@ import ProfileActionsPage from './pages/ProfileActionsPage';
 // ✅ NOVAS IMPORTAÇÕES DE WEAR
 import WearCart from './pages/WearCart';
 import WearCheckout from './pages/WearCheckout';
-import WearCatalog from './pages/WearCatalog'; // ✅ Importação para o Catálogo
+import WearCatalog from './pages/WearCatalog'; 
+import WearProductPage from './pages/WearProductPage'; // ✅ NOVO: Página de Detalhes do Produto
 
 // --- Layouts e Componentes Admin ---
 import AdminLayout from './components/admin/AdminLayout';
@@ -37,17 +38,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminSales from './pages/admin/AdminSales';
 import AdminAppointments from './pages/admin/AdminAppointments';
 import AdminUsers from './pages/admin/AdminUsers';
-// import AdminServices from './pages/admin/AdminServices';
 import AdminOrders from './pages/admin/AdminOrders';
-
-// --- Páginas Admin (Comentadas) ---
-/*
-import AdminSales from './pages/admin/AdminSales';
-import AdminAppointments from './pages/admin/AdminAppointments';
-import AdminUsers from './pages/admin/AdminUsers';
-import AdminServices from './pages/admin/AdminServices';
-import AdminOrders from './pages/admin/AdminOrders';
-*/
 
 // O React.StrictMode foi removido, conforme solicitado.
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -60,10 +51,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="/wear" element={<OlimpoWear />} />
                 <Route path="/olimpocoin" element={<OlimpoCoin />} />
 
-                {/* ✅ NOVAS ROTAS PÚBLICAS DE WEAR */}
-                <Route path="/wear/catalogo" element={<WearCatalog />} /> {/* ✅ ROTA DO CATÁLOGO ADICIONADA */}
+                {/* ✅ ROTAS PÚBLICAS DE WEAR */}
+                <Route path="/wear/catalogo" element={<WearCatalog />} /> 
                 <Route path="/wear/carrinho" element={<WearCart />} />
                 <Route path="/wear/pagamento" element={<WearCheckout />} />
+                
+                {/* ROTA DINÂMICA PARA DETALHES DO PRODUTO */}
+                {/* O :productId permite que você capture o ID do produto na página */}
+                <Route path="/wear/produto/:productId" element={<WearProductPage />} /> 
 
                 {/* ROTAS PÚBLICAS DE AUTENTICAÇÃO */}
                 <Route path="/login" element={<LoginPage />} />
@@ -105,11 +100,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 {/* --- ROTAS PROTEGIDAS DA DASHBOARD ADMIN --- */}
 
                 <Route
-                    path="/admin"
+                  path="/admin"
                     element={
-                        <ProtectedRoute requiredRole="admin">
+                        // O ProtectedRoute está comentado, reative quando for para produção.
+                        //*<ProtectedRoute requiredRole="admin">
                             <AdminLayout />
-                        </ProtectedRoute>
+                        //*</ProtectedRoute>
                     }
                 >
                     <Route index element={<AdminOverview />} />
@@ -119,6 +115,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     <Route path="encomendas" element={<AdminOrders />} />
                 </Route>
 
+                {/* Rota 404/Not Found (opcional) */}
                 {/* <Route path="*" element={<div>Página não encontrada</div>} /> */}
 
             </Routes>
@@ -127,5 +124,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 );
 
 // ✅ ADIÇÃO CRÍTICA: Inicializa o Analytics após a montagem do React no DOM.
-// Isso garante que a verificação isSupported() seja feita no ambiente do navegador (client-side).
 initializeAnalytics();
