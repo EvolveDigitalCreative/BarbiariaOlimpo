@@ -1,10 +1,11 @@
 import type { FC } from 'react';
-import { useState } from 'react';
-// Certifique-se de que os seus componentes comuns (Header, Footer, Divider)
-// e o modal estão com o caminho de importação correto
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+// Importações de Componentes Comuns
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import SectionDivider from '../components/common/SectionDivider'; 
+// ✅ CONFIRME ESTE CAMINHO: 'olimpo_wear' ou 'olimpowear'
 import SizeGuideModal from '../components/sections/olimpo_wear/SizeGuideModal'; 
 
 // Importar os estilos necessários
@@ -12,47 +13,221 @@ import '../styles/global/_global.css';
 import '../styles/global/_header.css';
 import '../styles/global/_footer.css';
 import '../styles/global/SectionDivider.css'; 
-// Estilo principal para a página e o modal
 import '../styles/olimpowear/wear_product_page.css'; 
+import '../styles/olimpowear/size_guide_modal.css'; 
 
-// Dados de Exemplo (Mock) - Ajustado para Detalhes em Lista
-const mockProduct = {
-    id: 'basic-white',
-    name: 'Basic',
-    color: 'Branco',
-    price: 25.00,
-    rating: 3, 
-    details: [ 
-        'Feita em 100% algodão premium de 240g, oferece estrutura firme, toque suave e respirabilidade ideal para máximo conforto.',
-        'Com gola O e corte urbano, adapta-se a qualquer ocasião casual com um estilo moderno e descontraído.',
-        'Estampa de alta definição e bordado preciso garantem personalidade e exclusividade sem perder o conforto.',
-        'Com tecido resistente e respirável, mantém o aspeto original após várias lavagens, oferecendo conforto e durabilidade no dia a dia urbano.',
-        'Cada t-shirt é pensada para durar — do fio à costura — unindo resistência, conforto e estilo autêntico numa só peça.'
-    ],
-    description: `Apresentamos as nossas t-shirts — um símbolo de conforto, autenticidade e estilo urbano. Desenvolvida para quem valoriza qualidade em cada detalhe, esta peça combina design moderno com materiais de alto desempenho, tornando-se indispensável no guarda-roupa do dia a dia.`,
-    images: [
-        '/OlimpoWear/product/basic/img1.jpg',
-        '/OlimpoWear/product/basic/img2.jpg',
-        '/OlimpoWear/product/basic/img3.jpg', 
-        '/OlimpoWear/product/basic/img4.jpg', 
-    ],
-    relatedProducts: [
-        { id: 'alex-black', name: 'Alex', image: '/OlimpoWear/related/alex-black.jpg' },
-        { id: 'alex-white', name: 'Alex', image: '/OlimpoWear/related/alex-white.jpg' },
-    ]
+// ==========================================================
+// 1. DEFINIÇÃO DE TIPOS PARA TS
+// ==========================================================
+interface RelatedProduct {
+    id: string; // O slug (Ex: 'basic-white-black-logo')
+    name: string;
+    image: string;
+}
+
+interface ProductData {
+    name: string;
+    model: string;
+    color: string;
+    price: number;
+    rating: number; 
+    image: string; 
+    images: string[]; 
+    details: string[]; 
+    description: string; 
+    relatedProducts: RelatedProduct[]; 
+}
+
+// ==========================================================
+// 2. DADOS DE PRODUTOS (UNIDOS E COMPLETOS E CORRIGIDOS PARA SLUGS)
+// ==========================================================
+const defaultDescription = `Apresentamos as nossas t-shirts — um símbolo de conforto, autenticidade e estilo urbano. Desenvolvida para quem valoriza qualidade em cada detalhe, esta peça combina design moderno com materiais de alto desempenho, tornando-se indispensável no guarda-roupa do dia a dia.
+Feita em 100% algodão premium de 240g, oferece estrutura firme, toque suave e respirabilidade ideal para máximo conforto.
+Com gola O e corte urbano, adapta-se a qualquer ocasião casual com um estilo moderno e descontraído.
+Estampa de alta definição e bordado preciso garantem personalidade e exclusividade sem perder o conforto.
+Com tecido resistente e respirável, mantém o aspeto original após várias lavagens, oferecendo conforto e durabilidade no dia a dia urbano.
+Cada t-shirt é pensada para durar — do fio à costura — unindo resistência, conforto e estilo autêntico numa só peça.`; 
+
+// Produtos relacionados padrão (para usar como referências)
+const basicRelatedProducts: RelatedProduct[] = [
+    { id: 'alex-black-white-coin', name: 'Alex Black Coin', image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png' },
+    { id: 'basic-white-black-logo', name: 'Basic White Logo', image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png' },
+];
+
+const alexRelatedProducts: RelatedProduct[] = [
+    { id: 'basic-white-black-logo', name: 'Basic White Logo', image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png' },
+    { id: 'mirror-black', name: 'Mirror Black', image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png' },
+];
+
+const allProducts: ProductData[] = [
+    // =========================================================
+    // GRUPO BASIC
+    // =========================================================
+    { 
+        name: 'Basic', 
+        model: 'White Black Logo', // SLUG: basic-white-black-logo
+        color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png', // T-SHIRT-branco e preta.png
+        details: ["100% Algodão Premium", "Logótipo Preto"], 
+        images: ['/OlimpoWear/shirts/T-SHIRT-branco e preta.png'],
+        description: defaultDescription, relatedProducts: basicRelatedProducts
+    },
+    { 
+        name: 'Basic', 
+        model: 'Black White Logo', // SLUG: basic-black-white-logo
+        color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png', // T-SHIRT_-basica preta e branca.png
+        details: ["100% Algodão Premium", "Logótipo Branco"],
+        images: ['/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png'],
+        description: defaultDescription, relatedProducts: basicRelatedProducts
+    },
+    { 
+        name: 'Basic', 
+        model: 'White Gold Logo', // SLUG: basic-white-gold-logo
+        color: 'Branco', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png', // T-SHIRT-branca e dourada costa moeda 3d.png
+        details: ["100% Algodão Premium", "Moeda 3D Dourada nas Costas"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png'],
+        description: defaultDescription, relatedProducts: basicRelatedProducts
+    },
+    { 
+        name: 'Basic', 
+        model: 'Black Gold Logo', // SLUG: basic-black-gold-logo
+        color: 'Preto', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png', // T-SHIRT-basica preta e dourada.png (Assumido)
+        details: ["100% Algodão Premium", "Moeda 3D Dourada nas Costas"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png'],
+        description: defaultDescription, relatedProducts: basicRelatedProducts
+    },
+
+    // =========================================================
+    // GRUPO ALEX (Ajustado para os novos SLUGS esperados)
+    // =========================================================
+    { 
+        name: 'Alex', 
+        model: 'Gold White', // SLUG: alex-gold-white
+        color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png', // T-SHIRT-alex- branca e dourada.png
+        details: ["Design Exclusivo 'Alex'", "Dourado", "100% Algodão Premium"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+    { 
+        name: 'Alex', 
+        model: 'Gold Black', // SLUG: alex-gold-black
+        color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png', // T-SHIRT-alex-preta e dourada.png (Assumido)
+        details: ["Design Exclusivo 'Alex'", "Dourado", "100% Algodão Premium"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+    { 
+        name: 'Alex', 
+        model: 'Black', // SLUG: alex-black
+        color: 'Preto', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png', // T-SHIRT-alex-branco e preta.png (Assumido)
+        details: ["Design Exclusivo 'Alex'", "Preto"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+    { 
+        name: 'Alex', 
+        model: 'White', // SLUG: alex-white
+        color: 'Branco', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png', // T-SHIRT-alex-branca e pretas.png
+        details: ["Design Exclusivo 'Alex'", "Branco"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+    { 
+        name: 'Alex', 
+        model: 'Black Gold Coin', // SLUG: alex-black-gold-coin
+        color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png', // T-SHIRT-alex-costa preta e dourada.png
+        details: ["Design Exclusivo 'Alex'", "Moeda Dourada nas Costas"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+    { 
+        name: 'Alex', 
+        model: 'White Black Coin', // SLUG: alex-white-black-coin
+        color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png', // T-SHIRT-alex-preta e beanca 3 moedas nas costas.png (Usada como placeholder)
+        details: ["Design Exclusivo 'Alex'", "Moedas Pretas nas Costas"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+
+    // =========================================================
+    // GRUPO MIRROR (Ajustado para os novos SLUGS esperados)
+    // =========================================================
+    { 
+        name: 'Mirror', 
+        model: 'Black', // SLUG: mirror-black
+        color: 'Preto', price: 28.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-mirror-preta.png', // Placeholder
+        details: ["Efeito Refletor", "Design Minimalista"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-mirror-preta.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+    { 
+        name: 'Mirror', 
+        model: 'White', // SLUG: mirror-white
+        color: 'Branco', price: 28.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-mirror-branca.png', // Placeholder
+        details: ["Efeito Refletor", "Design Minimalista"],
+        images: ['/OlimpoWear/shirts/T-SHIRT-mirror-branca.png'],
+        description: defaultDescription, relatedProducts: alexRelatedProducts
+    },
+];
+
+// Função que encontra um produto pelo SLUG do URL (Ex: "basic-white-black-logo")
+const findProductBySlug = (slug: string): ProductData | undefined => {
+    return allProducts.find(product => {
+        const productId = `${product.name}-${product.model}`
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]/g, '')
+            .toLowerCase();
+        return productId === slug;
+    });
 };
 
 // Tamanhos disponíveis
 const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
+
 const WearProductPage: FC = () => {
-    const [selectedSize, setSelectedSize] = useState<string>('M');
-    const [quantity, setQuantity] = useState<number>(2); 
-    const [mainImage, setMainImage] = useState<string>(mockProduct.images[0]);
+    const { productId } = useParams<{ productId: string }>(); 
+    const product = findProductBySlug(productId || '');
     
-    // ✅ ESTADO PRINCIPAL: Controla a abertura/fecho do modal
+    // Estados
+    const [selectedSize, setSelectedSize] = useState<string>('M');
+    const [quantity, setQuantity] = useState<number>(1); 
+    const [mainImage, setMainImage] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
+    // Efeito para carregar a imagem principal
+    useEffect(() => {
+        if (product && product.images && product.images.length > 0) {
+            setMainImage(product.images[0]);
+        }
+    }, [product]);
+
+    // Tratamento de Produto Não Encontrado (404)
+    if (!product) {
+        return (
+            <div className="product-page-container">
+                <Header />
+                <main className="product-main-content not-found-content">
+                    <h2 className='not-found-title'>404 - Produto Não Encontrado</h2>
+                    <p>Não foi possível encontrar a T-shirt com o ID: <strong>{productId}</strong>.</p>
+                    <Link to="/wear" className="back-link">Voltar para a Coleção Wear</Link>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
+    
     // Função para renderizar as estrelas de avaliação
     const renderRating = (rating: number) => {
         const fullStars = Math.floor(rating);
@@ -79,7 +254,7 @@ const WearProductPage: FC = () => {
                     
                     {/* COLUNA ESQUERDA: MINIATURAS */}
                     <div className="product-thumbnails">
-                        {mockProduct.images.map((img, index) => (
+                        {product.images.map((img, index) => (
                             <img
                                 key={index}
                                 src={img}
@@ -92,9 +267,8 @@ const WearProductPage: FC = () => {
 
                     {/* COLUNA CENTRAL: IMAGEM PRINCIPAL */}
                     <div className="product-main-image-wrapper">
-                        <img src={mainImage} alt={mockProduct.name} className="product-main-image" />
+                        {mainImage && <img src={mainImage} alt={`${product.name} ${product.model}`} className="product-main-image" />}
                         
-                        {/* 1. BOTÃO QUE ABRE O MODAL (Sobreposto na imagem principal) */}
                         <button className="size-guide-button" onClick={() => setIsModalOpen(true)}>
                             GUIA DE TAMANHOS
                         </button>
@@ -102,21 +276,27 @@ const WearProductPage: FC = () => {
 
                     {/* COLUNA DIREITA: OPÇÕES DE COMPRA */}
                     <div className="product-options">
-                        <h1 className="product-name">{mockProduct.name}</h1>
-                        {renderRating(mockProduct.rating)}
+                        <h1 className="product-name">{product.name}</h1>
+                        <h2 className="product-model">{product.model}</h2>
+                        {renderRating(product.rating)}
                         
                         {/* Cores */}
                         <div className="color-selector">
-                            <p className="option-label">Escolhe a cor da T-shirt</p>
+                            <p className="option-label">Cor Selecionada: <strong>{product.color}</strong></p>
                             <div className="color-options">
-                                <span className="color-dot white active"></span>
-                                <span className="color-dot black"></span>
-                                <span className="color-dot sand"></span>
-                                <span className="color-dot brown"></span>
+                                <span 
+                                    className="color-dot active" 
+                                    style={{
+                                        backgroundColor: product.color.toLowerCase() === 'preto' ? '#000' : product.color.toLowerCase() === 'branco' ? '#fff' : 'gray', 
+                                        borderColor: product.color.toLowerCase() === 'branco' ? '#000' : 'transparent',
+                                        borderWidth: product.color.toLowerCase() === 'branco' ? '1px' : '0'
+                                    }}
+                                ></span>
+                                {/* Aqui faltam os outros botões de cor (Bege, Castanho) que a imagem mostra - precisará de mais lógica para navegar entre cores */}
                             </div>
                         </div>
 
-                        <p className="product-price">{mockProduct.price.toFixed(2)}€</p>
+                        <p className="product-price">{product.price.toFixed(2)}€</p>
                         
                         <div className="size-selector">
                             <p className="option-label">Escolhe o tamanho</p>
@@ -131,7 +311,6 @@ const WearProductPage: FC = () => {
                                     </button>
                                 ))}
                             </div>
-                            {/* 2. BOTÃO SECUNDÁRIO QUE ABRE O MODAL (abaixo dos tamanhos) */}
                             <button className="small-size-guide-link" onClick={() => setIsModalOpen(true)}>
                                 Guia de tamanhos
                             </button>
@@ -161,10 +340,10 @@ const WearProductPage: FC = () => {
                     <div className="details-text-column">
                         <h2 className="details-title">Detalhes</h2>
                         <div className="details-content">
-                            <p className="description-paragraph">{mockProduct.description}</p>
+                            <p className="description-paragraph">{product.description}</p>
                             
                             <ul className="details-list">
-                                {mockProduct.details.map((detail, index) => (
+                                {product.details.map((detail, index) => (
                                     <li key={index}>{detail}</li>
                                 ))}
                             </ul>
@@ -179,10 +358,10 @@ const WearProductPage: FC = () => {
                             </p>
                         </div>
                         <div className="related-products-grid">
-                            {mockProduct.relatedProducts.map((product) => (
-                                <div key={product.id} className="related-product-card">
-                                    <img src={product.image} alt={product.name} className="related-image" />
-                                </div>
+                            {product.relatedProducts.map((related) => (
+                                <Link to={`/wear/produto/${related.id}`} key={related.id} className="related-product-card">
+                                    <img src={related.image} alt={related.name} className="related-image" />
+                                </Link>
                             ))}
                             <div className="related-product-card placeholder"></div>
                         </div>
@@ -192,7 +371,7 @@ const WearProductPage: FC = () => {
             </main>
             <Footer />
             
-            {/* 3. RENDERIZAÇÃO CONDICIONAL: Mostra o modal se isModalOpen for TRUE */}
+            {/* MODAL (Renderização Condicional) */}
             {isModalOpen && <SizeGuideModal onClose={() => setIsModalOpen(false)} />}
         </div>
     );
