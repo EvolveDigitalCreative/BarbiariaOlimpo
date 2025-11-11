@@ -10,6 +10,8 @@ import SkincareCoinIcon from '/OlimpoBarBer/icons/icone de nevegcao da skincare.
 import BarberCoinIcon from '/OlimpoBarBer/icons/icone de nevegacao do waer - Copia.png';
 import UserIcon from '/OlimpoBarBer/icons/profile_highres.png';
 
+import { useAuth } from '../auth/AuthContext';
+
 // Estilos de base (sem mudança)
 export const linkBaseStyle: React.CSSProperties = {
     display: 'flex',
@@ -71,22 +73,28 @@ export const Logo: FC<LogoProps> = ({ src, text, textStyle }) => (
 /**
  * O menu de navegação "CATÁLOGO, OLIMPO COIN..." da página Wear.
  */
-export const NavMenu: FC = () => (
-    <nav className="nav-menu" style={{ display: 'flex', alignItems: 'center' }}>
-        <Link to="/wear/catalogo" className="nav-link">
-            CATÁLOGO
-        </Link>
-        <Link to="/wear/coin" className="nav-link">
-            OLIMPO COIN
-        </Link>
-        <Link to="/wear/carrinho" className="nav-link">
-            CARRINHO
-        </Link>
-        <Link to="/wear/pesquisa" className="nav-link">
-            PESQUISA
-        </Link>
-    </nav>
-);
+export const NavMenu: FC = () => {
+    const { userRole } = useAuth();
+
+    return (
+        <nav className="nav-menu" style={{ display: 'flex', alignItems: 'center' }}>
+            <Link to="/wear/catalogo" className="nav-link">
+                CATÁLOGO
+            </Link>
+            <Link to="/wear/coin" className="nav-link">
+                OLIMPO COIN
+            </Link>
+            <Link to="/wear/carrinho" className="nav-link">
+                CARRINHO
+            </Link>
+            {userRole === 'admin' && (
+                <Link to="/admin" className="nav-link">
+                    Dashboard
+                </Link>
+            )}
+        </nav>
+    );
+};
 
 // ==========================================================
 // MAPA DE ÍCONES

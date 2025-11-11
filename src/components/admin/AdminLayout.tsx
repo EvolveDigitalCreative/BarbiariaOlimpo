@@ -96,6 +96,15 @@ const AdminLayout: React.FC = () => {
                 <i className="fas fa-box"></i> Encomendas
               </Link>
             </li>
+            <li>
+              <Link 
+                to="/" 
+                className={isActiveLink('/') ? 'active' : ''}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <i className="fas fa-box"></i> inicio
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="sidebar-footer">

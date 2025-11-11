@@ -1,0 +1,79 @@
+/* src/styles/olimpowear/wear_list.css */
+
+:root{
+    --wear-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --wear-text: #111;
+    --icon-bg: #000000;
+    --icon-color: #ffffff;
+    --item-gap: 14px;
+}
+
+.wear-list-section{
+    background: #ffffff; /* fundo branco conforme pedido */
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.wear-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 420px; /* largura agradável para lista */
+}
+
+.wear-list-item{
+    display: flex;
+    align-items: center; /* alinhamento vertical centralizado */
+    gap: var(--item-gap);
+    padding: 12px 8px; /* espaçamento consistente entre itens */
+    color: var(--wear-text);
+    font-family: var(--wear-font);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    /* sem bordas, sem divisórias */
+}
+
+.wear-list-item + .wear-list-item{
+    margin-top: 6px; /* separação sutil entre itens sem bordas */
+}
+
+.wear-icon{
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 50%;
+    background: var(--icon-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-color); /* icone em branco usando currentColor */
+    flex-shrink: 0;
+}
+
+.wear-icon svg{
+    display: block;
+    width: 20px;
+    height: 20px;
+    color: var(--icon-color);
+}
+
+.wear-text{
+    color: var(--wear-text);
+}
+
+/* garantir que elementos sejam focáveis e acessíveis sem mudar o design */
+.wear-list-item:focus-within{
+    outline: none;
+}
+
+/* ajustes responsivos */
+@media (max-width: 480px){
+    .wear-list-section{ padding: 16px; }
+    .wear-list{ max-width: 360px; }
+    .wear-list-item{ padding: 12px 6px; gap: 12px; }
+    .wear-icon{ width: 40px; height: 40px; min-width: 40px; }
+}

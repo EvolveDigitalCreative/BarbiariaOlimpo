@@ -5,7 +5,6 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import SectionDivider from '../components/common/SectionDivider'; 
-// ✅ CONFIRME ESTE CAMINHO: 'olimpo_wear' ou 'olimpowear'
 import SizeGuideModal from '../components/sections/olimpo_wear/SizeGuideModal'; 
 
 // Importar os estilos necessários
@@ -64,37 +63,29 @@ const allProducts: ProductData[] = [
     // GRUPO BASIC
     // =========================================================
     { 
-        name: 'Basic', 
-        model: 'White Black Logo', // SLUG: basic-white-black-logo
-        color: 'Branco', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png', // T-SHIRT-branco e preta.png
+        name: 'Basic', model: 'White Black Logo', color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png', 
         details: ["100% Algodão Premium", "Logótipo Preto"], 
         images: ['/OlimpoWear/shirts/T-SHIRT-branco e preta.png'],
         description: defaultDescription, relatedProducts: basicRelatedProducts
     },
     { 
-        name: 'Basic', 
-        model: 'Black White Logo', // SLUG: basic-black-white-logo
-        color: 'Preto', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png', // T-SHIRT_-basica preta e branca.png
+        name: 'Basic', model: 'Black White Logo', color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png', 
         details: ["100% Algodão Premium", "Logótipo Branco"],
         images: ['/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png'],
         description: defaultDescription, relatedProducts: basicRelatedProducts
     },
     { 
-        name: 'Basic', 
-        model: 'White Gold Logo', // SLUG: basic-white-gold-logo
-        color: 'Branco', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png', // T-SHIRT-branca e dourada costa moeda 3d.png
+        name: 'Basic', model: 'White Gold Logo', color: 'Branco', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png', 
         details: ["100% Algodão Premium", "Moeda 3D Dourada nas Costas"],
         images: ['/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png'],
         description: defaultDescription, relatedProducts: basicRelatedProducts
     },
     { 
-        name: 'Basic', 
-        model: 'Black Gold Logo', // SLUG: basic-black-gold-logo
-        color: 'Preto', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png', // T-SHIRT-basica preta e dourada.png (Assumido)
+        name: 'Basic', model: 'Black Gold Logo', color: 'Preto', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png', 
         details: ["100% Algodão Premium", "Moeda 3D Dourada nas Costas"],
         images: ['/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png'],
         description: defaultDescription, relatedProducts: basicRelatedProducts
@@ -104,55 +95,43 @@ const allProducts: ProductData[] = [
     // GRUPO ALEX (Ajustado para os novos SLUGS esperados)
     // =========================================================
     { 
-        name: 'Alex', 
-        model: 'Gold White', // SLUG: alex-gold-white
-        color: 'Branco', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png', // T-SHIRT-alex- branca e dourada.png
+        name: 'Alex', model: 'Gold White', color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png', 
         details: ["Design Exclusivo 'Alex'", "Dourado", "100% Algodão Premium"],
         images: ['/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
     },
     { 
-        name: 'Alex', 
-        model: 'Gold Black', // SLUG: alex-gold-black
-        color: 'Preto', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png', // T-SHIRT-alex-preta e dourada.png (Assumido)
+        name: 'Alex', model: 'Gold Black', color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png', 
         details: ["Design Exclusivo 'Alex'", "Dourado", "100% Algodão Premium"],
         images: ['/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
     },
     { 
-        name: 'Alex', 
-        model: 'Black', // SLUG: alex-black
-        color: 'Preto', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png', // T-SHIRT-alex-branco e preta.png (Assumido)
+        name: 'Alex', model: 'Black', color: 'Preto', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png', 
         details: ["Design Exclusivo 'Alex'", "Preto"],
         images: ['/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
     },
     { 
-        name: 'Alex', 
-        model: 'White', // SLUG: alex-white
-        color: 'Branco', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png', // T-SHIRT-alex-branca e pretas.png
+        name: 'Alex', model: 'White', color: 'Branco', price: 25.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png', 
         details: ["Design Exclusivo 'Alex'", "Branco"],
         images: ['/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
     },
     { 
-        name: 'Alex', 
-        model: 'Black Gold Coin', // SLUG: alex-black-gold-coin
-        color: 'Preto', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png', // T-SHIRT-alex-costa preta e dourada.png
+        name: 'Alex', model: 'Black Gold Coin', color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png', 
         details: ["Design Exclusivo 'Alex'", "Moeda Dourada nas Costas"],
         images: ['/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
     },
     { 
-        name: 'Alex', 
-        model: 'White Black Coin', // SLUG: alex-white-black-coin
-        color: 'Branco', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png', // T-SHIRT-alex-preta e beanca 3 moedas nas costas.png (Usada como placeholder)
+        name: 'Alex', model: 'White Black Coin', color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png', 
         details: ["Design Exclusivo 'Alex'", "Moedas Pretas nas Costas"],
         images: ['/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
@@ -162,19 +141,15 @@ const allProducts: ProductData[] = [
     // GRUPO MIRROR (Ajustado para os novos SLUGS esperados)
     // =========================================================
     { 
-        name: 'Mirror', 
-        model: 'Black', // SLUG: mirror-black
-        color: 'Preto', price: 28.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-mirror-preta.png', // Placeholder
+        name: 'Mirror', model: 'Black', color: 'Preto', price: 28.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-mirror-preta.png', 
         details: ["Efeito Refletor", "Design Minimalista"],
         images: ['/OlimpoWear/shirts/T-SHIRT-mirror-preta.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
     },
     { 
-        name: 'Mirror', 
-        model: 'White', // SLUG: mirror-white
-        color: 'Branco', price: 28.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-mirror-branca.png', // Placeholder
+        name: 'Mirror', model: 'White', color: 'Branco', price: 28.00, rating: 4, 
+        image: '/OlimpoWear/shirts/T-SHIRT-mirror-branca.png', 
         details: ["Efeito Refletor", "Design Minimalista"],
         images: ['/OlimpoWear/shirts/T-SHIRT-mirror-branca.png'],
         description: defaultDescription, relatedProducts: alexRelatedProducts
@@ -197,6 +172,7 @@ const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
 
 const WearProductPage: FC = () => {
+    // Busca o produto (Não é um estado)
     const { productId } = useParams<{ productId: string }>(); 
     const product = findProductBySlug(productId || '');
     
@@ -206,7 +182,7 @@ const WearProductPage: FC = () => {
     const [mainImage, setMainImage] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
-    // Efeito para carregar a imagem principal
+    // Efeito para carregar a imagem principal (CORREÇÃO TS18047)
     useEffect(() => {
         if (product && product.images && product.images.length > 0) {
             setMainImage(product.images[0]);
@@ -292,7 +268,7 @@ const WearProductPage: FC = () => {
                                         borderWidth: product.color.toLowerCase() === 'branco' ? '1px' : '0'
                                     }}
                                 ></span>
-                                {/* Aqui faltam os outros botões de cor (Bege, Castanho) que a imagem mostra - precisará de mais lógica para navegar entre cores */}
+                                {/* LÓGICA DE CORES MAIS COMPLEXA SERÁ IMPLEMENTADA NO PRÓXIMO PASSO */}
                             </div>
                         </div>
 
