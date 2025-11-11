@@ -177,7 +177,7 @@
 
 /* Efeito de hover para a imagem e overlay */
 .photo-placeholder:hover img {
-    transform: scale(1.2); /* Aumenta a imagem */
+    transform: scale(3); /* Aumenta a imagem */
 }
 
 .photo-placeholder .photo-overlay {

@@ -48,7 +48,7 @@ headerPresets['/barber'] = headerPresets['/'];
 const Header: FC = () => {
   const location = useLocation();
   const preset = headerPresets[location.pathname] || headerPresets['/'];
-  const { currentUser } = useAuth(); // ✅ Obtém o utilizador atual
+  const { currentUser, userRole } = useAuth(); // ✅ Obtém o utilizador atual
 
   // ✅ Modifica a função que gera os links dos ícones
   const getIconLinks = () => {
@@ -93,7 +93,7 @@ const Header: FC = () => {
   const renderLayout = () => {
     switch (preset.layout) {
       case 'centered':
-        return <CenteredLayout preset={preset} renderIcons={renderIcons} />;
+        return <CenteredLayout preset={preset} renderIcons={renderIcons} userRole={userRole} />;
       case 'compact':
         return <CompactLayout preset={preset} renderIcons={renderIcons} />;
       case 'luxury':
