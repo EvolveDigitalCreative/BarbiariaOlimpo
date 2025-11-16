@@ -60,7 +60,7 @@
   /* Este preset mostra os ícones: skincare, barber, user */
   --wear-icon-size-skincare: 55px;
   --wear-icon-size-barber: 55px;
-  --wear-icon-size-user: 40px;
+  --wear-icon-size-user: 22px; /* Reduzido para caber melhor no header */
 
   /*
   ==============================
@@ -207,11 +207,13 @@
   width: var(--icon-size-barber);
   height: var(--icon-size-barber);
 }
+
 .icon-user {
-  /* Esta classe agora usa a variável --icon-size-user */
   width: var(--icon-size-user);
   height: var(--icon-size-user);
+  filter: brightness(0) invert(1); /* Torna a imagem branca */
 }
+
 
 /* --- Texto dos Ícones (Labels) --- */
 .icon-label {

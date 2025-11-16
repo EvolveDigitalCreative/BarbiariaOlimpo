@@ -1,0 +1,143 @@
+/* src/styles/global/_wearheader.css */
+
+/* --- Estilos Gerais do Header --- */
+.main-header {
+    width: 100%;
+    /* Remove a borda padrão do seu componente de catálogo */
+    border-bottom: none; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* --- FAIXA SUPERIOR: Logo OLIMPO WEAR --- */
+.header-top-bar {
+    /* Cor de fundo dourada/bege da imagem */
+    background-color: #c7a46f; 
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.5rem; /* Ajuste o tamanho da fonte se necessário */
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: rgb(14, 13, 13); /* Ou uma cor escura, dependendo do design */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-olimpo {
+    font-weight: normal; /* "OLIMPO" parece ter peso normal */
+    margin-right: 5px;
+}
+
+.logo-wear {
+    /* "WEAR" parece ter mais destaque, mas sem mudar a cor na imagem */
+    font-weight: bold; 
+}
+
+.nav-links-right-center {
+    background-color: #000000;
+    color: #c7a46f;
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: -5px; 
+}
+
+/* --- BARRA PRINCIPAL DE NAVEGAÇÃO --- */
+.header-main-nav {
+    background-color: rgb(10, 9, 9); /* Fundo preto para a navegação principal */
+    display: flex;
+    justify-content: space-between; /* Espaço entre links da esquerda e direita */
+    align-items: center;
+    padding: 15px 30px; /* Preenchimento horizontal */
+    border-bottom: 1px solid #eee; /* Linha sutil de separação, se necessário */
+}
+
+/* Container de links da Esquerda */
+.nav-links-left {
+    display: flex;
+    gap: 25px; /* Espaço entre os links */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: rgb(250, 245, 245);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 5px 0;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre o ícone e o texto (CARRINHO, PESQUISA) */
+}
+
+.nav-link:hover {
+    color: #c7a46f; /* Cor de hover suave, se desejar */
+}
+
+.nav-link.active {
+    font-weight: bold; /* O link "CATÁLOGO" está em negrito na imagem */
+}
+
+/* Container de links da Direita (Acessos e Usuário) */
+.nav-links-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Badges Olimpo Skin e Olimpo Barber */
+.nav-link-badge {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0; /* Fundo cinza claro para o badge */
+    transition: background-color 0.2s;
+}
+
+.nav-link-badge:hover {
+    background-color: #e0e0e0;
+}
+
+.nav-link-badge img {
+    /* Ícone deve ser pequeno e redondo/quadrado */
+    width: 20px; 
+    height: 20px;
+    margin-right: 5px;
+    border-radius: 50%; /* Se você quiser um ícone redondo */
+}
+
+/* Ícone de Perfil */
+.nav-link-profile {
+    text-decoration: none;
+    color: rgb(251, 239, 239);
+    font-size: 1rem; /* Tamanho maior para o ícone de perfil */
+    padding: 0; /* Remover padding para controlar o tamanho apenas com width/height */
+    border: none; /* Remover a borda que aumenta o tamanho */
+    border-radius: 50%; /* Faz o ícone de usuário parecer um círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;  /* Reduzido para um tamanho mais delicado */
+    height: 22px;
+}
+
+.nav-link-profile img {
+    width: 100%; /* Fazer a imagem ocupar todo o contêiner */
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Garante que fica branco */
+}
+
+
+.nav-link-profile svg {
+    width: 18px;
+    height: 18px;
+}

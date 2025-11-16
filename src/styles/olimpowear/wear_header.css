@@ -2,9 +2,8 @@
 
 /* HEADER ESPECÍFICO DO WEAR */
 .main-header.header-wear {
-    /* Fundo Dourado/Bege Claro (Corrigido para ser mais exato com a imagem) */
+    /* Fundo Dourado/Bege Claro (apenas background/paddings). */
     background-color: var(--color-gold-light-cream); /* Use uma cor clara no seu global.css */
-    color: var(--color-background-dark);
     box-shadow: none; /* Sem sombra para um look mais limpo */
     border-bottom: 1px solid var(--color-gold-light);
     padding: 10px 0;
@@ -27,7 +26,6 @@
 .header-wear .logo-text {
     font-family: var(--font-family-serif);
     font-size: 1.2rem; /* Mais pequeno que o default */
-    color: var(--color-background-dark); 
 }
 
 /* O "WEAR" abaixo do logo Olimpo */
@@ -38,7 +36,6 @@
     font-weight: 500;
     text-transform: uppercase;
     margin-top: -5px; 
-    color: var(--color-background-dark);
 }
 
 /* Navegação Principal (Links) */
@@ -52,15 +49,18 @@
 }
 
 .header-wear .nav-link {
-    color: var(--color-background-dark); 
     font-weight: 500;
     font-size: 0.85rem;
     text-transform: uppercase;
     transition: color 0.2s;
 }
 
-.header-wear .nav-link:hover {
-    color: var(--color-gold); 
+/* Links na barra inferior (preta) devem usar a cor definida no preset global */
+.header-wear .header-bar-bottom .nav-link {
+    color: var(--wear-bottom-bar-text);
+}
+.header-wear .header-bar-bottom .nav-link:hover {
+    color: var(--wear-link-hover, var(--wear-subtitle-color));
 }
 
 /* Ícones de utilizador (Moeda/Carrinho/Perfil) */
@@ -70,6 +70,16 @@
 }
 
 .header-wear .header-icon-link {
-    color: var(--color-background-dark);
-    font-size: 1.1rem;
+    width: 24px; /* Ajustar para um tamanho mais adequado */
+    height: 24px;
+    object-fit: contain;
+    /* O filtro de cor é movido para a barra inferior para não afetar o ícone de perfil */
+    filter: none;
+}
+
+/* Ícones na barra inferior devem usar cor do preset */
+.header-wear .header-bar-bottom .header-icon-link,
+.header-wear .header-bar-bottom .header-icon-link .icon-label {
+    color: var(--wear-bottom-bar-text);
+    filter: brightness(0) invert(1); /* Garante que fica branco na barra preta */
 }

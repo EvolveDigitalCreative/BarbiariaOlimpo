@@ -48,7 +48,7 @@ headerPresets['/barber'] = headerPresets['/'];
 const Header: FC = () => {
   const location = useLocation();
   const preset = headerPresets[location.pathname] || headerPresets['/'];
-  const { currentUser } = useAuth(); // ✅ Obtém o utilizador atual
+  const { currentUser, userRole } = useAuth(); // ✅ Obtém o utilizador atual
 
   // ✅ Modifica a função que gera os links dos ícones
   const getIconLinks = () => {
@@ -62,16 +62,16 @@ const Header: FC = () => {
     if (dynamicIcons['user']) { // Verifica se o ícone 'user' existe no mapa base
       dynamicIcons['user'] = currentUser ? (
         // Se logado, link para /profile
-        <Link to="/profile" className="icon-link user-icon" aria-label="Perfil"> {/* Adicione classes CSS se necessário */}
-          {/* Pode manter o ícone original ou trocar por um de perfil */}
-          <img src="/OlimpoBarBer/icons/profile_optimized.png" alt="Perfil" /> {/* ✅ Use a URL direta */}
+        <Link to="/profile" className="icon-link user-icon" aria-label="Perfil">
+          {/* A imagem agora tem as classes corretas para controle de tamanho */}
+          <img src="/OlimpoWear/icons/profile.png" alt="Perfil" className="icon-img icon-user" />
         </Link>
       ) : (
-        // Se não logado, link para /login (ou mantém o link original de iconLinksMap)
-        <Link to="/login" className="icon-link user-icon" aria-label="Login"> {/* Adicione classes CSS se necessário */}
-          <img src="/OlimpoBarBer/icons/profile_optimized.png" alt="Login" /> {/* ✅ Use a URL direta */}
+        // Se não logado, link para /login
+        <Link to="/login" className="icon-link user-icon" aria-label="Login">
+          {/* A imagem agora tem as classes corretas para controle de tamanho */}
+          <img src="/OlimpoWear/icons/profile.png" alt="Login" className="icon-img icon-user" />
         </Link>
-        // Alternativa: return baseIcons['user']; // Se o link original já era para /login
       );
     }
     
@@ -93,7 +93,7 @@ const Header: FC = () => {
   const renderLayout = () => {
     switch (preset.layout) {
       case 'centered':
-        return <CenteredLayout preset={preset} renderIcons={renderIcons} />;
+        return <CenteredLayout preset={preset} renderIcons={renderIcons} userRole={userRole} />;
       case 'compact':
         return <CompactLayout preset={preset} renderIcons={renderIcons} />;
       case 'luxury':

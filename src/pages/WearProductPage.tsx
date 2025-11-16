@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import { useState } from 'react';
-// Certifique-se de que os seus componentes comuns (Header, Footer, Divider)
-// e o modal estão com o caminho de importação correto
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+// Importações de Componentes Comuns
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import SectionDivider from '../components/common/SectionDivider'; 
@@ -12,48 +12,106 @@ import '../styles/global/_global.css';
 import '../styles/global/_header.css';
 import '../styles/global/_footer.css';
 import '../styles/global/SectionDivider.css'; 
-// Estilo principal para a página e o modal
 import '../styles/olimpowear/wear_product_page.css'; 
+import '../styles/olimpowear/size_guide_modal.css'; 
 
-// Dados de Exemplo (Mock) - Ajustado para Detalhes em Lista
-const mockProduct = {
-    id: 'basic-white',
-    name: 'Basic',
-    color: 'Branco',
-    price: 25.00,
-    rating: 3, 
-    details: [ 
-        'Feita em 100% algodão premium de 240g, oferece estrutura firme, toque suave e respirabilidade ideal para máximo conforto.',
-        'Com gola O e corte urbano, adapta-se a qualquer ocasião casual com um estilo moderno e descontraído.',
-        'Estampa de alta definição e bordado preciso garantem personalidade e exclusividade sem perder o conforto.',
-        'Com tecido resistente e respirável, mantém o aspeto original após várias lavagens, oferecendo conforto e durabilidade no dia a dia urbano.',
-        'Cada t-shirt é pensada para durar — do fio à costura — unindo resistência, conforto e estilo autêntico numa só peça.'
-    ],
-    description: `Apresentamos as nossas t-shirts — um símbolo de conforto, autenticidade e estilo urbano. Desenvolvida para quem valoriza qualidade em cada detalhe, esta peça combina design moderno com materiais de alto desempenho, tornando-se indispensável no guarda-roupa do dia a dia.`,
-    images: [
-        '/OlimpoWear/product/basic/img1.jpg',
-        '/OlimpoWear/product/basic/img2.jpg',
-        '/OlimpoWear/product/basic/img3.jpg', 
-        '/OlimpoWear/product/basic/img4.jpg', 
-    ],
-    relatedProducts: [
-        { id: 'alex-black', name: 'Alex', image: '/OlimpoWear/related/alex-black.jpg' },
-        { id: 'alex-white', name: 'Alex', image: '/OlimpoWear/related/alex-white.jpg' },
-    ]
+// ==========================================================
+// 1. DEFINIÇÃO DE TIPOS PARA TS
+// ==========================================================
+interface RelatedProduct {
+    id: string; 
+    name: string;
+    image: string;
+}
+
+interface ProductData {
+    name: string;
+    model: string;
+    color: string;
+    price: number;
+    rating: number; 
+    image: string; 
+    images: string[]; 
+    details: string[]; 
+    description: string; 
+    relatedProducts: RelatedProduct[]; 
+}
+
+// ==========================================================
+// 2. DADOS DE PRODUTOS (EXEMPLO)
+// ==========================================================
+const defaultDescription = `Apresentamos as nossas t-shirts — um símbolo de conforto, autenticidade e estilo urbano. Desenvolvida para quem valoriza qualidade em cada detalhe, esta peça combina design moderno com materiais de alto desempenho, tornando-se indispensável no guarda-roupa do dia a dia.
+Feita em 100% algodão premium de 240g, oferece estrutura firme, toque suave e respirabilidade ideal para máximo conforto.
+Com gola O e corte urbano, adapta-se a qualquer ocasião casual com um estilo moderno e descontraído.
+Estampa de alta definição e bordado preciso garantem personalidade e exclusividade sem perder o conforto.
+Com tecido resistente e respirável, mantém o aspeto original após várias lavagens, oferecendo conforto e durabilidade no dia a dia urbano.
+Cada t-shirt é pensada para durar — do fio à costura — unindo resistência, conforto e estilo autêntico numa só peça.`; 
+
+const basicRelatedProducts: RelatedProduct[] = [
+    { id: 'alex-black-white-coin', name: 'Alex Black Coin', image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png' },
+    { id: 'basic-white-black-logo', name: 'Basic White Logo', image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png' },
+    { id: 'mirror-black', name: 'Mirror Black', image: '/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada-COSTAS.png' },
+];
+
+const allProducts: ProductData[] = [
+    // ... (Seus dados de produto)
+    { 
+        name: 'Basic', model: 'White Black Logo', color: 'Branco', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png', 
+        details: ["100% Algodão Premium", "Logótipo Preto"], 
+        images: ['/OlimpoWear/shirts/T-SHIRT-branco e preta.png'],
+        description: defaultDescription, relatedProducts: basicRelatedProducts
+    },
+    { 
+        name: 'Basic', model: 'Black White Logo', color: 'Preto', price: 25.00, rating: 5, 
+        image: '/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png', 
+        details: ["100% Algodão Premium", "Logótipo Branco"],
+        images: ['/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png'],
+        description: defaultDescription, relatedProducts: basicRelatedProducts
+    },
+];
+
+const findProductBySlug = (slug: string): ProductData | undefined => {
+    return allProducts.find(product => {
+        const productId = `${product.name}-${product.model}`
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]/g, '')
+            .toLowerCase();
+        return productId === slug;
+    });
 };
 
-// Tamanhos disponíveis
 const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
 const WearProductPage: FC = () => {
-    const [selectedSize, setSelectedSize] = useState<string>('M');
-    const [quantity, setQuantity] = useState<number>(2); 
-    const [mainImage, setMainImage] = useState<string>(mockProduct.images[0]);
+    const { productId } = useParams<{ productId: string }>(); 
+    const product = findProductBySlug(productId || 'basic-white-black-logo'); 
     
-    // ✅ ESTADO PRINCIPAL: Controla a abertura/fecho do modal
+    const [selectedSize, setSelectedSize] = useState<string>('M');
+    const [quantity, setQuantity] = useState<number>(1); 
+    const [mainImage, setMainImage] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
-    // Função para renderizar as estrelas de avaliação
+    useEffect(() => {
+        if (product && product.images && product.images.length > 0) {
+            setMainImage(product.images[0]);
+        }
+    }, [product]);
+
+    if (!product) {
+        return (
+            <div className="product-page-container">
+                <Header />
+                <main className="product-main-content not-found-content">
+                    <h2 className='not-found-title'>404 - Produto Não Encontrado</h2>
+                    <p>Não foi possível encontrar a T-shirt com o ID: <strong>{productId}</strong>.</p>
+                    <Link to="/wear" className="back-link">Voltar para a Coleção Wear</Link>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
+    
     const renderRating = (rating: number) => {
         const fullStars = Math.floor(rating);
         const emptyStars = 5 - fullStars;
@@ -73,13 +131,17 @@ const WearProductPage: FC = () => {
         <div className="product-page-container">
             <Header /> 
             
+            {/* PADRÃO GREGO NO TOPO DA PÁGINA */}
+            <div className="meander-top-border"></div>
+
             <main className="product-main-content">
                 
+                {/* 1. SEÇÃO DE IMAGENS E OPÇÕES (TOPO) */}
                 <section className="product-detail-top-section">
                     
                     {/* COLUNA ESQUERDA: MINIATURAS */}
                     <div className="product-thumbnails">
-                        {mockProduct.images.map((img, index) => (
+                        {product.images.map((img, index) => (
                             <img
                                 key={index}
                                 src={img}
@@ -92,9 +154,8 @@ const WearProductPage: FC = () => {
 
                     {/* COLUNA CENTRAL: IMAGEM PRINCIPAL */}
                     <div className="product-main-image-wrapper">
-                        <img src={mainImage} alt={mockProduct.name} className="product-main-image" />
+                        {mainImage && <img src={mainImage} alt={`${product.name} ${product.model}`} className="product-main-image" />}
                         
-                        {/* 1. BOTÃO QUE ABRE O MODAL (Sobreposto na imagem principal) */}
                         <button className="size-guide-button" onClick={() => setIsModalOpen(true)}>
                             GUIA DE TAMANHOS
                         </button>
@@ -102,21 +163,25 @@ const WearProductPage: FC = () => {
 
                     {/* COLUNA DIREITA: OPÇÕES DE COMPRA */}
                     <div className="product-options">
-                        <h1 className="product-name">{mockProduct.name}</h1>
-                        {renderRating(mockProduct.rating)}
+                        <h1 className="product-name">{product.name}</h1>
+                        <h2 className="product-model">{product.model}</h2>
+                        {renderRating(product.rating)}
                         
-                        {/* Cores */}
                         <div className="color-selector">
-                            <p className="option-label">Escolhe a cor da T-shirt</p>
+                            <p className="option-label">Cor Selecionada: <strong>{product.color}</strong></p>
                             <div className="color-options">
-                                <span className="color-dot white active"></span>
-                                <span className="color-dot black"></span>
-                                <span className="color-dot sand"></span>
-                                <span className="color-dot brown"></span>
+                                <span 
+                                    className="color-dot active" 
+                                    style={{
+                                        backgroundColor: product.color.toLowerCase() === 'preto' ? '#000' : product.color.toLowerCase() === 'branco' ? '#fff' : 'gray', 
+                                        borderColor: product.color.toLowerCase() === 'branco' ? '#000' : 'transparent',
+                                        borderWidth: product.color.toLowerCase() === 'branco' ? '1px' : '0'
+                                    }}
+                                ></span>
                             </div>
                         </div>
 
-                        <p className="product-price">{mockProduct.price.toFixed(2)}€</p>
+                        <p className="product-price">{product.price.toFixed(2)}€</p>
                         
                         <div className="size-selector">
                             <p className="option-label">Escolhe o tamanho</p>
@@ -131,7 +196,6 @@ const WearProductPage: FC = () => {
                                     </button>
                                 ))}
                             </div>
-                            {/* 2. BOTÃO SECUNDÁRIO QUE ABRE O MODAL (abaixo dos tamanhos) */}
                             <button className="small-size-guide-link" onClick={() => setIsModalOpen(true)}>
                                 Guia de tamanhos
                             </button>
@@ -153,38 +217,50 @@ const WearProductPage: FC = () => {
                     </div>
                 </section>
 
-                <SectionDivider /> 
+                <SectionDivider /> {/* Divisor Meândrico Dourado */}
 
-                {/* DETALHES E RELACIONADOS */}
+                {/* 2. SEÇÃO INFERIOR: DETALHES (TOPO) -> RELACIONADOS (FUNDO) */}
                 <section className="product-details-bottom-section">
                     
-                    <div className="details-text-column">
-                        <h2 className="details-title">Detalhes</h2>
+                    {/* BLOCO 1: DETALHES (TOPO) - TEXTO SIMPLES E LIMPO */}
+                    <div className="details-text-wrapper-only">
+                        
+                        <h2 className="details-title-simple">Detalhes</h2>
                         <div className="details-content">
-                            <p className="description-paragraph">{mockProduct.description}</p>
+                            <p className="description-paragraph">{product.description}</p>
                             
-                            <ul className="details-list">
-                                {mockProduct.details.map((detail, index) => (
+                            <ul className="details-list-simple">
+                                {product.details.map((detail, index) => (
                                     <li key={index}>{detail}</li>
                                 ))}
                             </ul>
                         </div>
+
                     </div>
                     
-                    <div className="related-articles-column">
-                        <div className="related-text-wrapper">
-                            <h2 className="related-title">Artigos Relacionados</h2>
-                            <p className="related-subtitle">
-                                Alguns outros modelos da coleção <br/> OLIMPO que poderás gostar
-                            </p>
-                        </div>
-                        <div className="related-products-grid">
-                            {mockProduct.relatedProducts.map((product) => (
-                                <div key={product.id} className="related-product-card">
-                                    <img src={product.image} alt={product.name} className="related-image" />
+                    {/* BLOCO 2: ARTIGOS RELACIONADOS (FUNDO) - RETÂNGULO PRETO HORIZONTAL */}
+                    <div className="related-full-width-wrapper">
+                        <div className="related-articles-column">
+                            <div className="related-text-image-container">
+                                {/* Coluna 1/3: Texto de Artigos Relacionados */}
+                                <div className="related-text-column">
+                                    {/* Título com quebra de linha forçada para corresponder ao design */}
+                                    <h2 className="related-title">Artigos <br/> Relacionados</h2>
+                                    {/* O padrão meândrico horizontal é adicionado via CSS ::after */}
+                                    <p className="related-subtitle">
+                                        Alguns outros modelos da coleção <br/> OLIMPO que poderás gostar
+                                    </p>
                                 </div>
-                            ))}
-                            <div className="related-product-card placeholder"></div>
+
+                                {/* Coluna 2/3: Grid de Imagens Relacionadas */}
+                                <div className="related-products-grid">
+                                    {product.relatedProducts.map((related) => (
+                                        <Link to={`/wear/produto/${related.id}`} key={related.id} className="related-product-card">
+                                            <img src={related.image} alt={related.name} className="related-image" />
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -192,7 +268,7 @@ const WearProductPage: FC = () => {
             </main>
             <Footer />
             
-            {/* 3. RENDERIZAÇÃO CONDICIONAL: Mostra o modal se isModalOpen for TRUE */}
+            {/* MODAL */}
             {isModalOpen && <SizeGuideModal onClose={() => setIsModalOpen(false)} />}
         </div>
     );
