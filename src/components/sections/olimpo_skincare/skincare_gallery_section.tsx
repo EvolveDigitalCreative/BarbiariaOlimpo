@@ -1,109 +1,69 @@
-// src/components/sections/olimpo_skincare/GallerySection.tsx
-
-import React from 'react';
+import { type FC, useState } from 'react';
 import '../../../styles/olimposkincare/skincare_gallery_section.css'; 
 
-// ⭐️ PASSO 1: DEFINIR A INTERFACE DAS PROPS DO CARD
-interface GalleryCardProps {
-    className: string;
-    title: string;
-    subtitle: string;
-    imageSrc: string;
-}
+// Importa o Modal e os Dados (agora separados)
+import ServiceDetailsModal from './skincare_service_cards/ServiceDetailsModal.tsx'; 
+import { galleryServices, getImagePath, type GalleryServiceData } from './skincare_service_cards/skincareServicesData.ts';
 
-// ⭐️ PASSO 2: APLICAR A INTERFACE AO COMPONENTE
-// Ao usar "React.FC<GalleryCardProps>", informa o TS sobre os tipos esperados
-const GalleryCard: React.FC<GalleryCardProps> = ({ 
-    className, 
-    title, 
-    subtitle, 
-    imageSrc 
-}) => {
-    // ... (restante do código) ...
-    
-    // O 'href' é '#' como placeholder. O 'onClick' pode ser usado para navegação em React.
-    const handleVerMaisClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault(); // Usar preventDefault é importante para o placeholder '#'
-        console.log(`Clicou em 'Ver mais' para: ${title}`);
-        // Aqui seria a lógica para navegar ou abrir um modal
-    };
-    
-    return (
-        <div className={`gallery-card ${className}`} style={{ backgroundImage: `url(${imageSrc})` }}>
-            <div className="card-content">
-                <span className="card-subtitle">{subtitle}</span>
-                <h4 className="card-title">{title}</h4>
-                <a 
-                    href="#" 
-                    onClick={handleVerMaisClick}
-                    className="ver-mais-button"
-                >
-                    Ver mais
-                </a>
-            </div>
-        </div>
-    );
+
+const SkincareGallerySection: FC = () => {
+    const [selectedService, setSelectedService] = useState<GalleryServiceData | null>(null);
+
+    const handleOpenModal = (service: GalleryServiceData) => {
+        setSelectedService(service);
+        document.body.style.overflow = 'hidden'; // Evita scroll no fundo
+    };
+
+    const handleCloseModal = () => {
+        setSelectedService(null);
+        document.body.style.overflow = ''; // Restaura o scroll
+    };
+
+    return (
+        <section className="skincare-gallery-section">
+            <div className="skincare-gallery-service-grid">
+                
+                {galleryServices.map((service) => (
+                    // O JSX do CARD FOI MANTIDO AQUI para evitar um ficheiro extra
+                    <div 
+                        key={service.id} 
+                        className="skincare-service-card"
+                    >
+                        {/* Imagem de Fundo (z-index: 1) */}
+                        <img 
+                            src={getImagePath(service.id)} 
+                            alt={service.title} 
+                            className="skincare-card-background-image"
+                            loading="lazy"
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = 'https://placehold.co/600x400/807E78/FFFFFF?text=Imagem+não+encontrada'; 
+                            }}
+                        />
+                        
+                        {/* Overlay de Conteúdo (z-index: 2) */}
+                        <div className="skincare-card-content-overlay">
+                            <p className="skincare-card-category">{service.category}</p>
+                            <h3 className="skincare-card-title">{service.title}</h3>
+                            <button 
+                                className="skincare-ver-mais-button"
+                                onClick={() => handleOpenModal(service)}
+                            >
+                                Ver mais
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            
+            {selectedService && (
+                <ServiceDetailsModal 
+                    service={selectedService} 
+                    onClose={handleCloseModal} 
+                />
+            )}
+        </section>
+    );
 };
 
-// Componente principal da Secção de Galeria
-const GallerySection = () => {
-    
-    // URLs das imagens (Ajuste para os seus caminhos reais)
-    const images = {
-        glowSkin: 'caminho/para/glow_skin.jpg', // Canto superior esquerdo
-        elevateSkin: 'caminho/para/elevate_skin.jpg', // Canto superior direito
-        antiacne: 'caminho/para/olimpo_antiacne.jpg', // Centro-esquerda (2 linhas)
-        skinScan: 'caminho/para/skin_scan.jpg', // Centro-direita (2 linhas)
-        olimpoSkin: 'caminho/para/olimpo_skin.jpg', // Fundo completo
-    };
-
-    return (
-        <section className="olimpo-gallery-section">
-            <div className="gallery-grid-container">
-                
-                {/* 1. Glow Skin (Top Left) - Imagem grande horizontal */}
-                <GalleryCard 
-                    className="grid-item-1"
-                    title="Glow Skin"
-                    subtitle="SKIN CARE"
-                    imageSrc={images.glowSkin} 
-                />
-                
-                {/* 2. Elevate Skin (Top Right) - Imagem normal */}
-                <GalleryCard 
-                    className="grid-item-2"
-                    title="Elevate Skin"
-                    subtitle="SKIN CARE"
-                    imageSrc={images.elevateSkin} 
-                />
-                
-                {/* 3. Olimpo Anti-Acne (Mid Left) - Imagem maior vertical */}
-                <GalleryCard 
-                    className="grid-item-3"
-                    title="Olimpo Anti-acne"
-                    subtitle="SKIN CARE"
-                    imageSrc={images.antiacne} 
-                />
-                
-                {/* 4. Skin Scan (Mid Right) - Imagem normal */}
-                <GalleryCard 
-                    className="grid-item-4"
-                    title="Skin Scan"
-                    subtitle="SKIN CARE"
-                    imageSrc={images.skinScan} 
-                />
-                
-                {/* 5. Olimpo Skin (Bottom Full Width) - Imagem muito grande horizontal */}
-                <GalleryCard 
-                    className="grid-item-5"
-                    title="Olimpo Skin"
-                    subtitle="SKIN CARE"
-                    imageSrc={images.olimpoSkin} 
-                />
-                
-            </div>
-        </section>
-    );
-};
-
-export default GallerySection;
+export default SkincareGallerySection;

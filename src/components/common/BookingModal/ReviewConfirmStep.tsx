@@ -168,7 +168,7 @@ export function ReviewConfirmStep({ data, onBack, onConfirm, loading = false, er
                     {/* Campo Nome */}
                     <div>
                         {/* .form-label ~ block text-sm font-bold mb-1 */}
-                        <label className={styles['form-label']} htmlFor="booking-name">Nome</label>
+                        <label className={styles['form-label']} htmlFor="booking-name">Nome*</label>
                         <input
                             id="booking-name"
                             type="text"
@@ -178,14 +178,14 @@ export function ReviewConfirmStep({ data, onBack, onConfirm, loading = false, er
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             // Desabilita se usuário logado tem nome
-                            disabled={!!appUser?.nome} 
+                            disabled={!!appUser?.nome}
                             readOnly={!!appUser?.nome}
                             required
                         />
                     </div>
                     {/* Campo Email */}
                     <div>
-                        <label className={styles['form-label']} htmlFor="booking-email">E‑Mail</label>
+                        <label className={styles['form-label']} htmlFor="booking-email">E‑Mail*</label>
                         <input
                             id="booking-email"
                             type="email"

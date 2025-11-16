@@ -5,10 +5,10 @@ import SkincareBookingModal from '../olimpo_skincare/common/SkincareBookingModal
 // Array de serviços (mantido no ficheiro)
 const services = [
     { name: "Glow Skin", desc: "Limpeza essencial com extração, aplicação de ativos e máscara. Ideal para manter a pele limpa, hidratada e luminosa.", duration: "1 hora" },
-    { name: "Elevate Skin", desc: "Tratamento facial que combina técnicas de limpeza, esfoliação e regeneração celular para purificar a pele, controlar a oleosidade e reduzir imperfeições. Proporciona frescor imediato, textura mais uniforme e um aspeto visivelmente saudável.", duration: "1 hora e 15 minutos" },
+    { name: "Elevate skin", desc: "Tratamento facial que combina técnicas de limpeza, esfoliação e regeneração celular para purificar a pele, controlar a oleosidade e reduzir imperfeições. Proporciona frescor imediato, textura mais uniforme e um aspeto visivelmente saudável.", duration: "1 hora e 15 minutos" },
     { name: "Olimpo Skin", desc: "Protocolo completo com tecnologia Aqua Plus, ativos personalizados e hidratação revitalizante. Limpa em profundidade, trata e renova a pele.", duration: "1 hora e 30 minutos" },
     { name: "Skin Scan", desc: "Diagnóstico facial com tecnologia coreana e inteligência artificial. Análise completa + plano personalizado.", duration: "30 minutos" },
-    { name: "Olimpo AntiAcne", desc: "Tratamento facial criado para prevenir, controlar e reverter a acne, inclusive a acne hormonal. Com ação probiótica, reequilibra a microflora da pele, regula a oleosidade, acalma a inflamação e reduz a vermelhidão causada pela acne.", duration: "2:00 horas"},
+    { name: "Olimpo Antiacne", desc: "Tratamento facial criado para prevenir, controlar e reverter a acne, inclusive a acne hormonal. Com ação probiótica, reequilibra a microflora da pele, regula a oleosidade, acalma a inflamação e reduz a vermelhidão causada pela acne.", duration: "2:00 horas"},
     { name: "Lashes", desc: "Trabalho cada pestana com previsão para criar um efeito leve e natural, que realça o olhar sem perder a sua essência. O objetivo é destacar a sua beleza única, garantindo conforto, durabilidade e um resultado elegante.", duration: "2:30-3:00 horas" },
     { name: "Sobrancelhas", desc: "Com técnica e atenção ao detalhe, desenho sobrancelhas que harmonizam com o seu rosto, valorizando a expressão e mantendo um aspeto natural. Cada linha é pensada para revelar a sua lehor versão.", duration: "5-10 minutos" },
 ];
@@ -26,6 +26,7 @@ const getImagePath = (serviceName: string): string => {
     // 2. Caminho completo (assumindo que "OlimpoSkincare" é uma pasta de topo na pasta 'public')
     // Ajuste este caminho se for diferente!
     return `/OlimpoSkincare/services gerais/${serviceName}.webp`; 
+    
 };
 
 /**

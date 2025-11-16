@@ -33,7 +33,7 @@ const services = [
         name: 'Elevate skin',
         price: '50€',
         duration: '1h e 15m', 
-        imagePath: getImagePath('Elevate Skin'),
+        imagePath: getImagePath('Elevate skin'),
         description: 'Tratamento facial que combina técnicas de limpeza, esfoliação e regeneração celular para purificar a pele, controlar a oleosidade e reduzir imperfeições. Proporciona frescor imediato, textura mais uniforme e um aspeto visivelmente saudável.',
         category: 'skin',
     },
@@ -49,13 +49,11 @@ const services = [
     {
         id: 'olimpacne',
         name: 'Olimpo Antiacne',
-        // PREÇO AJUSTADO PARA 65€, DURAÇÃO CONFIRMADA (Baseado em image_e137f1.jpg)
         price: '65€', 
         duration: '2h',
         imagePath: getImagePath('Olimpo Antiacne'),
         description: 'Tratamento facial criado para prevenir, controlar e reverter a acne. Com ação probiótica, reequilibra a microflora da pele, regula a oleosidade, acalma a inflamação e reduz a vermelhidão causada pela acne.',
         category: 'skin',
-        // Dados para o Pop-up de Preços (image_e137f1.jpg)
         priceOptions: [
             { label: 'Sessão Avulsa (1ª vez)', price: '65€' },
             { label: 'Pacote 3 sessões', price: '165€ (55€ cada sessão)' },
@@ -616,27 +614,55 @@ const Step3Details: FC<{ goToNext: () => void, goToPrev: () => void, bookingData
 };
 
 // ------------------------------------------------------------
-// Componente do Passo 4: Confirmação Final (Inalterado)
+// Componente do Passo 4: Confirmação Final (Atualizado para o estilo da imagem)
 // ------------------------------------------------------------
 const Step4Success: FC<{ close: () => void, bookingData: BookingData }> = ({ close, bookingData }) => {
     const staffName = staff.find(s => s.id === bookingData.selectedStaffId)?.name || 'Profissional';
-    const formattedDate = bookingData.selectedDate ? new Date(bookingData.selectedDate).toLocaleDateString('pt-PT', { day: 'numeric', month: 'long' }) : 'Data';
+    
+    // Formatar a data para o resumo final (Ex: 22 de julho de 2025, 09:00)
+    const formattedDate = bookingData.selectedDate 
+        ? new Date(bookingData.selectedDate).toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' }).replace(/\d{4}/, '').trim() // 22 de julho
+        : 'Data';
+
+    const successImagePath = '/OlimpoBarBer/icons/sucess.png';
+    const staffImage = staff.find(s => s.id === bookingData.selectedStaffId)?.image || '/OlimpoSkincare/staff/default.jpg';
+    
     return (
         <div className="skincare-modal-step step-4-success">
-            <div className="success-icon-wrapper">
-                <FaCheckCircle className="success-icon"/>
-            </div>
-            <h2 className="step-title success-title">MARCAÇÃO EFETUADA!</h2>
-            <p className="success-message">O seu agendamento para <b>{bookingData.service.name}</b> está completo!</p>
-            <p className="success-submessage">Enviámos um email de confirmação com todos os detalhes e o link de cancelamento, caso necessite.</p>
+            {/* O progresso 3/3 é gerido no componente principal */}
+
+            <h2 className="step-title success-title">Marcação registada.</h2>
+            {/* O texto "Obrigado!" deve ter a cor dourada */}
+            <p className="success-thank-you">Obrigado!</p> 
             
-            <div className="success-details">
-                <p>Data: <b>{formattedDate}</b> às <b>{bookingData.selectedTime}</b></p>
-                <p>Profissional: <b>{staffName}</b></p>
+            <div className="success-icon-wrapper">
+                {/* Usar a imagem de sucesso OU o FaCheckCircle (para garantir que é dourado, vou manter o FaCheckCircle no código e tratar a imagem no CSS se necessário) */}
+                {/* Vamos usar a imagem para ser mais fiel ao seu pedido de ficheiro, mas vou estilizar o texto "Obrigado" com a cor dourada */}
+                 <img 
+                    src={successImagePath} 
+                    alt="Marcação Concluída" 
+                    className="success-image-final"
+                    onError={(e) => { 
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                    }}
+                />
+            </div>
+
+            {/* NOVO CARTÃO DE RESUMO FINAL */}
+            <div className="booking-summary-card-final">
+                <p className="service-name-resumo">{bookingData.service.name}</p>
+                <div className="staff-info-resumo-final">
+                    <p className="staff-name-resumo-final">{staffName}</p>
+                    <p className="date-time-resumo-final">{formattedDate}, {bookingData.selectedTime}</p>
+                </div>
+                <div className="staff-icon-resumo-final">
+                    <img src={staffImage} alt="Staff" />
+                </div>
             </div>
             
             <button onClick={close} className="skincare-modal-close-final-button">
-                FECHAR
+                Sair 
             </button>
         </div>
     );

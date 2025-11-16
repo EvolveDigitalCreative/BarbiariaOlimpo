@@ -4,7 +4,7 @@ import '../../../styles/olimposkincare/skincare_what_we_do.css';
 
 // 1. Definição da interface (para a tipagem correta)
 interface ServiceData {
-    name: 'Glow Skin' | 'Elevate Skin' | 'Olimpo Skin';
+    name: 'Glow Skin' | 'Elevate skin' | 'Olimpo Skin';
     desc: string;
     icon: string; // Caminho para o ícone (se aplicável, caso contrário, removemos)
 }
@@ -17,7 +17,7 @@ const services: ServiceData[] = [
         icon: 'OlimpoSkincare/icons/Glow Skin.png', // Substituir ou remover
     },
     {
-        name: 'Elevate Skin',
+        name: 'Elevate skin',
         desc: 'Limpeza facial com Dermapen + tecnologias de rejuvenescimento, renova, trata e rejuvenesce a pele, melhorando textura, firmeza e manchas.',
         icon: 'OlimpoSkincare/icons/Elevate Skin.png', // Substituir ou remover
     },

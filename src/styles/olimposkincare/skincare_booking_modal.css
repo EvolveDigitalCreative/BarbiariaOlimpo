@@ -667,7 +667,17 @@
 
 .step-4-success {
     text-align: center;
-    padding: 40px 0;
+    padding: 20px 0;
+}
+.step-4-success .success-image-final {
+    width: 60px; /* Tamanho da imagem */
+    height: auto;
+    /* Filtrar para DOURADO (Se a imagem for preta/cinza, o filtro pode não funcionar perfeitamente, 
+       mas é a única forma de mudar a cor de uma imagem PNG/JPEG sem usar um SVG) */
+    /* Para esta cor específica, pode ser necessário um SVG, 
+       mas tentaremos simular a cor com filtro se a imagem for preta/branca */
+    filter: sepia(1) saturate(5) hue-rotate(-20deg) brightness(0.9) contrast(1.5);
+    margin: 20px 0;
 }
 
 .success-icon-wrapper {

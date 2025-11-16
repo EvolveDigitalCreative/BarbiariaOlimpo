@@ -1,159 +1,599 @@
-/* src/styles/olimposkincare/gallery_section.css */
-
-/* ==========================================================
-// ESTILOS GERAIS DA SECÇÃO
-// ========================================================== */
-
-.olimpo-gallery-section {
-    padding: 60px 0;
+/* VÁRIÁVEIS CSS (Defina estas no topo da sua folha de estilos principal) */
+:root {
+  --color-skincare-gold: #c39a6b;
+  --color-skincare-background-dark: #333;
+  --color-skincare-text-light: #f9f7f5;
 }
 
-/* ==========================================================
-// GRElHA IRREGULAR (GRID)
-// ========================================================== */
+/* ------------------------------------------------------------
+// 1. ESTILOS DA SECÇÃO DE GALERIA DE SERVIÇOS (MOSAICO - LAYOUT 3 COLUNAS)
+// ------------------------------------------------------------ */
 
-.gallery-grid-container {
-    max-width: 1400px; /* Expande um pouco mais que os 1200px dos cards */
-    margin: 0 auto;
-    padding: 0 40px; 
-    
+.skincare-gallery-section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: -100px auto 150px auto;
+    font-family: 'Inter', sans-serif; 
+}
+
+.skincare-gallery-service-grid {
     display: grid;
-    /* Define 4 colunas de largura igual e espaçamento de 20px */
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 20px; /* Espaçamento entre as células */
+    gap: 15px;
+    /* Usa 3 colunas */
+    grid-template-columns: repeat(3, 1fr); 
+    /* Usamos mais linhas para suportar o novo layout */
+    grid-template-rows: repeat(auto-fill, minmax(0, 1fr)); 
+    height: auto; 
 }
 
-.gallery-card {
-    /* Estilos comuns a todos os cartões */
-    position: relative;
-    overflow: hidden;
-    min-height: 250px; /* Altura mínima de base */
-    background-size: cover;
-    background-position: center;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Alinha o conteúdo à base */
-    transition: transform 0.3s ease;
-}
+/* --- Posicionamento Corrigido do Mosaico (3 Colunas) --- */
 
-.gallery-card:hover {
-    transform: scale(1.02);
-}
-
-
-/* --- DEFINIÇÃO DO LAYOUT DA GRElHA --- */
-
-/* 1. Glow Skin (2 colunas x 1 linha) */
-.grid-item-1 {
-    grid-column: span 2; 
-}
-
-/* 2. Elevate Skin (1 coluna x 1 linha) - Fica na 3ª coluna */
-.grid-item-2 {
-    grid-column: span 1;
-}
-
-/* Os itens 3 e 4 estão na segunda linha (2 colunas) */
-
-/* 3. Olimpo Anti-acne (1 coluna x 2 linhas) */
-.grid-item-3 {
-    grid-column: span 1; /* Fica na 1ª coluna */
-    grid-row: span 2; /* Ocupa 2 linhas verticais (linha 2 e 3) */
-}
-
-/* 4. Skin Scan (2 colunas x 1 linha) - Fica na 2ª e 3ª coluna */
-.grid-item-4 {
+/* Serviço 1: Glow Skin (2 Colunas, 1 Linha - Topo Esquerda) */
+.skincare-service-card:nth-child(1) { 
     grid-column: span 2;
+    grid-row: span 1; 
+    grid-row-start: 1;
 }
 
-/* 5. Olimpo Skin (4 colunas x 1 linha) - Fica na última linha */
-.grid-item-5 {
-    grid-column: span 4;
+/* Serviço 2: Elevate Skin (1 Coluna, 1 Linha - Topo Direita) */
+.skincare-service-card:nth-child(2) { 
+    grid-column: span 1;
+    grid-row: span 1; 
+    grid-column-start: 3;
+    grid-row-start: 1;
 }
 
-/* --- ESTILOS DO CONTEÚDO SOBREPOSTO --- */
+/* Serviço 3: Olimpo Antiacne (1 Coluna, 1 Linha - Meio Direita) */
+.skincare-service-card:nth-child(3) { 
+    grid-column: span 2;
+    grid-row: span 1; 
+    grid-row-start: 2;
+}
 
-.card-content {
-    background: rgba(0, 0, 0, 0.4); /* Fundo preto semi-transparente para legibilidade */
-    color: white;
-    padding: 20px;
+/* Serviço 4: Skin Scan (2 COLUNAS, 1 Linha - Meio Esquerda/Centro) */
+.skincare-service-card:nth-child(4) { 
+    grid-column: span 2; /* AJUSTE SOLICITADO: Ocupa 2 colunas */
+    grid-row: span 1;
+    grid-column-start: 1; /* Começa na 1ª coluna */
+    grid-row-start: 2; /* Começa na 2ª linha */
+}
+
+/* Serviço 5: Olimpo Skin (3 Colunas, 1 Linha - Fundo Completo) */
+.skincare-service-card:nth-child(5) { 
+    grid-column: span 3; /* Ocupa todas as 3 colunas */
+    grid-row: span 1; 
+    grid-row-start: 3; /* MOVIDO para a 3ª linha */
+}
+
+
+/* --- Estilo Base dos Cartões e Overlay --- */
+
+.skincare-service-card {
+    position: relative; 
+    overflow: hidden;
+    border-radius: 8px; 
+    cursor: pointer;
+    background-color: #f0f0f0; 
+    min-height: 250px; 
+}
+
+.skincare-card-background-image {
     width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
     
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: 1; 
+}
+
+.skincare-service-card:hover .skincare-card-background-image {
+    transform: scale(1.05);
+}
+
+.skincare-card-content-overlay {
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+    padding: 15px 25px; 
+    color: var(--color-skincare-text-light); 
+    width: 100%;
+    min-height: 80px; 
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2)); 
+    z-index: 2; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-end; 
+    align-items: flex-start; 
+}
+
+.skincare-card-category {
+    font-size: 0.8rem; 
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px; 
+    opacity: 0.8;
+    text-align: left; /* Garante alinhamento esquerdo */
+}
+
+.skincare-card-title {
+    font-size: 1.7rem; 
+    font-weight: 700;
+    margin: 0 0 10px 0; 
+    line-height: 1.1;
+    color: white !important;
+    text-align: left; /* Garante alinhamento esquerdo */
+}
+
+.skincare-ver-mais-button {
+    background-color: var(--color-skincare-gold); 
+    color: white; 
+    border: none;
+    padding: 8px 20px; 
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    text-transform: uppercase;
+    align-self: flex-start; /* Mantido para ser explícito */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.skincare-ver-mais-button:hover {
+    background-color: #a88359; 
+    transform: translateY(-1px);
+}
+
+
+/* ------------------------------------------------------------
+// 2. ESTILOS DO MODAL DE DETALHES DO SERVIÇO (Classes já tinham o prefixo skincare- ou foram adicionadas)
+// ------------------------------------------------------------ */
+
+.skincare-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.skincare-service-details-modal {
+  background-color: var(--color-skincare-text-light);
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--color-skincare-background-dark);
+}
+
+.skincare-modal-close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2rem; 
+  cursor: pointer;
+  color: var(--color-skincare-gold);
+  line-height: 1;
+}
+
+.skincare-modal-category {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.skincare-modal-title {
+  font-size: 2.2rem;
+  color: var(--color-skincare-gold);
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.skincare-modal-description {
+  line-height: 1.7;
+  margin-bottom: 25px;
+  color: #444;
+}
+
+.skincare-modal-info-block {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  border-left: 4px solid var(--color-skincare-gold);
+}
+
+.skincare-modal-info-block p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+
+}
+
+.skincare-modal-close-button-bottom {
+  background-color: var(--color-skincare-background-dark);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.skincare-modal-close-button-bottom:hover {
+  background-color: var(--color-skincare-gold);
+}
+
+
+/* ------------------------------------------------------------
+// 3. RESPONSIVIDADE 
+// ------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  /* Em tablets, usamos 2 colunas */
+  .skincare-gallery-service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    height: auto;
+  }
+  /* Redefinir todos os cartões para 1x1 em ecrãs menores que 900px */
+  .skincare-service-card:nth-child(n) { 
+    grid-column: span 1; 
+    grid-row: auto; 
+  }
+
+  /* Fazer o último cartão ocupar 2 colunas no layout de 2 colunas */
+  .skincare-service-card:nth-child(5) { 
+    grid-column: span 2;
+    grid-row: auto; 
+  }
+
+  .skincare-card-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  /* Em ecrãs móveis, volta a ser uma coluna única */
+  .skincare-gallery-service-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  /* Todos os cartões ocupam 1 coluna */
+  .skincare-service-card:nth-child(n) { 
+    grid-column: 1 / -1; 
+    grid-row: auto; 
+    min-height: 250px;
+  }
+  .skincare-service-card:nth-child(5) { 
+    grid-column: 1 / -1; 
+    grid-row: auto; 
+  }
+  .skincare-card-content-overlay {
+    min-height: 100px;
+    padding: 15px 20px;
+  }
+  .skincare-modal-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* ======================================================= */
+/* ESTILOS DO MODAL DE DETALHES (POP-UP) */
+/* ======================================================= */
+
+/* 1. Overlay (Fundo Escuro) */
+.skincare-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fica por cima de tudo */
+    overflow-y: auto; /* Permite scroll se o conteúdo for grande */
+    padding: 20px;
+}
+
+/* 2. Modal Principal */
+.skincare-service-details-modal {
+    background-color: #fff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px; /* Largura máxima, semelhante a um grande ecrã */
+    max-height: 90vh;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Scroll apenas no conteúdo do modal */
+    position: relative;
+    /* Animação simples de entrada (opcional) */
+    animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* 3. Cabeçalho */
+.skincare-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.skincare-modal-title-price {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.skincare-modal-service-title {
+    font-size: 2.2rem;
+    color: #4A4A4A;
+    margin: 0;
+    font-weight: 700;
+}
+
+.skincare-modal-price {
+    font-size: 1.5rem;
+    color: #8C8C8C; /* Cor mais clara para o preço */
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.skincare-modal-close-button,
+.skincare-modal-back-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #333;
+    padding: 0 10px;
+    transition: color 0.2s;
+}
+
+.skincare-modal-close-button:hover,
+.skincare-modal-back-button:hover {
+    color: #ff6f61; /* Cor de destaque */
+}
+
+/* 4. Corpos e Subtítulos */
+.skincare-modal-body {
+    padding-top: 10px;
+}
+
+.skincare-modal-subtitle {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.skincare-modal-steps-count {
+    color: #ff6f61; /* Cor de destaque */
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+/* ======================================================= */
+/* LINHA DO TEMPO (TIMELINE) DOS PASSOS */
+/* ======================================================= */
+
+.skincare-modal-timeline {
+    display: flex;
+    flex-wrap: nowrap; /* Não quebra a linha */
+    overflow-x: auto; /* Permite scroll horizontal se for estreito */
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.skincare-step-item {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 150px; /* Largura fixa para cada passo */
+    min-width: 150px; 
+    padding: 0 10px;
 }
 
-.card-subtitle {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+/* Linha que Conecta os Passos */
+.skincare-step-connector {
+    height: 2px;
+    background-color: #e0e0e0;
+    position: absolute;
+    top: 50px; /* Alinhar com o centro do ícone */
+    left: 50%;
+    /* Ocupa todo o espaço à direita do seu item */
+    width: 100%; 
+    z-index: 1;
+}
+
+/* Wrapper do Ícone/Imagem */
+.skincare-step-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 2; /* Fica por cima da linha */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #fff; /* Borda branca para destacar do fundo */
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skincare-step-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.skincare-step-image:hover {
+    transform: scale(1.05);
+}
+
+.skincare-step-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FFF; /* Cor do texto do número (se houver overlay no CSS) */
+    z-index: 3;
+    /* Se quiser que o número seja um overlay, use um ::after no wrapper com background */
+    display: none; /* Por agora, oculto, se usar a imagem como icon */
+}
+
+.skincare-step-description {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+    max-width: 120px; /* Garante que a descrição não é muito larga */
+}
+
+/* ======================================================= */
+/* BLOCO DE DETALHES (GRID) */
+/* ======================================================= */
+
+.skincare-modal-details-block {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.skincare-details-grid {
+    display: grid;
+    /* 2 colunas no desktop */
+    grid-template-columns: 1fr 1fr; 
+    gap: 25px 40px;
+}
+
+/* Para o bloco de Duração/Preço ocupar 2 colunas */
+.skincare-details-column.span-two {
+    grid-column: span 2;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.skincare-details-title {
+    font-size: 1.1rem;
+    color: #4A4A4A;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.skincare-details-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.skincare-details-list li {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
     margin-bottom: 5px;
-    color: var(--color-skincare-accent, #ccb47c); /* Usa a cor dourada */
 }
 
-.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+/* Botão de Fechar no Fundo */
+.skincare-modal-close-button-bottom {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6f61; /* Cor de destaque */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.2s;
 }
 
-/* Botão "Ver mais" */
-.ver-mais-button {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    border: 1px solid var(--color-skincare-accent, #ccb47c);
-    padding: 8px 15px;
-    border-radius: 2px;
-    transition: background-color 0.3s;
-    
-    /* ⭐️ NÃO TEM ROTA (href="#") */
-    cursor: pointer; 
+.skincare-modal-close-button-bottom:hover {
+    background-color: #e65c50;
 }
 
-.ver-mais-button:hover {
-    background-color: var(--color-skincare-accent, #ccb47c);
-    color: black;
-}
 
-/* ==========================================================
-// RESPONSIVIDADE (Ajuste para Mobile/Tablet)
-// ========================================================== */
+/* ======================================================= */
+/* MEDIA QUERY (para telemóveis) */
+/* ======================================================= */
 
-@media (max-width: 1024px) {
-    .gallery-grid-container {
-        /* Reduz para 2 colunas */
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 768px) {
+    .skincare-service-details-modal {
+        padding: 20px;
+        width: 100%;
+        max-height: 95vh;
+    }
+
+    .skincare-modal-header {
+        padding-bottom: 10px;
     }
     
-    /* Reseta o layout de desktop. Todos ocupam 2 colunas, exceto o 3 que ocupa 2 linhas */
-    .grid-item-1,
-    .grid-item-2,
-    .grid-item-4,
-    .grid-item-5 {
-        grid-column: span 2; /* Ocupam a largura total de 2 colunas */
-        grid-row: span 1; /* Ocupam 1 linha */
+    .skincare-modal-service-title {
+        font-size: 1.8rem;
+    }
+
+    .skincare-modal-price {
+        font-size: 1.3rem;
+    }
+
+    /* O grid de detalhes quebra para uma coluna */
+    .skincare-details-grid {
+        grid-template-columns: 1fr; 
+        gap: 20px;
     }
     
-    /* Item 3 (Olimpo Anti-acne) fica na primeira coluna, ocupando 2 linhas */
-    .grid-item-3 {
-        grid-column: span 1; 
-        grid-row: span 2; 
+    .skincare-details-column.span-two {
+        grid-column: span 1;
     }
-}
-
-@media (max-width: 600px) {
-    .gallery-grid-container {
-        /* No mobile, uma coluna apenas */
-        grid-template-columns: 1fr;
-        padding: 0 20px;
+    
+    /* A linha do tempo mantém-se horizontal, mas é mais fácil de deslizar */
+    .skincare-modal-timeline {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: -20px; /* Compensa o padding do modal */
+        margin-right: -20px;
     }
 
-    .gallery-card {
-        /* Todos ocupam a largura total */
-        grid-column: span 1 !important; 
-        grid-row: span 1 !important;
-        min-height: 200px;
+    .skincare-step-item {
+        width: 120px;
+        min-width: 120px; 
     }
 }

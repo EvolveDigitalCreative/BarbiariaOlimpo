@@ -5,8 +5,8 @@ import '../../../styles/olimposkincare/skincare_about_us.css';
 // ⭐️ 2. IMPORTAÇÃO: Importar o Modal (Ajuste o caminho se necessário)
 import SkincareBookingModal from './common/SkincareBookingModal'; 
 
-const BARBER_COIN_ICON = "/OlimpoSkincare/icons/whitecoin_optimized.png"; 
-const PILAR_ICON_PATH = "/OlimpoSkincare/decoracao/pilar.png"; 
+const BARBER_COIN_ICON = "OlimpoBarBer/icons/OlimpoBarber_optimized.png"; 
+const PILAR_ICON_PATH = "OlimpoSkincare/decoracao/pilar.png"; 
 
 const SkincareAboutUs: FC = () => {
     

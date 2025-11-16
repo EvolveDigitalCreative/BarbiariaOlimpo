@@ -44,7 +44,7 @@ const OlimpoSkincare: FC = () => {
         <SkincareAboutUs />      {/* Fica a Conhecer-nos */}
         <SectionDivider />
         <SkincareServices />     {/* Os Nossos Serviços */}
-        {/*<SkincareGallery /> */}     {/* Galeria de Serviços */}
+        <SkincareGallery />     {/* Galeria de Serviços */}
         <SkincareWhatWeDo />     {/* O Que Fazemos */}
         <SectionDivider />
         <SkincareMission />      {/* A Nossa Missão */}
