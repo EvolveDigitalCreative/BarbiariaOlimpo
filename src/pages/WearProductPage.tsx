@@ -19,7 +19,7 @@ import '../styles/olimpowear/size_guide_modal.css';
 // 1. DEFINIÇÃO DE TIPOS PARA TS
 // ==========================================================
 interface RelatedProduct {
-    id: string; // O slug (Ex: 'basic-white-black-logo')
+    id: string; 
     name: string;
     image: string;
 }
@@ -38,7 +38,7 @@ interface ProductData {
 }
 
 // ==========================================================
-// 2. DADOS DE PRODUTOS (UNIDOS E COMPLETOS E CORRIGIDOS PARA SLUGS)
+// 2. DADOS DE PRODUTOS (EXEMPLO)
 // ==========================================================
 const defaultDescription = `Apresentamos as nossas t-shirts — um símbolo de conforto, autenticidade e estilo urbano. Desenvolvida para quem valoriza qualidade em cada detalhe, esta peça combina design moderno com materiais de alto desempenho, tornando-se indispensável no guarda-roupa do dia a dia.
 Feita em 100% algodão premium de 240g, oferece estrutura firme, toque suave e respirabilidade ideal para máximo conforto.
@@ -47,21 +47,14 @@ Estampa de alta definição e bordado preciso garantem personalidade e exclusivi
 Com tecido resistente e respirável, mantém o aspeto original após várias lavagens, oferecendo conforto e durabilidade no dia a dia urbano.
 Cada t-shirt é pensada para durar — do fio à costura — unindo resistência, conforto e estilo autêntico numa só peça.`; 
 
-// Produtos relacionados padrão (para usar como referências)
 const basicRelatedProducts: RelatedProduct[] = [
     { id: 'alex-black-white-coin', name: 'Alex Black Coin', image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png' },
     { id: 'basic-white-black-logo', name: 'Basic White Logo', image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png' },
-];
-
-const alexRelatedProducts: RelatedProduct[] = [
-    { id: 'basic-white-black-logo', name: 'Basic White Logo', image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png' },
-    { id: 'mirror-black', name: 'Mirror Black', image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png' },
+    { id: 'mirror-black', name: 'Mirror Black', image: '/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada-COSTAS.png' },
 ];
 
 const allProducts: ProductData[] = [
-    // =========================================================
-    // GRUPO BASIC
-    // =========================================================
+    // ... (Seus dados de produto)
     { 
         name: 'Basic', model: 'White Black Logo', color: 'Branco', price: 25.00, rating: 5, 
         image: '/OlimpoWear/shirts/T-SHIRT-branco e preta.png', 
@@ -76,87 +69,8 @@ const allProducts: ProductData[] = [
         images: ['/OlimpoWear/shirts/T-SHIRT_-basica preta e branca.png'],
         description: defaultDescription, relatedProducts: basicRelatedProducts
     },
-    { 
-        name: 'Basic', model: 'White Gold Logo', color: 'Branco', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png', 
-        details: ["100% Algodão Premium", "Moeda 3D Dourada nas Costas"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-branca e dourada costa moeda 3d.png'],
-        description: defaultDescription, relatedProducts: basicRelatedProducts
-    },
-    { 
-        name: 'Basic', model: 'Black Gold Logo', color: 'Preto', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png', 
-        details: ["100% Algodão Premium", "Moeda 3D Dourada nas Costas"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-basica preta e dourada.png'],
-        description: defaultDescription, relatedProducts: basicRelatedProducts
-    },
-
-    // =========================================================
-    // GRUPO ALEX (Ajustado para os novos SLUGS esperados)
-    // =========================================================
-    { 
-        name: 'Alex', model: 'Gold White', color: 'Branco', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png', 
-        details: ["Design Exclusivo 'Alex'", "Dourado", "100% Algodão Premium"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-alex-branca e dourada.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-    { 
-        name: 'Alex', model: 'Gold Black', color: 'Preto', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png', 
-        details: ["Design Exclusivo 'Alex'", "Dourado", "100% Algodão Premium"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-alex-preta e dourada.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-    { 
-        name: 'Alex', model: 'Black', color: 'Preto', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png', 
-        details: ["Design Exclusivo 'Alex'", "Preto"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-alex-branco e preta.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-    { 
-        name: 'Alex', model: 'White', color: 'Branco', price: 25.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png', 
-        details: ["Design Exclusivo 'Alex'", "Branco"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-alex-branca e pretas.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-    { 
-        name: 'Alex', model: 'Black Gold Coin', color: 'Preto', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png', 
-        details: ["Design Exclusivo 'Alex'", "Moeda Dourada nas Costas"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-alex-costa preta e dourada.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-    { 
-        name: 'Alex', model: 'White Black Coin', color: 'Branco', price: 25.00, rating: 5, 
-        image: '/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png', 
-        details: ["Design Exclusivo 'Alex'", "Moedas Pretas nas Costas"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-alex-preta e beanca 3 moedas nas costas.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-
-    // =========================================================
-    // GRUPO MIRROR (Ajustado para os novos SLUGS esperados)
-    // =========================================================
-    { 
-        name: 'Mirror', model: 'Black', color: 'Preto', price: 28.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-mirror-preta.png', 
-        details: ["Efeito Refletor", "Design Minimalista"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-mirror-preta.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
-    { 
-        name: 'Mirror', model: 'White', color: 'Branco', price: 28.00, rating: 4, 
-        image: '/OlimpoWear/shirts/T-SHIRT-mirror-branca.png', 
-        details: ["Efeito Refletor", "Design Minimalista"],
-        images: ['/OlimpoWear/shirts/T-SHIRT-mirror-branca.png'],
-        description: defaultDescription, relatedProducts: alexRelatedProducts
-    },
 ];
 
-// Função que encontra um produto pelo SLUG do URL (Ex: "basic-white-black-logo")
 const findProductBySlug = (slug: string): ProductData | undefined => {
     return allProducts.find(product => {
         const productId = `${product.name}-${product.model}`
@@ -167,29 +81,23 @@ const findProductBySlug = (slug: string): ProductData | undefined => {
     });
 };
 
-// Tamanhos disponíveis
 const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
-
 const WearProductPage: FC = () => {
-    // Busca o produto (Não é um estado)
     const { productId } = useParams<{ productId: string }>(); 
-    const product = findProductBySlug(productId || '');
+    const product = findProductBySlug(productId || 'basic-white-black-logo'); 
     
-    // Estados
     const [selectedSize, setSelectedSize] = useState<string>('M');
     const [quantity, setQuantity] = useState<number>(1); 
     const [mainImage, setMainImage] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
-    // Efeito para carregar a imagem principal (CORREÇÃO TS18047)
     useEffect(() => {
         if (product && product.images && product.images.length > 0) {
             setMainImage(product.images[0]);
         }
     }, [product]);
 
-    // Tratamento de Produto Não Encontrado (404)
     if (!product) {
         return (
             <div className="product-page-container">
@@ -204,7 +112,6 @@ const WearProductPage: FC = () => {
         );
     }
     
-    // Função para renderizar as estrelas de avaliação
     const renderRating = (rating: number) => {
         const fullStars = Math.floor(rating);
         const emptyStars = 5 - fullStars;
@@ -224,8 +131,12 @@ const WearProductPage: FC = () => {
         <div className="product-page-container">
             <Header /> 
             
+            {/* PADRÃO GREGO NO TOPO DA PÁGINA */}
+            <div className="meander-top-border"></div>
+
             <main className="product-main-content">
                 
+                {/* 1. SEÇÃO DE IMAGENS E OPÇÕES (TOPO) */}
                 <section className="product-detail-top-section">
                     
                     {/* COLUNA ESQUERDA: MINIATURAS */}
@@ -256,7 +167,6 @@ const WearProductPage: FC = () => {
                         <h2 className="product-model">{product.model}</h2>
                         {renderRating(product.rating)}
                         
-                        {/* Cores */}
                         <div className="color-selector">
                             <p className="option-label">Cor Selecionada: <strong>{product.color}</strong></p>
                             <div className="color-options">
@@ -268,7 +178,6 @@ const WearProductPage: FC = () => {
                                         borderWidth: product.color.toLowerCase() === 'branco' ? '1px' : '0'
                                     }}
                                 ></span>
-                                {/* LÓGICA DE CORES MAIS COMPLEXA SERÁ IMPLEMENTADA NO PRÓXIMO PASSO */}
                             </div>
                         </div>
 
@@ -308,38 +217,50 @@ const WearProductPage: FC = () => {
                     </div>
                 </section>
 
-                <SectionDivider /> 
+                <SectionDivider /> {/* Divisor Meândrico Dourado */}
 
-                {/* DETALHES E RELACIONADOS */}
+                {/* 2. SEÇÃO INFERIOR: DETALHES (TOPO) -> RELACIONADOS (FUNDO) */}
                 <section className="product-details-bottom-section">
                     
-                    <div className="details-text-column">
-                        <h2 className="details-title">Detalhes</h2>
+                    {/* BLOCO 1: DETALHES (TOPO) - TEXTO SIMPLES E LIMPO */}
+                    <div className="details-text-wrapper-only">
+                        
+                        <h2 className="details-title-simple">Detalhes</h2>
                         <div className="details-content">
                             <p className="description-paragraph">{product.description}</p>
                             
-                            <ul className="details-list">
+                            <ul className="details-list-simple">
                                 {product.details.map((detail, index) => (
                                     <li key={index}>{detail}</li>
                                 ))}
                             </ul>
                         </div>
+
                     </div>
                     
-                    <div className="related-articles-column">
-                        <div className="related-text-wrapper">
-                            <h2 className="related-title">Artigos Relacionados</h2>
-                            <p className="related-subtitle">
-                                Alguns outros modelos da coleção <br/> OLIMPO que poderás gostar
-                            </p>
-                        </div>
-                        <div className="related-products-grid">
-                            {product.relatedProducts.map((related) => (
-                                <Link to={`/wear/produto/${related.id}`} key={related.id} className="related-product-card">
-                                    <img src={related.image} alt={related.name} className="related-image" />
-                                </Link>
-                            ))}
-                            <div className="related-product-card placeholder"></div>
+                    {/* BLOCO 2: ARTIGOS RELACIONADOS (FUNDO) - RETÂNGULO PRETO HORIZONTAL */}
+                    <div className="related-full-width-wrapper">
+                        <div className="related-articles-column">
+                            <div className="related-text-image-container">
+                                {/* Coluna 1/3: Texto de Artigos Relacionados */}
+                                <div className="related-text-column">
+                                    {/* Título com quebra de linha forçada para corresponder ao design */}
+                                    <h2 className="related-title">Artigos <br/> Relacionados</h2>
+                                    {/* O padrão meândrico horizontal é adicionado via CSS ::after */}
+                                    <p className="related-subtitle">
+                                        Alguns outros modelos da coleção <br/> OLIMPO que poderás gostar
+                                    </p>
+                                </div>
+
+                                {/* Coluna 2/3: Grid de Imagens Relacionadas */}
+                                <div className="related-products-grid">
+                                    {product.relatedProducts.map((related) => (
+                                        <Link to={`/wear/produto/${related.id}`} key={related.id} className="related-product-card">
+                                            <img src={related.image} alt={related.name} className="related-image" />
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -347,7 +268,7 @@ const WearProductPage: FC = () => {
             </main>
             <Footer />
             
-            {/* MODAL (Renderização Condicional) */}
+            {/* MODAL */}
             {isModalOpen && <SizeGuideModal onClose={() => setIsModalOpen(false)} />}
         </div>
     );
