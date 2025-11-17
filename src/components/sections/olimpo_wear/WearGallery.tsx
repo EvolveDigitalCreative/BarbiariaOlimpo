@@ -81,7 +81,7 @@ const WearGallery: FC = () => {
                     <div className="product-grid">
                         {/* ✅ CORREÇÃO: Removido o argumento 'index' desnecessário */}
                         {items.map((product) => ( 
-                            // USANDO O CARD: Renderiza o WearProductCard
+                            // USANDO O CARD: Renderiza o WearProductCard com lazy loading da imagem
                             <WearProductCard
                                 key={product.id}
                                 product={product}

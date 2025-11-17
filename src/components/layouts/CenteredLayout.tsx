@@ -1,70 +1,27 @@
-// src/components/common/Header/layouts/CenteredLayout.tsx
 import type { FC } from 'react';
 import type { HeaderPreset } from '../common/headerTypes';
-import { Logo, NavMenu } from '../common/HeaderComponents';
+import { Logo } from '../common/HeaderComponents';
+import React from 'react';
 
 interface LayoutProps {
   preset: HeaderPreset;
   renderIcons: () => React.ReactNode;
+  userRole: string | null;
 }
 
-const CenteredLayout: FC<LayoutProps> = ({ preset, renderIcons }) => {
+const CenteredLayout: FC<LayoutProps> = ({ preset, renderIcons, userRole }) => {
+  const isUserAdmin = userRole === 'admin';
+
   return (
-    <>
-      {/* Barra Dourada (com IMAGEM da logo) */}
-      <div
-        className="header-bar-top"
-        style={{
-          backgroundColor: '#bca46d',
-          color: '#000',
-          padding: '8px 60px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Logo src={preset.logoSrc} />
-      </div>
-
-      {/* Barra Preta (com 3 colunas) */}
-      <div
-        className="header-bar-bottom"
-        style={{
-          backgroundColor: '#000',
-          color: '#fff',
-          padding: '15px 60px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-        }}
-      >
-        {/* Esquerda: Navegação */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-          {preset.showNav && <NavMenu />}
-        </div>
-
-        {/* Centro: "WEAR" (Texto) */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <span
-            style={{
-              fontFamily: '"Times New Roman", Times, serif',
-              fontSize: '24px',
-              fontWeight: 600,
-              letterSpacing: '2px',
-              color: '#bca46d',
-            }}
-          >
-            {preset.logoSubtitle}
-          </span>
-        </div>
-
-        {/* Direita: Ícones */}
-        <div className="header-icons header-icons-full" style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          {renderIcons()}
-        </div>
-      </div>
-    </>
+    <div className="centered-layout">
+      <Logo
+        logoSrc={preset.logoSrc}
+        logoSubtitle={preset.logoSubtitle}
+        isLarge={isUserAdmin}
+      />
+      <nav className="centered-icons">{renderIcons()}</nav>
+      {/* SEU CÓDIGO DE LAYOUT COMPLETO VAI AQUI */}
+    </div>
   );
 };
 

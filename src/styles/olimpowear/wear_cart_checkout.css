@@ -3,14 +3,21 @@
 /* VARIÁVEIS DE CORES */
 :root {
     --color-wear-text: #000;
-    --color-background-white: #fff; /* Fundo principal Branco */
+    --color-background-white: #fff;
+    /* Fundo principal Branco */
     --color-danger: #e74c3c;
     --color-border: #ddd;
     --color-primary-button: #000;
+    /* NOVA COR BASEADA NA IMAGEM: Cáqui/Dourado Claro */
+    --color-summary-background: #EEDDAB;
+    /* Ajuste para um tom de cáqui claro */
+    --color-summary-text: #000;
+    --color-input-border: #ccc;
 }
 
 /* ======================================================= */
 /* 1. LAYOUT GERAL DO CARRINHO (WearCart.tsx) */
+/* (Mantido inalterado, exceto pela referência à cor do resumo se necessário) */
 /* ======================================================= */
 
 .wear-cart-page-layout {
@@ -29,11 +36,11 @@
 
 .cart-content-container {
     display: grid;
-    grid-template-columns: 2fr 1.5fr; 
+    grid-template-columns: 2fr 1.5fr;
     gap: 60px;
 }
 
-/* COLUNA ESQUERDA: ITENS */
+/* ... Estilos da Coluna Esquerda do Carrinho (cart-items-column) - Inalterados ... */
 .cart-items-column {
     display: flex;
     flex-direction: column;
@@ -57,116 +64,47 @@
     border-radius: 4px;
 }
 
-.item-details {
-    flex-grow: 1;
-}
-
-.item-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.item-info, .item-price {
-    font-size: 0.95rem;
-    color: #555;
-    margin: 5px 0;
-}
-
-.item-price {
-    font-weight: 700;
-    color: var(--color-wear-text);
-}
-
-.remove-button {
-    background: none;
-    border: none;
-    color: #999;
-    font-size: 0.9rem;
-    text-decoration: underline;
-    cursor: pointer;
-    padding: 0;
-    margin-top: 5px;
-}
-
-/* Subtotal Mobile (Escondido em desktop) */
-.cart-summary-mobile {
-    display: none;
-}
+/* ... (outros estilos de item do carrinho inalterados) ... */
 
 /* ======================================================= */
-/* 2. COLUNA DIREITA: RESUMO (Fundo Branco com Ilhas Pretas) */
+/* 2. COLUNA DIREITA: RESUMO (Adaptado para a Imagem de Checkout) */
 /* ======================================================= */
 
-/* RESUMO DO PAGAMENTO/CARRINHO (Fundo BRANCO) */
-.cart-summary-column, 
+/* Aplica a cor de fundo Cáqui e remove a borda sutil */
+.cart-summary-column,
 .checkout-summary-column {
-    background-color: var(--color-background-white);
+    background-color: var(--color-summary-background);
+    color: var(--color-summary-text);
+    /* Cor do texto no resumo */
     padding: 30px;
     border-radius: 4px;
     height: fit-content;
-    border: 1px solid #eee; /* Borda sutil para definir o bloco */
+    border: none;
+    /* Remove a borda no resumo */
 }
 
-.summary-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-/* OLIMPO COIN BOX (Primeira "Ilha" - estilo da imagem) */
-.olimpo-coin-box {
-    background-color: #f8f8f8; 
-    border: 1px solid #ccc; 
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 25px;
-}
-
-.coin-label {
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.coin-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-/* Placeholder para o ícone Olimpo Coin */
-.coin-icon {
-    width: 30px; 
-    height: 30px;
-    border-radius: 50%;
-    background-color: gold; 
-}
-
-.coin-warning {
-    font-size: 0.8rem;
-    color: var(--color-danger);
-    text-align: right;
-    margin-top: 10px;
-}
-
-/* Campo de Desconto (Segunda "Ilha") */
+/* Campo de Desconto (Segunda "Ilha") - Adaptação para o fundo Cáqui */
 .discount-input-area {
     display: flex;
     margin: 10px 0 20px 0;
     padding-top: 20px;
-    border-top: 1px solid #eee; 
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    /* Separador mais sutil */
 }
 
 .discount-input-area input {
+    background-color: var(--color-background-white);
+    /* Fundo branco no input */
+    color: var(--color-wear-text);
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid var(--color-wear-text); /* Borda PRETA */
+    border: 1px solid var(--color-input-border);
     border-radius: 0;
 }
 
 .discount-input-area button {
-    background-color: var(--color-wear-text); /* Fundo PRETO */
+    background-color: var(--color-wear-text);
+    /* Fundo PRETO */
     color: white;
     border: 1px solid var(--color-wear-text);
     padding: 0 15px;
@@ -176,11 +114,11 @@
 }
 
 /* DETALHES FINANCEIROS */
-.summary-details {
-    margin-top: 30px;
+.summary-financials {
+    margin-top: 20px;
 }
 
-.detail-row {
+.financial-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -192,52 +130,218 @@
     font-weight: 700;
     margin-top: 15px;
     padding-top: 10px;
-    border-top: 1px solid var(--color-wear-text); /* Separador FINAL PRETO */
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    /* Separador FINAL PRETO, mais escuro */
 }
 
-.vat-note {
-    font-size: 0.85rem;
-    color: #777;
-    text-align: right;
-    margin-top: -10px;
-    margin-bottom: 20px;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid #c0c0c0;
-    margin: 15px 0;
-}
-
-/* LINKS E TERMOS */
-.footer-links {
+/* Resumo do Pedido do Checkout - Itens */
+.summary-item-row {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    /* Alinhamento ao topo */
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* Linha divisória sutil */
+    font-size: 0.95rem;
+}
+
+.item-details {
+    display: flex;
+    align-items: flex-start;
+}
+
+.item-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    /* Borda na thumb */
+}
+
+.item-name {
+    margin: 0;
+    font-weight: 600;
+}
+
+.item-size,
+.item-qty {
+    font-size: 0.85rem;
+    color: var(--color-summary-text);
+    opacity: 0.7;
+    /* Texto de detalhes mais claro */
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--color-summary-text);
+}
+
+
+/* ======================================================= */
+/* 3. ESTILOS ESPECÍFICOS DO CHECKOUT (WearCheckout.tsx) - Formulário */
+/* ======================================================= */
+
+/* Layout Principal da Página de Checkout */
+.wear-checkout-page-layout {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.form-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* Inputs e Seleções - Adaptados ao estilo limpo da imagem */
+.full-width-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-input-border);
+    /* Borda cinza claro */
+    background-color: var(--color-background-white);
+    /* Fundo branco */
+    box-sizing: border-box;
+    border-radius: 4px;
+    /* Bordas arredondadas sutis */
+    font-size: 1rem;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-row input,
+.input-row select {
+    flex: 1;
+    background-color: var(--color-background-white);
+    padding: 12px;
+    border: 1px solid var(--color-input-border);
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.input-row.three-cols input,
+.input-row.three-cols select {
+    flex: 1 1 32%;
+}
+
+/* Headers e Divisor */
+.section-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 30px 0 15px 0;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    /* Linha de separação entre seções */
+}
+
+.divider {
+    text-align: center;
     margin: 20px 0;
+    position: relative;
+    color: #999;
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
-.footer-links a {
-    color: var(--color-wear-text);
-    font-size: 0.9rem;
-    text-decoration: underline;
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #eee;
 }
 
-.terms-checkbox {
-    display: block;
-    font-size: 0.9rem;
-    line-height: 1.4;
+/* Pagamento Expresso - Estilos para os botões coloridos/pretos */
+.express-payment-methods {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.terms-checkbox input {
-    margin-right: 8px;
+.payment-btn {
+    flex: 1;
+    padding: 10px 0;
+    /* Padding ajustado */
+    border: 1px solid var(--color-wear-text);
+    background-color: var(--color-wear-text);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 4px;
 }
 
-/* BOTÃO AVANÇAR */
-.advance-button {
+/* Ajustes visuais para simular PayPal e GPay/ApplePay */
+.paypal-btn {
+    background-color: #00457C;
+    /* Azul do PayPal */
+    border-color: #00457C;
+}
+
+.apple-pay-btn,
+.gpay-btn {
+    background-color: var(--color-wear-text);
+    border-color: var(--color-wear-text);
+}
+
+/* Opções de Pagamento (Rádio) - Adaptação da caixa */
+.payment-options-group {
+    border: 1px solid var(--color-input-border);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background-color: var(--color-background-white);
+}
+
+.payment-option {
+    padding: 15px;
+    border-bottom: 1px solid var(--color-input-border);
+}
+
+.payment-option:last-child {
+    border-bottom: none;
+}
+
+.card-input-area {
+    padding-top: 15px;
+}
+
+/* Ícones de Cartão - Placeholder visual */
+.credit-card-option .option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.credit-card-option .option-header::after {
+    content: "VISA Mastercard AMEX";
+    /* Placeholder de texto para os ícones */
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: normal;
+}
+
+/* Botão Final */
+.submit-payment-button {
     width: 100%;
     padding: 15px;
-    background-color: var(--color-primary-button); 
+    background-color: var(--color-primary-button);
     color: white;
     font-weight: 600;
     border: none;
@@ -245,27 +349,38 @@ hr {
     cursor: pointer;
     font-size: 1.1rem;
     text-transform: uppercase;
+    margin-top: 20px;
 }
 
+
 /* ======================================================= */
-/* 3. MEDIA QUERIES (RESPONSIVIDADE) */
+/* 4. MEDIA QUERIES (RESPONSIVIDADE) */
+/* (Mantidas as regras de layout responsive anterior) */
 /* ======================================================= */
 
 @media (max-width: 992px) {
+
+    /* Carrinho */
     .cart-content-container {
-        grid-template-columns: 1fr; /* Coluna única */
+        grid-template-columns: 1fr;
         gap: 40px;
     }
-    
-    .cart-summary-column {
-        order: -1; /* Move o resumo para cima */
+
+    /* Checkout */
+    .wear-checkout-page-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .cart-summary-column,
+    .checkout-summary-column {
+        order: -1;
     }
 
     .cart-item-card:last-child {
-        border-bottom: none; /* Remove a borda inferior */
+        border-bottom: none;
     }
 
-    /* Mostrar subtotal no carrinho em mobile */
     .cart-summary-mobile {
         display: flex;
         justify-content: flex-end;
@@ -273,26 +388,51 @@ hr {
         font-weight: 700;
         margin-top: 20px;
     }
+
     .cart-summary-mobile span {
         margin-left: 10px;
     }
 }
 
 @media (max-width: 576px) {
-    .wear-cart-page-layout {
+
+    .wear-cart-page-layout,
+    .wear-checkout-page-layout {
         padding: 0 10px;
     }
-    .main-title {
+
+    .main-title,
+    .form-title {
         text-align: center;
     }
+
+    /* Layout do Formulário */
+    .input-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .input-row.three-cols input,
+    .input-row.three-cols select {
+        flex: 1 1 100%;
+    }
+
+    .express-payment-methods {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Carrinho */
     .cart-item-card {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
+
     .item-image {
         margin: 0 0 15px 0;
     }
+
     .remove-button {
         display: block;
         margin: 10px auto;

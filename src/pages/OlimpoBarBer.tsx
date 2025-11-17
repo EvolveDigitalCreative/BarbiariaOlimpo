@@ -1,16 +1,18 @@
 // src/pages/OlimpoBarBer.tsx
 // O Contentor Principal da sua Home Page (Barbearia).
 
-// ✅ ADICIONADO: Import 'React' para permitir o uso de Fragments (<>...</>)
 import React, { type FC } from 'react';
 
 // Importações de Componentes Comuns
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import SectionDivider from '../components/common/SectionDivider';
-// ✅ CookieModal é um componente comum/partilhado
-import { CookieModal } from '../components/sections/olimpo_barber/CookieModal'; 
-import DiscountModal from '../components/sections/olimpo_barber/DiscountModal';
+
+// ✅ CORRIGIDO: O caminho para o DiscountModal foi ajustado para ../components/modals/
+import DiscountModal from '../components/modals/DiscountModal';
+
+// CookieModal: Mantendo a importação original, se estiver correta (sections/olimpo_barber/)
+import { CookieModal } from '../components/sections/olimpo_barber/CookieModal';
 
 // ==========================================================
 // IMPORTAÇÕES DE COMPONENTES DE SECÇÃO (Barbearia)
@@ -44,17 +46,16 @@ import '../styles/olimpobarber/Barber_coin.css';
 import '../styles/olimpobarber/barber_about.css';
 
 const OlimpoBarber: FC = () => {
+  // É comum usar um estado para controlar a abertura/fecho do modal,
+  // embora no exemplo anterior ele tenha sido simplesmente renderizado.
+  // Para simplificar a correção de runtime, vamos renderizá-lo com props básicas.
+
   return (
-    // ✅ ADICIONADO: React.Fragment para permitir que o Modal fique fora do container
+    // O React.Fragment permite que os modais sejam renderizados fora do container principal.
     <>
       <div className="home-page-container">
-        {/*
-          CORREÇÃO: A prop 'domain' não é mais necessária.
-          O Header agora detecta a rota ('/barber' ou '/') 
-          automaticamente com useLocation.
-        */}
         <Header />
-        
+
         <main>
           <HeroSection />
           <BarbersSection />
@@ -66,16 +67,16 @@ const OlimpoBarber: FC = () => {
           <SectionDivider />
           <ContactSection />
         </main>
-        
-        <Footer />
 
-        {/* 🛑 MOVIDO: O CookieModal estava aqui dentro */}
+        <Footer />
       </div>
+
+      {/* Os Modals são renderizados aqui, dentro da hierarquia do AuthProvider */}
       <CookieModal />
-      <DiscountModal />
+      {/* ✅ Adicione as props reais (isOpen, onClose) conforme a sua lógica de estado */}
+      <DiscountModal isOpen={false} onClose={() => { }} />
     </>
   );
 };
 
 export default OlimpoBarber;
-

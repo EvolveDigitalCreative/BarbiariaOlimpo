@@ -76,7 +76,7 @@
 .product-main-image-wrapper { 
     position: relative; 
     background-color: #f8f8f8; /* Fundo cinza claro */
-    display: flex; 
+    display: flex;
     justify-content: center; 
     align-items: center; 
 }
