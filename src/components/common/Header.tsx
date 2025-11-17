@@ -1,118 +1,90 @@
-// src/components/common/Header.tsx
-
 import type { FC } from 'react';
-import { useLocation, Link } from 'react-router-dom'; // Adiciona Link
-import { useAuth } from '../auth/AuthContext'; // ✅ Importa useAuth (Ajuste o caminho!)
+import { useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; 
 
 import type { HeaderPreset, IconKey } from './headerTypes'; 
-import { iconLinksMap } from './HeaderComponents'; // Assumindo que iconLinksMap está aqui ou é importado
+import { iconLinksMap } from './HeaderComponents';
 
+// Caminhos de importação para layouts
 import LuxuryLayout from '../layouts/LuxuryLayout';
 import CompactLayout from '../layouts/CompactLayout';
 import CenteredLayout from '../layouts/CenteredLayout';
 
+// Mock/Exemplo de Configurações de Header
 const headerPresets: Record<string, HeaderPreset> = {
-  '/': {
-    layout: 'luxury',
-    rootClass: 'header-barber',
-    // ✅ CORRIGIDO: Usa a URL da pasta public diretamente
-    logoSrc: '/OlimpoBarBer/images/logo.webp', 
-    iconsToShow: ['skincare', 'wear', 'user'],
-  },
-'/wear/carrinho': {
-    layout: 'centered',
-    rootClass: 'header-wear',
-    logoSrc: '/OlimpoBarBer/images/logo.webp',
-    logoSubtitle: 'WEAR',
-    showNav: true,
-    iconsToShow: ['skincare', 'barber', 'user'],
-  },
-  '/wear': {
-    layout: 'centered',
-    rootClass: 'header-wear',
-    logoSrc: '/OlimpoBarBer/images/logo.webp', // ✅ CORRIGIDO
-    logoSubtitle: 'WEAR',
-    showNav: true,
-    iconsToShow: ['skincare', 'barber', 'user'],
-  },
-  '/skincare': {
-    layout: 'compact',
-    rootClass: 'header-skincare',
-    logoText: 'SKINCARE',
-    iconsToShow: ['user'],
-  },
+    '/': { 
+        layout: 'luxury',
+        // ✅ CORRIGIDO: Voltando para a classe CSS principal
+        rootClass: 'header-barber', 
+        logoSrc: '/OlimpoBarBer/images/logo.webp', 
+        logoSubtitle: 'LUXURY HAIRCUTS',
+        iconsToShow: ['skincare', 'wear', 'user'],
+        showNav: true,
+    },
+    // Adicione outros presets aqui...
 };
-// Alias para /barber (mantém)
+
 headerPresets['/barber'] = headerPresets['/'];
 
 const Header: FC = () => {
-  const location = useLocation();
-  const preset = headerPresets[location.pathname] || headerPresets['/'];
-  const { currentUser, userRole } = useAuth(); // ✅ Obtém o utilizador atual
+    const location = useLocation();
+    const preset = headerPresets[location.pathname] || headerPresets['/']; 
+    const { currentUser, userRole } = useAuth(); 
 
-  // ✅ Modifica a função que gera os links dos ícones
-  const getIconLinks = () => {
-    // Busca o mapa base de ícones (assumindo que iconLinksMap retorna um objeto)
-    const baseIcons = iconLinksMap(); // Ex: { skincare: <Link...>, wear: <Link...>, user: <Link...> }
-    
-    // Cria uma cópia para modificar o ícone 'user'
-    const dynamicIcons = { ...baseIcons };
+    const getIconLinks = () => {
+        const baseIcons = iconLinksMap();
+        const dynamicIcons: Record<IconKey, any> = { ...baseIcons }; 
+        
+        if (dynamicIcons['user']) { 
+            dynamicIcons['user'] = currentUser ? (
+                <Link to="/profile" className="icon-link user-icon" aria-label="Perfil">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.93 0 3.5 1.57 3.5 3.5S13.93 12 12 12s-3.5-1.57-3.5-3.5S10.07 5 12 5zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4.07-3.08 6-3.08 1.93 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                </Link>
+            ) : (
+                <Link to="/login" className="icon-link user-icon" aria-label="Login">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.93 0 3.5 1.57 3.5 3.5S13.93 12 12 12s-3.5-1.57-3.5-3.5S10.07 5 12 5zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4.07-3.08 6-3.08 1.93 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                </Link>
+            );
+        }
+        
+        return dynamicIcons;
+    };
 
-    // Substitui o link do ícone 'user' baseado no estado de login
-    if (dynamicIcons['user']) { // Verifica se o ícone 'user' existe no mapa base
-      dynamicIcons['user'] = currentUser ? (
-        // Se logado, link para /profile
-        <Link to="/profile" className="icon-link user-icon" aria-label="Perfil">
-          {/* A imagem agora tem as classes corretas para controle de tamanho */}
-          <img src="/OlimpoWear/icons/profile.png" alt="Perfil" className="icon-img icon-user" />
-        </Link>
-      ) : (
-        // Se não logado, link para /login
-        <Link to="/login" className="icon-link user-icon" aria-label="Login">
-          {/* A imagem agora tem as classes corretas para controle de tamanho */}
-          <img src="/OlimpoWear/icons/profile.png" alt="Login" className="icon-img icon-user" />
-        </Link>
-      );
-    }
-    
-    return dynamicIcons;
-  };
+    const availableIcons = getIconLinks(); 
 
-  const availableIcons = getIconLinks(); // Chama a função para obter os links dinâmicos
+    const renderIcons = () => (
+        <> 
+            {(preset.iconsToShow || []).map((key) => (
+                <div key={key}>{availableIcons[key as IconKey]}</div>
+            ))}
+        </>
+    );
 
-  // Função renderIcons agora usa os availableIcons dinâmicos
-  const renderIcons = () => (
-    <> 
-      {(preset.iconsToShow || []).map((key) => (
-        // Renderiza o componente Link diretamente do mapa dinâmico
-        <div key={key}>{availableIcons[key as IconKey]}</div>
-      ))}
-    </>
-  );
+    const renderLayout = () => {
+        const layoutProps = { preset, renderIcons, userRole }; 
 
-  const renderLayout = () => {
-    switch (preset.layout) {
-      case 'centered':
-        return <CenteredLayout preset={preset} renderIcons={renderIcons} userRole={userRole} />;
-      case 'compact':
-        return <CompactLayout preset={preset} renderIcons={renderIcons} />;
-      case 'luxury':
-      default:
-        return <LuxuryLayout preset={preset} renderIcons={renderIcons} />;
-    }
-  };
+        switch (preset.layout) {
+            case 'centered':
+                return <CenteredLayout {...layoutProps} />;
+            case 'compact':
+                return <CompactLayout {...layoutProps} />;
+            case 'luxury':
+            default:
+                return <LuxuryLayout {...layoutProps} />;
+        }
+    };
 
-  return (
-    <header
-      className={`main-header ${preset.rootClass}`}
-      style={{
-        position: 'relative',
-        zIndex: 1000,
-      }}
-    >
-      {renderLayout()}
-    </header>
-  );
+    return (
+        <header
+            className={`main-header ${preset?.rootClass || ''}`} 
+            style={{
+                position: 'relative',
+                zIndex: 1000,
+            }}
+        >
+            {renderLayout()}
+        </header>
+    );
 };
 
 export default Header;

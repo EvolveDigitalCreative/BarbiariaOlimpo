@@ -4,12 +4,10 @@ export type IconKey = 'skincare' | 'wear' | 'barber' | 'user';
 
 /**
  * Define a estrutura de um "Preset" de Header.
- * Agora ele é muito mais simples!
  */
 export interface HeaderPreset {
   layout: 'luxury' | 'centered' | 'compact';
-  // A classe CSS principal que será aplicada no <header>
-  // Isso ativará .header-barber, .header-wear, etc. no seu CSS
+  // ✅ CORRIGIDO: Tipagem ajustada para usar apenas as classes CSS existentes.
   rootClass: 'header-barber' | 'header-skincare' | 'header-wear'; 
   
   logoSrc?: string; // Caminho para a IMAGEM da logo

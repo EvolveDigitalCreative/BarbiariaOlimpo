@@ -10,7 +10,8 @@ import SkincareCoinIcon from '/OlimpoBarBer/icons/icone de nevegcao da skincare.
 import BarberCoinIcon from '/OlimpoBarBer/icons/icone de nevegacao do waer - Copia.png';
 import UserIcon from '/OlimpoBarBer/icons/profile_highres.png';
 
-import { useAuth } from '../auth/AuthContext';
+// ✅ Caminho ajustado:
+import { useAuth } from '../../context/AuthContext';
 
 // Estilos de base (sem mudança)
 export const linkBaseStyle: React.CSSProperties = {
@@ -27,40 +28,50 @@ export const linkBaseStyle: React.CSSProperties = {
 // COMPONENTE: Logo
 // ==========================================================
 
-interface LogoProps {
-    src?: string;
-    text?: string;
+// ✅ CORRIGIDO: Interface ajustada para aceitar as props enviadas pelo CenteredLayout
+export interface LogoProps {
+    logoSrc?: string;          // Usado em vez de 'src'
+    logoText?: string;         // Usado em vez de 'text'
+    logoSubtitle?: string;     // Nova prop
+    isLarge?: boolean;         // Nova prop
     textStyle?: React.CSSProperties;
 }
 
 /**
  * Componente Logo flexível.
  */
-export const Logo: FC<LogoProps> = ({ src, text, textStyle }) => (
+// ✅ CORRIGIDO: Desestruturando as novas props
+export const Logo: FC<LogoProps> = ({ logoSrc, logoText, logoSubtitle, isLarge, textStyle }) => (
     <Link
         to="/"
-        className="logo-wrapper" 
+        className="logo-wrapper"
         style={{ textDecoration: 'none', textAlign: 'center', color: 'inherit' }}
     >
-        {src ? (
+        {logoSrc ? (
             <img
-                src={src}
+                src={logoSrc} // ✅ Usando logoSrc
                 alt="Olimpo Logo"
                 className="logo-img"
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'contain', height: isLarge ? '50px' : '40px' }} // Exemplo de uso de isLarge
             />
         ) : (
             <span
                 style={{
                     fontFamily: 'serif',
                     fontWeight: 600,
-                    fontSize: '28px',
+                    fontSize: isLarge ? '32px' : '28px', // Exemplo de uso de isLarge
                     letterSpacing: '1px',
                     color: '#bca46d',
                     ...textStyle,
                 }}
             >
-                {text}
+                {logoText} // ✅ Usando logoText
+            </span>
+        )}
+        {/* Renderiza o subtítulo se existir */}
+        {logoSubtitle && (
+            <span style={{ fontSize: '10px', color: '#999', marginTop: '4px', letterSpacing: '1px' }}>
+                {logoSubtitle}
             </span>
         )}
     </Link>
@@ -122,7 +133,7 @@ export const iconLinksMap: () => Record<IconKey, React.ReactNode> = () => ({
         </Link>
     ),
     user: (
-        <Link to="/login" className="header-icon-link icon-user-profile" style={{...linkBaseStyle, gap: 0}}>
+        <Link to="/login" className="header-icon-link icon-user-profile" style={{ ...linkBaseStyle, gap: 0 }}>
             <img src={UserIcon} alt="Perfil" className="icon-img icon-user" />
         </Link>
     ),

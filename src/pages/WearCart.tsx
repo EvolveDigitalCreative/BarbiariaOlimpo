@@ -1,124 +1,122 @@
 // src/pages/WearCart.tsx
 
-import type { FC } from 'react';
-// IMPORTAR Header sem a subpasta, assumindo que é o ficheiro de exportação
-import Header from '../components/common/Header'; 
-import { useNavigate } from 'react-router-dom';
+import type { FC } from 'react'; 
+import { useCart } from '../context/CartContext'; 
+import type { CartItem } from '../context/CartContext'; 
 
+// Importações que serão usadas no JSX
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import SectionDivider from '../components/common/SectionDivider';
+import { Link } from 'react-router-dom';
 
-// --- DADOS DUMMY DO CARRINHO ---
-const cartItems = [
-    {
-        id: 1,
-        name: "Basic",
-        color: "branco & gold",
-        size: "M",
-        quantity: 2,
-        price: 25.00,
-        image: "/OlimpoWear/modelos/modelo-basic-white-gold.jpg" 
-    },
-    {
-        id: 2,
-        name: "Alex",
-        color: "preto & gold",
-        size: "M",
-        quantity: 1,
-        price: 25.00,
-        image: "/OlimpoWear/modelos/modelo-alex-black-gold.jpg"
-    }
-];
+// Importações de estilos (ajuste conforme a sua estrutura)
+// import '../styles/global/_global.css'; 
+// import '../styles/olimpowear/wear_cart.css'; 
+import '../styles/olimpowear/wear_cart_checkout.css';
+import '../styles/global/_global.css'; 
 
-// Funções utilitárias (para demonstração)
-const calculateSubtotal = () => cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-const totalAmount = calculateSubtotal(); 
 
 const WearCart: FC = () => {
-    const navigate = useNavigate();
+    // 🛑 CORREÇÃO PRINCIPAL: CHAME O HOOK useCart() AQUI!
+    // Isso injeta o estado 'cart' e as funções 'removeFromCart', etc., no escopo do componente.
+    const { 
+        cart, 
+        removeFromCart, 
+        updateQuantity, 
+        calculateSubtotal 
+    } = useCart();
+    
+    // O 'cart' está agora definido e o erro 2304 desaparece.
 
-    const handleAdvanceToCheckout = () => {
-        navigate('/wear/pagamento');
+    const subtotal = calculateSubtotal();
+
+    const handleQuantityChange = (itemId: number, newQuantity: number) => {
+        updateQuantity(itemId, newQuantity);
     };
 
-return (
-        // ⭐️ Usa Fragment, ou a tag mais externa para a página ⭐️
-        <> 
-            {/* 1. O HEADER que deve ser de largura total */}
-            <Header />
-
-            {/* 2. O Conteúdo principal do carrinho (que pode estar centralizado) */}
-            <main className="wear-cart-page-layout">
-                <h1 className="main-title">O TEU CARRINHO DE COMPRAS</h1>
+    return (
+        <div className="cart-page-container">
+            {/* O uso destes componentes resolve os avisos 6133 */}
+            <Header /> 
+            
+            <main className="cart-main-content">
+                <h1 className="cart-title">O teu Carrinho</h1>
                 
-                <div className="cart-content-container">
-                    
-                    {/* COLUNA ESQUERDA: ITENS DO CARRINHO */}
-                    <div className="cart-items-column">
-                        {cartItems.map(item => (
-                            <div key={item.id} className="cart-item-card">
-                                <img 
-                                    src={item.image} 
-                                    alt={item.name} 
-                                    className="item-image"
-                                />
-                                <div className="item-details">
-                                    <h3 className="item-name">{item.name}</h3>
-                                    <p className="item-info">Cor: {item.color}</p>
-                                    <p className="item-info">Tamanho: {item.size}</p>
-                                    <p className="item-info">Quantidade: {item.quantity}</p>
-                                    <p className="item-price">{item.price.toFixed(2)}€</p>
-                                    <button className="remove-button">Remover</button>
+                {cart.length === 0 ? (
+                    <div className="cart-empty-state">
+                        <p>O teu carrinho está vazio. Vamos às compras!</p>
+                        <Link to="/wear/catalogo" className="continue-shopping-button">
+                            Ver Coleção
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="cart-content-wrapper">
+                        
+                        {/* 1. LISTA DE ITENS */}
+                        <div className="cart-items-list">
+                            {cart.map((item: CartItem) => ( 
+                                <div key={item.id} className="cart-item-card">
+                                    <img src={item.image} alt={item.name} className="item-image" />
+                                    
+                                    <div className="item-details">
+                                        <p className="item-name">{item.name} {item.model}</p>
+                                        <p className="item-info">Cor: {item.color} | Tamanho: {item.size}</p>
+                                        <p className="item-price-unit">{item.price.toFixed(2)}€ / un.</p>
+                                    </div>
+                                    
+                                    <div className="item-quantity-controls">
+                                        <button 
+                                            onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                                            disabled={item.quantity <= 1}
+                                        >
+                                            -
+                                        </button>
+                                        <span>{item.quantity}</span>
+                                        <button 
+                                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                    
+                                    <p className="item-subtotal">{(item.price * item.quantity).toFixed(2)}€</p>
+
+                                    <button 
+                                        className="remove-item-button"
+                                        onClick={() => removeFromCart(item.id)}
+                                    >
+                                        &times;
+                                    </button>
                                 </div>
+                            ))}
+                        </div>
+
+                        {/* 2. SUMÁRIO E BOTÃO DE CHECKOUT */}
+                        <div className="cart-summary">
+                            <h2>Resumo da Encomenda</h2>
+                            <div className="summary-line">
+                                <span>Subtotal:</span>
+                                <span>{subtotal.toFixed(2)}€</span>
                             </div>
-                        ))}
-                        
-                        <div className="cart-summary-mobile">
-                            <p>Subtotal: <span>{calculateSubtotal().toFixed(2)}€</span></p>
-                        </div>
-
-                    </div>
-
-                    {/* COLUNA DIREITA: RESUMO E OLIMPO COIN */}
-                    <div className="cart-summary-column">
-                        <h2 className="summary-title">Resumo do pagamento</h2>
-                        
-                        <div className="olimpo-coin-box">
-                            <p className="coin-label">Ativar Olimpo Coin</p>
-                            <div className="coin-toggle">
-                                <span className="toggle-switch"></span>
-                                <img src="/OlimpoBarBer/icons/olimpo-coin.png" alt="Olimpo Coin" className="coin-icon" />
+                            <div className="summary-line">
+                                <span>Portes:</span>
+                                <span>A calcular</span>
                             </div>
-                            <p className="coin-warning">Não tem Olimpo Coins suficientes</p>
+                            <div className="summary-total">
+                                <h3>Total:</h3>
+                                <h3>{subtotal.toFixed(2)}€</h3> 
+                            </div>
+                            <Link to="/wear/pagamento" className="checkout-button">
+                                PROSSEGUIR PARA PAGAMENTO
+                            </Link>
                         </div>
-
-                        <div className="summary-details">
-                            <div className="detail-row"><span>Desconto</span><span>0.00€</span></div>
-                            <div className="detail-row"><span>Subtotal</span><span>{calculateSubtotal().toFixed(2)}€</span></div>
-                            <hr />
-                            <div className="detail-row total-row"><span>TOTAL</span><span>{totalAmount.toFixed(2)}€</span></div>
-                            <p className="vat-note">(IVA incluído)</p>
-                        </div>
-
-                        <div className="footer-links">
-                            <a href="/wear/devolucoes">Devoluções simples</a>
-                            <a href="/wear/ajuda">Precisa de ajuda?</a>
-                        </div>
-                        
-                        <label className="terms-checkbox">
-                            <input type="checkbox" defaultChecked />
-                            Aceito os <a href="/wear/termos">termos e condições gerais</a> de venda da Olimpo e declaro ter mais de 12 anos.
-                        </label>
-
-                        {/* AÇÃO */}
-                        <button 
-                            className="advance-button"
-                            onClick={handleAdvanceToCheckout}
-                        >
-                            Avançar
-                        </button>
                     </div>
-                </div>
+                )}
             </main>
-        </>
+            <SectionDivider /> {/* O uso disto remove o aviso 6133 */}
+            <Footer /> {/* O uso disto remove o aviso 6133 */}
+        </div>
     );
 };
 

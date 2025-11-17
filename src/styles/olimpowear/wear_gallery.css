@@ -46,6 +46,7 @@
     /* 4 COLUNAS para desktop - conforme o design das imagens */
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+    margin: 0;
 }
 
 /* O Cartão Individual do Produto */
