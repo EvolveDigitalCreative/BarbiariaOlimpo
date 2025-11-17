@@ -19,6 +19,7 @@ export interface DiscountVoucher {
 }
 
 export interface Barber {
+    image: string | undefined;
     id: string; // UID do usuário no Firebase
     name: string;
     imageUrl: string; // URL da foto do barbeiro

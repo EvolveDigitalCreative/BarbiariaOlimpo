@@ -22,7 +22,7 @@ const BarberCard: React.FC<BarberCardProps> = memo(({ barber, isSelected, onSele
                 alt={barber.name} 
                 // .barber-image ~ w-full h-full object-cover
                 className={styles['barber-image']} 
-                loading="lazy" 
+                loading="lazy"
                 decoding="async"
                 onError={(e) => (e.currentTarget.src = 'https://placehold.co/80x80/efefef/333?text=?')}
             />
