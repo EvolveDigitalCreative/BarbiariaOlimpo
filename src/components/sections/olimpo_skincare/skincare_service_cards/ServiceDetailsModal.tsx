@@ -1,92 +1,84 @@
-import { type FC } from 'react';
-import { type GalleryServiceData, getStepImagePath } from './skincareServicesData'; // Importa dados/tipos
+// src/components/sections/olimpo_skincare/skincare_service_cards/ServiceDetailsModal.tsx
+
+import { type FC, useEffect } from 'react'; // <<<<<< IMPORTAR useEffect
+// Certifique-se de que a importação GalleryServiceData está correta
+import { type GalleryServiceData } from './skincareServicesData.ts'; 
 
 interface ServiceDetailsModalProps {
-    service: GalleryServiceData;
-    onClose: () => void;
+    service: GalleryServiceData;
+    onClose: () => void;
 }
 
 const ServiceDetailsModal: FC<ServiceDetailsModalProps> = ({ service, onClose }) => {
+    
+    // --- LOG DE DIAGNÓSTICO DENTRO DO MODAL ---
+    useEffect(() => {
+        console.log(`[MODAL RENDER] O modal para "${service.title}" foi montado.`);
+        return () => {
+            console.log(`[MODAL RENDER] O modal para "${service.title}" será desmontado.`);
+        };
+    }, [service.title]);
+    // ------------------------------------------
 
-    const { title, price, duration, stepsCount, steps, details } = service;
-
+    // O Overlay - Clicar no fundo escuro deve FECHAR o modal.
     return (
         <div className="skincare-modal-overlay" onClick={onClose}>
-            <div className="skincare-service-details-modal" onClick={(e) => e.stopPropagation()}>
+            
+            {/* O Modal Principal - Clicar aqui NÃO deve fechar o modal. */}
+            <div 
+                className="skincare-service-details-modal" 
+                onClick={(e) => e.stopPropagation()} // IMPEDE O FECHO AO CLICAR NO CONTEÚDO
+            >
                 
-                <header className="skincare-modal-header">
-                    <button className="skincare-modal-back-button" onClick={onClose}>&leftarrow;</button> 
+                <div className="skincare-modal-header">
                     <div className="skincare-modal-title-price">
-                        <h1 className="skincare-modal-service-title">{title}</h1>
-                        <p className="skincare-modal-price">{price}</p>
+                        <h2 className="skincare-modal-service-title">{service.title}</h2>
+                        {/* Incluído Preço e Duração */}
+                        <p className="skincare-modal-price">Duração: {service.duration} | Preço: {service.price}</p>
                     </div>
-                    <button className="skincare-modal-close-button" onClick={onClose}>&times;</button>
-                </header>
-
-                <div className="skincare-modal-body">
-                    <div className="skincare-modal-steps-section">
-                        <h2 className="skincare-modal-subtitle">Como funciona ?</h2>
-                        <p className="skincare-modal-steps-count">{stepsCount} SIMPLES PASSOS</p>
-
-                        <div className="skincare-modal-timeline">
-                            {steps.map((step, index) => (
-                                <div key={step.number} className="skincare-step-item">
-                                    <div className="skincare-step-connector" style={{ opacity: index === steps.length - 1 ? 0 : 1 }}></div>
-
-                                    <div className="skincare-step-icon-wrapper">
-                                        <img 
-                                            src={getStepImagePath(service.id, step.number)} 
-                                            alt={`Passo ${step.number} de ${service.title}`} 
-                                            className="skincare-step-image"
-                                            loading="lazy"
-                                        />
-                                        <span className="skincare-step-number">{String(step.number).padStart(2, '0')}</span>
-                                    </div>
-                                    <p className="skincare-step-description">{step.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="skincare-modal-details-block">
-                        <div className="skincare-details-grid">
-                            
-                            <div className="skincare-details-column span-two">
-                                <p><strong>Duração:</strong> {duration}</p>
-                            </div>
-                            
-                            <div className="skincare-details-column">
-                                <h3 className="skincare-details-title">Tipo:</h3>
-                                <p>{details.type}</p>
-                            </div>
-
-                            <div className="skincare-details-column">
-                                <h3 className="skincare-details-title">Objetivo:</h3>
-                                <p>{details.objective}</p>
-                            </div>
-
-                            <div className="skincare-details-column">
-                                <h3 className="skincare-details-title">Indicado para:</h3>
-                                <ul className="skincare-details-list">
-                                    {details.indicatedFor.map((item, i) => (
-                                        <li key={i}>• {item}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div className="skincare-details-column">
-                                <h3 className="skincare-details-title">Benefícios:</h3>
-                                <ul className="skincare-details-list">
-                                    {details.benefits.map((item, i) => (
-                                        <li key={i}>• {item}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
+                    {/* Botão de Fechar no Topo */}
+                    <button 
+                        className="skincare-modal-close-button" 
+                        onClick={onClose} 
+                    >
+                        &times;
+                    </button>
                 </div>
-                 <button onClick={onClose} className="skincare-modal-close-button-bottom">FECHAR</button>
+                
+                {/* ------------------ CORPO DO MODAL ------------------ */}
+                <div className="skincare-modal-body">
+                    <p className="skincare-modal-description">{service.simpleDescription}</p>
+                    
+                    {/* Exemplo de secção de Benefícios (usando o objeto details) */}
+                    <div className="skincare-modal-details-block">
+                         <div className="skincare-details-grid">
+                            <div className="skincare-details-column">
+                                <h4 className="skincare-details-title">Objetivo Principal</h4>
+                                <p>{service.details.objective}</p>
+                            </div>
+                            <div className="skincare-details-column">
+                                <h4 className="skincare-details-title">Tipologia</h4>
+                                <p>{service.details.type}</p>
+                            </div>
+                            <div className="skincare-details-column span-two">
+                                <h4 className="skincare-details-title">Benefícios Chave</h4>
+                                <ul className="skincare-details-list">
+                                    {service.details.benefits.map((benefit, index) => (
+                                        <li key={index}>{benefit}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                         </div>
+                    </div>
+                    
+                    {/* Botão de Fechar no Fundo */}
+                    <button 
+                        className="skincare-modal-close-button-bottom"
+                        onClick={onClose} 
+                    >
+                        Fechar
+                    </button>
+                </div>
             </div>
         </div>
     );

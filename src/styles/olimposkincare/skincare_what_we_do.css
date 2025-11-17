@@ -40,6 +40,7 @@
 .main-service-image {
     width: 100%;
     height: auto;
+    min-height: 590px;
     max-height: 590px;
     border-radius: 20px; /* Cantos levemente arredondados */
     object-fit: cover;
@@ -93,7 +94,7 @@
 
 .icon-wrapper-wd {
     position: relative;
-    padding: 15px; /* Padding interno para o ícone */
+    padding: 10px; /* Padding interno para o ícone */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,7 +120,7 @@
 
 /* Ícone dentro do card */
 .service-icon-wd {
-    width: 100px; /* Tamanho do ícone */
+    width: 110px; /* Tamanho do ícone */
     height: auto;
     object-fit: cover;
 }

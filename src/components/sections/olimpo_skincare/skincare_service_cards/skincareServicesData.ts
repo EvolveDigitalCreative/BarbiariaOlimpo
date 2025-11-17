@@ -1,15 +1,16 @@
+// src/components/sections/olimpo_skincare/skincare_service_cards/skincareServicesData.ts
 // --- DEFINIÇÃO DE TIPOS DE DADOS ---
 
 export interface ServiceStep {
     number: number;
-    description: string;
+    description: string
 }
 
 export interface ServiceDetailBlock {
     type: string;
     objective: string;
     indicatedFor: string[];
-    benefits: string[];
+    benefits: string[]
 }
 
 export interface GalleryServiceData {
@@ -21,7 +22,7 @@ export interface GalleryServiceData {
     simpleDescription: string;
     stepsCount: number;
     steps: ServiceStep[];
-    details: ServiceDetailBlock;
+    details: ServiceDetailBlock
 }
 
 // --- FUNÇÕES DE PATH DE IMAGEM ---
@@ -103,41 +104,7 @@ export const galleryServices: GalleryServiceData[] = [
                 'Frescor imediato', 'Textura mais uniforme', 'Redução visível de imperfeições', 'Controlo da oleosidade', 'Aspeto visivelmente saudável',
             ]
         }
-    },
-    
-    // ----------------------------------------------------------------------------------
-    // 3. OLIMPO SKIN
-    // ----------------------------------------------------------------------------------
-    { 
-        id: 'Olimpo Skin', 
-        title: 'Olimpo skin', 
-        price: '60€',
-        duration: '1 hora e 30 minutos',
-        category: 'SKIN CARE', 
-        simpleDescription: 'Protocolo completo com tecnologia Aqua Plus, ativos personalizados e hidratação revitalizante. Limpa em profundidade, trata e renova a pele.',
-        stepsCount: 7, // Inferido
-        steps: [
-            { number: 1, description: 'Limpeza profunda e desmaquilhagem' },
-            { number: 2, description: 'Esfoliação e preparação da pele' },
-            { number: 3, description: 'Utilização da tecnologia Aqua Plus para limpeza/hidratação' },
-            { number: 4, description: 'Extração de impurezas' },
-            { number: 5, description: 'Aplicação de ativos personalizados' },
-            { number: 6, description: 'Máscara revitalizante e hidratação intensa' },
-            { number: 7, description: 'Finalização e proteção solar de assinatura' },
-        ],
-        details: {
-            type: 'Protocolo de assinatura com Aqua Plus, ativos e hidratação revitalizante.',
-            objective: 'Limpar em profundidade, tratar e renovar a pele, proporcionando um brilho espelhado e aspeto uniforme.',
-            indicatedFor: [
-                'Peles que procuram um tratamento de limpeza e luxo',
-                'Peles baças ou sem brilho',
-                'Quem procura o tratamento mais procurado da clínica',
-            ],
-            benefits: [
-                'Limpeza profunda', 'Brilho espelhado (Glass Skin)', 'Pele uniforme e rejuvenescida', 'Hidratação intensa', 'Renovação celular',
-            ]
-        }
-    },
+    },  
 
     // ----------------------------------------------------------------------------------
     // 4. SKIN SCAN
@@ -169,7 +136,7 @@ export const galleryServices: GalleryServiceData[] = [
     },
 
     // ----------------------------------------------------------------------------------
-    // 5. OLIMPO ANTIACNE
+    // 3. OLIMPO ANTIACNE
     // ----------------------------------------------------------------------------------
     { 
         id: 'Olimpo Antiacne', 
@@ -198,6 +165,40 @@ export const galleryServices: GalleryServiceData[] = [
             ],
             benefits: [
                 'Reduz inflamação e vermelhidão', 'Controla a oleosidade', 'Elimina bactérias causadoras de acne', 'Acelera a cicatrização', 'Previne o aparecimento de novas lesões',
+            ]
+        }
+    },
+
+    // ----------------------------------------------------------------------------------
+    // 5. OLIMPO SKIN
+    // ----------------------------------------------------------------------------------
+    { 
+        id: 'Olimpo Skin', 
+        title: 'Olimpo skin', 
+        price: '60€',
+        duration: '1 hora e 30 minutos',
+        category: 'SKIN CARE', 
+        simpleDescription: 'Protocolo completo com tecnologia Aqua Plus, ativos personalizados e hidratação revitalizante. Limpa em profundidade, trata e renova a pele.',
+        stepsCount: 7, // Inferido
+        steps: [
+            { number: 1, description: 'Limpeza profunda e desmaquilhagem' },
+            { number: 2, description: 'Esfoliação e preparação da pele' },
+            { number: 3, description: 'Utilização da tecnologia Aqua Plus para limpeza/hidratação' },
+            { number: 4, description: 'Extração de impurezas' },
+            { number: 5, description: 'Aplicação de ativos personalizados' },
+            { number: 6, description: 'Máscara revitalizante e hidratação intensa' },
+            { number: 7, description: 'Finalização e proteção solar de assinatura' },
+        ],
+        details: {
+            type: 'Protocolo de assinatura com Aqua Plus, ativos e hidratação revitalizante.',
+            objective: 'Limpar em profundidade, tratar e renovar a pele, proporcionando um brilho espelhado e aspeto uniforme.',
+            indicatedFor: [
+                'Peles que procuram um tratamento de limpeza e luxo',
+                'Peles baças ou sem brilho',
+                'Quem procura o tratamento mais procurado da clínica',
+            ],
+            benefits: [
+                'Limpeza profunda', 'Brilho espelhado (Glass Skin)', 'Pele uniforme e rejuvenescida', 'Hidratação intensa', 'Renovação celular',
             ]
         }
     },

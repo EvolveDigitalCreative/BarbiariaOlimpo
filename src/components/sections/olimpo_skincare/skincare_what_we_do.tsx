@@ -19,7 +19,7 @@ const services: ServiceData[] = [
     {
         name: 'Elevate skin',
         desc: 'Limpeza facial com Dermapen + tecnologias de rejuvenescimento, renova, trata e rejuvenesce a pele, melhorando textura, firmeza e manchas.',
-        icon: 'OlimpoSkincare/icons/Elevate Skin.png', // Substituir ou remover
+        icon: 'OlimpoSkincare/icons/Elevate skin.png', // Substituir ou remover
     },
     {
         name: 'Olimpo Skin',
