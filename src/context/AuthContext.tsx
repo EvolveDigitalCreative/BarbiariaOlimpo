@@ -2,14 +2,15 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import type { FC, ReactNode } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import type { User } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
-import { auth as firebaseAuth } from '../services/firebaseConfig';
+// 🛠️ Certifique-se de que 'firebaseAuth' e 'db' estão corretamente exportados
+import { auth as firebaseAuth, db } from '../services/firebaseConfig';
 
 interface AuthContextType {
     currentUser: User | null;
     loading: boolean;
-    // ✅ ADICIONADO: userRole no tipo
-    userRole: string | null; 
+    userRole: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,28 +22,44 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
-    // ✅ ADICIONADO: userRole no estado
-    const [userRole, setUserRole] = useState<string | null>(null); 
+    const [userRole, setUserRole] = useState<string | null>(null);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(firebaseAuth, user => {
+        // Escuta o estado de autenticação em tempo real
+        const unsubscribe = onAuthStateChanged(firebaseAuth, async user => {
             setCurrentUser(user);
-            
-            // Lógica de atribuição de Role simplificada (AJUSTE CONFORME SEU BACKEND/CLAIMS!)
-            if (user && user.email === 'admin@olimpo.com') {
-                setUserRole('admin');
-            } else {
-                setUserRole(user ? 'user' : null);
+
+            let role: string | null = null;
+
+            if (user) {
+                try {
+                    // Busca a role no documento de utilizador no Firestore
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const docSnap = await getDoc(userDocRef);
+
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        const firestoreRole = data.role as string;
+                        role = firestoreRole || 'user'; // Define 'user' como padrão
+                    } else {
+                        role = 'user';
+                    }
+                } catch (e) {
+                    console.error("Erro ao buscar role do utilizador no Firestore:", e);
+                    role = 'user';
+                }
             }
 
+            setUserRole(role);
             setLoading(false);
         });
+
         return unsubscribe;
     }, []);
 
     return (
-        // ✅ userRole incluído no valor do contexto
         <AuthContext.Provider value={{ currentUser, loading, userRole }}>
+            {/* Só renderiza os filhos após o carregamento para garantir o estado correto */}
             {!loading && children}
         </AuthContext.Provider>
     );

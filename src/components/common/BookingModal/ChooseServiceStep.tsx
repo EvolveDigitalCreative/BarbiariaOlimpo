@@ -1,154 +1,158 @@
-// src/components/common/BookingModal/ChooseServiceStep.tsx - ATUALIZADO COM BOTÃO SEGUINTE IGUAL AO BARBER STEP
-
+// src/components/common/BookingModal/ChooseServiceStep.tsx
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import { db } from '../../../services/firebaseConfig'; // Ajuste o caminho
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import type { Service } from '../../../types'; // Ajuste o caminho
+import { db } from '../../../services/firebaseConfig';
+import { collection, getDocs, QuerySnapshot, type DocumentData } from 'firebase/firestore';
 import styles from './BookingModal.module.css';
 
-// Props type (sem alterações)
+// ===========================================
+// Tipos de Dados
+// ===========================================
+
+interface Service {
+    id: string; // ID do documento Firebase
+    name: string; // Garantir que o nome está sempre lá
+    description: string;
+    price: number;
+    duration: number;
+}
+
 type Props = {
     data: { serviceId?: string };
     onChange: (patch: Partial<Props['data']>) => void;
     onNext: () => void;
     onBack: () => void;
-    initialServices?: Service[];
 };
 
-// Fallback services (mantido)
-const FALLBACK_SERVICES: Service[] = [
-    { id: '1', nome: 'Corte Simples', preco: '15', imagem_url: '/OlimpoBarBer/cortes/corte simples.png', categoria: 'BARBEARIA' },
-    { id: '2', nome: 'Corte e Barba', preco: '25', imagem_url: '/OlimpoBarBer/cortes/corte e barba.png', categoria: 'BARBEARIA' },
-    { id: '3', nome: 'Barba', preco: '12', imagem_url: '/OlimpoBarBer/cortes/barba.png', categoria: 'BARBEARIA' },
-    { id: '4', nome: 'Disfarce', preco: '20', imagem_url: '/OlimpoBarBer/cortes/disfarce.png', categoria: 'BARBEARIA' },
-];
+// ===========================================
+// Componente ServiceCard
+// ===========================================
 
-// formatEuroNoTrailing (mantido)
-const formatEuroNoTrailing = (value: any): string => {
-    const num = typeof value === 'number' ? value : parseFloat(String(value).replace(',', '.'));
-    if (!isFinite(num)) return `${value}€`;
-    const isInteger = Math.abs(num - Math.trunc(num)) < 1e-9;
-    const formattedNum = isInteger ? Math.trunc(num) : num.toFixed(2).replace(/\.?0+$/, '');
-    return `${formattedNum}€`;
-};
+interface ServiceCardProps {
+    service: Service;
+    isSelected: boolean;
+    onSelect: (service: Service) => void;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = memo(({ service, isSelected, onSelect }) => {
+    return (
+        <button
+            onClick={() => onSelect(service)}
+            className={`${styles['service-card']} ${isSelected ? styles['selected'] : ''}`}
+        >
+            <div className={styles['service-info']}>
+                <div className={styles['service-name']}>{service.name}</div>
+                <div className={styles['service-description']}>{service.description}</div>
+            </div>
+            <div className={styles['service-details']}>
+                <span className={styles['service-price']}>{service.price.toFixed(2)}€</span>
+                <span className={styles['service-duration']}>{service.duration} min</span>
+            </div>
+        </button>
+    );
+});
 
 
-export const ChooseServiceStep: React.FC<Props> = memo(({ data, onChange, onNext, onBack, initialServices }) => {
+// ===========================================
+// Componente Principal
+// ===========================================
 
-    const [services, setServices] = useState<Service[]>(initialServices || []);
-    const [loading, setLoading] = useState(!initialServices);
+export const ChooseServiceStep: React.FC<Props> = memo(({ data, onChange, onNext, onBack }) => {
+    const [services, setServices] = useState<Service[]>([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedServiceId, setSelectedServiceId] = useState<string | null>(data.serviceId ?? null);
-    // ✅ Estado 'selectionMade' igual ao Barber Step
-    const [selectionMade, setSelectionMade] = useState(data.serviceId !== undefined);
 
-    // Busca serviços do Firebase (lógica mantida)
+    // Fetch Services
     useEffect(() => {
-        if (initialServices && initialServices.length > 0) {
-            setServices(initialServices); setLoading(false); return;
-        }
-        const loadServices = async () => { /* ... (mesma busca no Firestore) ... */
-             setLoading(true); setError(null);
-             try {
-                 const servicesRef = collection(db, "services");
-                 const q = query(servicesRef, where("categoria", "==", "BARBEARIA"));
-                 const servicesSnapshot = await getDocs(q);
-                 const barberServices = servicesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Service[];
-                 setServices(barberServices.length > 0 ? barberServices : FALLBACK_SERVICES);
-             } catch (err) { setError('Erro ao carregar serviços.'); setServices(FALLBACK_SERVICES); }
-             finally { setLoading(false); }
-        };
-        loadServices();
-    }, [initialServices]);
+        const fetchServices = async () => {
+            try {
+                // AQUI BUSCAMOS OS DADOS
+                const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, 'services'));
+                
+                const servicesList: Service[] = querySnapshot.docs.map(doc => {
+                    const docData = doc.data();
+                    return {
+                        id: doc.id,
+                        // Garantir que todos os campos necessários estão presentes
+                        name: docData.name || 'Serviço Sem Nome',
+                        description: docData.description || 'Descrição indisponível.',
+                        price: docData.price || 0,
+                        duration: docData.duration || 30,
+                    };
+                });
+                
+                setServices(servicesList);
+                setError(null);
 
-    // Atualiza seleção local e estado geral
-    const handleSelectService = useCallback((id: string) => {
-        setSelectedServiceId(id);
-        onChange({ serviceId: id });
-        setSelectionMade(true); // ✅ Marca que seleção foi feita
+                // DEBUG: Verifique se serviços foram realmente carregados no console
+                console.log("Serviços carregados:", servicesList);
+
+            } catch (err: any) {
+                console.error("Erro ao buscar serviços:", err);
+                setError("Não foi possível carregar a lista de serviços. Verifique o caminho 'services' no Firestore.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchServices();
+    }, []);
+
+    const handleSelectService = useCallback((service: Service) => {
+        onChange({ serviceId: service.id });
     }, [onChange]);
 
-    // Função para o botão "Seguinte"
-    const handleNextClick = () => {
-        if (selectedServiceId) {
-            onNext();
-        }
-    };
+    const canContinue = !!data.serviceId;
 
+    if (loading) {
+        return <div className={styles['loading-state']}>A carregar serviços...</div>;
+    }
+
+    if (error) {
+        // Se houver um erro, exiba-o claramente
+        return <div className={styles['error-state']}>Erro: {error}</div>;
+    }
+    
+    // ===========================================
+    // Renderização
+    // ===========================================
     return (
-        // .step-content
         <div className={styles['step-content']}>
-            {/* .step-title */}
-            <h2 className={styles['step-title']}>Escolhe o teu corte</h2>
-
-            {loading && <div className={styles['loading-message']}>A carregar serviços...</div>}
-            {error && <div className={styles['error-message']}>{error}</div>}
-
-            {!loading && !error && (
-                <>
-                    {/* Grid de Serviços */}
-                    {/* .services-grid */}
-                    <div className={styles['services-grid']}>
-                        {services.map((service) => (
-                            <button
-                                key={service.id}
-                                onClick={() => handleSelectService(service.id)}
-                                // .service-card
-                                className={`${styles['service-card']} ${selectedServiceId === service.id ? styles['selected'] : ''}`}
-                            >
-                                {/* .service-image-wrapper */}
-                                <div className={styles['service-image-wrapper']}>
-                                    <img
-                                        src={service.imagem_url || "/OlimpoBarBer/cortes/corte simples.png"}
-                                        alt={service.nome}
-                                        // .service-image
-                                        className={styles['service-image']}
-                                        onError={(e) => { e.currentTarget.src = "/OlimpoBarBer/cortes/corte simples.png"; }}
-                                    />
-                                </div>
-                                {/* .service-info */}
-                                <div className={styles['service-info']}>
-                                     {/* .service-name */}
-                                    <div className={styles['service-name']}>{service.nome}</div>
-                                    {/* .service-price */}
-                                    <div className={styles['service-price']}>{formatEuroNoTrailing(service.preco)}</div>
-                                </div>
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* ✅ BOTÕES DE AÇÃO (MOBILE E DESKTOP) - IGUAL AO BARBER STEP */}
-                    {selectionMade && (
-                        <>
-                            {/* Botão Seguinte (Mobile) */}
-                            <button
-                                onClick={handleNextClick}
-                                className={styles['next-button-mobile']}
-                            >
-                                Seguinte
-                            </button>
-
-                            {/* Botões Desktop (Container) */}
-                            <div className={styles['desktop-actions']}>
-                                {/* Botão Seguinte (Desktop) */}
-                                <button
-                                    type="button"
-                                    className={styles['next-button-desktop']}
-                                    onClick={handleNextClick}
-                                >
-                                    <span>Seguinte</span>
-                                    <img
-                                        src="/OlimpoBarBer/icons/proximo.png" // Verifique o caminho
-                                        alt="Próximo"
-                                        className={styles['next-button-icon-desktop']}
-                                    />
-                                </button>
-                                {/* O botão 'Sem preferência' não existe nesta etapa */}
-                            </div>
-                        </>
-                    )}
-                </>
+            <h2 className={styles['step-title']}>Escolhe o teu serviço</h2>
+            
+            {/* Se não houver serviços, avise o utilizador */}
+            {services.length === 0 && (
+                <div className={styles['no-services-message']}>
+                    Nenhum serviço encontrado. Por favor, adicione serviços à coleção 'services' no Firestore.
+                </div>
             )}
+
+            <div className={styles['services-grid']}>
+                {services.map(service => (
+                    <ServiceCard
+                        key={service.id}
+                        service={service}
+                        isSelected={data.serviceId === service.id}
+                        onSelect={handleSelectService}
+                    />
+                ))}
+            </div>
+
+            {/* Botões de Ação */}
+            <div className={styles['modal-actions-container']}> 
+                <button type="button" onClick={onBack} className={styles['back-button']}>Voltar</button>
+
+                {canContinue && (
+                    <div className={styles['next-actions']}> 
+                        <button onClick={onNext} className={styles['next-button-mobile']}>Seguinte</button>
+                        <button type="button" className={styles['next-button-desktop']} onClick={onNext}>
+                            <span>Seguinte</span>
+                            <img src="/OlimpoBarBer/icons/proximo.png" alt="Próximo" className={styles['next-button-icon-desktop']} />
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 });
+
+export default ChooseServiceStep;

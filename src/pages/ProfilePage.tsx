@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/auth/AuthContext';
+import { useAuth } from '../context/AuthContext'; // 🛠️ CORRIGIDO: Caminho de ../components/auth para ../context
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../services/firebaseConfig';
 import { signOut } from 'firebase/auth';
@@ -24,6 +24,7 @@ type ActionTab = 'Favoritos' | 'Sobre nós' | 'Descontos';
 
 
 const ProfilePage: React.FC = () => {
+    // 🛑 LINHA ONDE O ERRO OCORRIA ANTES DA CORREÇÃO DE CAMINHO
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const [userData, setUserData] = useState<{ name: string; olimpoCoins: number } | null>(null);
@@ -32,14 +33,17 @@ const ProfilePage: React.FC = () => {
 
     useEffect(() => {
         if (!currentUser) {
-            navigate('/login');
+            // Se não houver currentUser, redireciona, mas o ProtectedRoute já faria isso
+            // Manter a navegação por segurança, mas o ProtectedRoute é o guarda
+            navigate('/login'); 
             return;
         }
 
         const fetchUserData = async () => {
             setLoading(true);
             setError(null);
-            const userDocRef = doc(db, 'users', currentUser.uid);
+            // Assumindo que o UID do utilizador é o ID do documento na coleção 'users'
+            const userDocRef = doc(db, 'users', currentUser.uid); 
             try {
                 const docSnap = await getDoc(userDocRef);
                 if (docSnap.exists()) {

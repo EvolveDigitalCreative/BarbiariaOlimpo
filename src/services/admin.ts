@@ -1,26 +1,25 @@
-import { 
-  collection, 
-  query, 
-  where, 
-  getDocs, 
-  doc, 
-  updateDoc, 
-  deleteDoc, 
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
   addDoc,
-  onSnapshot,
+  onSnapshot, // <-- Reintroduzido para a função subscribeToOrdersPage
   orderBy,
   serverTimestamp,
   getDoc,
-  startAfter,
   limit,
   type CollectionReference,
   type Query,
-  type DocumentData
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import type { UserData } from './auth';
 
-// User Management
+// --- User Management ---
+
 export async function listUsers(filter?: { role?: string; active?: boolean }) {
   try {
     let usersQuery: Query | CollectionReference = collection(db, 'users');
@@ -30,7 +29,7 @@ export async function listUsers(filter?: { role?: string; active?: boolean }) {
     if (filter?.active !== undefined) {
       usersQuery = query(usersQuery, where('active', '==', filter.active));
     }
-    
+
     const snapshot = await getDocs(usersQuery);
     return snapshot.docs.map(doc => ({
       id: doc.id,
@@ -42,7 +41,8 @@ export async function listUsers(filter?: { role?: string; active?: boolean }) {
   }
 }
 
-// Order Management
+// --- Order Management (Vendas Olimpo Wear) ---
+
 export interface Order {
   id?: string;
   userId: string;
@@ -57,25 +57,25 @@ export interface Order {
     address: string;
     trackingNumber?: string;
   };
-  createdAt: any;
-  updatedAt: any;
+  createdAt: any; // Firestore Timestamp
+  updatedAt: any; // Firestore Timestamp
 }
 
 export async function updateOrderStatus(
-  orderId: string, 
-  status: Order['status'], 
+  orderId: string,
+  status: Order['status'],
   trackingNumber?: string
 ) {
   try {
     const updates: any = {
       status,
-      updatedAt: new Date()
+      updatedAt: serverTimestamp() // 🎯 CORRIGIDO: Usar serverTimestamp para consistência
     };
-    
+
     if (trackingNumber) {
       updates['shippingDetails.trackingNumber'] = trackingNumber;
     }
-    
+
     await updateDoc(doc(db, 'orders', orderId), updates);
   } catch (error) {
     console.error('Error updating order status:', error);
@@ -83,7 +83,6 @@ export async function updateOrderStatus(
   }
 }
 
-// Order CRUD and real-time subscription
 export async function createOrder(order: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>) {
   try {
     const docRef = await addDoc(collection(db, 'orders'), {
@@ -118,111 +117,30 @@ export async function deleteOrder(orderId: string) {
   }
 }
 
-export function subscribeToOrders(
-  callback: (orders: Order[]) => void,
-  options?: { status?: Order['status']; userId?: string; order?: 'asc' | 'desc' }
-): () => void {
-  const colRef: CollectionReference = collection(db, 'orders');
-  const qParts: any[] = [];
-  if (options?.status) qParts.push(where('status', '==', options.status));
-  if (options?.userId) qParts.push(where('userId', '==', options.userId));
-  qParts.push(orderBy('createdAt', options?.order === 'desc' ? 'desc' : 'asc'));
-  const q = query(colRef, ...qParts);
-  const unsub = onSnapshot(q, (snap) => {
-    const items = snap.docs.map(d => ({ id: d.id, ...d.data() } as Order));
-    callback(items);
-  }, (err) => {
-    console.error('orders onSnapshot error', err);
-    callback([]);
-  });
-  return unsub;
-}
 
-// Cursor-based pagination (one-time fetch)
-export async function fetchOrdersPage(options?: {
-  limit?: number;
-  startAfterCreatedAt?: any; // Firestore Timestamp or Date
+export async function listOrders(filter?: {
   status?: Order['status'];
-  userId?: string;
-  order?: 'asc' | 'desc';
-}) {
-  try {
-    const limitNum = options?.limit ?? 20;
-    const colRef: CollectionReference = collection(db, 'orders');
-    const qParts: any[] = [];
-    if (options?.status) qParts.push(where('status', '==', options.status));
-    if (options?.userId) qParts.push(where('userId', '==', options.userId));
-    qParts.push(orderBy('createdAt', options?.order === 'asc' ? 'asc' : 'desc'));
-    if (options?.startAfterCreatedAt) qParts.push(startAfter(options.startAfterCreatedAt));
-    qParts.push(limit(limitNum));
-
-    const q = query(colRef, ...qParts);
-    const snap = await getDocs(q);
-    const items = snap.docs.map(d => ({ id: d.id, ...d.data() } as Order));
-    const last = snap.docs[snap.docs.length - 1];
-    const lastCreatedAt = last ? (last.data() as any).createdAt : null;
-    return { orders: items, lastCreatedAt };
-  } catch (error) {
-    console.error('Error fetching orders page:', error);
-    throw error;
-  }
-}
-
-// Real-time subscription for a single page (supports limit + startAfter)
-export function subscribeToOrdersPage(
-  callback: (orders: Order[], lastCreatedAt: any | null) => void,
-  options?: {
-    limit?: number;
-    startAfterCreatedAt?: any;
-    status?: Order['status'];
-    userId?: string;
-    order?: 'asc' | 'desc';
-  }
-): () => void {
-  const limitNum = options?.limit ?? 20;
-  const colRef: CollectionReference = collection(db, 'orders');
-  const qParts: any[] = [];
-  if (options?.status) qParts.push(where('status', '==', options.status));
-  if (options?.userId) qParts.push(where('userId', '==', options.userId));
-  qParts.push(orderBy('createdAt', options?.order === 'asc' ? 'asc' : 'desc'));
-  if (options?.startAfterCreatedAt) qParts.push(startAfter(options.startAfterCreatedAt));
-  qParts.push(limit(limitNum));
-
-  const q = query(colRef, ...qParts);
-  const unsub = onSnapshot(q, (snap) => {
-    const items = snap.docs.map(d => ({ id: d.id, ...d.data() } as Order));
-    const last = snap.docs[snap.docs.length - 1];
-    const lastCreatedAt = last ? (last.data() as any).createdAt : null;
-    callback(items, lastCreatedAt);
-  }, (err) => {
-    console.error('orders page onSnapshot error', err);
-    callback([], null);
-  });
-  return unsub;
-}
-
-export async function listOrders(filter?: { 
-  status?: Order['status']; 
   userId?: string;
   startDate?: Date;
   endDate?: Date;
 }) {
   try {
     let ordersQuery: Query | CollectionReference = collection(db, 'orders');
-    
+
     if (filter?.status) {
       ordersQuery = query(ordersQuery, where('status', '==', filter.status));
     }
     if (filter?.userId) {
       ordersQuery = query(ordersQuery, where('userId', '==', filter.userId));
     }
+    // Converte Date para Timestamp para a query se necessário
     if (filter?.startDate) {
       ordersQuery = query(ordersQuery, where('createdAt', '>=', filter.startDate));
     }
     if (filter?.endDate) {
       ordersQuery = query(ordersQuery, where('createdAt', '<=', filter.endDate));
     }
-    
+
     const snapshot = await getDocs(ordersQuery);
     return snapshot.docs.map(doc => ({
       id: doc.id,
@@ -234,7 +152,171 @@ export async function listOrders(filter?: {
   }
 }
 
-// Analytics/Dashboard Data
+/**
+ * Subscreve (escuta em tempo real) às encomendas. 
+ */
+export function subscribeToOrdersPage(
+  callback: (orders: Order[]) => void,
+  filter?: { status?: Order['status'], limit?: number }
+): () => void {
+
+  let ordersQuery: Query | CollectionReference = collection(db, 'orders');
+
+  // Ordenação e Limite
+  ordersQuery = query(ordersQuery, orderBy('createdAt', 'desc'));
+
+  if (filter?.status) {
+    ordersQuery = query(ordersQuery, where('status', '==', filter.status));
+  }
+
+  if (filter?.limit) {
+    ordersQuery = query(ordersQuery, limit(filter.limit));
+  }
+
+  const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
+    const ordersData: Order[] = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as Order[];
+
+    callback(ordersData);
+
+  }, (error) => {
+    console.error("Error subscribing to orders page:", error);
+  });
+
+  return unsubscribe;
+}
+
+
+// --- Appointment Management (Marcações) ---
+
+export interface Appointment {
+  id: string;
+  userId: string;
+  userName: string; // Nome do cliente
+  userEmail: string; // 🎯 ADICIONADO: Necessário para a marcação (BookingModal)
+  userPhone: string; // 🎯 ADICIONADO: Necessário para a marcação (BookingModal)
+  barberId: string; // 🎯 ADICIONADO: ID do barbeiro (necessário para filtros)
+  barberName: string; // Nome do barbeiro
+  serviceId: string; // 🎯 ADICIONADO: ID do serviço (necessário para filtros)
+  serviceName: string; // Nome do serviço
+  dateTime: number; // Timestamp (milisegundos) da marcação
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
+  price: number;
+  duration: number; // 🎯 ADICIONADO: Duração em minutos (necessário para a lógica)
+  createdAt: any; // 🎯 ADICIONADO: Timestamp de criação (como em Order)
+}
+
+/** 🎯 ADICIONADO: Tipo para a criação de uma marcação (sem campos auto-gerados) */
+export type CreateAppointmentData = Omit<Appointment, 'id' | 'status' | 'createdAt'>;
+
+/**
+ * 🎯 ADICIONADO: Função de criação de marcação
+ * Cria uma nova marcação (agendamento) no Firestore.
+ */
+export async function createAppointment(data: CreateAppointmentData): Promise<string> {
+  try {
+    const docRef = await addDoc(collection(db, 'appointments'), {
+      ...data,
+      status: 'pending', // Status inicial
+      createdAt: serverTimestamp(),
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error('Error creating appointment:', error);
+    throw error;
+  }
+}
+
+
+interface AppointmentListOptions {
+  limit?: number;
+  startDate?: Date;
+  endDate?: Date;
+  barberId?: string;
+  status?: Appointment['status'];
+}
+
+/**
+ * Lista as marcações (agendamentos) do Firestore.
+ */
+export const listAppointments = async (options: AppointmentListOptions = {}): Promise<Appointment[]> => {
+  try {
+    let q: Query | CollectionReference = collection(db, 'appointments');
+
+    // Filtrar por data (usando o campo 'dateTime' que é um timestamp em milissegundos)
+    if (options.startDate) {
+      q = query(q, where('dateTime', '>=', options.startDate.getTime()));
+    }
+    if (options.endDate) {
+      q = query(q, where('dateTime', '<=', options.endDate.getTime()));
+    }
+
+    // Filtrar por barbeiro ou status
+    if (options.barberId) {
+      q = query(q, where('barberId', '==', options.barberId));
+    }
+    if (options.status) {
+      q = query(q, where('status', '==', options.status));
+    }
+
+    // Ordenar por data (próximas marcações primeiro)
+    q = query(q, orderBy('dateTime', 'asc'));
+
+    // Limitar
+    if (options.limit) {
+      q = query(q, limit(options.limit));
+    }
+
+    const snapshot = await getDocs(q);
+
+    const appointments: Appointment[] = [];
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      appointments.push({
+        id: doc.id,
+        userId: data.userId || 'N/A',
+        userName: data.userName || 'Cliente Desconhecido',
+        userEmail: data.userEmail || '', // 🎯 ADICIONADO
+        userPhone: data.userPhone || '', // 🎯 ADICIONADO
+        barberId: data.barberId || 'N/A', // 🎯 ADICIONADO
+        barberName: data.barberName || 'Barbeiro N/A',
+        serviceId: data.serviceId || 'N/A', // 🎯 ADICIONADO
+        serviceName: data.serviceName || 'Serviço N/A',
+        dateTime: data.dateTime,
+        status: data.status as Appointment['status'] || 'pending',
+        price: data.price || 0,
+        duration: data.duration || 0, // 🎯 ADICIONADO
+        createdAt: data.createdAt || null, // 🎯 ADICIONADO
+      });
+    });
+
+    return appointments;
+  } catch (error) {
+    console.error('Error listing appointments:', error);
+    throw error;
+  }
+};
+
+export async function updateAppointmentStatus(
+  appointmentId: string,
+  status: Appointment['status']
+) {
+  try {
+    await updateDoc(doc(db, 'appointments', appointmentId), {
+      status,
+      updatedAt: serverTimestamp()
+    });
+  } catch (error) {
+    console.error('Error updating appointment status:', error);
+    throw error;
+  }
+}
+
+
+// --- Analytics/Dashboard Data ---
+
 export interface DashboardStats {
   totalUsers: number;
   activeUsers: number;
@@ -251,6 +333,25 @@ export interface DashboardStats {
   }>;
 }
 
+function calculateRevenue(orders: Order[], since: Date): number {
+  function toDateValue(v: any): Date {
+    if (!v) return new Date(0);
+    // Trata Firestore Timestamp
+    if (typeof v === 'object' && 'seconds' in v && typeof v.seconds === 'number') {
+      return new Date(v.seconds * 1000);
+    }
+    if (v && typeof v.toDate === 'function') {
+      return v.toDate();
+    }
+    if (v instanceof Date) return v;
+    return new Date(v);
+  }
+
+  return orders
+    .filter(order => toDateValue(order.createdAt) >= since)
+    .reduce((total, order) => total + (order.total || 0), 0);
+}
+
 export async function getDashboardStats(): Promise<DashboardStats> {
   try {
     // Users stats
@@ -261,9 +362,11 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 
     // Orders stats
     const now = new Date();
-    const dayStart = new Date(now.setHours(0, 0, 0, 0));
-    const weekStart = new Date(now.setDate(now.getDate() - 7));
-    const monthStart = new Date(now.setDate(now.getDate() - 30));
+    // Criar novas datas para evitar modificar o objeto 'now'
+    const dayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
+
 
     const ordersSnapshot = await getDocs(collection(db, 'orders'));
     const orders = ordersSnapshot.docs.map(doc => ({
@@ -278,9 +381,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       monthly: calculateRevenue(orders, monthStart)
     };
 
-    // Popular services calculation would go here
-    // This is a placeholder implementation
-    const popularServices: DashboardStats['popularServices'] = []; // Would need to aggregate from appointments/orders
+    // Popular services calculation (Placeholder)
+    const popularServices: DashboardStats['popularServices'] = [];
 
     return {
       totalUsers: usersSnapshot.size,
@@ -293,25 +395,4 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     console.error('Error getting dashboard stats:', error);
     throw error;
   }
-}
-
-function calculateRevenue(orders: Order[], since: Date): number {
-  function toDateValue(v: any): Date {
-    if (!v) return new Date(0);
-    // Firestore Timestamp
-    if (typeof v === 'object' && 'seconds' in v && typeof v.seconds === 'number') {
-      return new Date(v.seconds * 1000);
-    }
-    // Firestore Timestamp with toDate()
-    if (v && typeof v.toDate === 'function') {
-      return v.toDate();
-    }
-    if (v instanceof Date) return v;
-    // fallback
-    return new Date(v);
-  }
-
-  return orders
-    .filter(order => toDateValue(order.createdAt) >= since)
-    .reduce((total, order) => total + (order.total || 0), 0);
 }

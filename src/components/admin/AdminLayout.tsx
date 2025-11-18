@@ -1,13 +1,21 @@
-// src/layouts/AdminLayout.tsx
+// src/components/admin/AdminLayout.tsx
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
+
+// 🛠️ CORREÇÃO: Ajuste o caminho de importação para 'useAuth'
+// De 'src/components/admin/' para 'src/context/' é necessário '../../'
+import { useAuth } from '../../context/AuthContext'; 
+
+// 🛠️ CORREÇÃO: Ajuste o caminho de importação para 'auth'
+// De 'src/components/admin/' para 'src/services/' é necessário '../../'
 import { signOut } from 'firebase/auth';
-import { auth } from '../../services/firebaseConfig';
+import { auth } from '../../services/firebaseConfig'; 
+
 import '../../styles/admin/AdminLayout.css';
 
 const AdminLayout: React.FC = () => {
-  const { currentUser } = useAuth();
+  // 🛑 LINHA ONDE O ERRO OCORRIA ANTES DA CORREÇÃO DE CAMINHO
+  const { currentUser } = useAuth(); 
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,7 +35,8 @@ const AdminLayout: React.FC = () => {
 
   // Verifica se o link está ativo
   const isActiveLink = (path: string) => {
-    return location.pathname === path || location.pathname.startsWith(path + '/');
+    // Usa 'path.includes' ou uma lógica mais robusta se necessário
+    return location.pathname === path || (location.pathname.startsWith(path + '/') && path !== '/admin');
   };
 
   return (
@@ -36,7 +45,8 @@ const AdminLayout: React.FC = () => {
       <button 
         className="mobile-menu-toggle" 
         onClick={toggleMobileMenu}
-        style={{ display: window.innerWidth < 768 ? 'flex' : 'none' }}
+        // Nota: O 'window.innerWidth' pode causar problemas de hidratação. O ideal é usar media queries no CSS.
+        style={{ display: window.innerWidth < 768 ? 'flex' : 'none' }} 
       >
         <i className="fas fa-bars"></i>
       </button>
@@ -54,7 +64,7 @@ const AdminLayout: React.FC = () => {
             <li>
               <Link 
                 to="/admin" 
-                className={isActiveLink('/admin') && location.pathname === '/admin' ? 'active' : ''}
+                className={location.pathname === '/admin' ? 'active' : ''}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <i className="fas fa-chart-line"></i> Visão Geral
@@ -99,10 +109,10 @@ const AdminLayout: React.FC = () => {
             <li>
               <Link 
                 to="/" 
-                className={isActiveLink('/') ? 'active' : ''}
+                className={location.pathname === '/' ? 'active' : ''}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <i className="fas fa-box"></i> inicio
+                <i className="fas fa-home"></i> Início
               </Link>
             </li>
           </ul>
