@@ -1,4 +1,4 @@
-// src/components/layouts/LuxuryLayout.tsx (Assumindo que está em src/components/layouts/)
+// src/components/layouts/LuxuryLayout.tsx
 
 import type { FC } from 'react';
 // ✅ Caminhos ajustados: Saída de 'layouts/' (..), entrada em 'common/'

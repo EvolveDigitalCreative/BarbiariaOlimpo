@@ -13,12 +13,9 @@ import WearGallery from '../components/sections/olimpo_wear/WearGallery';
 import WearBestSeller from '../components/sections/olimpo_wear/WearBestSeller';
 import WearDressLikeGods from '../components/sections/olimpo_wear/WearDressLikeGods';
 import WearMission from '../components/sections/olimpo_wear/WearMission';
-import WearContact from '../components/sections/olimpo_wear/WearContact';
 
-// ✅ NOVOS COMPONENTES
 import WearVideoGallery from '../components/sections/olimpo_wear/WearVideoGallery';
 import WearNewProducts from '../components/sections/olimpo_wear/WearNewProducts';
-
 
 // ==========================================================
 // IMPORTS DE ESTILO
@@ -35,11 +32,11 @@ import '../styles/olimpowear/wear_mission.css';
 import '../styles/olimpowear/wear_dresslikegods.css';
 import '../styles/olimpowear/wear_bestseller.css';
 import '../styles/olimpowear/wear_products.css'; // Estilo geral para Wear
-import '../styles/olimpowear/wear_gallery.css'; // ✅ Estilo para WearGallery E WearNewProducts
+import '../styles/olimpowear/wear_gallery.css'; // Estilo para WearGallery E WearNewProducts
 
-// ✅ NOVOS ESTILOS
+// NOVOS ESTILOS
 import '../styles/olimpowear/wear_video_gallery.css';
-import '../styles/olimpowear/wear_new_products.css'; // ✅ Estilo específico para WearNewProducts (se não for 100% igual ao gallery.css)
+import '../styles/olimpowear/wear_new_products.css'; // Estilo específico para WearNewProducts (se não for 100% igual ao gallery.css)
 
 
 const OlimpoWear: FC = () => {
@@ -56,7 +53,6 @@ const OlimpoWear: FC = () => {
         <WearVideoGallery />
         <SectionDivider />
         <WearNewProducts />
-        <WearContact />
       </main>
       <Footer />
     </div>

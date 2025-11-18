@@ -13,7 +13,7 @@
     --color-favorite-border: #000;
     --color-gold-detail: #D4AF37; 
     --color-related-bg: #000; 
-    --color-details-gray-bg: #f5f5f5; /* NOVA COR PARA O BLOCO DETALHES */
+    --color-details-gray-bg: #f5f5f5;
 }
 
 .product-page-container {
@@ -30,85 +30,98 @@
 }
 
 /* ======================================================= */
-/* 2. ELEMENTOS VISUAIS EXTRAS (BORDAS GREGA) */
-/* ======================================================= */
-
-.meander-top-border {
-    /* Borda superior Meândrica */
-    /* Assumindo que o caminho para a imagem está correto */
-    background-image: url('caminho/para/meandro-topo.png'); 
-    background-repeat: repeat-x;
-    background-size: auto 100%;
-    width: 100%;
-    height: 30px; 
-}
-
-/* ======================================================= */
 /* 3. SEÇÃO TOPO: IMAGEM, MINIATURAS E OPÇÕES DE COMPRA/DETALHES */
 /* ======================================================= */
 
 .product-detail-top-section {
-    /* MUDANÇA: O GRID AGORA COLOCA IMAGEM E MINIATURAS À ESQUERDA E OPÇÕES/DETALHES À DIREITA */
+    /* NOVO GRID: 3 COLUNAS - Miniaturas (90px), Imagem Principal (500px), Opções (1fr) */
     display: grid;
-    grid-template-columns: 500px 1fr; /* 500px para a imagem + o resto para o conteúdo lateral */
-    gap: 50px; /* Aumentei o espaço entre as colunas */
+    grid-template-columns: 90px 500px 1fr; 
+    gap: 30px; /* Reduzido o gap para 30px para melhor encaixe */
     margin-bottom: 60px;
 }
 
-/* CONTAINER DA IMAGEM E MINIATURAS */
+/* CONTAINER DA IMAGEM E MINIATURAS - REMOVIDO, POIS OS ELEMENTOS SÃO AGORA IRMÃOS */
+/* NOTA: O elemento .product-image-container deve ser removido do HTML/TSX */
+/* SE FOR MANTIDO POR ALGUM MOTIVO, DEVE SER DISPLAY: BLOCK */
 .product-image-container {
-    display: grid;
-    grid-template-columns: 80px 1fr; 
-    gap: 20px;
+    display: none; /* Ou block, dependendo da necessidade, mas deve ser removido idealmente */
 }
 
-.product-thumbnails { display: flex; flex-direction: column; gap: 10px; }
 .thumbnail-image { 
-    width: 100%; 
-    height: 80px; 
+    /* Formato quadrado 1:1 e tamanho de 90px */
+    width: 90px; 
+    height: 90px; 
     object-fit: cover; 
-    cursor: pointer; 
+    cursor: pointer;
     border: 1px solid transparent; 
     transition: border 0.2s; 
-    background-color: #f8f8f8; /* Fundo cinza claro para miniaturas */
+    background-color: #f8f8f8;
 }
-.thumbnail-image.active { border: 2px solid var(--color-primary-text); }
+.thumbnail-image.active { 
+    border: 2px solid var(--color-primary-text); 
+}
+
 .product-main-image-wrapper { 
+    /* Imagem Principal (500px) */
     position: relative; 
-    background-color: #f8f8f8; /* Fundo cinza claro */
+    background-color: var(--color-product-background); 
     display: flex;
     justify-content: center; 
     align-items: center; 
+    border: 1px solid #eee; 
+    /* Garante que esta secção ocupa a segunda coluna */
+    grid-column: 2 / 3;
 }
 .product-main-image { 
     max-width: 90%; 
     max-height: 90%; 
+    width: auto;
+    height: auto;
     display: block; 
 }
 
 /* CONTAINER PARA OPÇÕES E DETALHES */
 .product-options-and-details {
+    /* Opções e Detalhes (1fr) */
     display: flex;
     flex-direction: column;
-    /* Ocupa a segunda coluna do grid principal */
+    align-items: flex-start; /* Alinhamento à esquerda */
+    text-align: left; /* Alinhamento de texto à esquerda */
+    /* Garante que esta secção ocupa a terceira coluna */
+    grid-column: 3 / 4;
+    padding-top: 5px; /* Ajuste ligeiro para alinhamento visual com a imagem */
 }
 
-/* OPÇÕES DE COMPRA */
+/* Os blocos de Detalhes e Opções são separados dentro desta coluna (como irmãos) */
 .product-options {
     margin-bottom: 30px;
 }
+
+/* Bloco de Detalhes movido para a coluna de opções */
+.details-wrapper {
+    /* Estilos do bloco de detalhes para se alinhar com as opções */
+    padding: 20px;
+    background-color: var(--color-details-gray-bg); 
+    margin-top: 30px; 
+    width: 100%; /* Ocupa a largura total da coluna (1fr) */
+    text-align: left; 
+}
+
 .product-name { 
     font-family: 'Times New Roman', Times, serif; 
     font-size: 2.5rem; 
     font-weight: 700; 
     margin-bottom: 5px; 
 }
+
 .product-model { 
     font-size: 1.5rem; 
     font-weight: 400; 
     color: var(--color-secondary-text); 
     margin-bottom: 10px; 
 }
+
 .product-rating { margin-bottom: 20px; color: #ccc; font-size: 1.2rem; }
 .star.filled { color: var(--color-gold-detail); }
 
@@ -116,7 +129,7 @@
     font-weight: 600; 
     margin-bottom: 10px; 
     text-transform: capitalize; 
-    font-size: 0.9rem; /* Mais discreto */
+    font-size: 0.9rem; 
 }
 
 .color-options { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -139,7 +152,8 @@
     border-radius: 50%; 
 }
 
-.size-guide-link { /* MUDANÇA: Substitui o option-label */
+.size-guide-link { 
+    text-align: left; /* Garante alinhamento à esquerda */
     font-size: 0.9rem; 
     font-weight: 600; 
     margin-bottom: 15px; 
@@ -148,7 +162,7 @@
     display: block;
 }
 
-.size-selector { margin-bottom: 20px; }
+.size-selector { margin-bottom: 20px; align-self: flex-start; }
 .size-buttons { display: flex; gap: 10px; }
 .size-button { 
     background: none; 
@@ -173,8 +187,16 @@
     margin-bottom: 30px; 
 }
 
-.quantity-selector { margin-bottom: 30px; } /* MUDANÇA: Removi o option-label do quantity-selector */
-.quantity-controls { display: flex; width: 120px; border: 1px solid var(--color-secondary-text); }
+.quantity-selector {
+     margin-bottom: 30px; 
+     align-self: flex-start; 
+    }
+
+.quantity-controls { 
+    display: flex; width: 120px; 
+    border: 1px solid var(--color-secondary-text); 
+}
+
 .quantity-controls button { 
     background: none; 
     border: none; 
@@ -184,6 +206,7 @@
     font-size: 1.2rem; 
     font-weight: 600; 
 }
+
 .quantity-controls span { 
     flex-grow: 1; 
     text-align: center; 
@@ -192,7 +215,12 @@
     border-right: 1px solid var(--color-secondary-text); 
 }
 
-.action-buttons { display: flex; flex-direction: column; gap: 15px; }
+.action-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    width: 300px; /* Largura definida para os botões */
+}
 .add-to-cart-button { 
     background-color: var(--color-action-button-bg); 
     color: var(--color-action-button-text); 
@@ -221,16 +249,17 @@
 /* ======================================================= */
 
 .details-wrapper {
-    /* Estilo do bloco cinzento no canto inferior direito */
     padding: 30px;
     background-color: var(--color-details-gray-bg); 
-    margin-top: 30px; /* Espaçamento entre as opções e os detalhes */
-    flex-grow: 1; /* Para ocupar o espaço restante na coluna */
+    margin-top: 30px; 
+    flex-grow: 1; 
+    text-align: left; /* Garante alinhamento à esquerda */
+    max-width: 100%; /* Limita a largura do bloco de detalhes */
 }
 
 .details-title-simple {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 1.8rem; /* Um pouco menor para caber melhor */
+    font-size: 1.8rem; 
     font-weight: 700;
     color: var(--color-primary-text); 
     margin-bottom: 20px;
@@ -243,7 +272,7 @@
 }
 
 .details-list-simple {
-    list-style: none; /* Remover pontuação nativa */
+    list-style: none; 
     padding-left: 0; 
     margin: 0;
 }
@@ -253,17 +282,38 @@
     line-height: 1.6;
     margin-bottom: 10px;
     position: relative; 
-    padding-left: 15px; /* Espaço para o bullet point */
+    padding-left: 15px; 
 }
 
 .details-list-simple li::before {
-    content: '•'; /* USAR O BULLET POINT SIMPLES */
-    color: var(--color-primary-text); /* Cor do texto */
+    content: '•'; 
+    color: var(--color-primary-text); 
     font-weight: 900;
     font-size: 1.2rem;
     position: absolute;
     left: 0;
     top: 0;
+}
+
+/* NOVO BLOCO PARA A DESCRIÇÃO COM LARGURA TOTAL */
+.details-full-width-wrapper {
+    /* Define a largura total dentro do container principal (main) */
+    width: 100%; 
+    margin: 40px 0; /* Espaçamento antes e depois */
+}
+
+.details-full-width-wrapper .details-wrapper {
+    /* Ajusta o padding ou margem interna se necessário, mas remove a limitação de largura anterior */
+    padding: 20px;
+    background-color: var(--color-light-bg, #f5f5f5); /* Fundo opcional para destacat */
+}
+
+/* Garante que a secção inferior (que contém os detalhes e relacionados) ocupe a largura total */
+.product-details-bottom-section {
+    display: flex; /* Para empilhar detalhes e relacionados */
+    flex-direction: column; 
+    align-items: center;
+    width: 100%;
 }
 
 
@@ -277,7 +327,6 @@
 }
 
 .related-full-width-wrapper {
-    /* Ocupa a largura total (100%) do .product-main-content */
     width: 100%;
 }
 
@@ -306,7 +355,6 @@
     left: 0;
     width: 120px; 
     height: 100%;
-    /* *** SUBSTITUIR IMAGEM *** */
     background-image: url('caminho/para/meandro-quadrado-lateral.png'); 
     background-repeat: repeat-y; 
     background-size: 100% auto;
@@ -387,45 +435,30 @@
 
 @media (max-width: 1024px) {
     .product-detail-top-section {
-        grid-template-columns: 1fr; /* Colunas empilhadas */
+        /* Volta a empilhar em ecrãs mais pequenos */
+        grid-template-columns: 1fr; 
         gap: 30px;
     }
 
-    .product-image-container {
-        grid-template-columns: 1fr; /* Miniaturas e Imagem principal em linha */
-        gap: 20px;
-    }
-
     .product-thumbnails {
+        /* Move as miniaturas para baixo da imagem principal e alinha horizontalmente */
         flex-direction: row; 
         justify-content: center;
         width: 100%;
-        order: 2; /* Move as miniaturas para baixo da imagem principal */
-    }
-    .product-main-image-wrapper {
-        order: 1;
+        order: 2; /* Coloca as miniaturas após a imagem principal */
+        grid-column: 1 / -1; /* Ocupa a largura total */
     }
 
-    .related-text-image-container {
-        grid-template-columns: 1fr; 
-        padding: 20px;
+    .product-main-image-wrapper {
+        order: 1; /* Coloca a imagem principal no topo */
+        grid-column: 1 / -1; 
     }
-    .related-text-column {
-        padding-right: 0;
-        padding-left: 0;
-        text-align: center;
-        align-items: center;
-    }
-    .related-text-column::after {
-        align-self: center;
-    }
-    .related-products-grid {
-        grid-template-columns: 1fr 1fr; /* Duas colunas em tablets */
-    }
-    .related-articles-column::before {
-        display: none;
+    .product-options-and-details {
+        order: 3; /* Coloca as opções por baixo */
+        grid-column: 1 / -1; 
     }
 }
+
 @media (max-width: 768px) {
     .product-detail-top-section {
         gap: 20px;

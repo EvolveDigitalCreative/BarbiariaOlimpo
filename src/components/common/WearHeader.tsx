@@ -2,13 +2,10 @@
 
 import React from 'react';
 // Importamos os componentes estruturais e o mapa de ícones
-import { Logo, NavMenu, iconLinksMap } from './HeaderComponents'; 
+import { NavMenu, iconLinksMap } from './HeaderComponents'; 
 import { Link } from 'react-router-dom';
 
 import '../../styles/global/wearhearder.css';
-
-// IMPORTANTE: Não se esqueça de importar seu CSS aqui ou no arquivo que usa este componente!
-// import '../../styles/global/wearheader.css';
 
 const WearHeader: React.FC = () => {
     // Pegamos os links de acesso rápido e o link de perfil do mapa
@@ -66,6 +63,4 @@ const WearHeader: React.FC = () => {
     );
 };
 
-// Se o seu `WearCatalog.tsx` importa como `WearHeader`, mantenha o nome da exportação.
-// Se o seu `WearCatalog.tsx` importa como `Header`, renomeie a função acima.
 export default WearHeader;
