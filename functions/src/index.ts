@@ -1,4 +1,4 @@
-// functions/src/index.ts - CÓDIGO COMPLETO CORRIGIDO PARA DEPLOY
+// functions/src/index.ts - CÓDIGO COMPLETO FINAL COM TIPAGEM CORRIGIDA
 
 import * as functions from "firebase-functions/v2";
 import * as admin from "firebase-admin";
@@ -30,11 +30,11 @@ interface HorariosDisponiveisRequest {
 interface TimeRange { start: string; end: string; }
 interface AppointmentInterval { start: Date; end: Date; }
 
-// Tipagem segura para a função parse (resolve o erro @typescript-eslint/no-explicit-any)
+// Tipagem segura para a função parse
 type DateFnsParse = (
-  dateString: string,
-  formatString: string,
-  baseDate: Date
+    dateString: string,
+    formatString: string,
+    baseDate: Date
 ) => Date;
 
 // Função Auxiliar para Parse (com tipagem segura)
@@ -53,9 +53,10 @@ const parseTime = (dateString: string, timeString: string): Date => {
  */
 export const getAvailableSlots = functions.https.onCall(
     { region: 'us-central1' }, 
-    async (req) => {
-        // Uso de req.data é tipagem V2, mas requer tipagem explícita se o cliente não fornecer a metadata
-        const data = req.data as HorariosDisponiveisRequest;
+    // ✅ CORREÇÃO 7006: Tipagem explícita do objeto Request V2
+    async (req: functions.https.CallableRequest<HorariosDisponiveisRequest>) => {
+        
+        const data = req.data;
         const { barberId, serviceId, date: dateString } = data;
 
         functions.logger.info("Recebido para getAvailableSlots:", { barberId, serviceId, date: dateString });
@@ -69,7 +70,8 @@ export const getAvailableSlots = functions.https.onCall(
             // 2. Buscar Duração do Serviço
             const serviceSnap = await db.collection("services").doc(serviceId).get();
             if (!serviceSnap.exists) {
-                throw new functions.https.HttpsError("not-found", `Serviço com ID ${serviceId} não encontrado.`);
+                // Esta mensagem de erro é a que deve aparecer se o frontend enviar um ID inválido (como o '1')
+                throw new functions.https.HttpsError("not-found", `Serviço com ID ${serviceId} não encontrado. Verifique a base de dados 'services'.`);
             }
             const serviceDuration = serviceSnap.data()?.durationMinutes || 60;
 
@@ -90,26 +92,26 @@ export const getAvailableSlots = functions.https.onCall(
                 functions.logger.info("Nenhum barbeiro especificado, usando horários padrão.");
             }
 
-             // 4. Buscar Agendamentos Existentes
-            let appointmentsQuery = db.collection("appointments").where("date", "==", dateString);
+            // 4. Buscar Agendamentos Existentes
+            let appointmentsQuery: admin.firestore.Query = db.collection("appointments").where("date", "==", dateString);
             if (barberId) {
-                 appointmentsQuery = appointmentsQuery.where("barberId", "==", barberId);
+                appointmentsQuery = appointmentsQuery.where("barberId", "==", barberId);
             }
 
             const appointmentsSnap = await appointmentsQuery.get();
-            const existingAppointments: AppointmentInterval[] = appointmentsSnap.docs.map(doc => {
-                 const appData = doc.data();
-                 const startTime = parseTime(appData.date, appData.time);
-                 const duration = appData.serviceDurationMinutes || serviceDuration;
-                 const endTime = addMinutes(startTime, duration);
-                 return { start: startTime, end: endTime };
+            // ✅ CORREÇÃO 7006: Tipagem explícita do DocumentSnapshot
+            const existingAppointments: AppointmentInterval[] = appointmentsSnap.docs.map((doc: admin.firestore.QueryDocumentSnapshot) => {
+                const appData = doc.data();
+                const startTime = parseTime(appData.date, appData.time);
+                const duration = appData.serviceDurationMinutes || serviceDuration; 
+                const endTime = addMinutes(startTime, duration);
+                return { start: startTime, end: endTime };
             });
             functions.logger.info(`Encontrados ${existingAppointments.length} agendamentos existentes para ${dateString}` + (barberId ? ` / barbeiro ${barberId}` : ""));
 
 
             // --- 5. Gerar e Filtrar Slots ---
             const availableSlots: string[] = [];
-            // ✅ Corrigido o uso de 'parse'
             const selectedDate = (parse as DateFnsParse)(dateString, "yyyy-MM-dd", new Date()); 
             const now = toZonedTime(new Date(), TIMEZONE);
             const isToday = isSameDay(selectedDate, now);
@@ -145,6 +147,7 @@ export const getAvailableSlots = functions.https.onCall(
                 // Check 2: Sobrepõe pausa
                 if (isAvailable) {
                     for (const breakTime of breakTimes) {
+                        // Check for overlap: [SlotStart < BreakEnd] AND [SlotEnd > BreakStart]
                         if (isBefore(currentSlotStart, breakTime.end) && isAfter(currentSlotEnd, breakTime.start)) {
                             functions.logger.debug(`Slot ${slotLabel} sobrepõe pausa (${format(breakTime.start, "HH:mm")}-${format(breakTime.end, "HH:mm")}).`);
                             isAvailable = false;
@@ -156,6 +159,7 @@ export const getAvailableSlots = functions.https.onCall(
                 // Check 3: Sobrepõe agendamento existente
                 if (isAvailable) {
                     for (const appointment of existingAppointments) {
+                        // Check for overlap: [SlotStart < AppEnd] AND [SlotEnd > AppStart]
                         if (isBefore(currentSlotStart, appointment.end) && isAfter(currentSlotEnd, appointment.start)) {
                             functions.logger.debug(`Slot ${slotLabel} sobrepõe agendamento (${format(appointment.start, "HH:mm")}-${format(appointment.end, "HH:mm")}).`);
                             isAvailable = false;

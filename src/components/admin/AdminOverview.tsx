@@ -1,26 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { getDashboardStats, type DashboardStats } from '../../services/admin';
-import { listOrders, type Order } from '../../services/admin';
+// 🛠️ Importa a nova função e o tipo de Marcação
+import {
+  getDashboardStats,
+  type DashboardStats,
+  listOrders,
+  type Order,
+  listAppointments,
+  type Appointment
+} from '../../services/admin';
 import '../../styles/admin/AdminOverview.css';
+
+// Usamos o tipo Appointment importado para as marcações
+type Booking = Appointment;
 
 const AdminOverview: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [recentOrders, setRecentOrders] = useState<Order[]>([]);
+  const [upcomingBookings, setUpcomingBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [dashboardStats, orders] = await Promise.all([
+
+        // Obter o início do dia de hoje para os filtros
+        const startOfToday = new Date(new Date().setHours(0, 0, 0, 0));
+
+        // 🛠️ Chamada de todas as promessas em paralelo
+        const [dashboardStats, orders, bookings] = await Promise.all([
           getDashboardStats(),
-          listOrders({ 
-            startDate: new Date(new Date().setHours(0, 0, 0, 0)), // Today's orders
+          // Buscar as 5 últimas vendas de hoje
+          listOrders({
+            startDate: startOfToday,
             endDate: new Date()
+          }),
+          // Buscar as 5 próximas marcações a partir de hoje
+          listAppointments({
+            limit: 5,
+            startDate: startOfToday,
           })
         ]);
-        
+
         setStats(dashboardStats);
-        setRecentOrders(orders.slice(0, 5)); // Get last 5 orders
+        // Ordenar e limitar as ordens (caso listOrders não o faça)
+        setRecentOrders(orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 5));
+        setUpcomingBookings(bookings);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
@@ -31,6 +56,7 @@ const AdminOverview: React.FC = () => {
     fetchData();
   }, []);
 
+  // ... (Seu array statsData permanece o mesmo) ...
   const statsData = [
     {
       title: 'Vendas Hoje',
@@ -66,35 +92,28 @@ const AdminOverview: React.FC = () => {
     }
   ];
 
-  // Convert orders to sales format
+  // Mapear vendas
   const recentSales = recentOrders.map(order => ({
     id: order.id,
-    cliente: 'Cliente ' + order.userId.slice(0, 8), // For privacy, show only part of ID
+    cliente: 'Cliente ' + order.userId.slice(0, 8),
     valor: `€ ${order.total.toFixed(2)}`,
     produtos: order.products.length,
-    data: new Date(order.createdAt).toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }),
+    data: new Date(order.createdAt.seconds * 1000).toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }),
     status: order.status
   }));
 
-  interface Booking {
-    id: string;
-    clientName: string;
-    service: string;
-    barber: string;
-    time: string;
-  }
 
-  // We'll need to implement this after setting up the appointments service
-  const [upcomingBookings, setUpcomingBookings] = useState<Booking[]>([
-    // Temporary mock data until we implement the appointments service
-    {
-      id: '1',
-      clientName: 'Aguardando',
-      service: 'Implementação',
-      barber: 'do Serviço',
-      time: '--:--'
-    }
-  ]);
+  // 🛠️ Mapear as marcações para o formato da tabela
+  const mappedBookings = upcomingBookings.map(booking => ({
+    id: booking.id,
+    clientName: booking.userName,
+    service: booking.serviceName,
+    barber: booking.barberName,
+    // Formatar o timestamp para hora
+    time: new Date(booking.dateTime).toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }),
+    status: booking.status
+  }));
+
 
   if (loading) {
     return (
@@ -119,6 +138,7 @@ const AdminOverview: React.FC = () => {
       <div className="stats-grid">
         {statsData.map((stat, index) => (
           <div key={index} className={`stat-card ${stat.color}`}>
+            {/* ... (Conteúdo do cartão de estatísticas) ... */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <div className="stat-label">{stat.title}</div>
@@ -128,13 +148,13 @@ const AdminOverview: React.FC = () => {
                   {stat.change} em relação ao dia anterior
                 </div>
               </div>
-              <div style={{ 
-                backgroundColor: 'rgba(212, 175, 55, 0.1)', 
-                borderRadius: '50%', 
-                width: '50px', 
-                height: '50px', 
-                display: 'flex', 
-                alignItems: 'center', 
+              <div style={{
+                backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                borderRadius: '50%',
+                width: '50px',
+                height: '50px',
+                display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'center',
                 color: 'var(--primary-gold)',
                 fontSize: '1.2rem'
@@ -147,6 +167,7 @@ const AdminOverview: React.FC = () => {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+
         {/* Últimas Vendas */}
         <div className="stat-card">
           <h3 style={{ marginBottom: '1rem', color: 'var(--primary-gold)' }}>
@@ -165,15 +186,23 @@ const AdminOverview: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {recentSales.map(sale => (
-                  <tr key={sale.id}>
-                    <td>{sale.cliente}</td>
-                    <td>{sale.produtos}</td>
-                    <td style={{ color: 'var(--primary-gold)', fontWeight: '500' }}>{sale.valor}</td>
-                    <td><span className={`status-badge ${sale.status}`}>{sale.status}</span></td>
-                    <td>{sale.data}</td>
+                {recentSales.length > 0 ? (
+                  recentSales.map(sale => (
+                    <tr key={sale.id}>
+                      <td>{sale.cliente}</td>
+                      <td>{sale.produtos}</td>
+                      <td style={{ color: 'var(--primary-gold)', fontWeight: '500' }}>{sale.valor}</td>
+                      <td><span className={`status-badge ${sale.status}`}>{sale.status}</span></td>
+                      <td>{sale.data}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} style={{ textAlign: 'center', color: 'var(--text-gray)' }}>
+                      Nenhuma venda recente.
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
@@ -201,14 +230,22 @@ const AdminOverview: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {upcomingBookings.map(booking => (
-                  <tr key={booking.id}>
-                    <td>{booking.clientName}</td>
-                    <td>{booking.service}</td>
-                    <td>{booking.barber}</td>
-                    <td style={{ fontWeight: '500' }}>{booking.time}</td>
+                {mappedBookings.length > 0 ? (
+                  mappedBookings.map(booking => (
+                    <tr key={booking.id}>
+                      <td>{booking.clientName}</td>
+                      <td>{booking.service}</td>
+                      <td>{booking.barber}</td>
+                      <td style={{ fontWeight: '500' }}>{booking.time}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={4} style={{ textAlign: 'center', color: 'var(--text-gray)' }}>
+                      Nenhuma marcação próxima.
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
